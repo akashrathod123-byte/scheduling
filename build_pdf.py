@@ -210,26 +210,32 @@ story.append(make_table(
     col_widths=[0.5*inch, 0.5*inch, 1.1*inch, 0.9*inch, 1.3*inch, 1.0*inch]))
 story.append(Spacer(1, 8))
 
-story.append(Paragraph("Table 4.3: R2 caller-name proxy (orders <3 in 12mo)", h3))
+story.append(Paragraph("Table 4.3: Contacts who can never qualify under R2 (based on total order volume)", h3))
+story.append(Paragraph(
+    "R2 requires ≥3 orders at the same ship-to. A contact with fewer than 3 orders "
+    "<i>in total across all ship-tos</i> mathematically cannot meet R2 anywhere. "
+    "Denominator below = 1,386,228 contacts who placed at least one order in the 12-month window.",
+    body))
+story.append(Spacer(1, 4))
 story.append(make_table(
-    ["Caller names with…", "Count", "% of 1,386,228"],
-    [["1 total order in 12mo", "506,925", "36.6%"],
-     ["2 total orders in 12mo", "185,179", "13.4%"],
-     ["<3 total orders in 12mo", "692,104", "49.9%"]],
-    col_widths=[3.4*inch, 1.6*inch, 1.4*inch], highlight_last=True))
+    ["Contacts who placed…", "Count", "% of all ordering contacts"],
+    [["Exactly 1 order in 12mo", "506,925", "36.6%"],
+     ["Exactly 2 orders in 12mo", "185,179", "13.4%"],
+     ["Fewer than 3 orders total (cannot pass R2 anywhere)", "692,104", "49.9%"]],
+    col_widths=[3.6*inch, 1.4*inch, 1.7*inch], highlight_last=True))
 story.append(Spacer(1, 6))
 
 story.append(Paragraph("<b>Methodology</b>", h3))
 story.extend(bullets([
     "R1 &amp; R3 are CMF-level rules; R2 is contact-ship-to level; R4 is contact level. All converted to orders for apples-to-apples comparison.",
     "&quot;Orders excluded&quot; = orders this rule alone would block, assuming no other rules apply. Rules are not mutually exclusive — overlap exists.",
-    "R2 measured two ways: strict (pairs with &lt;3 orders to that ship-to) and proxy (caller names with &lt;3 orders total).",
+    "R2 measured two ways: strict (contact-ship-to pairs with &lt;3 orders) and total-volume floor (contacts with &lt;3 orders total in the year — these cannot qualify at any ship-to).",
 ]))
 
 story.append(Paragraph("<b>Takeaways</b>", h3))
 story.extend(bullets([
     "<b>R1 is the volume killer.</b> 1% of CMFs fail it, but they cover 21% of all orders — the big-customer exclusion is doing most of the work.",
-    "<b>R2 is the headcount killer.</b> 47% of contact-ship-to pairs fail it, and <b>half of all caller names (49.9%) have &lt;3 total orders in a year</b> — they can't qualify under R2 at <i>any</i> ship-to. R2 has the biggest &quot;shut out but still visit the web&quot; footprint.",
+    "<b>R2 is the headcount killer.</b> 47% of contact-ship-to pairs fail it, and <b>half of all ordering contacts (49.9%) placed fewer than 3 orders total in the year</b> — they can't qualify under R2 at <i>any</i> ship-to. R2 has the biggest &quot;shut out but still visit the web&quot; footprint.",
     "<b>R4 punches above its weight.</b> 7% of pairs fail it but 10% of orders excluded — multi-billto contacts are heavy orderers (~3× density).",
     "<b>R3 (listcode) is the smallest on both axes.</b> Real, but not the headline.",
 ]))
