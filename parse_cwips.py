@@ -216,22 +216,10 @@ def parse(path, out_csv, max_records=None):
 
 
 def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("path", help="Path to CWIPS file (e.g. cwips_jan2026.TXT)")
-    ap.add_argument("--inspect-only", action="store_true",
-                    help="Only inspect first 5 records, don't parse the whole file")
-    ap.add_argument("--out", default=None,
-                    help="Output CSV path (default: <input>.parsed.csv)")
-    ap.add_argument("--max", type=int, default=None,
-                    help="Only parse first N records (for sanity-check)")
-    args = ap.parse_args()
-
-    inspect(args.path)
-    if args.inspect_only:
-        return
-
-    out = args.out or args.path + ".parsed.csv"
-    parse(args.path, out, args.max)
+    path = r"P:\Capacity Management\Management\Akash\B2B\cwips_jan2026.TXT"
+    inspect(path)
+    # uncomment to parse after you've checked the inspect output:
+    # parse(path, path + ".parsed.csv", max_records=1000)
 
 
 if __name__ == "__main__":
