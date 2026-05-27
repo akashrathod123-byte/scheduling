@@ -17,9 +17,6 @@ A majority of customers don't own the order from end to end. **59%** find a part
 
 The **8%** who selected "It depends" describe the most common reality in industry — several patterns coexist depending on the dollar amount, the project, or who is available that day.
 
-> "Pretty much all of the above. Sometimes a person finds the product and places the order themselves, sometimes someone asks for the product and someone else finds it and places the order. Most of the time…"
-> – Engineer
-
 > "I don't really do the buying — I'm more of a find-a-part type of guy. I send the parts I found to my manager, who approves the item and directs me to create a purchase request, or he'll just order it on his credit card."
 > – John Laskey, Engineer at Calnetix Technologies
 
@@ -28,7 +25,7 @@ The **8%** who selected "It depends" describe the most common reality in industr
 
 ## Approvals are common, and the gate is usually a dollar threshold
 
-**54% of customers** say their orders require approval at least some of the time, and the approval gate is **role-neutral** — 58% of Engineers/Designers, 56% of Maintenance/Operations, and 52% of Purchasing/Procurement face it. Where customers said "Sometimes" and wrote in an explanation, **70% pointed to a price threshold**. 87 customers shared an explicit dollar amount, and the values cluster tightly at **$500, $1,000, and $5,000**.
+**54% of customers** say their orders require approval at least some of the time, and the gate is **role-neutral** — 58% of Engineers/Designers, 56% of Maintenance/Operations, and 52% of Purchasing/Procurement face it. Where customers said "Sometimes" and wrote in an explanation, **70% pointed to a price threshold**. 87 customers shared an explicit dollar amount, and the values cluster tightly at **$500, $1,000, and $5,000**.
 
 | Order under $X | Can place without approval (n=87) | % of explicit thresholds |
 |---|---|---|
@@ -39,22 +36,17 @@ The **8%** who selected "It depends" describe the most common reality in industr
 | Under $5,000 | 20 | 23% |
 | Under $10,000 | 6 | 7% |
 
-The frustration customers describe is rarely the approval itself — it's the **time the approval takes**, the **second system it lives in**, and the **workaround it forces**. The most common workaround is a company credit card used to step around the slower internal process.
+The frustration is rarely the approval itself — it's the time it takes, the second system it lives in, and the workaround it forces. **391 customers** said they would use "Send orders for approval" on McMaster, more than twice the 169 who say they use it on another supplier's site today.
 
 > "We purchase most things from McMaster-Carr using Pro Cards. We do that because the internal Purchasing structure we have is too slow to be efficient for our particular needs. We are an R&D shop working within a State institution. Therefore, the protocols they use won't work."
 > – Engineer at The University of Texas at Austin
 
-> "Federal Government procurement takes forever as a second person (with no knowledge or understanding of my requirement) must verify that the items I'm ordering from McMaster are NOT available at any of the preapproved mandatory sources/vendors."
-> – Engineer
-
 > "The amount of times I have to order. If maintenance techs can place their own orders and I just approve, that would be great."
 > – Maintenance/Operations
 
-**391 customers** said they would use "Send orders for approval" on McMaster, more than twice the 169 who say they use it on another supplier's site today.
-
 ## Handing an order off usually means re-entering it
 
-When the cart moves from the person who found the part to the person who places the order, the most common path is **email**. **42% of customers who hand off do so by email**, typically by pasting part numbers, descriptions, and quantities into a separate requisition form. **32% submit the order through a procurement system** — SAP, Coupa, Ariba, Epicor, Oracle, D365, or JD Edwards — which usually requires re-entering the same information a second time before a purchase order is generated. **30% use McMaster's "Send cart" feature**, and 12% share a single company login.
+When the cart moves from the person who found the part to the person who places the order, the most common path is **email**. **42%** of customers who hand off do so by email, typically by pasting part numbers, descriptions, and quantities into a separate requisition form. **32%** submit the order through a procurement system — SAP, Coupa, Ariba, Epicor, Oracle, D365, or JD Edwards — which usually requires re-entering the same information a second time before a purchase order is generated. **30%** use McMaster's "Send cart" feature, and **12%** share a single company login.
 
 | Handoff mode | n | % of customers who hand off |
 |---|---|---|
@@ -67,7 +59,7 @@ When the cart moves from the person who found the part to the person who places 
 
 The "Other" write-ins point at the lengths customers go to in order to bridge McMaster to the rest of their workflow: a Slack channel that triggers a Kanban card, a JIRA board, a Smartsheet integration, a copied cart link pasted into a purchasing portal, a piece of paper handed to the buyer.
 
-The retyping shows up plainly in the next question. **72% of customers** (excluding "not sure") say product information is re-entered into another system at least some of the time. The work is concentrated in Purchasing — **77% of Purchasing/Procurement customers** say they're re-entering McMaster data, and when re-entry happens, a buyer is doing it **50% more often than the requester themselves**.
+**72% of customers** say product information is re-entered into another system at least some of the time, and the work is concentrated in Purchasing — **77%** of Purchasing/Procurement customers say they're re-entering McMaster data. When re-entry happens, a buyer is doing it **50% more often than the requester themselves**.
 
 > "I have to manually input McMaster's item information into our procurement system. There's a lot of manual copy-paste of information from McMaster's website into Oracle procurement system. It's time consuming and error prone."
 > – Brian Rolley, Engineer at Arconic
@@ -78,15 +70,15 @@ The retyping shows up plainly in the next question. **72% of customers** (exclud
 > "Re-entering into our ASI system all of the notes and details so that the purchaser can correctly select and order my list of items. It can take upwards to an hour if it's a long list of hardware for a new project."
 > – Engineer at Waterous Co
 
-When a punchout is already in place, customers describe it as a relief — and they tell us when it isn't working, in equally clear terms.
+## Punchout helps when it works, and is painful when it doesn't
+
+Customers describe an existing punchout as a relief, and they tell us when it isn't working in equally clear terms. The model they keep pointing at is Amazon's, and the systems they'd most like us to connect with by name are **SAP, Coupa, Ariba, Epicor, Oracle, D365, JD Edwards, Precoro, Fulcrum Pro, and Paperless Parts**.
 
 > "We use Coupa, and I love how McMaster's site plugs into Coupa. I am able to check out my cart and it automatically populates all of the items into my Coupa cart. The bad part is that I have to go in and manually change every line item to the correct account and cost center. I am not able to bulk change the items. So I have to manually do it one by one."
 > – Engineer at BD
 
 > "When punchout connection to Coupa fails the entire cart is lost."
 > – Engineer at AbCellera
-
-Per-line cost-center and job-code tagging at cart-build time is the workaround customers ask for most often when their punchout is otherwise working. **476 said they would use it on McMaster** (304 regularly). Customers also called out a list of systems by name they'd like McMaster to talk to directly: **SAP, Coupa, Ariba, Epicor, Oracle, D365, JD Edwards, Precoro, Fulcrum Pro, and Paperless Parts**.
 
 > "We would love a direct integration with Fulcrum Pro (our ERP system). It would save us considerable time on a daily basis."
 > – Owner at Elemetal Fabrication and Machine
@@ -96,9 +88,7 @@ Per-line cost-center and job-code tagging at cart-build time is the workaround c
 
 ## Once an order is handed off, the requester loses sight of it
 
-The most-wanted feature in the entire survey is the simplest one. **694 customers** said they would use "Share order status with others" on mcmaster.com — **47% of the entire sample**, and almost twice the count for any other feature. Today, the status emails that follow an order go to the buyer who placed it; the requester chasing the part has no direct way to see whether it's been ordered, shipped, or received.
-
-This result was the **most surprising to us going in**. We expected the heaviest demand to fall on heavier procurement features. Instead, customers are asking for transparency on the order they already submitted, and the open responses make the gap concrete:
+The most-wanted feature in the entire survey is the simplest one. **694 customers** said they would use "Share order status with others" on mcmaster.com — **47% of the entire sample**, and almost twice the count for any other feature. This result was the most surprising to us going in. Today, the status emails that follow an order go to the buyer who placed it; the requester chasing the part has no direct way to see whether it's been ordered, shipped, or received.
 
 > "The visibility of ordering status. I want to know if something's been ordered, when it was ordered, has it shipped, when will it arrive, when it has arrived — all without having to rely on someone else giving me this information."
 > – Project Manager
@@ -109,11 +99,11 @@ This result was the **most surprising to us going in**. We expected the heaviest
 > "I don't have access to the engineering McMaster account, so I cannot see tracking and I am not up to date on what gets ordered. If people have questions, I cannot retrieve the information to answer them."
 > – Engineer at Kalwall
 
-The neighboring features in the list tell the same story from the other direction. **528 customers want to add teammates to their account** and **353 want defined roles** like requester, buyer, and approver — both of which describe the same gap. Our web support team hears these requests regularly, often phrased as "can I add a coworker who can see my orders." **497 customers want to attach a purchase order to a cart**, which today is a manual step on both sides of the handoff.
+The neighboring features tell the same story from the other direction. **528 customers** want to add teammates to their account, **353** want defined roles like requester / buyer / approver, and **497** want to attach a purchase order to a cart. Our web support team hears these requests regularly, often phrased as "can I add a coworker who can see my orders."
 
 ## Shared accounts create cart conflicts
 
-**12% of customers who hand off** told us they share one McMaster login with their team — and **11% of the open frustration responses** describe what happens next. When several teammates work out of the same cart, items overwrite each other, items disappear before they're placed, no one can tell who added what, and a punchout failure can wipe the cart entirely.
+**12%** of customers who hand off told us they share one McMaster login with their team — and **11%** of open frustration responses describe what happens next. Items overwrite each other, items disappear before they're placed, no one can tell who added what, and a punchout failure can wipe the cart entirely.
 
 > "Multiple users using the same account and carts overwriting others… when I log in it overwrites the cart that had previously been started. This is the BIGGEST annoyance."
 > – Corey Holland, Maintenance at Wonder/Sweetgreen (MMF 1469675001)
@@ -124,9 +114,6 @@ The neighboring features in the list tell the same story from the other directio
 > "Most days, more than 2-3 people need to place orders, so we make a slack thread and then add stuff, and the one person forgets to place it half the time. We've gone as far as trying to make slack bots or Chrome extensions to auto-place at 6:59 or something like this… Ideally we'd just add to one big company cart that would order automatically."
 > – Engineer at Nudge
 
-> "Accidentally erasing others' shopping carts when I sign in to our group account."
-> – Nick Foley, Engineer at Seneca
-
 Customers describe the shared login as a workaround for the **missing teammate model**. What they ask for instead is **named users under one company account**, with each cart action attributed to the person who took it.
 
 > "We currently have several users signed in with the same username and password. Engineers, purchasers, and management. We would like to create additional users for the same account if possible."
@@ -134,11 +121,6 @@ Customers describe the shared login as a workaround for the **missing teammate m
 
 > "Sub-accounts that can be assigned to teams within the company and a central cart that automatically adds the name of the sub-account that added it would be good."
 > – Engineer
-
-A smaller group described the opposite gap — they want carts they can **keep separate per project**, save as a template for repeated orders, or build alongside an open cart without losing it. "Save for later" is the workaround customers cite most often.
-
-> "I need to build and place orders for multiple projects simultaneously, and those purchases need to be made separately for billing purposes. Only having one cart means I constantly have to save things for later, or open them in a new tab to remember them."
-> – Engineer at Swope Design Solutions
 
 ## Customers want McMaster to extend into the workflow they already have
 
@@ -154,11 +136,9 @@ The feature interest grid in question 7 makes the pattern explicit. For every fe
 | Send orders for approval | 169 | 391 | 223 |
 | Set roles (requester / buyer / approver) | 98 | 353 | 187 |
 
-Two things stand out in this result. The first is that the top of the list isn't heavy procurement tooling — it's **transparency and teammates**. The requester losing sight of the order, and the team that can't get on one account, are what customers describe as the most acute gap. The second is that **"Connect with procurement system" is fifth on the list**, even though data re-entry is the most concretely described frustration in the open responses. The reading we take from this is that customers want **in-app workflow tools first**, and deeper procurement integration as a parallel track.
+The top of the list isn't heavy procurement tooling — it's **transparency and teammates**. "Connect with procurement system" is fifth on the list, even though data re-entry is the most concretely described frustration in the open responses. The reading we take from this is that customers want **in-app workflow tools first**, with deeper procurement integration as a parallel track.
 
-The thresholds for an in-app approval flow are already legible in the survey. Customers gravitate toward **"buy under $X without approval, send for approval above $X,"** and the dollar amounts cluster at **$500, $1,000, and $5,000**. The teammate model customers describe is **named users under one company account**, with per-line authorship on the cart. The integration model they describe is **more punchout coverage with graceful failure**, plus bulk cost-center tagging that survives the handoff to ERP.
-
-The clearest signal in the data is also the most encouraging. Almost every frustration was paired with a **love note for the catalog itself**. Customers aren't asking us to change what we already do well — they're asking us to extend a little further into the workflow that begins where the catalog ends.
+Almost every frustration was paired with a love note for the catalog itself. Customers aren't asking us to change what we already do well — they're asking us to extend a little further into the workflow that begins where the catalog ends.
 
 > "Been in Engineering for over 40 years — McMaster-Carr is by far the best most user-friendly catalog/order-placing site I have seen."
 > – Engineer at Storion Energy
