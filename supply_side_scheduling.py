@@ -101,18 +101,22 @@ def load_config() -> dict:
         if f and g and str(f).strip() and str(g).strip():
             pairs.append((str(f).strip(), str(g).strip()))
 
-    ws_bsk = wb["BSK"]
+    # BSK tab — optional. Holds names of employees currently in BSK training.
     bsk_training = set()
-    for row in ws_bsk.iter_rows(min_row=2, values_only=True):
-        val = row[0] if row else None
-        if val and str(val).strip():
-            bsk_training.add(str(val).strip())
+    if "BSK" in wb.sheetnames:
+        ws_bsk = wb["BSK"]
+        for row in ws_bsk.iter_rows(min_row=2, values_only=True):
+            val = row[0] if row else None
+            if val and str(val).strip():
+                bsk_training.add(str(val).strip())
 
-    ws_rsk = wb["RSK"]
+    # RSK tab — optional. Holds fixed-role assignments (Cuts, Sizer, Closing Stock, HL).
     rsk_fixed = {}
-    for row in ws_rsk.iter_rows(min_row=1, values_only=True):
-        if row[0] and row[1]:
-            rsk_fixed[str(row[0]).strip()] = str(row[1]).strip()
+    if "RSK" in wb.sheetnames:
+        ws_rsk = wb["RSK"]
+        for row in ws_rsk.iter_rows(min_row=1, values_only=True):
+            if row[0] and row[1]:
+                rsk_fixed[str(row[0]).strip()] = str(row[1]).strip()
 
     # Confirmations tab: "Do Not Ask" lists, keyed by role label (matching Week Ahead row label).
     # Layout per column: row 1 = role label, rows 2+ = employee names who decline that role.
