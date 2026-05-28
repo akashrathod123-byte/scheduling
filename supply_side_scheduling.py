@@ -1588,14 +1588,17 @@ def assign_rsk(config: dict, pto_by_day: dict, hist_df: pd.DataFrame, prefills: 
 # ── RCK Rotation ──────────────────────────────────────────────────────────────
 
 RCK_DEPT      = 'Rack Receiving'
-# Stations 2-9 assigned first; station 1 is last resort
-RCK_PRIORITY_STATIONS  = [2, 3, 4, 5, 6, 7, 8, 9]
+# Rotation cycle: stations 1-6, advanced by one weekly.
+# Stations 7 & 8 are RTNR-only (separate dedicated slots).
+# Station 9 is overflow — only filled when stations 1-6 are full.
+RCK_ROTATION_STATIONS  = [1, 2, 3, 4, 5, 6]
+RCK_RTNR_STATIONS      = {7, 8}
+RCK_OVERFLOW_STATION   = 9
+RCK_ALL_STATIONS       = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 RCK_STATION_ROLES = {
     1: 'Station 1', 2: 'Station 2', 3: 'Station 3', 4: 'Station 4', 5: 'Station 5',
     6: 'Station 6', 7: 'Station 7 (.2 RTNR)', 8: 'Station 8 (.8 RTNR)', 9: 'Station 9 (Flex)',
 }
-# Stations 7 & 8 require RTNR training; others just need RCK
-RCK_RTNR_STATIONS = {7, 8}
 RCK_HISTORY = {
     'Rack Checking': ['Rack Checker-'], 'Hinge Checker': ['Hinge Checker-Hinges'],
     'Breakdown': ['Main Breakdown-Hinges'], 'Unload-1': ['Unload-1'],
@@ -1845,43 +1848,59 @@ def assign_rck(config: dict, pto_by_day: dict, hist_df: pd.DataFrame, prefills: 
             special_assigned.add(emp)
             emp_role_map[emp] = role
 
-    # ── Station assignment: Hungarian on 2-9, station 1 last resort ──────────
+    # ── Station assignment: Hungarian on stations 1-9 ────────────────────────
+    # Cost layout:
+    #   Stations 1-6 — rotation cycle (1→2→…→6→1). Cost = forward distance;
+    #                  500 if same station as last week.
+    #   Stations 7-8 — RTNR-only. Cost 1 if RTNR-qualified (and not same as
+    #                  last week, else 500); 998 if not RTNR (blocks assignment).
+    #   Station 9   — overflow, only used when stations 1-6 are full. Cost 700.
+    #   Padded slot — no real station available, becomes Extra. Cost 900.
     station_emps = [e for e in checker_pool if e not in emp_role_map]
 
-    def station_qualified(emp, station):
-        if station in RCK_RTNR_STATIONS:
-            return emp in rtnr_qual or ct_display(emp) in rtnr_qual
-        return True
+    def is_rtnr(emp):
+        return emp in rtnr_qual or ct_display(emp) in rtnr_qual
 
     if station_emps:
-        priority_stations = RCK_PRIORITY_STATIONS  # [2..9]
         n_emps  = len(station_emps)
-        padded  = priority_stations + [None] * max(0, n_emps - len(priority_stations))
+        padded  = list(RCK_ALL_STATIONS) + [None] * max(0, n_emps - len(RCK_ALL_STATIONS))
         cost    = np.zeros((n_emps, len(padded)))
 
         for i, emp in enumerate(station_emps):
             last_sta, _ = get_last_station_rck(emp, hist_df, name_map)
             for j, sta in enumerate(padded):
                 if sta is None:
-                    cost[i, j] = 900
-                elif not station_qualified(emp, sta):
-                    cost[i, j] = 998
-                elif last_sta is None:
-                    cost[i, j] = 1
-                elif last_sta in priority_stations and sta in priority_stations:
-                    li   = priority_stations.index(last_sta)
-                    ci   = priority_stations.index(sta)
-                    dist = (ci - li) % len(priority_stations)
-                    cost[i, j] = 500 if dist == 0 else dist
+                    cost[i, j] = 900  # padded → Extra
+                elif sta == RCK_OVERFLOW_STATION:
+                    cost[i, j] = 700  # overflow — only used when 1-6 full
+                elif sta in RCK_RTNR_STATIONS:
+                    if not is_rtnr(emp):
+                        cost[i, j] = 998  # blocked: not RTNR-qualified
+                    else:
+                        # Prefer 7/8 for RTNR people (cost 0) but force swap if they
+                        # were there last week (cost 500 keeps them off the same station).
+                        cost[i, j] = 500 if last_sta == sta else 0
+                elif sta in RCK_ROTATION_STATIONS:
+                    # Forward cyclic rotation 1→2→3→4→5→6→1
+                    if last_sta in RCK_ROTATION_STATIONS:
+                        li   = RCK_ROTATION_STATIONS.index(last_sta)
+                        ci   = RCK_ROTATION_STATIONS.index(sta)
+                        dist = (ci - li) % len(RCK_ROTATION_STATIONS)
+                        cost[i, j] = 500 if dist == 0 else dist
+                    else:
+                        cost[i, j] = 1  # no history, or came from 7/8/9 — fresh start
                 else:
-                    cost[i, j] = 1  # came from station 1 or special role — start fresh
+                    cost[i, j] = 1
 
         row_ind, col_ind = linear_sum_assignment(cost)
         emp_to_station   = {station_emps[i]: padded[j] for i, j in zip(row_ind, col_ind)}
 
         for emp in station_emps:
             sta = emp_to_station.get(emp)
-            emp_role_map[emp] = RCK_STATION_ROLES[sta] if sta is not None else RCK_STATION_ROLES[1]
+            if sta is None:
+                emp_role_map[emp] = 'Extra'
+            else:
+                emp_role_map[emp] = RCK_STATION_ROLES[sta]
 
     # ── Build results ─────────────────────────────────────────────────────────
     for emp in checker_pool:
