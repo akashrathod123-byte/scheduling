@@ -722,8 +722,6 @@ def assign_bin_stockkeeping(config: dict, pto_by_day: dict, hist_df: pd.DataFram
 
     emp_days   = {emp: {} for emp in active}
     sizer_row  = {'Employee': sizer if sizer else '— No Sizer —', 'Note': 'Sizer'}
-    # Track who covers Sizer per day so we can write them into the Sizer slot
-    sizer_cover_by_day = {}
 
     for day in DAY_NAMES:
         pto_today = pto_by_day[day]
@@ -733,16 +731,16 @@ def assign_bin_stockkeeping(config: dict, pto_by_day: dict, hist_df: pd.DataFram
 
         if sizer and in_pto(sizer, pto_today):
             day_sizer = next(
-                (b for b in backups if b != sizer and not in_pto(b, pto_today) and b in active and not in_pto(b, bsk_placed)), None)
+                (b for b in backups if b != sizer and not in_pto(b, pto_today) and b in active), None)
             sizer_row[day] = f'PTO → {day_sizer}' if day_sizer else 'PTO → No backup'
-            if day_sizer:
-                # Make sure the backup is recorded as Sizer for the day so they get written there
-                emp_days[day_sizer][day] = 'Sizer'
-                sizer_cover_by_day[day]  = day_sizer
         else:
             sizer_row[day] = 'Sizer'
 
-        backup_covering = sizer_cover_by_day.get(day)
+        backup_covering = None
+        if isinstance(sizer_row.get(day), str) and '→' in sizer_row[day]:
+            parts = sizer_row[day].split('→')
+            if len(parts) > 1:
+                backup_covering = parts[1].strip()
 
         # Step 1: exclude PTO people, the day's sizer/backup, and unqualified employees from zone rotation
         available_today = [e for e in rotation_pool if e != sizer and e != backup_covering
@@ -990,7 +988,6 @@ def assign_iag(config: dict, pto_by_day: dict, hist_df: pd.DataFrame, prefills: 
 
     emp_days  = {emp: {} for emp in employees}
     desk_days = {}
-    desk_cover_by_day = {}
 
     for day in DAY_NAMES:
         pto_today  = pto_by_day[day]
@@ -998,19 +995,12 @@ def assign_iag(config: dict, pto_by_day: dict, hist_df: pd.DataFrame, prefills: 
 
         if desk_person and in_pto(desk_person, pto_today):
             backup = next((e for e in rotation_employees
-                           if emp_role.get(e) == IAG_ROTATION[0] and not in_pto(e, pto_today)
-                           and not in_pto(e, iag_placed)), None)
+                           if emp_role.get(e) == IAG_ROTATION[0] and not in_pto(e, pto_today)), None)
             desk_days[day] = f'PTO → {backup}' if backup else 'PTO → No backup'
-            if backup:
-                emp_days[backup][day] = 'Desk'
-                desk_cover_by_day[day] = backup
         else:
             desk_days[day] = 'Desk'
 
-        backup_today = desk_cover_by_day.get(day)
         for emp in rotation_employees:
-            if emp == backup_today:
-                continue
             if in_pto(emp, iag_placed):
                 # Leave the row empty so the user's pre-fill stays put
                 emp_days[emp][day] = ''
