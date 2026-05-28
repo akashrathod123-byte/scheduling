@@ -1961,6 +1961,13 @@ def assign_aux(config: dict, pto_by_day: dict, prefills: dict = None) -> pd.Data
     def is_pto_all_week(name):
         return all(in_pto(name, pto_by_day[day]) for day in DAY_NAMES)
 
+    # Deterministic per-week shuffle of employee order. Removes the alphabetical
+    # tiebreak bias where the same person always got 3 days of a role and the
+    # other got 2 — now the 3-vs-2 split flips week to week.
+    rng = random.Random(f"AUX-{config['schedule_date']}")
+    name_order = list(all_names)
+    rng.shuffle(name_order)
+
     # Track how many times each employee has had each role this week
     role_count = {emp: {role: 0 for role in AUX_ROLES} for emp in all_names}
     emp_days   = {emp: {} for emp in all_names}
@@ -1968,13 +1975,10 @@ def assign_aux(config: dict, pto_by_day: dict, prefills: dict = None) -> pd.Data
     for day in DAY_NAMES:
         pto_today   = pto_by_day[day]
         aux_placed  = (prefills or {}).get('AUX', {}).get(day, {}).get('placed', set())
-        avail_today = [e for e in all_names if not in_pto(e, pto_today) and not in_pto(e, aux_placed)]
+        avail_today = [e for e in name_order if not in_pto(e, pto_today) and not in_pto(e, aux_placed)]
         day_idx     = DAY_NAMES.index(day)
-        rotated     = (avail_today[day_idx % len(avail_today):] + avail_today[:day_idx % len(avail_today)]
-                       if avail_today else [])
 
         assigned_today = {}
-        used_emps      = set()
 
         aux_slots = (prefills or {}).get('AUX', {}).get(day, {}).get('slots', {})
         # Map Week Ahead label back to AUX role
@@ -1990,7 +1994,7 @@ def assign_aux(config: dict, pto_by_day: dict, prefills: dict = None) -> pd.Data
         # - extra penalty for same role as yesterday
         # - unqualified = 9999 (forbidden)
         open_roles = [r for r in AUX_ROLES if r not in prefilled_aux_roles]
-        avail_emps = [e for e in avail_today]  # already excludes PTO/placed
+        avail_emps = list(avail_today)  # already shuffled per-week, excludes PTO/placed
 
         if avail_emps and open_roles:
             import numpy as np
