@@ -442,6 +442,88 @@ def best_adjacent_pair(last1: int, last2: int, available: list, station_list: li
     return best
 
 
+def best_adjacent_run(last_stations: list, available: list, station_list: list) -> list | None:
+    """Find N consecutive station numbers for an N-person chain.
+    Returns a list of N station numbers or None if no contiguous run exists.
+    Minimizes total rotation distance from each person's last station.
+    """
+    n = len(last_stations)
+    if n == 0:
+        return None
+    if n == 1:
+        # Pick the best single station
+        best, best_d = None, float('inf')
+        for s in available:
+            d = rotation_distance(last_stations[0] or 0, s, station_list)
+            if d == 0: d = 500
+            if d < best_d:
+                best_d, best = d, s
+        return [best] if best is not None else None
+    avail_set = set(available)
+    best, best_dist = None, float('inf')
+    for s in available:
+        run = list(range(s, s + n))
+        if not all(x in avail_set for x in run):
+            continue
+        d = 0
+        for i, sta in enumerate(run):
+            di = rotation_distance(last_stations[i] or 0, sta, station_list)
+            if di == 0: di = 500
+            d += di
+        if d < best_dist:
+            best_dist, best = d, run
+    return best
+
+
+def build_pair_groups(pairs: list) -> list:
+    """Convert pair-list into connected groups, ordered as a chain so any
+    person who appears in multiple pairs sits between their partners.
+    Returns a list of lists, each inner list is an ordered chain of names."""
+    from collections import defaultdict
+    partners = defaultdict(set)
+    for a, b in pairs:
+        partners[a].add(b)
+        partners[b].add(a)
+
+    visited = set()
+    groups  = []
+    for person in partners:
+        if person in visited:
+            continue
+        # BFS to find connected component
+        component = set()
+        queue = [person]
+        while queue:
+            p = queue.pop(0)
+            if p in component:
+                continue
+            component.add(p)
+            for nb in partners[p]:
+                if nb not in component:
+                    queue.append(nb)
+        visited.update(component)
+        # Order the component as a chain: start at a degree-1 endpoint
+        comp_set = component
+        degrees = {p: len(partners[p] & comp_set) for p in component}
+        endpoints = [p for p, d in degrees.items() if d == 1]
+        if not endpoints:
+            # Cycle — just take any order
+            chain = list(component)
+        else:
+            start = sorted(endpoints)[0]  # deterministic
+            chain = [start]
+            used  = {start}
+            while True:
+                last = chain[-1]
+                nexts = sorted(p for p in partners[last] if p in comp_set and p not in used)
+                if not nexts:
+                    break
+                chain.append(nexts[0])
+                used.add(nexts[0])
+        groups.append(chain)
+    return groups
+
+
 # ── BCK Assignment ────────────────────────────────────────────────────────────
 
 def assign_bin_checking(hist_df: pd.DataFrame, config: dict, pto_by_day: dict, prefills: dict = None) -> pd.DataFrame:
@@ -472,25 +554,34 @@ def assign_bin_checking(hist_df: pd.DataFrame, config: dict, pto_by_day: dict, p
     pair_names = {name for pair in pairs for name in pair}
     available  = [s for s in eligible_stations if s not in assigned]
 
-    for p1, p2 in pairs:
-        last1 = get_last_station(p1, hist_df)
-        last2 = get_last_station(p2, hist_df)
-        pair  = best_adjacent_pair(last1 or 0, last2 or 0, available, eligible_stations)
-        if pair:
-            s1, s2 = pair
-            d1 = rotation_distance(last1 or 0, s1, eligible_stations) if last1 else None
-            d2 = rotation_distance(last2 or 0, s2, eligible_stations) if last2 else None
-            for name, station, last, dist, partner in [(p1,s1,last1,d1,p2),(p2,s2,last2,d2,p1)]:
-                note = f'Pair with {partner} — Full Week PTO' if is_pto_all_week(name) else f'Pair with {partner}'
+    # Build connected groups from pairs so anyone appearing in multiple pairs
+    # gets ONE station between their partners (e.g. Sephi-Vanessa-Jennifer at 4-5-6
+    # instead of Vanessa getting two stations).
+    pair_groups = build_pair_groups(pairs)
+
+    for chain in pair_groups:
+        last_stations = [get_last_station(n, hist_df) for n in chain]
+        run = best_adjacent_run(last_stations, available, eligible_stations)
+        if run:
+            for i, name in enumerate(chain):
+                station = run[i]
+                last    = last_stations[i]
+                dist    = rotation_distance(last or 0, station, eligible_stations) if last else None
+                if len(chain) == 2:
+                    partner_label = f'Pair with {chain[1 - i]}'
+                else:
+                    others = [chain[j] for j in range(len(chain)) if j != i]
+                    partner_label = f'Pair with {" & ".join(others)}'
+                note = f'{partner_label} — Full Week PTO' if is_pto_all_week(name) else partner_label
                 results.append({'Employee': name, **day_vals_for(name, station),
                                 'Last_Station': last, 'Distance': dist, 'Note': note})
-            assigned.update([s1, s2])
+            assigned.update(run)
             available = [s for s in available if s not in assigned]
         else:
-            for name in (p1, p2):
+            for name in chain:
                 results.append({'Employee': name, **{day: None for day in DAY_NAMES},
                                 'Last_Station': get_last_station(name, hist_df),
-                                'Distance': None, 'Note': 'No adjacent pair available'})
+                                'Distance': None, 'Note': f'No run of {len(chain)} adjacent stations'})
 
     # Remaining pool — everyone not fixed/paired, currently in BCK dept
     current_bck   = load_supply_side_employees_by_dept(config["ct_file"], 'Bin Receiving')
