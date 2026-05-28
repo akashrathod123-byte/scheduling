@@ -67,7 +67,9 @@ def load_config() -> dict:
 
     ws_bck            = wb[BCK_SHEET]
     all_stations      = []
-    eligible_stations = []   # Type == 'PO' only — used for normal rotation
+    eligible_stations = []   # Tier 1: Type == 'PO' — primary rotation pool
+    overflow_stations = []   # Tier 2: Type == 'PO/TRN' — usable if not pre-filled
+    last_resort_stations = []  # Tier 3: Type == 'PO/Returns' — last resort before Extra
     fixed             = {}
     pairs             = []
 
@@ -83,9 +85,13 @@ def load_config() -> dict:
             continue
         all_stations.append(station)
         sta_type = str(t).strip() if t else ''
-        # Only Type == 'PO' counts for normal rotation; Returns / PO/TRN / PO/Returns excluded
         if sta_type == 'PO':
             eligible_stations.append(station)
+        elif sta_type == 'PO/TRN':
+            overflow_stations.append(station)
+        elif sta_type == 'PO/Returns':
+            last_resort_stations.append(station)
+        # Pure 'Returns' stations are excluded entirely
         if b and str(b).strip():
             fixed[station] = str(b).strip()
 
@@ -129,13 +135,15 @@ def load_config() -> dict:
                 do_not_ask[role_label] = decliners
 
     wb.close()
-    config["all_stations"]      = sorted(set(all_stations))
-    config["eligible_stations"] = sorted(set(eligible_stations))
-    config["fixed"]              = fixed
-    config["pairs"]              = pairs
-    config["bsk_training"]       = bsk_training
-    config["rsk_fixed"]          = rsk_fixed
-    config["do_not_ask"]         = do_not_ask
+    config["all_stations"]          = sorted(set(all_stations))
+    config["eligible_stations"]     = sorted(set(eligible_stations))
+    config["overflow_stations"]     = sorted(set(overflow_stations))
+    config["last_resort_stations"]  = sorted(set(last_resort_stations))
+    config["fixed"]                  = fixed
+    config["pairs"]                  = pairs
+    config["bsk_training"]           = bsk_training
+    config["rsk_fixed"]              = rsk_fixed
+    config["do_not_ask"]             = do_not_ask
 
     # Build CT lookup: col E (Last, First) <-> col DT (First Last)
     global _CT_LOOKUP
@@ -152,7 +160,11 @@ def load_config() -> dict:
 
     print(f"✓ Config loaded — week of {monday_str}")
     print(f"  " + "  ".join(f"{d} {week_dates[d]}" for d in DAY_NAMES))
-    print(f"  {len(all_stations)} stations ({len(eligible_stations)} eligible for rotation) | {len(fixed)} fixed | {len(pairs)} pairs")
+    print(f"  {len(all_stations)} stations | "
+          f"{len(eligible_stations)} PO (rotation) | "
+          f"{len(overflow_stations)} PO/TRN (overflow) | "
+          f"{len(last_resort_stations)} PO/Returns (last resort) | "
+          f"{len(fixed)} fixed | {len(pairs)} pairs")
     if do_not_ask:
         print(f"  Do-Not-Ask: " + "; ".join(f"{role}={len([n for n in names if not n.islower()])}" for role, names in do_not_ask.items()))
     return config
@@ -433,12 +445,14 @@ def best_adjacent_pair(last1: int, last2: int, available: list, station_list: li
 # ── BCK Assignment ────────────────────────────────────────────────────────────
 
 def assign_bin_checking(hist_df: pd.DataFrame, config: dict, pto_by_day: dict, prefills: dict = None) -> pd.DataFrame:
-    all_stations      = config["all_stations"]
-    eligible_stations = config.get("eligible_stations", all_stations)
-    fixed             = config["fixed"]
-    pairs             = config["pairs"]
-    results           = []
-    assigned          = set(fixed.keys())
+    all_stations         = config["all_stations"]
+    eligible_stations    = config.get("eligible_stations", all_stations)     # Tier 1: PO
+    overflow_stations    = config.get("overflow_stations", [])                # Tier 2: PO/TRN
+    last_resort_stations = config.get("last_resort_stations", [])             # Tier 3: PO/Returns
+    fixed                = config["fixed"]
+    pairs                = config["pairs"]
+    results              = []
+    assigned             = set(fixed.keys())
 
     def day_vals_for(name, station):
         return {day: 'PTO' if (in_pto(name, pto_by_day[day])) else station for day in DAY_NAMES}
@@ -514,8 +528,19 @@ def assign_bin_checking(hist_df: pd.DataFrame, config: dict, pto_by_day: dict, p
         results.append({'Employee': emp, **{day: 'PTO' for day in DAY_NAMES},
                         'Last_Station': last, 'Distance': None, 'Note': 'Full Week PTO'})
 
-    # Weekly Hungarian — only eligible (PO) stations, excluding pre-filled-any-day
-    remaining_stations = [s for s in eligible_stations if s not in assigned and s not in prefilled_stations_week]
+    # Weekly Hungarian — tiered station pool:
+    #   Tier 1 (PO):           normal rotation cost (1..500)
+    #   Tier 2 (PO/TRN):       cost + 600 — used only after Tier 1 is full
+    #   Tier 3 (PO/Returns):   cost + 800 — last resort before Extra
+    #   Extra (padded fake):   999 — only if every real station is taken
+    remaining_t1 = [s for s in eligible_stations    if s not in assigned and s not in prefilled_stations_week]
+    remaining_t2 = [s for s in overflow_stations    if s not in assigned and s not in prefilled_stations_week]
+    remaining_t3 = [s for s in last_resort_stations if s not in assigned and s not in prefilled_stations_week]
+    remaining_stations = remaining_t1 + remaining_t2 + remaining_t3
+    station_tier = {s: 1 for s in remaining_t1}
+    station_tier.update({s: 2 for s in remaining_t2})
+    station_tier.update({s: 3 for s in remaining_t3})
+    TIER_PENALTY = {1: 0, 2: 600, 3: 800}
 
     if remaining_emps and remaining_stations:
         n_emps          = len(remaining_emps)
@@ -527,8 +552,13 @@ def assign_bin_checking(hist_df: pd.DataFrame, config: dict, pto_by_day: dict, p
                 if sta is None:
                     cost[i, j] = 999
                 else:
-                    d = rotation_distance(last or 0, sta, eligible_stations)
-                    cost[i, j] = 500 if d == 0 else d
+                    tier = station_tier.get(sta, 1)
+                    if tier == 1:
+                        d = rotation_distance(last or 0, sta, eligible_stations)
+                        cost[i, j] = 500 if d == 0 else d
+                    else:
+                        # Flat tier penalty (no rotation distance — these aren't in the cycle)
+                        cost[i, j] = TIER_PENALTY[tier]
 
         row_ind, col_ind = linear_sum_assignment(cost)
         emp_to_station   = {remaining_emps[i]: padded_stations[j] for i, j in zip(row_ind, col_ind)}
@@ -537,8 +567,16 @@ def assign_bin_checking(hist_df: pd.DataFrame, config: dict, pto_by_day: dict, p
             last    = get_last_station(emp, hist_df)
             station = emp_to_station.get(emp)
             if station is not None:
-                dist = rotation_distance(last or 0, station, eligible_stations) if last else None
-                note = 'Rotation +1' if dist == 1 else ('Blocked by fixed/pairs' if dist and dist > 1 else 'Optimized')
+                tier = station_tier.get(station, 1)
+                if tier == 1:
+                    dist = rotation_distance(last or 0, station, eligible_stations) if last else None
+                    note = 'Rotation +1' if dist == 1 else ('Blocked by fixed/pairs' if dist and dist > 1 else 'Optimized')
+                elif tier == 2:
+                    dist = None
+                    note = 'PO/TRN overflow'
+                else:
+                    dist = None
+                    note = 'PO/Returns last resort'
                 # Build per-day values: use assigned station unless pre-filled that day
                 day_vals = {}
                 for day in DAY_NAMES:
