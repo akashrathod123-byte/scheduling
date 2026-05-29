@@ -159,10 +159,10 @@ p("Customer scanned the code for part 90764A330 on May 11 and added one unit to 
   "preorder within five seconds of landing. Same-day pickup was available in Santa "
   "Fe Springs.")
 
-p('Unknown customer — visit 074c5848af5345be847a34d202010652',
+p('Advance Grinding Services — visit 074c5848af5345be847a34d202010652',
   bold=True, size=11, before=8, after=2)
-p("Customer scanned the code, went straight to Order History, and added part "
-  "91251A440 to a new order. A clean reorder flow.")
+p("Customer scanned the code, went straight to Order History, and placed an order "
+  "for 6 packs of part 91251A440 totaling $72.90. A clean reorder flow.")
 
 p('CAD download — visit 48e0af17c2974d60b136232fd9f55bff',
   bold=True, size=11, before=8, after=2)
