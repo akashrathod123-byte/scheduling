@@ -43,9 +43,11 @@ values = ",\n        ".join(
     f"('{v}', {d}, '{p}', {c})" for (v, d, p, c) in triples
 )
 sql = f"""-- Did the triangulated CMF later order the scanned part?
-WITH scans (visit_id, scan_date_int, part_upper, cmf_id) AS (
-    VALUES
+WITH scans AS (
+    SELECT visit_id, scan_date_int, part_upper, cmf_id
+    FROM (VALUES
         {values}
+    ) AS v(visit_id, scan_date_int, part_upper, cmf_id)
 )
 SELECT
     s.visit_id,

@@ -1,6 +1,7 @@
 -- Did the triangulated CMF later order the scanned part?
-WITH scans (visit_id, scan_date_int, part_upper, cmf_id) AS (
-    VALUES
+WITH scans AS (
+    SELECT visit_id, scan_date_int, part_upper, cmf_id
+    FROM (VALUES
         ('3d9fd891c22048cfa7a7a28c960ccd61', 20260122, '91251A794', 54669100),
         ('3d9fd891c22048cfa7a7a28c960ccd61', 20260122, '91251A794', 152866700),
         ('3d9fd891c22048cfa7a7a28c960ccd61', 20260122, '91251A794', 99500000),
@@ -452,6 +453,7 @@ WITH scans (visit_id, scan_date_int, part_upper, cmf_id) AS (
         ('fc628f8393ab4c8da41aa2ac4dd60d76', 20260528, '92200A196', 142937200),
         ('fc628f8393ab4c8da41aa2ac4dd60d76', 20260528, '92200A196', 329192700),
         ('65e36aa6e2d34873b2ff436fa0f8a897', 20260528, '91255A196', 285660700)
+    ) AS v(visit_id, scan_date_int, part_upper, cmf_id)
 )
 SELECT
     s.visit_id,
