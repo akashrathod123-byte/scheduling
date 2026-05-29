@@ -61,19 +61,19 @@ p("In January, packs created in Prepack began shipping with modern McMaster-Carr
   "branding and a QR code on every label. The QR code takes customers directly to "
   "the part's product detail page on McMaster.com, making reordering easier for "
   "customers who have part in hand.")
-p("From January 21 to date, there have been 172 customer scans in total. This report "
-  "looks at who scanned, what they did, and which parts pulled the scans.")
+p("172 customers have scanned a Prepack code since launch. Weekly volume is climbing, "
+  "the customers we can identify lean toward small shops, and a handful of parts are "
+  "getting scanned repeatedly.")
 
 # ── HOW WE MEASURED ─────────────────────────────────────────────────────────
 h('How we measured it')
-p("Every Prepack QR code encodes the same URL pattern: the part number in the path "
-  "and ?mode=qr&codeid=4 as the query string. That signature let us isolate Prepack "
-  "scans from regular product page traffic.")
-p("Scan data came from the data warehouse and the interactions graph. Two cleaning passes:")
-bullet("Internal McMaster-Carr scans were removed (test devices, internal IP ranges, "
-       "and verification activity).")
-bullet("Duplicate visits and visits with no recorded actions were dropped.")
-p("172 unique customer scans remained.")
+p("Every Prepack QR code points to a McMaster.com URL that follows the same "
+  "format — the part number followed by a short tag (mode=qr&codeid=4) we can "
+  "search on. We pulled every visit that landed on one of these URLs between "
+  "January 21 and May 28.")
+p("Before counting, we removed internal scans — test devices and McMaster-Carr "
+  "office IPs used to verify the codes — and dropped visits with no recorded "
+  "activity. That left 172 customer scans.")
 
 # ── VOLUME ──────────────────────────────────────────────────────────────────
 h('Scan volume')
