@@ -51,8 +51,8 @@ sub.paragraph_format.space_after = Pt(14)
 
 # ── BACKGROUND ──────────────────────────────────────────────────────────────
 h('Background', before=0)
-p("In January, packs created in Prepack began shipping with modern McMaster-Carr "
-  "branding and a QR code on every label. The QR code takes customers directly to "
+p("In January, Prepack items started to include modern McMaster-Carr branding "
+  "and a QR code on every label. The QR code takes customers directly to "
   "the part's product detail page on McMaster.com, making reordering easier for "
   "customers who have the part in hand.")
 p("172 customers have scanned a Prepack code since launch. Weekly volume is climbing, "
