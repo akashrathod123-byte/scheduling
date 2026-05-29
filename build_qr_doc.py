@@ -68,8 +68,8 @@ r1 = para.add_run("Every Prepack QR code points to a McMaster.com URL with the s
 r2 = para.add_run("mode=QR & codeid=4");                                  r2.font.size = Pt(11); r2.bold = True
 r3 = para.add_run(") that identifies it as a Prepack scan. We pulled every visit "
                   "that landed on one of these URLs between January 21 and May 28."); r3.font.size = Pt(11)
-p("We filtered out scans associated with our internal IP addresses, and dropped "
-  "visits with no recorded activity. That left 172 customer scans.")
+p("We filtered out scans associated with our internal IP addresses. That left 172 "
+  "customer scans.")
 
 # ── VOLUME ──────────────────────────────────────────────────────────────────
 h('QR scan volume')
