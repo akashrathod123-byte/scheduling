@@ -142,6 +142,12 @@ for ri, row in enumerate(parts_data, 1):
     for ci, v in enumerate(row):
         c = t2.rows[ri].cells[ci]; c.text = ''
         r = c.paragraphs[0].add_run(v); r.font.size = Pt(11)
+# Set wide description column
+from docx.shared import Inches as _In
+col_widths = [_In(1.0), _In(0.6), _In(5.0)]
+for ri in range(len(t2.rows)):
+    for ci, w in enumerate(col_widths):
+        t2.rows[ri].cells[ci].width = w
 
 # ── NOTABLE VISITS ──────────────────────────────────────────────────────────
 h('Notable visits')
@@ -190,17 +196,17 @@ p("A cluster of scans on April 29 — fourteen different components scanned in a
   "two-minute window from rotating IPs on the same Android device — looks like "
   "automated test traffic and is worth flagging separately.")
 
-# Scans per assortment summary
-t3 = doc.add_table(rows=4, cols=4)
+# Scans per assortment summary (post-IP-filter only)
+t3 = doc.add_table(rows=4, cols=3)
 t3.style = 'Table Grid'
 hdr3 = t3.rows[0].cells
-for i, label in enumerate(['Assortment', 'Master part', 'Total scans', 'After internal-IP filter']):
+for i, label in enumerate(['Assortment', 'Master part', 'Customer scans']):
     hdr3[i].text = ''
     r = hdr3[i].paragraphs[0].add_run(label); r.bold = True; r.font.size = Pt(11)
 asrt_data = [
-    ('A1', '94723A110', '22', '~1'),
-    ('A2', '94568A110', '1',  '1'),
-    ('A3', '94451A110', '36', '~17 (incl. April 29 burst)'),
+    ('A1', '94723A110', '~1'),
+    ('A2', '94568A110', '1'),
+    ('A3', '94451A110', '~17 (incl. April 29 burst)'),
 ]
 for ri, row in enumerate(asrt_data, 1):
     for ci, v in enumerate(row):
@@ -208,9 +214,9 @@ for ri, row in enumerate(asrt_data, 1):
         r = c.paragraphs[0].add_run(v); r.font.size = Pt(11)
 
 p('', after=6)
-p("We don't have a confirmed go-live date for the assortment codes. Kayla Plack "
-  "led the initiative and can confirm the timeline so we can scope the analysis "
-  "window appropriately.")
+p("We do not yet have a confirmed go-live date for the assortment codes. Once "
+  "that is confirmed, we can scope the analysis window appropriately and revisit "
+  "the engagement read.")
 
 # ── TAKEAWAYS ───────────────────────────────────────────────────────────────
 h('Takeaways')
