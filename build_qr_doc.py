@@ -155,9 +155,9 @@ p("Customer scanned the code for part 92188A145 (a stainless brass tapping inser
 
 p('Fathom & Form LLC — visit 84e1a820d4b242d0a82961091c4f4043',
   bold=True, size=11, before=8, after=2)
-p("Customer scanned the code for part 90764A330 on May 11 and added one unit to a "
-  "preorder within five seconds of landing. Same-day pickup was available in Santa "
-  "Fe Springs.")
+p("Customer scanned the code for part 90764A330 on May 6 and added one unit to a "
+  "preorder within five seconds of landing. The order was placed five days later "
+  "on May 11.")
 
 p('Advance Grinding Services — visit 074c5848af5345be847a34d202010652',
   bold=True, size=11, before=8, after=2)
