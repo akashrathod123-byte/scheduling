@@ -61,10 +61,13 @@ p("172 customers have scanned a Prepack code since launch. Weekly volume is clim
 
 # ── HOW WE MEASURED ─────────────────────────────────────────────────────────
 h('How we measured it')
-p("Every Prepack QR code points to a McMaster.com URL with the same format: the part "
-  "number, followed by a short tag (mode=QR & codeid=4) that identifies it as a "
-  "Prepack scan. We pulled every visit that landed on one of these URLs between "
-  "January 21 and May 28.")
+para = doc.add_paragraph()
+para.paragraph_format.space_after = Pt(4)
+r1 = para.add_run("Every Prepack QR code points to a McMaster.com URL with the same "
+                  "format: the part number, followed by a short tag ("); r1.font.size = Pt(11)
+r2 = para.add_run("mode=QR & codeid=4");                                  r2.font.size = Pt(11); r2.bold = True
+r3 = para.add_run(") that identifies it as a Prepack scan. We pulled every visit "
+                  "that landed on one of these URLs between January 21 and May 28."); r3.font.size = Pt(11)
 p("We removed test scans from internal McMaster devices and office IPs that were used "
   "to verify the codes. We also dropped visits with no recorded activity. That left "
   "172 customer scans.")
