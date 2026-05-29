@@ -129,14 +129,14 @@ parts_data = [
     ('91251A242', '5', 'Black-Oxide Alloy Steel Socket Head Screw, 10-24 Thread Size, 1/2" Long'),
     ('95105A159', '5', 'Zinc Yellow-Chromate-Plated Steel Twist-Resistant Rivet Nut, 3/8"-16 Thread Size, for 0.027" to 0.150" Material Thickness'),
     ('7073K332',  '4', 'Element for 100A, 250V AC UL Class H Replaceable-Element Fuse'),
-    ('1095K11',   '3', ''),
-    ('91247A628', '3', ''),
-    ('92865A546', '3', ''),
-    ('97467A117', '3', ''),
-    ('92865A543', '3', ''),
-    ('97802A316', '3', ''),
-    ('91400A196', '3', ''),
-    ('91000A469', '3', ''),
+    ('1095K11',   '3', 'Zinc-Plated Steel Grease Fitting, Straight, 1/8 PTF-SAE Male, 11/16" Overall Height'),
+    ('91247A628', '3', 'Medium-Strength Grade 5 Steel Hex Head Screw, Zinc-Plated, 3/8"-16 Thread Size, 1-1/2" Long, Partially Threaded'),
+    ('92865A546', '3', 'Medium-Strength Grade 5 Steel Hex Head Screw, Zinc-Plated, 1/4"-20 Thread Size, 1-1/2" Long, Fully Threaded'),
+    ('97467A117', '3', '18-8 Stainless Steel Twist-Resistant Rivet Nut, 5/16"-18 Thread Size, for 0.15" to 0.312" Material Thickness'),
+    ('92865A543', '3', 'Medium-Strength Grade 5 Steel Hex Head Screw, Zinc-Plated, 1/4"-20 Thread Size, 1" Long'),
+    ('97802A316', '3', 'High-Strength Toggle Anchor for Drywall, Zinc Plated, for 1/4"-20 Thread, 3/8"-3-5/8" Usable Length'),
+    ('91400A196', '3', 'Mil. Spec. Phillips Rounded Head Screws, 18-8 Stainless Steel, 8-32 Thread Size, 5/8" Long'),
+    ('91000A469', '3', 'Lubricated 18-8 Stainless Steel Helical Insert, Screw-Lock, 10-32 Thread Size, 0.380" Installed Length'),
 ]
 for ri, row in enumerate(parts_data, 1):
     for ci, v in enumerate(row):
