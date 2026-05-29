@@ -72,10 +72,9 @@ p("We filtered out scans associated with our internal IP addresses, and dropped 
   "visits with no recorded activity. That left 172 customer scans.")
 
 # ── VOLUME ──────────────────────────────────────────────────────────────────
-h('Scan volume')
-p("Volume has grown steadily. February averaged roughly three scans per week. By "
-  "May, weekly scans were averaging around seventeen, with a high of twenty-seven "
-  "the week of May 18.")
+h('QR scan volume')
+p("Volume has grown steadily. Weekly scans averaged about 3 in February. By May, "
+  "weekly scans ranged from 9 to 27, with the high the week of May 18.")
 doc.add_picture('/home/user/scheduling/qr_weekly.png', width=Inches(6.5))
 
 # ── WHO'S SCANNING ──────────────────────────────────────────────────────────
