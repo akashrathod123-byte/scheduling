@@ -80,7 +80,7 @@ doc.add_picture('/home/user/scheduling/qr_weekly.png', width=Inches(6.5))
 # ── WHO'S SCANNING ──────────────────────────────────────────────────────────
 h('Who is scanning')
 p("Most customers scan without being logged in, so the visit alone doesn't tell us "
-  "who they are. We matched scans to known customers using two signals: the anonymous "
+  "who they are. We matched scans to known customers using two signals: the "
   "visitor ID tied to each visit, and the IP address the scan came from.")
 p("About half — 90 of the 172 scans — matched to a known customer this way. The "
   "matches skew toward shops and credit-card buyers reordering specific parts.")
