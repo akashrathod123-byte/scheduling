@@ -143,6 +143,32 @@ for ri, row in enumerate(parts_data, 1):
         c = t2.rows[ri].cells[ci]; c.text = ''
         r = c.paragraphs[0].add_run(v); r.font.size = Pt(11)
 
+# ── NOTABLE VISITS ──────────────────────────────────────────────────────────
+h('Notable visits')
+p("A few visits stand out for how directly they show the program working as intended.")
+
+p('Norfolk Southern / Henkels & McCoy — visit 6e77d3a6', bold=True, size=11, before=4, after=2)
+p("Customer scanned the code for part 92188A145 (a stainless brass tapping insert) "
+  "on a mobile device. Within eight minutes, they bumped the quantity to 7, updated "
+  "the shipping and billing attention fields, and placed an order for $489.11 with "
+  "same-day delivery. Forty-seven minutes later they came back, searched for "
+  "\"eyebolts,\" filtered the results down to three matches, and placed a second "
+  "order for $201.64 under the same PO. Total from one QR scan: $690.75, both "
+  "orders delivered same day.")
+
+p('Fathom & Form LLC — visit 84e1a820', bold=True, size=11, before=8, after=2)
+p("Customer scanned the code for part 90764A330 and added one unit to their order "
+  "within five seconds of landing. Same-day pickup was available in Santa Fe Springs.")
+
+p('Unknown customer — visit 074c5848', bold=True, size=11, before=8, after=2)
+p("Customer scanned the code, went straight to Order History, and added part "
+  "91251A440 to a new order. A clean reorder flow.")
+
+p('CAD download — visit 48e0af17', bold=True, size=11, before=8, after=2)
+p("Customer scanned the code for part 91812A215 (an extreme-vibration wedge lock "
+  "washer) and downloaded the CAD file within 25 seconds. Likely an engineering "
+  "use case rather than a reorder.")
+
 # ── TAKEAWAYS ───────────────────────────────────────────────────────────────
 h('Takeaways')
 bullet("Volume is climbing. Weekly scans in May ran roughly five times higher than "
