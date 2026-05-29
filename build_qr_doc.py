@@ -169,6 +169,49 @@ p('CAD download — visit 48e0af17c2974d60b136232fd9f55bff',
 p("Customer scanned the code for part 91812A215 (an extreme-vibration wedge lock "
   "washer) and downloaded the CAD file within 25 seconds.")
 
+# ── ASSORTMENTS ─────────────────────────────────────────────────────────────
+doc.add_page_break()
+h('QR Codes on Assortment Items', before=0)
+
+p("Product also added QR codes to three assortment kits earlier this year. These "
+  "codes use a different tag (mode=QR & codeid=2) than the Prepack codes. Each "
+  "kit has 13 parts: a master part number and twelve components.")
+
+p("The three assortments:", before=4, after=2)
+bullet("Assortment 1 — master 94723A110")
+bullet("Assortment 2 — master 94568A110")
+bullet("Assortment 3 — master 94451A110")
+
+p("Customer engagement on the assortment codes is much lower than on the Prepack "
+  "codes. After filtering out scans from our internal IP address (50.233.58.1), "
+  "real customer activity drops to a handful of scans across the three kits combined.")
+
+p("A cluster of scans on April 29 — fourteen different components scanned in a "
+  "two-minute window from rotating IPs on the same Android device — looks like "
+  "automated test traffic and is worth flagging separately.")
+
+# Scans per assortment summary
+t3 = doc.add_table(rows=4, cols=4)
+t3.style = 'Table Grid'
+hdr3 = t3.rows[0].cells
+for i, label in enumerate(['Assortment', 'Master part', 'Total scans', 'After internal-IP filter']):
+    hdr3[i].text = ''
+    r = hdr3[i].paragraphs[0].add_run(label); r.bold = True; r.font.size = Pt(11)
+asrt_data = [
+    ('A1', '94723A110', '22', '~1'),
+    ('A2', '94568A110', '1',  '1'),
+    ('A3', '94451A110', '36', '~17 (incl. April 29 burst)'),
+]
+for ri, row in enumerate(asrt_data, 1):
+    for ci, v in enumerate(row):
+        c = t3.rows[ri].cells[ci]; c.text = ''
+        r = c.paragraphs[0].add_run(v); r.font.size = Pt(11)
+
+p('', after=6)
+p("We don't have a confirmed go-live date for the assortment codes. Kayla Plack "
+  "led the initiative and can confirm the timeline so we can scope the analysis "
+  "window appropriately.")
+
 # ── TAKEAWAYS ───────────────────────────────────────────────────────────────
 h('Takeaways')
 bullet("Volume is climbing. Weekly scans in May ran roughly five times higher than "
