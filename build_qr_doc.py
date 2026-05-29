@@ -83,11 +83,11 @@ p("Most customers scan without being logged in, so the visit alone doesn't tell 
   "who they are. We matched scans to known customers using two signals: the "
   "visitor ID tied to each visit, and the IP address the scan came from.")
 p("About half — 90 of the 172 scans — matched to a known customer this way. The "
-  "matches skew toward shops and credit-card buyers reordering specific parts.")
+  "matches skew toward shops and credit-card buyers.")
 
 # ── WHAT THEY DO ────────────────────────────────────────────────────────────
 h('What customers do after they scan')
-p("Most scans are short. About seven in ten customers land on the part page and "
+p("Most visits are short. About seven in ten customers land on the part page and "
   "leave without taking any further action.")
 p("The remaining 31% went deeper. They filtered specs, expanded images, opened "
   "related parts, and came back to the scanned product later in the visit. Three "
