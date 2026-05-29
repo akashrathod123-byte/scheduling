@@ -174,10 +174,9 @@ h('Takeaways')
 bullet("Volume is climbing. Weekly scans in May ran roughly five times higher than "
        "in February. We expect continued growth as more Prepacks ship.")
 bullet("About half of scans match to a known customer account.")
-bullet("Most scans are short. The 31% who go deeper engage meaningfully — filtering "
+bullet("Most visits are short. The 31% who go deeper engage meaningfully — filtering "
        "specs, expanding images, and in some cases adding items to the order pad.")
-bullet("Twenty-nine parts came up more than once. These are worth a closer look as "
-       "we think about better labeling, reorder prompts, or new packaging formats.")
+bullet("Twenty-nine parts came up more than once.")
 
 doc.save(OUT)
 print(f"Saved → {OUT}")
