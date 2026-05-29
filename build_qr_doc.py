@@ -147,19 +147,17 @@ for ri, row in enumerate(parts_data, 1):
 h('Notable visits')
 p("Four visits worth a closer look:")
 
-p('Norfolk Southern / Henkels & McCoy — visit 6e77d3a6918e42b2845a410daa567c3b',
+p('Henkels & McCoy — visit 6e77d3a6918e42b2845a410daa567c3b',
   bold=True, size=11, before=4, after=2)
 p("Customer scanned the code for part 92188A145 (a stainless brass tapping insert) "
   "on a mobile device. Within eight minutes, they adjusted the quantity to 7 and "
-  "placed an order for $489.11 with same-day delivery. Forty-seven minutes later "
-  "they came back, searched for \"eyebolts,\" filtered the results down to three "
-  "matches, and placed a second order for $201.64 under the same PO. Total from "
-  "one QR scan: $690.75, both orders delivered same day.")
+  "placed an order for $489.11 with same-day delivery.")
 
 p('Fathom & Form LLC — visit 84e1a820d4b242d0a82961091c4f4043',
   bold=True, size=11, before=8, after=2)
-p("Customer scanned the code for part 90764A330 and added one unit to their order "
-  "within five seconds of landing. Same-day pickup was available in Santa Fe Springs.")
+p("Customer scanned the code for part 90764A330 on May 11 and added one unit to a "
+  "preorder within five seconds of landing. Same-day pickup was available in Santa "
+  "Fe Springs.")
 
 p('Unknown customer — visit 074c5848af5345be847a34d202010652',
   bold=True, size=11, before=8, after=2)
