@@ -167,8 +167,7 @@ p("Customer scanned the code, went straight to Order History, and placed an orde
 p('CAD download — visit 48e0af17c2974d60b136232fd9f55bff',
   bold=True, size=11, before=8, after=2)
 p("Customer scanned the code for part 91812A215 (an extreme-vibration wedge lock "
-  "washer) and downloaded the CAD file within 25 seconds. Likely an engineering "
-  "use case rather than a reorder.")
+  "washer) and downloaded the CAD file within 25 seconds.")
 
 # ── TAKEAWAYS ───────────────────────────────────────────────────────────────
 h('Takeaways')
