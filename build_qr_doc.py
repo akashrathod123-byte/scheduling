@@ -56,8 +56,8 @@ p("In January, packs created in Prepack began shipping with modern McMaster-Carr
   "the part's product detail page on McMaster.com, making reordering easier for "
   "customers who have the part in hand.")
 p("172 customers have scanned a Prepack code since launch. Weekly volume is climbing, "
-  "the customers we can identify are reordering exactly the parts the codes were "
-  "meant to support, and a handful of parts are getting scanned repeatedly.")
+  "about half of scans match to a known customer account, and a handful of parts "
+  "are getting scanned repeatedly.")
 
 # ── HOW WE MEASURED ─────────────────────────────────────────────────────────
 h('How we measured it')
@@ -117,9 +117,7 @@ p("92% of scans came from a phone — roughly 60% iPhone and 40% Android. The "
 # ── PARTS ───────────────────────────────────────────────────────────────────
 h('Which parts get scanned')
 p("Customers scanned 127 different part numbers. About three-quarters (98 of the "
-  "127) were scanned only once. The parts that came up more than once are the "
-  "clearest signal the program is working — codes are sitting on shop floors and "
-  "getting reused for reorders.")
+  "127) were scanned only once. Twenty-nine were scanned more than once.")
 
 t2 = doc.add_table(rows=12, cols=2)
 t2.style = 'Table Grid'
@@ -149,14 +147,11 @@ for ri, row in enumerate(parts_data, 1):
 h('Takeaways')
 bullet("Volume is climbing. Weekly scans in May ran roughly five times higher than "
        "in February. We expect continued growth as more Prepacks ship.")
-bullet("The customers we can identify match the use case the codes were designed "
-       "for — reordering a specific part they already have on hand.")
-bullet("Most scans are short, which is normal. The 31% who go deeper show real "
-       "purchase intent — spec filtering, image expansion, and items added to the "
-       "order pad.")
-bullet("Twenty-nine parts came up more than once. These are the parts worth a "
-       "closer look as we think about better labeling, reorder prompts, or new "
-       "packaging formats.")
+bullet("About half of scans match to a known customer account.")
+bullet("Most scans are short. The 31% who go deeper engage meaningfully — filtering "
+       "specs, expanding images, and in some cases adding items to the order pad.")
+bullet("Twenty-nine parts came up more than once. These are worth a closer look as "
+       "we think about better labeling, reorder prompts, or new packaging formats.")
 
 doc.save(OUT)
 print(f"Saved → {OUT}")
