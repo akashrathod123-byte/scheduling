@@ -157,7 +157,7 @@ def build_card(row, n, content_w):
     mlabel, mcolor = marketed_label(row.get("marketed"))
 
     # ---- header bar ----
-    title_bits = [name or "Anonymous Respondent"]
+    title_bits = [name or "Anonymous"]
     if company:
         title_bits.append(company)
     if role:
