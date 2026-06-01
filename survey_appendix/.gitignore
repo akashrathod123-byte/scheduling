@@ -1,0 +1,5 @@
+# Generated output and source data contain customer PII — never commit.
+*.pdf
+*.xlsx
+*.xls
+*.csv
