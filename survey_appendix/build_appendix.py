@@ -55,7 +55,7 @@ FEATURES = [
     "Other",
 ]
 
-MAX_IDS = 8   # cap CMF/MMF numbers shown per card
+MAX_IDS = 5   # cap CMF/MMF numbers shown per card (after dedup)
 
 
 # ----------------------------------------------------------------------------
@@ -94,13 +94,22 @@ def split_multi(v, other_text="", other_label="Other"):
 
 
 def ids_field(v):
+    """Tidy an account-id list: drop NULL/0/blank, de-duplicate (MMF often
+    repeats the same id many times), and cap the display (the source lists can
+    run to 100+ entries, but only a few are useful on the card)."""
     s = clean(v)
     if not s:
         return ""
-    parts = [p.strip() for p in s.split(",") if p.strip()]
-    if len(parts) > MAX_IDS:
-        return ", ".join(parts[:MAX_IDS]) + f" (+{len(parts) - MAX_IDS} more)"
-    return ", ".join(parts)
+    seen = []
+    for p in s.split(","):
+        p = p.strip()
+        if p and p.upper() != "NULL" and p != "0" and p not in seen:
+            seen.append(p)
+    if not seen:
+        return ""
+    if len(seen) > MAX_IDS:
+        return ", ".join(seen[:MAX_IDS]) + f" (+{len(seen) - MAX_IDS} more)"
+    return ", ".join(seen)
 
 
 def marketed_label(v):
@@ -173,13 +182,19 @@ def build_card(row, n, content_w):
     if "depends" in q1.lower():
         t = g("q1_text")
         q1 = "It depends" + (f" — {t}" if t else "")
+    q2 = g("q2")
+    if "sometimes" in q2.lower():
+        t = g("q2_text")
+        q2 = "Sometimes" + (f" — {t}" if t else "")
     left_lines = [ln for ln in [
         kv("Email", email),
         kv("Buying process", esc(q1)),
+        kv("Approval needed", esc(q2)),
     ] if ln]
     right_lines = [ln for ln in [
         kv("CMF", esc(ids_field(row.get("cmf")))),
         kv("MMF", esc(ids_field(row.get("mmf")))),
+        kv("Re-enters details", esc(g("q5"))),
     ] if ln]
     info = Table([[Paragraph("<br/>".join(left_lines) or "&nbsp;", INFO),
                    Paragraph("<br/>".join(right_lines) or "&nbsp;", INFO)]],
@@ -194,8 +209,12 @@ def build_card(row, n, content_w):
         ("BOTTOMPADDING", (0, 0), (-1, -1), 6),
     ]))
 
-    # ---- body (lean: feature demand + frustration free-text) ----
+    # ---- body ----
     body = []
+    handoff = split_multi(row.get("q3"), row.get("q3_text"))
+    if handoff:
+        body.append(Paragraph(f"<b>Handed off via:</b> {esc('; '.join(handoff))}", BTEXT))
+
     wanted = []
     for i, feat in enumerate(FEATURES):
         val = clean(row.get(f"q7b_{i}")).lower()
@@ -219,6 +238,11 @@ def build_card(row, n, content_w):
     if q8:
         body.append(Paragraph("Most frustrating part of their buying process:", BLABEL))
         body.append(Paragraph(q8, BTEXT))
+
+    q10 = esc(row.get("q10"))
+    if q10:
+        body.append(Paragraph("Anything else they shared:", BLABEL))
+        body.append(Paragraph(q10, BTEXT))
 
     if not body:
         body.append(Paragraph("<i>No further detail provided.</i>", BTEXT))
