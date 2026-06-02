@@ -149,24 +149,13 @@ def build_card(row, n, content_w):
     g = lambda key: clean(row.get(key))
     name = g("name")
     company = g("company")
-    role = g("role")
-    if role.lower().startswith("other"):
-        rt = g("role_text")
-        role = f"Other: {rt}" if rt else "Other"
-
     mlabel, mcolor = marketed_label(row.get("marketed"))
 
-    # ---- header bar ----
-    title_bits = [name or "Anonymous"]
-    if company:
-        title_bits.append(company)
-    if role:
-        title_bits.append(role)
-    title_bits.append(mlabel)
-    header_left = Paragraph(esc(" | ".join(title_bits)), HEAD)
-    header_right = Paragraph(f"#{n}", HEADNUM)
+    # ---- header bar: customer name + marketed tag + number ----
+    header_left = Paragraph(esc(name or "Anonymous"), HEAD)
+    header_right = Paragraph(f"{esc(mlabel)} &nbsp;·&nbsp; #{n}", HEADNUM)
     header = Table([[header_left, header_right]],
-                   colWidths=[content_w * 0.82, content_w * 0.18])
+                   colWidths=[content_w * 0.70, content_w * 0.30])
     header.setStyle(TableStyle([
         ("BACKGROUND", (0, 0), (-1, -1), mcolor),
         ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
@@ -176,8 +165,28 @@ def build_card(row, n, content_w):
         ("BOTTOMPADDING", (0, 0), (-1, -1), 6),
     ]))
 
-    # ---- info band (2 columns) ----
-    email = esc(row.get("email"))
+    # ---- identity band: company + account ids (omitted if we have none) ----
+    left_lines = [ln for ln in [kv("Company", esc(company))] if ln]
+    right_lines = [ln for ln in [
+        kv("CMF", esc(ids_field(row.get("cmf")))),
+        kv("MMF", esc(ids_field(row.get("mmf")))),
+    ] if ln]
+    band = None
+    if left_lines or right_lines:
+        band = Table([[Paragraph("<br/>".join(left_lines) or "&nbsp;", INFO),
+                       Paragraph("<br/>".join(right_lines) or "&nbsp;", INFO)]],
+                     colWidths=[content_w * 0.56, content_w * 0.44])
+        band.setStyle(TableStyle([
+            ("BACKGROUND", (0, 0), (-1, -1), BAND),
+            ("VALIGN", (0, 0), (-1, -1), "TOP"),
+            ("LEFTPADDING", (0, 0), (0, 0), 9),
+            ("LEFTPADDING", (1, 0), (1, 0), 6),
+            ("RIGHTPADDING", (-1, 0), (-1, 0), 9),
+            ("TOPPADDING", (0, 0), (-1, -1), 6),
+            ("BOTTOMPADDING", (0, 0), (-1, -1), 6),
+        ]))
+
+    # ---- body: buying process (+ handoff), approval, frustration, features ----
     q1 = g("q1")
     if "depends" in q1.lower():
         t = g("q1_text")
@@ -186,34 +195,20 @@ def build_card(row, n, content_w):
     if "sometimes" in q2.lower():
         t = g("q2_text")
         q2 = "Sometimes" + (f" — {t}" if t else "")
-    left_lines = [ln for ln in [
-        kv("Email", email),
-        kv("Buying process", esc(q1)),
-        kv("Approval needed", esc(q2)),
-    ] if ln]
-    right_lines = [ln for ln in [
-        kv("CMF", esc(ids_field(row.get("cmf")))),
-        kv("MMF", esc(ids_field(row.get("mmf")))),
-        kv("Re-enters details", esc(g("q5"))),
-    ] if ln]
-    info = Table([[Paragraph("<br/>".join(left_lines) or "&nbsp;", INFO),
-                   Paragraph("<br/>".join(right_lines) or "&nbsp;", INFO)]],
-                 colWidths=[content_w * 0.56, content_w * 0.44])
-    info.setStyle(TableStyle([
-        ("BACKGROUND", (0, 0), (-1, -1), BAND),
-        ("VALIGN", (0, 0), (-1, -1), "TOP"),
-        ("LEFTPADDING", (0, 0), (0, 0), 9),
-        ("LEFTPADDING", (1, 0), (1, 0), 6),
-        ("RIGHTPADDING", (-1, 0), (-1, 0), 9),
-        ("TOPPADDING", (0, 0), (-1, -1), 6),
-        ("BOTTOMPADDING", (0, 0), (-1, -1), 6),
-    ]))
 
-    # ---- body ----
     body = []
+    if q1:
+        body.append(Paragraph(f"<b>Buying process:</b> {esc(q1)}", BTEXT))
     handoff = split_multi(row.get("q3"), row.get("q3_text"))
     if handoff:
         body.append(Paragraph(f"<b>Handed off via:</b> {esc('; '.join(handoff))}", BTEXT))
+    if q2:
+        body.append(Paragraph(f"<b>Approval needed:</b> {esc(q2)}", BTEXT))
+
+    q8 = esc(row.get("q8"))
+    if q8:
+        body.append(Paragraph("Most frustrating part of their order process:", BLABEL))
+        body.append(Paragraph(q8, BTEXT))
 
     wanted = []
     for i, feat in enumerate(FEATURES):
@@ -230,19 +225,9 @@ def build_card(row, n, content_w):
             label = f'Other: "{ot}"' if ot else "Other"
         wanted.append(f"{label} <font color='#6b7280'>({tag})</font>")
     if wanted:
-        body.append(Paragraph("Features they'd use on mcmaster.com:", BLABEL))
+        body.append(Paragraph("Features they would use on mcmaster.com:", BLABEL))
         for w in wanted:
             body.append(Paragraph(w, BBULLET, bulletText="•"))
-
-    q8 = esc(row.get("q8"))
-    if q8:
-        body.append(Paragraph("Most frustrating part of their buying process:", BLABEL))
-        body.append(Paragraph(q8, BTEXT))
-
-    q10 = esc(row.get("q10"))
-    if q10:
-        body.append(Paragraph("Anything else they shared:", BLABEL))
-        body.append(Paragraph(q10, BTEXT))
 
     if not body:
         body.append(Paragraph("<i>No further detail provided.</i>", BTEXT))
@@ -256,16 +241,22 @@ def build_card(row, n, content_w):
         ("BOTTOMPADDING", (0, 0), (-1, -1), 8),
     ]))
 
-    # ---- wrap header + info + body in one bordered card ----
-    card = Table([[header], [info], [body_tbl]], colWidths=[content_w])
-    card.setStyle(TableStyle([
+    # ---- wrap header (+ band) + body in one bordered card ----
+    card_rows = [[header]]
+    if band is not None:
+        card_rows.append([band])
+    card_rows.append([body_tbl])
+    style = [
         ("LEFTPADDING", (0, 0), (-1, -1), 0),
         ("RIGHTPADDING", (0, 0), (-1, -1), 0),
         ("TOPPADDING", (0, 0), (-1, -1), 0),
         ("BOTTOMPADDING", (0, 0), (-1, -1), 0),
         ("BOX", (0, 0), (-1, -1), 0.6, BORDER),
-        ("LINEBELOW", (0, 1), (-1, 1), 0.5, BORDER),
-    ]))
+    ]
+    if band is not None:
+        style.append(("LINEBELOW", (0, 1), (-1, 1), 0.5, BORDER))
+    card = Table(card_rows, colWidths=[content_w])
+    card.setStyle(TableStyle(style))
     return card
 
 
