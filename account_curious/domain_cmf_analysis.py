@@ -70,6 +70,26 @@ import sys
 from collections import defaultdict
 
 
+# ===========================================================================
+# EASY MODE (Spyder / "just press Run") — edit these paths, then run the file.
+# These are only used when you run with NO command-line arguments (e.g. via
+# %runfile in the Spyder/IPython console).  If you pass --no-cmf on the command
+# line, these are ignored.
+# ===========================================================================
+CONFIG = {
+    # Required: the not-linked-to-CMF export.
+    "no_cmf":        r"P:\Capacity Management\Management\Akash\B2B\User Models\Account Curious\visitor_no_cmf_email_link.csv",
+    # Optional: the total pool. Leave as "" if you only have the no_cmf file.
+    "with_contacts": r"P:\Capacity Management\Management\Akash\B2B\User Models\Account Curious\visitor_with_contacts_email_link.csv",
+    # Where to write the result.
+    "out":           r"P:\Capacity Management\Management\Akash\B2B\User Models\Account Curious\company_cmf_coverage.csv",
+    "top": 30,
+    "min_emails": 1,
+    "sort_by": "not_linked",   # "not_linked" | "total" | "pct"
+    "include_consumer": False,
+}
+
+
 # ---------------------------------------------------------------------------
 # Consumer / free email providers.  These are mailbox providers, NOT companies,
 # so we don't want them showing up as "companies" in the report.  Extend freely.
@@ -340,7 +360,25 @@ def main(argv=None):
                     help="ranking for the on-screen summary (default not_linked)")
     ap.add_argument("--include-consumer", action="store_true",
                     help="keep gmail/yahoo/qq etc. in the company report")
-    args = ap.parse_args(argv)
+
+    # If no command-line args were given (e.g. run from Spyder via %runfile),
+    # fall back to the CONFIG block at the top of this file.
+    if argv is None:
+        argv = sys.argv[1:]
+    if not argv:
+        print("No command-line arguments given — using the CONFIG block at the "
+              "top of this file.\n(Edit those paths if they're wrong.)\n")
+        args = argparse.Namespace(
+            no_cmf=CONFIG["no_cmf"],
+            with_contacts=CONFIG["with_contacts"] or None,
+            out=CONFIG["out"],
+            top=CONFIG["top"],
+            min_emails=CONFIG["min_emails"],
+            sort_by=CONFIG["sort_by"],
+            include_consumer=CONFIG["include_consumer"],
+        )
+    else:
+        args = ap.parse_args(argv)
 
     consumer = set() if args.include_consumer else CONSUMER_DOMAINS
 
