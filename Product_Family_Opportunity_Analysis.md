@@ -2,13 +2,13 @@
 
 *How this was made: 25 Claude readers read every one of the ~12,265 opportunity descriptions, grouped them into real product families, and for each family estimated **how many different items exist in the whole world**, showed the simple math, and named a real company you can look at to sanity-check. Everything is written in plain language.*
 
-**12,305 opportunities read · 8,548 families.**
+**12,254 opportunities read · 8,547 families.**
 
 ## The 5 size buckets
 | Bucket | Means | Opportunities | Share |
 |---|---|--:|--:|
-| **1** | Accessories / replacement parts | 2,814 | 23% |
-| **2** | Genuinely new, small (under ~100) | 8,056 | 65% |
+| **1** | Accessories / replacement parts | 2,815 | 23% |
+| **2** | Genuinely new, small (under ~100) | 8,004 | 65% |
 | **3** | Niche, real size+material depth (about 100-500) | 1,367 | 11% |
 | **4** | Deep family / system (about 500-5,000) | 62 | 1% |
 | **5** | Massive / universal commodity (more than 5,000) | 6 | 0% |
@@ -18,7 +18,7 @@
 
 ## Bucket 1 — Accessories & Replacement Parts
 
-**2,814 opportunities (23%).** Add-ons or spares for something else. 10 examples:
+**2,815 opportunities (23%).** Add-ons or spares for something else. 10 examples:
 - **Meter Replacement Probes and Sensors** — about **~120** in the world. temp, CO2, airflow, light, thickness probes + gas sensors, mics, windscreens, shims, sound adapters across meter models = ~120. *Check:* Reed verify.
 - **Filter Bag Housing Accessories** — about **~80** in the world. accessory rings, inserts, adapters, guards, balloons, legs, magnets, tools for filter bags (eight lines merged). *Check:* Eaton.
 - **Locker Filler Panels, Splices, Corner Angles, Risers, Drawers, Shelves** — about **~120** in the world. trim/replacement parts for lockers; many small pieces x sizes x colors. *Check:* List Industries.
@@ -32,7 +32,7 @@
 
 ## Bucket 2 — Genuinely New but Small (under ~100 in the world)
 
-**8,056 opportunities (65%).** 10 examples:
+**8,004 opportunities (65%).** 10 examples:
 - **Drywall Hand Tools and Accessories** — about **~80** in the world. tool holders, brushes, clips, tape dispensers, knives, repair clips, finishing brushes, felt brushes, scarifiers, skimming blades, panel trimmers, corner bead tools, taper holders, about 13 tool types x 3 sizes x 2 styles = ~80. *Check:* Marshalltown.
 - **Signal and Equipment Simulators** — about **~90** in the world. thermocouple, RTD, GPS, radar, battery, telephone, ESD, machinery fault, threat emitter, equipment, flight simulators, about 11 simulator types x 4 ranges x 2 styles = ~88. *Check:* Fluke.
 - **Sodium Compounds** — about **~90** in the world. sodium dihydrogen phosphate, metaphosphate, fluorophosphate, aluminum fluoride, nitroprusside, bromide, tellurate, tungstate, metavanadate: about 9 compounds x forms = under 100. *Check:* American Elements.
@@ -77,7 +77,7 @@
 - *Memory and Chips* › **Processors and Converters** — 200-400. CPUs, image processors, DSPs x2, analog-to-digital converters: many models x speeds = a few hundred. *Check:* Intel.
 - *Memory and Chips* › **Memory Chips** — 200-400. ROM, FIFO, RAM boards, content-addressable memory, EEPROM: many sizes x speeds x types = a few hundred. *Check:* Micron.
 
-**Lab/Optics & Scientific** — 176 opportunities
+**Lab/Optics & Scientific** — 175 opportunities
 - *Optics* › **Wedged and Wedge Prism Optics** — ~130. merges wedged windows, wedge prisms, dispersion prisms = ~130. *Check:* Thorlabs.
 - *Optics* › **UV and IR Optical Windows** — ~100. merges UV optical windows and IR optical windows = ~100. *Check:* Thorlabs.
 - *Optics* › **Wave Plates (Achromatic and Zero-Order)** — ~120. quarter+half wave x several wavelengths x mounted/unmounted x materials = ~120. *Check:* Thorlabs.
@@ -92,7 +92,7 @@
 - *Fiber Optics* › **Fiber Optic Connectors and Adapters** — 200-400. ferrules, adapters, connectors, duplex clips, panel blanks: many connector types (SC, ST, LC, FC) x materials x styles = a few hundred. *Check:* Corning.
 - *Lab supplies* › **Lab holders and fittings (tool stands, flask holders, test tube cappers, thermometer sleeves, glass joint fittings, bell jar gaskets, glove box panels, ampoule openers)** — 100-300. many holder/fitting types x sizes = ~200. *Check:* Bel-Art.
 
-**Cutting/Machining & Metalworking** — 126 opportunities
+**Cutting/Machining & Metalworking** — 131 opportunities
 - *Lathe Chuck Parts* › **Lathe Chuck Replacement and Maintenance Parts** — ~120. spindles, jaw drive seals, jaw adapters, plungers, draw nuts, sleeves, cover plugs, jaw blanks, jaw cleaners, fixture bases, mounting tools, maintenance kits, key adapters, hydraulic cylinders, about 18 part types x 4 chuck sizes x 2 styles = ~120. *Check:* verify.
 - *Workholding* › **Locating and Clamping Fixture Systems** — ~150. fixture base systems, quick-change systems, pin clamps, clamp sensor holders, cam screws, locking plates: many components x sizes = ~150. *Check:* Jergens.
 - *Workholding* › **Fixture plate mounts and frames** — 100-300. many plate sizes x mount/frame types = ~200. *Check:* Thorlabs.
@@ -112,14 +112,6 @@
 - *Machine Vision Imaging* › **Machine Vision Lens Filters** — ~200. bandpass + polarizer types x many wavelengths and thread sizes = ~150-250. *Check:* Edmund Optics.
 - *Gas Detection & Analysis* › **Gas Detectors, Analyzers, Sensors, Sampling and Multi-Gas Systems** — ~150. several gas types x detector/analyzer x portable/fixed. *Check:* Draeger.
 
-**Industrial & Specialty Equipment** — 89 opportunities
-- *Aircraft Latches* › **Aircraft Access, Exit, Cowl, Door, Pin Latches** — ~300. many latch styles x sizes x lock combos for many aircraft = ~300. *Check:* verify.
-- *Commercial Kitchen Equipment* › **Food Slicers Dicers and Peelers** — ~150. deli slicers + dicers + apple slicers + peelers + nutcrackers + spice mills, several models each = ~100-200. *Check:* Hobart.
-- *Commercial Kitchen Equipment* › **Cookers Grills Steamers and Food Wells** — ~120. microwaves + steam cookers + grills + food wells, several sizes each = ~100+. *Check:* Hobart.
-- *Subsea Sensors & Acoustics* › **Subsea Sonar Sounders and Acoustic Devices** — ~120. echosounders + ADCP + transponders + modems + hydrophones + releases + air guns, several each = ~100+. *Check:* Teledyne Marine.
-- *Gutters & Downspouts* › **Gutter Brackets Shanks and Conductor Heads** — ~200. brackets + shanks + downspout brackets + hooks + adapters + conductor heads + guards, many materials/sizes each = ~100-300. *Check:* Euramax.
-- *Thermal cameras* › **FLIR thermal camera accessories (data cables, dev boards, video processors, accessory kits, data recorders)** — 100-300. many camera models x accessory types = ~200. *Check:* FLIR.
-
 **HVAC/Thermal & Process** — 88 opportunities
 - *Storage Tanks* › **Specialty Process Tanks** — ~250. grouped 16 tank types (dye, solar, fermentation, day, mixing, cook-chill, cooling, evaporative, breather, buffer, blowdown, surface-treatment, screen-dip, hot-melt, film, thermal-energy): 16 uses x several sizes each = ~250. *Check:* Snyder Industries.
 - *Duct Accessories* › **Duct Hose Kits, Wrap and Hangers** — ~150. duct hose kits, duct wrap, duct hangers, wire-rope suspension brackets, damper actuator mounts, damper switch mounts, damper shaft extensions, damper bearings, duct heaters, heat-cable mounts: several duct sizes x parts = ~150. *Check:* Nordfab.
@@ -128,7 +120,15 @@
 - *Air systems* › **Make-up air, combustion air, water heater vents, blower housings, AC evaporators** — 100-300. several sizes x configs = ~200. *Check:* Greenheck.
 - *Walk-In Refrigeration* › **Cooling Units Evaporators Compressors Condensers and Refrigerator-Freezers** — ~150. about 5 component types x 6 capacities x 5 temperatures = ~150. *Check:* Heatcraft.
 
-**Power Transmission & Motion** — 88 opportunities
+**Industrial & Specialty Equipment** — 86 opportunities
+- *Aircraft Latches* › **Aircraft Access, Exit, Cowl, Door, Pin Latches** — ~300. many latch styles x sizes x lock combos for many aircraft = ~300. *Check:* verify.
+- *Commercial Kitchen Equipment* › **Food Slicers Dicers and Peelers** — ~150. deli slicers + dicers + apple slicers + peelers + nutcrackers + spice mills, several models each = ~100-200. *Check:* Hobart.
+- *Commercial Kitchen Equipment* › **Cookers Grills Steamers and Food Wells** — ~120. microwaves + steam cookers + grills + food wells, several sizes each = ~100+. *Check:* Hobart.
+- *Subsea Sensors & Acoustics* › **Subsea Sonar Sounders and Acoustic Devices** — ~120. echosounders + ADCP + transponders + modems + hydrophones + releases + air guns, several each = ~100+. *Check:* Teledyne Marine.
+- *Gutters & Downspouts* › **Gutter Brackets Shanks and Conductor Heads** — ~200. brackets + shanks + downspout brackets + hooks + adapters + conductor heads + guards, many materials/sizes each = ~100-300. *Check:* Euramax.
+- *Thermal cameras* › **FLIR thermal camera accessories (data cables, dev boards, video processors, accessory kits, data recorders)** — 100-300. many camera models x accessory types = ~200. *Check:* FLIR.
+
+**Power Transmission & Motion** — 84 opportunities
 - *Bearings* › **Structural, Tilt-Pad, Jewel, Isolators, Protectors, Retainers, Needle Rollers** — ~250. about 8 bearing types x many sizes = ~250. *Check:* Kingsbury.
 - *Bearings* › **Combination and Specialty Bearings** — 100-300. ball cage, rotary stroke, flat roller cages, needle/thrust-roller, sheave roller: many bore sizes x types = a few hundred. *Check:* THK.
 - *Bearings* › **Bearing Isolators** — ~150. about 15 shaft sizes x 5 materials x 2 styles = ~150. *Check:* Inpro Seal.
@@ -148,11 +148,10 @@
 - *Valves* › **Specialty valves (lock-up, flow dividing, level/pressure control, floor control, hydraulic elevator)** — 100-300. several valve types x sizes x options = ~200. *Check:* verify.
 - *Faucets* › **Faucet replacement parts, aerator inserts, base plates, garden hose faucet parts** — 100-300. many faucet models x part types = ~200. *Check:* Sloan.
 
-**Raw Materials & Stock** — 71 opportunities
+**Raw Materials & Stock** — 68 opportunities
 - *Industrial Chemicals* › **Specialty Inorganic Salts, Oxides and Reactive Powders** — ~400. grouped many named powders (phosphorus pentoxide, cobalt, niobium, tantalum, copper, nickel, lead, chromium, magnesium, aluminum, zirconium, strontium salts/oxides/fluorides, photoinitiator etc.): about 22 compounds x a few purities x pack sizes = ~400. *Check:* Sigma-Aldrich.
-- *Refractory Metals* › **Rare Refractory Metals (Iridium, Niobium, etc.)** — ~120. iridium + boron + neodymium + rhenium + niobium-titanium, about 8 metals x several forms (rod/tube/powder/wire) x few sizes = ~120. *Check:* ESPI Metals.
-- *Refractory Metals* › **Refractory Metals (Ruthenium Osmium Zirconium etc)** — 100-300. ~8 missing metals x several forms x sizes = a couple hundred. *Check:* American Elements.
 - *Adhesive Liners* › **Release Liners and Lidding/Lining Films** — 100-300. about 6 film types x 6 widths x 5 coatings = ~180. *Check:* verify.
+- *Refractory Metals* › **Rare Refractory Metals (Iridium, Niobium, etc.)** — ~120. iridium + boron + neodymium + rhenium + niobium-titanium, about 8 metals x several forms (rod/tube/powder/wire) x few sizes = ~120. *Check:* ESPI Metals.
 - *Film/sheet* › **Wall-covering film, microfilms, silk screen films, medical diagnostic tapes, cutting tape** — 100-300. many widths x types = ~200. *Check:* verify.
 - *Advanced Materials* › **2D and Layered Crystal Materials** — ~150. iron germanium telluride, PTMCs, TMDs, perovskite, gold selenide: several compositions x forms x sizes = ~150. *Check:* 2D Semiconductors.
 
@@ -193,7 +192,7 @@
 - *Carpet Care* › **Carpet and Upholstery Cleaning Chemicals** — ~120. additives, rinse agents, pre-sprays, upholstery pre-sprays, floor restorers, neutralizers: several products x concentrate/powder x sizes = ~120. *Check:* Prochem.
 - *Chemicals* › **Sodium hydroxide, filter chemicals, bleach neutralizers** — 100-300. several formulations x grades x sizes = ~200. *Check:* Sigma-Aldrich.
 
-**Fasteners & Hardware** — 37 opportunities
+**Fasteners & Hardware** — 35 opportunities
 - *Specialty Bolts* › **Askew Head, King, Turbine Rotor, Parking Curb, Smart, Load Monitoring Bolts** — ~150. about 8 bolt types x many sizes/grades = ~150. *Check:* Fastenal.
 - *Specialty Bolts* › **Liner Bolts and Banjo Bolts** — 100-300. oval-head liner bolts + banjo bolts, many sizes x materials. *Check:* Fastenal.
 - *Blind & Aerospace Fasteners* › **Blind Bolts Locking Pins and Tools** — ~250. blind bolts + locking pins + install tools, many diameters/lengths x materials = a few hundred. *Check:* Cherry Aerospace.
@@ -210,22 +209,46 @@
 - *Crimping* › **Crimper die holders, wire sleeving tools and cutters** — 100-300. many die sizes plus sleeving tools/cutters = ~200. *Check:* verify.
 - *Pneumatic tools* › **Tank sprayer guns, pressure washer spray tips, conduit vacuum puller kits** — 100-300. many tip/spray sizes x types = ~200. *Check:* Graco.
 
-**Welding/Soldering & Joining** — 24 opportunities
+**Welding/Soldering & Joining** — 20 opportunities
 - *Soldering* › **Soldering iron tips, kits, adaptors, carrying straps, wire clamps** — 100-300. many tip shapes x sizes plus accessories = ~200. *Check:* Hakko.
 - *Soldering* › **Solder Preforms and Soldering Kits** — ~150. solder preforms (many alloys x shapes) + solder kits + static-control kits = around 150. *Check:* Indium Corporation.
 - *Crimping Tools* › **Crimping Die Adapters Jaws and Dies** — ~150. many die series x jaw styles x wire-size ranges = ~150. *Check:* Burndy.
-- *Exothermic* › **Exothermic Welding Ignition Molds Powder and Rods** — 100-300. several connector shapes x many mold sizes x powder loads = a couple hundred. *Check:* nVent ERICO.
 - *MIG/TIG* › **MIG welding replacement parts, TIG torch gas cups, TIG torch gas valves** — 100-300. many nozzle/liner/cup sizes x torch models = ~200. *Check:* Tweco.
 - *Exothermic Welding* › **Exothermic Welding Molds and Enclosures** — 100-300. molds + housings, many connection types x conductor sizes = a couple hundred. *Check:* Erico Cadweld.
+- *Welding Wire* › **FCAW Flux-Cored Welding Wires** — 100-500. about 10 alloys x several diameters x spool sizes = a few hundred wire SKUs. *Check:* Lincoln Electric.
 
 **Abrasives & Surface Finishing** — 6 opportunities
 - *Polishing & Deburring* › **Polishing Belts and Tube Brushes** — ~120. polishing belts + threaded tube brushes + angle grinder brushes, many sizes each = ~100+. *Check:* 3M.
 - *Diamond Abrasives* › **Diamond Powder and Crystals** — ~120. diamond powder and crystals: several particle sizes x grades x forms = ~120. *Check:* Element Six.
 - *Bonded Abrasives* › **Bonded Abrasive Materials** — ~150. many grain types x grits x wheel sizes = around 150. *Check:* Norton.
 
+**Exothermic Welding Ignition Molds Powder and Rods** — 4 opportunities
+- *Welding/Soldering & Joining* › **Exothermic** — 100-300. several connector shapes x many mold sizes plus powder loads = a couple hundred. *Check:* nVent ERICO.
+
+**Appliance and HVAC Motors** — 3 opportunities
+- *Power Transmission & Motion* › **Motors** — 200-400. 3 uses (cooler furnace concrete vibrator) x ~10 sizes x a few speeds = a few hundred. *Check:* Grainger.
+
+**Refractory Metals (Ruthenium Osmium Zirconium etc)** — 3 opportunities
+- *Raw Materials & Stock* › **Refractory Metals** — 100-300. ~8 missing metals x several forms x sizes = a couple hundred. *Check:* American Elements.
+
+**Sputtering Targets (Bonded and Plain)** — 2 opportunities
+- *Industrial & Specialty Equipment* › **Thin-Film Deposition** — 300-600. ~30 metals x a few sizes x bonded or not = a few hundred. *Check:* Kurt J. Lesker.
+
 **Automotive** — 2 opportunities
 - *Drivetrain Seals* › **Transmission Seals** — ~120. about 12 shaft sizes x 5 materials x 2 lip types = ~120. *Check:* SKF.
 - *Brake Parts* › **Automotive Caliper Brakes** — ~150. about 15 vehicle fits x 5 styles x 2 = ~150. *Check:* Wagner.
+
+**Reflective Diffraction Gratings** — 1 opportunities
+- *Lab/Optics & Scientific* › **Diffraction** — 100-300. several grating types x many wavelength and groove options = a couple hundred. *Check:* Newport.
+
+**Made-to-Order Window Screens** — 1 opportunities
+- *Industrial & Specialty Equipment* › **Windows** — 100-300. many sizes x couple frame colors x mesh types = a couple hundred. *Check:* verify.
+
+**Fabric Buttons** — 1 opportunities
+- *Fasteners & Hardware* › **Apparel Fasteners** — 100-300. ~10 materials x several sizes x styles = a couple hundred. *Check:* YKK.
+
+**Medical Bone Screws** — 1 opportunities
+- *Fasteners & Hardware* › **Medical Fasteners** — 100-300. several diameters x many lengths x couple materials = a couple hundred. *Check:* DePuy Synthes.
 
 ## Bucket 4 — Deep Families / Systems (about 500–5,000)
 
@@ -281,22 +304,22 @@
 ## Where the depth is — Domain × bucket
 | Domain | Opps | B1 | B2 | B3 | B4 | B5 |
 |---|--:|--:|--:|--:|--:|--:|
-| Electrical & Electronic | 1594 | 490 | 879 | 221 | 3 | 1 |
-| Test/Measurement & Inspection | 1567 | 261 | 1163 | 121 | 22 | 0 |
-| Material Handling & Storage | 1078 | 305 | 714 | 57 | 2 | 0 |
-| Industrial & Specialty Equipment | 905 | 159 | 652 | 90 | 3 | 1 |
-| Lab/Optics & Scientific | 869 | 124 | 559 | 177 | 6 | 3 |
-| Safety/PPE & Facility | 864 | 198 | 608 | 58 | 0 | 0 |
-| Cutting/Machining & Metalworking | 757 | 178 | 451 | 128 | 0 | 0 |
-| Plumbing/Pipe & Fluid Handling | 719 | 167 | 475 | 77 | 0 | 0 |
-| HVAC/Thermal & Process | 657 | 113 | 455 | 88 | 1 | 0 |
-| Hand & Power Tools | 586 | 215 | 339 | 32 | 0 | 0 |
-| Cleaning/Chemicals & Lubrication | 572 | 140 | 390 | 42 | 0 | 0 |
-| Power Transmission & Motion | 539 | 184 | 268 | 86 | 0 | 1 |
-| Automation/Robotics & Controls | 536 | 83 | 392 | 50 | 11 | 0 |
-| Raw Materials & Stock | 313 | 4 | 225 | 71 | 13 | 0 |
-| Welding/Soldering & Joining | 307 | 74 | 209 | 24 | 0 | 0 |
-| Fasteners & Hardware | 280 | 83 | 160 | 37 | 0 | 0 |
+| Electrical & Electronic | 1517 | 481 | 811 | 221 | 3 | 1 |
+| Test/Measurement & Inspection | 1482 | 251 | 1088 | 121 | 22 | 0 |
+| Material Handling & Storage | 1043 | 304 | 680 | 57 | 2 | 0 |
+| Industrial & Specialty Equipment | 885 | 159 | 635 | 87 | 3 | 1 |
+| Safety/PPE & Facility | 834 | 190 | 586 | 58 | 0 | 0 |
+| Lab/Optics & Scientific | 818 | 119 | 514 | 176 | 6 | 3 |
+| Cutting/Machining & Metalworking | 720 | 178 | 414 | 128 | 0 | 0 |
+| Plumbing/Pipe & Fluid Handling | 696 | 164 | 455 | 77 | 0 | 0 |
+| HVAC/Thermal & Process | 637 | 111 | 437 | 88 | 1 | 0 |
+| Hand & Power Tools | 560 | 215 | 313 | 32 | 0 | 0 |
+| Cleaning/Chemicals & Lubrication | 539 | 139 | 358 | 42 | 0 | 0 |
+| Automation/Robotics & Controls | 510 | 83 | 366 | 50 | 11 | 0 |
+| Power Transmission & Motion | 510 | 182 | 244 | 83 | 0 | 1 |
+| Raw Materials & Stock | 299 | 4 | 214 | 68 | 13 | 0 |
+| Welding/Soldering & Joining | 284 | 73 | 191 | 20 | 0 | 0 |
+| Fasteners & Hardware | 267 | 80 | 152 | 35 | 0 | 0 |
 | Abrasives & Surface Finishing | 129 | 34 | 89 | 6 | 0 | 0 |
 | Automotive | 21 | 1 | 17 | 2 | 1 | 0 |
 
