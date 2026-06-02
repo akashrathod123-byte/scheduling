@@ -2,97 +2,97 @@
 
 *How this was made: 25 Claude readers read every one of the ~12,265 opportunity descriptions, grouped them into real product families, and for each family estimated **how many different items exist in the whole world**, showed the simple math, and named a real company you can look at to sanity-check. Everything is written in plain language.*
 
-**12,551 opportunities read · 8,617 families.**
+**12,409 opportunities read · 8,555 families.**
 
 ## The 5 size buckets
 | Bucket | Means | Opportunities | Share |
 |---|---|--:|--:|
-| **1** | Accessories / replacement parts | 2,904 | 23% |
-| **2** | Genuinely new, small (under ~100) | 8,164 | 65% |
-| **3** | Niche, real size+material depth (about 100-500) | 1,411 | 11% |
-| **4** | Deep family / system (about 500-5,000) | 65 | 1% |
-| **5** | Massive / universal commodity (more than 5,000) | 7 | 0% |
+| **1** | Accessories / replacement parts | 2,826 | 23% |
+| **2** | Genuinely new, small (under ~100) | 8,107 | 65% |
+| **3** | Niche, real size+material depth (about 100-500) | 1,408 | 11% |
+| **4** | Deep family / system (about 500-5,000) | 62 | 0% |
+| **5** | Massive / universal commodity (more than 5,000) | 6 | 0% |
 
 > Every family below shows a **number**, the **simple math** behind it, and a **company to check**. References come from the model's knowledge (no live web here), so treat them as leads to verify, not proof.
 
 
 ## Bucket 1 — Accessories & Replacement Parts
 
-**2,904 opportunities (23%).** Add-ons or spares for something else. 10 examples:
-- **Pick-and-Place Gripper Accessories** — about **~150** in the world. finger inserts, mounts, pillars, positioners, covers, cleaning heads, valves, parts kits for Schunk = ~150. *Check:* Schunk.
-- **Meter Replacement Probes & Sensors** — about **~120** in the world. temp, CO2, airflow, light, thickness, gas sensors, mics, windscreens, shims x meter models = ~120. *Check:* Reed verify.
-- **FRL Accessories, Locks, Cages, Branching, Plates, Collectors, Modules** — about **~150** in the world. accessory; about 8 part types x many FRL models = ~150. *Check:* Parker.
-- **Oil Skimmer Replacement Parts** — about **~60** in the world. timers, mounts, motors, switches, gears, diverters, tubes for belt/tube/disk skimmers = under 100. *Check:* Zebra Skimmers verify.
-- **Milling Machine Tool Holder Accessories** — about **~150** in the world. extenders, adapters, cleaners, test shafts, changing stations, collet extensions, coolant tubes, spindle adapters x tapers = ~150. *Check:* Haimer / BIG Kaiser.
-- **Concrete Float Components & Adapters** — about **~120** in the world. float brackets, blades, weights, broom adapters, carriers, groover/walking brackets x sizes = ~120. *Check:* Marshalltown verify.
+**2,826 opportunities (23%).** Add-ons or spares for something else. 10 examples:
+- **Meter Replacement Probes and Sensors** — about **~120** in the world. temp, CO2, airflow, light, thickness probes + gas sensors, mics, windscreens, shims, sound adapters across meter models = ~120. *Check:* Reed verify.
 - **Filter Bag Housing Accessories** — about **~80** in the world. accessory rings, inserts, adapters, guards, balloons, legs, magnets, tools for filter bags (eight lines merged). *Check:* Eaton.
 - **Locker Filler Panels, Splices, Corner Angles, Risers, Drawers, Shelves** — about **~120** in the world. trim/replacement parts for lockers; many small pieces x sizes x colors. *Check:* List Industries.
 - **GoBilda Hubs, Wheels, Bases, and Parts** — about **~120** in the world. GoBilda hubs, framing wheels, bases, track rollers, power boards, lead screw nuts, shocks are proprietary system parts, count as 1 each. *Check:* GoBilda.
 - **Spill-Control Berm Accessories** — about **~80** in the world. berm covers, cases, drains, hose stands, bailers, drain-cover cases, railway berms (accessories): several types x sizes = ~80. *Check:* New Pig.
+- **Circuit Board Mounts, Guides and Extractors** — about **~120** in the world. right-angle mounts, card guides, capacitor mounts, card extractors, LED mounts, LED spacers, transistor covers (board accessories): several types x sizes = ~120. *Check:* Keystone Electronics.
+- **Oil Skimmer Replacement Parts** — about **~60** in the world. timers, mounts, motors, switches, gears, diverters, tubes for belt/tube/disk skimmers = under 100. *Check:* Zebra Skimmers verify.
+- **Pick-and-Place Gripper Accessories** — about **~150** in the world. finger inserts, mounts, pillars, positioners, covers, cleaning heads, valves, parts kits for Schunk = ~150. *Check:* Schunk.
+- **Milling Machine Tool Holder Accessories** — about **~150** in the world. extenders, adapters, cleaners, test shafts, changing stations, collet extensions, coolant tubes, spindle adapters x tapers = ~150. *Check:* Haimer / BIG Kaiser.
+- **Can Racks, Frame Holders/Hooks, Connectors, Post Caps and Clamps** — about **~120** in the world. clip-on add-ons for shelving; many small pieces x sizes. *Check:* InterMetro.
 
 ## Bucket 2 — Genuinely New but Small (under ~100 in the world)
 
-**8,164 opportunities (65%).** 10 examples:
+**8,107 opportunities (65%).** 10 examples:
 - **Drywall Hand Tools and Accessories** — about **~80** in the world. tool holders, brushes, clips, tape dispensers, knives, repair clips, finishing brushes, felt brushes, scarifiers, skimming blades, panel trimmers, corner bead tools, taper holders, about 13 tool types x 3 sizes x 2 styles = ~80. *Check:* Marshalltown.
-- **Zinc Compounds Extended** — about **~120** in the world. zinc phosphide, stearate, hydroxide carbonate, zirconate, bromide, peroxide, titanate, sulfide, laurate, selenide, plus 2 more: about 12 compounds x forms = around 100. *Check:* American Elements.
-- **Fixture & Vise Locating Components** — about **~150** in the world. clamping washers, ratchet elements, vise ledges, leveling rests, support bolts, collets, repair kits etc = ~150. *Check:* Jergens / Carr Lane.
 - **Signal and Equipment Simulators** — about **~90** in the world. thermocouple, RTD, GPS, radar, battery, telephone, ESD, machinery fault, threat emitter, equipment, flight simulators, about 11 simulator types x 4 ranges x 2 styles = ~88. *Check:* Fluke.
-- **Coordinate Measuring Machines** — about **~80** in the world. about 6 sizes x 5 brands x 2 fixed/portable = ~60 (two CMM lines merged). *Check:* Mitutoyo.
 - **Sodium Compounds** — about **~90** in the world. sodium dihydrogen phosphate, metaphosphate, fluorophosphate, aluminum fluoride, nitroprusside, bromide, tellurate, tungstate, metavanadate: about 9 compounds x forms = under 100. *Check:* American Elements.
-- **Tin Compounds** — about **~80** in the world. tin pyrophosphate, oxide, chloride, oxalate, dibromide, sulfate, stannous oxide, stannous sulfate: about 8 compounds x forms = under 100. *Check:* American Elements.
+- **Zinc Compounds Extended** — about **~120** in the world. zinc phosphide, stearate, hydroxide carbonate, zirconate, bromide, peroxide, titanate, sulfide, laurate, selenide, plus 2 more: about 12 compounds x forms = around 100. *Check:* American Elements.
+- **Fixture and Vise Locating Components** — about **~150** in the world. clamping washers, ratchet elements, vise ledges, leveling rests, support bolts, collets, repair kits etc = ~150. *Check:* Jergens / Carr Lane.
+- **Coordinate Measuring Machines** — about **~80** in the world. about 6 sizes x 5 brands x 2 fixed/portable = ~60 (two CMM lines merged). *Check:* Mitutoyo.
 - **Industrial Condition Monitors (vibration, sensor, sound)** — about **~80** in the world. sensor data monitors, data collectors, sensor data collectors, brake monitors, load cell monitors, sound and vibration, machinery fault simulators related, about 8 sensor types x 5 brands x 2 styles = ~80. *Check:* Banner Engineering.
 - **Specialty Automotive Wrenches (glow plug, fan clutch, hinge, axle, lug, bearing clutch)** — about **~80** in the world. several engine/vehicle types x couple sizes (lines 25, 235, 308, 328, 365 corp stop keys, 373, 376). *Check:* OTC / Lisle.
+- **Tin Compounds** — about **~80** in the world. tin pyrophosphate, oxide, chloride, oxalate, dibromide, sulfate, stannous oxide, stannous sulfate: about 8 compounds x forms = under 100. *Check:* American Elements.
 - **Soap Sanitizer Dispenser Parts and Labels** — about **~80** in the world. pumps + keys + labels + sign holders + drip trays + nail cleaners + aqueous, several each = under 100. *Check:* GOJO.
 
 ## Bucket 3 — Niche, Real Size+Material Depth (about 100–500)
 
-**1,411 opportunities (11%).** 10 examples:
-- **Specialty Inorganic Salts and Oxides** — about **~400** in the world. grouped a large set of named inorganic powders (cobalt, niobium, tantalum, copper, nickel, lead, chromium, magnesium, aluminum, zirconium, strontium salts/oxides/fluorides etc.): roughly 28 compounds x a few purities x pack sizes = ~400. *Check:* Sigma-Aldrich.
-- **Specialty Process Tanks** — about **~300** in the world. grouped many tank types (dye, solar, fermentation, day, mixing, cook-chill, cooling, evaporative, breather, buffer, blowdown, surface-treatment, screen-dip, hot-melt, film, thermal-energy, etc.): roughly 20 uses x several sizes each = ~300. *Check:* Snyder Industries.
+**1,408 opportunities (11%).** 10 examples:
+- **Specialty Inorganic Salts, Oxides and Reactive Powders** — about **~400** in the world. grouped many named powders (phosphorus pentoxide, cobalt, niobium, tantalum, copper, nickel, lead, chromium, magnesium, aluminum, zirconium, strontium salts/oxides/fluorides, photoinitiator etc.): about 22 compounds x a few purities x pack sizes = ~400. *Check:* Sigma-Aldrich.
 - **Toxic Gas Detectors (many gas types)** — about **~300** in the world. about 19 gas types x 4 ranges x 4 brands = ~300 covering cyanide fluoride formaldehyde ozone ammonia and more. *Check:* Honeywell.
-- **Pump Mechanical Mounting and Connection Parts** — about **~250** in the world. stands, slings, columns, adaptors, discharge connections, tandem connectors, low-suction collars, cable guides, corrosion protectors, service carts, suction intakes, stations, motor components, drives, rafts, retrofit kits, flush valves, leakage detectors: many parts x sizes = ~250. *Check:* Xylem.
+- **Pump Mechanical Mounting and Connection Parts** — about **~250** in the world. stands, slings, columns, adaptors, discharge connections, tandem connectors, low-suction collars, cable guides, corrosion protectors, service carts, suction intakes, stations, motor components, retrofit kits, rafts, flush valves, leakage detectors, probe barriers: many parts x sizes = ~250. *Check:* Xylem.
 - **Lathe Chuck Replacement and Maintenance Parts** — about **~120** in the world. spindles, jaw drive seals, jaw adapters, plungers, draw nuts, sleeves, cover plugs, jaw blanks, jaw cleaners, fixture bases, mounting tools, maintenance kits, key adapters, hydraulic cylinders, about 18 part types x 4 chuck sizes x 2 styles = ~120. *Check:* verify.
+- **Specialty Process Tanks** — about **~250** in the world. grouped 16 tank types (dye, solar, fermentation, day, mixing, cook-chill, cooling, evaporative, breather, buffer, blowdown, surface-treatment, screen-dip, hot-melt, film, thermal-energy): 16 uses x several sizes each = ~250. *Check:* Snyder Industries.
 - **Arduino and Raspberry Pi Add-On Modules** — about **~200** in the world. about 18 module functions x 5 board families x 2 versions = ~200. *Check:* Adafruit.
 - **Aircraft Access, Exit, Cowl, Door, Pin Latches** — about **~300** in the world. many latch styles x sizes x lock combos for many aircraft = ~300. *Check:* verify.
-- **Pump Monitoring and Control Electronics** — about **~250** in the world. meters, controllers, data loggers, modems, monitoring systems, starters, speed/soft-start controls etc.: many functions x several sizes/channels = ~250. *Check:* Xylem.
-- **Optical Prisms (all types)** — about **~300** in the world. penta, right-angle, dove, porro, roof, equilateral, anamorphic, retroreflector, beamsplitter, Brewster prisms: about 11 types x several sizes x coatings = ~300. *Check:* Edmund Optics.
 - **Gallium Oxide, Lithium Niobate, Silicon, Gallium Arsenide and similar** — about **~250** in the world. about 12 crystal materials x 5 sizes x 4 orientations = ~250. *Check:* MTI Corporation.
+- **Lawn Sweepers, Edgers, Rollers, Sod Cutters, Tillers, Dethatchers, Mowers, Wheel Hoes** — about **~150** in the world. about 11 machine types x 5 sizes x 3 power options = ~150. *Check:* DR Power.
+- **Optical Prisms (all types)** — about **~300** in the world. penta, right-angle, dove, porro, roof, equilateral, anamorphic, retroreflector, beamsplitter, Brewster prisms: 10 types x several sizes x coatings = ~300. *Check:* Edmund Optics.
 
 ### Bucket 3 — grouped (Domain › Group › Family)
 
-**Electrical & Electronic** — 215 opportunities
+**Electrical & Electronic** — 228 opportunities
 - *Development Board Add-Ons* › **Arduino and Raspberry Pi Add-On Modules** — ~200. about 18 module functions x 5 board families x 2 versions = ~200. *Check:* Adafruit.
-- *Power Distribution* › **Switchgears** — ~80. a few voltage classes x a few configs x enclosed/open = ~120. *Check:* Eaton.
 - *Power Distribution* › **Power Distribution Units** — ~300. PDUs + distribution block monitors, about 10 outlet counts x several configs = ~100. *Check:* APC.
 - *Power Distribution* › **Busbar Trunking and Substations** — ~200. busbar trunking + substations + distribution bar tools: many amp ratings x lengths x layouts = a few hundred. *Check:* Siemens.
-- *Power Distribution* › **Power Distribution Units (PDUs)** — ~100. a few outlet counts x metered/monitored x amps = ~100. *Check:* Tripp Lite.
+- *Power Distribution* › **Power Distribution Units and Boxes** — ~110. merges PDUs and welding power distribution boxes = ~110. *Check:* Tripp Lite.
+- *Power Distribution* › **Switchgears** — ~120. a few voltage classes x a few configs x enclosed/open = ~120. *Check:* Siemens.
 - *Power Distribution* › **Busways** — ~100. about 10 amp ratings x 5 lengths x 2 voltage classes = ~100. *Check:* Siemens.
 - *Power Distribution* › **Deadbreak and Loadbreak Connectors** — ~150. about 5 voltage classes x 6 styles x 5 sizes = ~150. *Check:* Eaton Cooper.
 - *Power Distribution* › **Busway Assemblies** — ~100. about 5 amp ratings x 5 lengths x 4 configs = ~100. *Check:* Siemens.
 - *Power Distribution* › **High-Voltage Power Distribution Connectors** — ~100. about 5 voltage classes x 5 amp ratings x 4 styles = ~100. *Check:* Cooper Power.
 - *Power Distribution Switching* › **Medium-Voltage Switchgear and Switchboards** — ~250. switchgear + switchboards + busways + MCC (x2) + metering systems, many voltage/amp ratings = a few hundred. *Check:* Eaton.
 - *Power Distribution Switching* › **Medium-Voltage Protection Devices** — ~150. reclosers + sectionalizers + fuse cutouts + fault limiters + grounding switches, several ratings each = ~100-200. *Check:* S&C Electric.
-- *Memory and Chips* › **Memory Chips** — 200-400. ROM, FIFO, RAM boards, content-addressable memory, EEPROM: many sizes x speeds x types = a few hundred. *Check:* Micron.
+- *Grounding* › **Grounding Compression Sleeves and Hardware** — ~150. about 10 conductor sizes x several types x finishes; covers grounding compression sleeves, grounding studs, grounding receptacles, grounding rod connectors, grounding cable mounts, grounding tabs = a couple hundred grounding parts. *Check:* Burndy.
+- *Grounding* › **Ground Anchor Rods, Extensions and Tools** — ~120. merges anchor rod extensions, adapters, install tools, grounding rod kits = ~120. *Check:* Hubbell Chance.
 - *Memory and Chips* › **Processors and Converters** — 200-400. CPUs, image processors, DSPs x2, analog-to-digital converters: many models x speeds = a few hundred. *Check:* Intel.
-- *Subsea & Pressure Feedthroughs* › **Subsea and Pressure Electrical/Optical Feedthroughs** — ~120. electrical (x4) + optical + penetrators + pressure penetrators + E/O converters, many depth/pin ratings = ~100+. *Check:* Teledyne Impulse.
+- *Memory and Chips* › **Memory Chips** — 200-400. ROM, FIFO, RAM boards, content-addressable memory, EEPROM: many sizes x speeds x types = a few hundred. *Check:* Micron.
 
 **Lab/Optics & Scientific** — 184 opportunities
-- *Prisms* › **Optical Prisms (all types)** — ~300. penta, right-angle, dove, porro, roof, equilateral, anamorphic, retroreflector, beamsplitter, Brewster prisms: about 11 types x several sizes x coatings = ~300. *Check:* Edmund Optics.
-- *Semiconductor Crystals* › **Gallium Oxide, Lithium Niobate, Silicon, Gallium Arsenide and similar** — ~250. about 12 crystal materials x 5 sizes x 4 orientations = ~250. *Check:* MTI Corporation.
-- *Fiber Optics* › **Fiber-Optic Splice Fixtures, Receptacles, Terminators, Attenuators** — ~100. about 8 connector types x several styles; covers splice fixtures, receptacles, fault inspectors, terminators, attenuators = around 100 fiber parts. *Check:* Thorlabs.
-- *Fiber Optics* › **Fiber Optic Connectors and Adapters** — 200-400. ferrules, adapters, connectors, duplex clips, panel blanks: many connector types (SC, ST, LC, FC) x materials x styles = a few hundred. *Check:* Corning.
+- *Optics* › **Wedged and Wedge Prism Optics** — ~130. merges wedged windows, wedge prisms, dispersion prisms = ~130. *Check:* Thorlabs.
+- *Optics* › **UV and IR Optical Windows** — ~100. merges UV optical windows and IR optical windows = ~100. *Check:* Thorlabs.
 - *Optics* › **Wave Plates (Achromatic and Zero-Order)** — ~120. quarter+half wave x several wavelengths x mounted/unmounted x materials = ~120. *Check:* Thorlabs.
 - *Optics* › **Prisms (IR, UV/IR)** — 100-300. several materials x sizes x shapes = ~200. *Check:* Edmund Optics.
 - *Optics* › **Polarizers (Glan-type) and laser amplitude stabilizers** — 100-300. several types x sizes x wavelengths = ~200. *Check:* Thorlabs.
-- *Optics* › **Optical Windows & Microscope Light Covers** — ~300. ~6 materials x ~10 diameters x ~5 coatings = ~300. *Check:* Edmund Optics.
+- *Optics* › **Optical Windows and Microscope Light Covers** — ~300. ~6 materials x ~10 diameters x ~5 coatings = ~300. *Check:* Edmund Optics.
 - *Optics* › **Optical Filters** — 200-500. many wavelengths x several diameters x coating types = a few hundred filters. *Check:* Edmund Optics.
 - *Optics* › **Prisms With Anti-Reflective Coatings** — ~200. several prism shapes x sizes x coating wavelengths = ~200. *Check:* Thorlabs.
-- *Optical Filters* › **Optical Filters (calibration and specialty)** — ~250. holmium oxide, neutral density, bandpass, filter glass, calibration filters: several types x wavelengths x sizes = ~250. *Check:* Edmund Optics.
-- *Optical Filters* › **Neutral Density and Depolarizer Filters** — 100-300. variable ND filters + depolarizers, many densities x sizes. *Check:* Thorlabs.
-- *Optical Filters* › **Neutral Density Filters** — ~150. about 10 densities x 5 sizes x 3 coatings = ~150. *Check:* Thorlabs.
-- *Optical Filters* › **Longpass Filters** — ~150. about 15 cut-on wavelengths x 5 sizes x 2 = ~150. *Check:* Edmund Optics.
+- *Semiconductor Crystals* › **Gallium Oxide, Lithium Niobate, Silicon, Gallium Arsenide and similar** — ~250. about 12 crystal materials x 5 sizes x 4 orientations = ~250. *Check:* MTI Corporation.
+- *Prisms* › **Optical Prisms (all types)** — ~300. penta, right-angle, dove, porro, roof, equilateral, anamorphic, retroreflector, beamsplitter, Brewster prisms: 10 types x several sizes x coatings = ~300. *Check:* Edmund Optics.
+- *Fiber Optics* › **Fiber-Optic Splice Fixtures, Receptacles, Terminators, Attenuators** — ~100. about 8 connector types x several styles; covers splice fixtures, receptacles, fault inspectors, terminators, attenuators = around 100 fiber parts. *Check:* Thorlabs.
+- *Fiber Optics* › **Fiber Optic Connectors and Adapters** — 200-400. ferrules, adapters, connectors, duplex clips, panel blanks: many connector types (SC, ST, LC, FC) x materials x styles = a few hundred. *Check:* Corning.
+- *Lab supplies* › **Lab holders and fittings (tool stands, flask holders, test tube cappers, thermometer sleeves, glass joint fittings, bell jar gaskets, glove box panels, ampoule openers)** — 100-300. many holder/fitting types x sizes = ~200. *Check:* Bel-Art.
 
-**Test/Measurement & Inspection** — 126 opportunities
+**Test/Measurement & Inspection** — 133 opportunities
 - *Gas Detection* › **Toxic Gas Detectors (many gas types)** — ~300. about 19 gas types x 4 ranges x 4 brands = ~300 covering cyanide fluoride formaldehyde ozone ammonia and more. *Check:* Honeywell.
 - *Gas Detection* › **Multi-Gas Transmitters and Detectors** — ~150. gas transmitters: about 10 target gases x several ranges x a few enclosures = ~150. *Check:* Honeywell Analytics.
 - *Vacuum Process Instruments* › **Thin-Film Deposition Sensors Monitors and Controllers** — ~120. sensors + monitors + controllers + crystals + boats-evap controllers + plasma arc + OES, several each = ~100+. *Check:* INFICON.
@@ -103,32 +103,25 @@
 - *Machine Vision Imaging* › **Machine Vision and Industrial Cameras** — ~400. about 4 camera types x many sensor sizes x several mounts = a few hundred. *Check:* Basler.
 - *Machine Vision Imaging* › **Machine Vision Lens Filters** — ~200. bandpass + polarizer + color targets, each many wavelengths/thread sizes = ~150-250. *Check:* Edmund Optics.
 
-**Cutting/Machining & Metalworking** — 125 opportunities
+**Cutting/Machining & Metalworking** — 122 opportunities
 - *Lathe Chuck Parts* › **Lathe Chuck Replacement and Maintenance Parts** — ~120. spindles, jaw drive seals, jaw adapters, plungers, draw nuts, sleeves, cover plugs, jaw blanks, jaw cleaners, fixture bases, mounting tools, maintenance kits, key adapters, hydraulic cylinders, about 18 part types x 4 chuck sizes x 2 styles = ~120. *Check:* verify.
-- *Workholding* › **Locating and Clamping Fixture Systems** — ~150. fixture base systems, quick-change systems, pin clamps, fixture clamp parts, cam screws, locking plates, hole liners: many components x sizes = ~150. *Check:* Jergens.
+- *Workholding* › **Locating and Clamping Fixture Systems** — ~150. fixture base systems, quick-change systems, pin clamps, clamp sensor holders, cam screws, locking plates: many components x sizes = ~150. *Check:* Jergens.
 - *Workholding* › **Fixture plate mounts and frames** — 100-300. many plate sizes x mount/frame types = ~200. *Check:* Thorlabs.
 - *Workholding* › **Workholding and positioning fixtures** — 100-300. many fixture types x sizes = ~200. *Check:* Kurt.
 - *Machine Blades* › **Slitter, Coater, Demolition Shear, Machine, Perforator Blades** — ~150. about 6 blade types x 5 sizes x 5 machine models = ~150. *Check:* verify.
-- *Industrial Blades* › **Band Knife and Veneer/Pulp/Sheeter Blades** — 100-300. about 8 machine types x 10 sizes x 2 materials = ~160. *Check:* verify.
 - *Recycling Blades* › **Tire, Shredder, Hog and Chipper Blades** — 100-300. about 8 machine types x 10 sizes x 2 materials = ~160. *Check:* verify.
+- *Tool Holder Adapters* › **Milling Tool Holder Offset/Reducer Adapters** — ~120. many taper-to-taper combos (KM, PSC, HSK) x sizes = ~120. *Check:* Kennametal.
+- *Tool Holder Adapters* › **Tool Holder Taper Size Adapters (HSK/ISO/PSC)** — ~150. many taper-type pairs x sizes = ~150. *Check:* Kennametal.
 
-**HVAC/Thermal & Process** — 100 opportunities
-- *Storage Tanks* › **Specialty Process Tanks** — ~300. grouped many tank types (dye, solar, fermentation, day, mixing, cook-chill, cooling, evaporative, breather, buffer, blowdown, surface-treatment, screen-dip, hot-melt, film, thermal-energy, etc.): roughly 20 uses x several sizes each = ~300. *Check:* Snyder Industries.
+**HVAC/Thermal & Process** — 93 opportunities
+- *Storage Tanks* › **Specialty Process Tanks** — ~250. grouped 16 tank types (dye, solar, fermentation, day, mixing, cook-chill, cooling, evaporative, breather, buffer, blowdown, surface-treatment, screen-dip, hot-melt, film, thermal-energy): 16 uses x several sizes each = ~250. *Check:* Snyder Industries.
 - *Air Filtration* › **Air Filter Housings, Canisters and Cassettes** — ~150. filter housings, canisters, cassettes, conversion clips, filter wraps, conversion parts: several sizes x stages x media = ~150. *Check:* Camfil.
 - *Air Filtration* › **Fan Filter and Containment Units** — ~150. fan filter units, containment housings, terminal supply units, filter testing units, droplet separators: several airflow sizes x configurations = ~150. *Check:* Camfil.
-- *Duct Accessories* › **Duct Hose Kits, Wrap and Hangers** — ~150. duct hose kits, duct wrap, duct hangers, wire-rope suspension brackets, damper actuator mounts, damper shaft extensions, damper bearings, duct heaters, heat-cable mounts: several duct sizes x parts = ~150. *Check:* Nordfab.
-- *Refractories* › **Refractory Shapes and Furnace Internals** — ~120. pouring refractories, radiant tubes, tubes, semiconductor trays, lift pins, tower internals: several types x sizes x materials = ~120. *Check:* Vesuvius.
+- *Duct Accessories* › **Duct Hose Kits, Wrap and Hangers** — ~150. duct hose kits, duct wrap, duct hangers, wire-rope suspension brackets, damper actuator mounts, damper switch mounts, damper shaft extensions, damper bearings, duct heaters, heat-cable mounts: several duct sizes x parts = ~150. *Check:* Nordfab.
 - *Air systems* › **Make-up air, combustion air, water heater vents, blower housings, AC evaporators** — 100-300. several sizes x configs = ~200. *Check:* Greenheck.
+- *Walk-In Refrigeration* › **Cooling Units, Evaporators, Compressors, Condensers, Refrigerator-Freezers** — ~150. about 5 component types x 6 capacities x 5 temperatures = ~150. *Check:* Heatcraft.
 
-**Industrial & Specialty Equipment** — 90 opportunities
-- *Aircraft Latches* › **Aircraft Access, Exit, Cowl, Door, Pin Latches** — ~300. many latch styles x sizes x lock combos for many aircraft = ~300. *Check:* verify.
-- *Commercial Kitchen Equipment* › **Food Slicers Dicers and Cutters** — ~150. deli slicers + dicers + apple slicers + peelers + nutcrackers + spice mills, several models each = ~100-200. *Check:* Hobart.
-- *Commercial Kitchen Equipment* › **Cookers Microwaves Grills and Steamers** — ~120. combination microwaves + steam cookers + grills + food wells, several sizes each = ~100+. *Check:* Hobart.
-- *Subsea Sensors & Acoustics* › **Subsea Sonar Sounders and Acoustic Devices** — ~120. echosounders + ADCP + transponders + modems + hydrophones + digitizers + releases + sound velocity + air guns, several each = ~100+. *Check:* Teledyne Marine.
-- *Gutters & Downspouts* › **Gutter Brackets Shanks and Conductor Heads** — ~200. gutter brackets + shanks + downspout brackets + hooks + adapters + conductor heads + gutter guards, many materials/sizes each = ~100-300. *Check:* Euramax.
-- *Food Service* › **Cooking Ovens & Ranges** — ~150. combination, steam, kitchen, toaster, drum ovens + ranges x sizes = ~150. *Check:* Hobart / verify.
-
-**Power Transmission & Motion** — 86 opportunities
+**Power Transmission & Motion** — 88 opportunities
 - *Bearings* › **Structural, Tilt-Pad, Jewel, Isolators, Protectors, Retainers, Needle Rollers** — ~250. about 8 bearing types x many sizes = ~250. *Check:* Kingsbury.
 - *Bearings* › **Combination and Specialty Bearings** — 100-300. ball cage, rotary stroke, flat roller cages, needle/thrust-roller, sheave roller: many bore sizes x types = a few hundred. *Check:* THK.
 - *Bearings* › **Bearing Isolators** — ~150. about 15 shaft sizes x 5 materials x 2 styles = ~150. *Check:* Inpro Seal.
@@ -137,54 +130,55 @@
 - *Seals* › **Engine and Vehicle Shaft and Face Seals** — ~150. about 30 shaft sizes x several lip materials x styles; covers engine shaft seals, hub bearing seals, metal face seals, water pump bearing seals = a few hundred seals. *Check:* SKF.
 - *Seals* › **Multi-Motion Seals Bearing Seals and Washers** — 200-500. many seal types x diameters x materials = a couple hundred. *Check:* Trelleborg.
 - *Specialty Actuators* › **Cable, Hydro-Pneumatic, Servo-Hydraulic, Voice Coil, Impact, Pyrotechnic** — ~200. about 6 actuator types x many sizes/forces = ~200. *Check:* Parker.
-- *Steering & Drivetrain* › **Rack and Pinion, Transaxles, Transmissions, Timing Gears** — ~200. about 5 product types x many vehicle models = ~200. *Check:* Dana.
+- *Vehicle Drivetrain* › **Axles and Drivelines** — ~250. CV axles, trailer/torsion axles, planetary axles, drivelines, drive plates, transmissions: many vehicle/equipment models x sizes = ~250. *Check:* Dana.
 
-**Raw Materials & Stock** — 85 opportunities
-- *Industrial Chemicals* › **Specialty Inorganic Salts and Oxides** — ~400. grouped a large set of named inorganic powders (cobalt, niobium, tantalum, copper, nickel, lead, chromium, magnesium, aluminum, zirconium, strontium salts/oxides/fluorides etc.): roughly 28 compounds x a few purities x pack sizes = ~400. *Check:* Sigma-Aldrich.
-- *Industrial Chemicals* › **Drying and Fluxing Chemical Powders** — ~120. phosphorous pentoxide and similar specialty powders: many compounds x a few purities x a few pack sizes (grouped specialty inorganic powders) = ~120. *Check:* Sigma-Aldrich.
-- *Refractory Metals* › **Rare Refractory Metals (Iridium, Niobium, etc.)** — ~120. iridium + boron + neodymium + rhenium + niobium-titanium, about 8 metals x several forms (rod/tube/powder/wire) x few sizes = ~120. *Check:* ESPI Metals.
-- *Refractory Metals* › **Refractory Metals (Ruthenium Osmium Zirconium etc)** — 100-300. ~8 missing metals x several forms x sizes = a couple hundred. *Check:* American Elements.
-- *Plastic Films & Sheets* › **Protective and Specialty Plastic Films** — ~120. condensation + jacket + grafting + tube + parts liner + pail divider, many sizes each = ~100+. *Check:* DuPont.
-- *Adhesive Liners* › **Release Liners and Lidding/Lining Films** — 100-300. about 6 film types x 6 widths x 5 coatings = ~180. *Check:* verify.
-- *Film/sheet* › **Wall-covering film, microfilms, silk screen films, medical diagnostic tapes, cutting tape** — 100-300. many widths x types = ~200. *Check:* verify.
+**Industrial & Specialty Equipment** — 87 opportunities
+- *Aircraft Latches* › **Aircraft Access, Exit, Cowl, Door, Pin Latches** — ~300. many latch styles x sizes x lock combos for many aircraft = ~300. *Check:* verify.
+- *Commercial Kitchen Equipment* › **Food Slicers Dicers and Cutters** — ~150. deli slicers + dicers + apple slicers + peelers + nutcrackers + spice mills, several models each = ~100-200. *Check:* Hobart.
+- *Commercial Kitchen Equipment* › **Cookers Microwaves Grills and Steamers** — ~120. combination microwaves + steam cookers + grills + food wells, several sizes each = ~100+. *Check:* Hobart.
+- *Subsea Sensors & Acoustics* › **Subsea Sonar Sounders and Acoustic Devices** — ~120. echosounders + ADCP + transponders + modems + hydrophones + digitizers + releases + sound velocity + air guns, several each = ~100+. *Check:* Teledyne Marine.
+- *Gutters & Downspouts* › **Gutter Brackets Shanks and Conductor Heads** — ~200. gutter brackets + shanks + downspout brackets + hooks + adapters + conductor heads + gutter guards, many materials/sizes each = ~100-300. *Check:* Euramax.
+- *Thermal cameras* › **FLIR thermal camera accessories (data cables, dev boards, video processors, accessory kits, data recorders)** — 100-300. many camera models x accessory types = ~200. *Check:* FLIR.
 
-**Plumbing/Pipe & Fluid Handling** — 82 opportunities
-- *Pump Accessories* › **Pump Mechanical Mounting and Connection Parts** — ~250. stands, slings, columns, adaptors, discharge connections, tandem connectors, low-suction collars, cable guides, corrosion protectors, service carts, suction intakes, stations, motor components, drives, rafts, retrofit kits, flush valves, leakage detectors: many parts x sizes = ~250. *Check:* Xylem.
-- *Pump Accessories* › **Pump Monitoring and Control Electronics** — ~250. meters, controllers, data loggers, modems, monitoring systems, starters, speed/soft-start controls etc.: many functions x several sizes/channels = ~250. *Check:* Xylem.
+**Plumbing/Pipe & Fluid Handling** — 79 opportunities
+- *Pump Accessories* › **Pump Mechanical Mounting and Connection Parts** — ~250. stands, slings, columns, adaptors, discharge connections, tandem connectors, low-suction collars, cable guides, corrosion protectors, service carts, suction intakes, stations, motor components, retrofit kits, rafts, flush valves, leakage detectors, probe barriers: many parts x sizes = ~250. *Check:* Xylem.
+- *Pump Accessories* › **Pump Monitoring and Control Electronics** — ~250. meters, controllers, data loggers, modems, monitoring systems, starters, speed/soft-start controls: 8 functions x several sizes/channels = ~250. *Check:* Xylem.
 - *Quick-Connect Couplings* › **Specialty Hydraulic and Multi-Connect Couplings** — ~150. auto dock + multi-connector + paper mill + press/welder + NFC + hydraulic torque + auto-eject + supplied-air, several each = ~100-200. *Check:* CEJN.
 - *Pipe* › **Pipe seals, fitting gaskets, separation seals, packing elements** — 100-300. many sizes x materials x styles = ~200. *Check:* Garlock.
 - *Pipe* › **Pipe-end shipping protectors and conduit spacers** — 100-300. many pipe sizes x thread types plus conduit spacers = ~200. *Check:* verify.
 - *Valves* › **Specialty valves (lock-up, flow dividing, level/pressure control, floor control, hydraulic elevator)** — 100-300. several valve types x sizes x options = ~200. *Check:* verify.
 - *Industrial Pumps* › **High-Pressure and Hydraulic Industrial Pumps** — ~200. axial piston (x2) + propeller + screw + gradient/dosing, many sizes each = ~100-300. *Check:* Parker Hannifin.
 
-**Material Handling & Storage** — 63 opportunities
-- *Packaging* › **Packaging Machines (flow wrap, overwrap, skin, blister, form-fill)** — ~120. horizontal flow wrappers, overwrappers, skin/blister/suspension packers, foam fill systems x sizes = ~120. *Check:* verify.
+**Raw Materials & Stock** — 74 opportunities
+- *Industrial Chemicals* › **Specialty Inorganic Salts, Oxides and Reactive Powders** — ~400. grouped many named powders (phosphorus pentoxide, cobalt, niobium, tantalum, copper, nickel, lead, chromium, magnesium, aluminum, zirconium, strontium salts/oxides/fluorides, photoinitiator etc.): about 22 compounds x a few purities x pack sizes = ~400. *Check:* Sigma-Aldrich.
+- *Refractory Metals* › **Rare Refractory Metals (Iridium, Niobium, etc.)** — ~120. iridium + boron + neodymium + rhenium + niobium-titanium, about 8 metals x several forms (rod/tube/powder/wire) x few sizes = ~120. *Check:* ESPI Metals.
+- *Refractory Metals* › **Refractory Metals (Ruthenium Osmium Zirconium etc)** — 100-300. ~8 missing metals x several forms x sizes = a couple hundred. *Check:* American Elements.
+- *Plastic Films & Sheets* › **Protective and Specialty Plastic Films** — ~120. condensation + jacket + grafting + tube + parts liner + pail divider, many sizes each = ~100+. *Check:* DuPont.
+- *Adhesive Liners* › **Release Liners and Lidding/Lining Films** — 100-300. about 6 film types x 6 widths x 5 coatings = ~180. *Check:* verify.
+- *Film/sheet* › **Wall-covering film, microfilms, silk screen films, medical diagnostic tapes, cutting tape** — 100-300. many widths x types = ~200. *Check:* verify.
+
+**Safety/PPE & Facility** — 63 opportunities
+- *Lawn Equipment* › **Lawn Sweepers, Edgers, Rollers, Sod Cutters, Tillers, Dethatchers, Mowers, Wheel Hoes** — ~150. about 11 machine types x 5 sizes x 3 power options = ~150. *Check:* DR Power.
+- *Railing & Framing Safety* › **Slip-On Framing Posts Gates and Panels** — ~250. posts + gates + gate kits + hinges + latches + infill panels + toeboard brackets + adj brackets + reveals, many sizes each = a few hundred. *Check:* Kee Safety.
+- *Fire Alarm* › **Fire Alarm Control Panels and Modules** — 100-300. about 10 panel sizes x several module types x many brands; covers alarm assemblies, notification modules, heat detector bases, smoke aspirator testers = a few hundred SKUs. *Check:* Honeywell.
+- *Fire Alarm* › **Fire Alarm Modules (Comm, Isolator, Gateway)** — ~100. merges communication, fault isolator, gateway modules; several panels = ~100. *Check:* Potter.
+- *Fire Alarm* › **Fire Alarm Stations Panels and Annunciators** — 100-300. pull stations w/ cover + control panels + annunciators, models x configs. *Check:* Honeywell.
+- *Facility security* › **Trailer locks, security bars, doorbell cameras, parking meters, kiosks** — 100-300. several sizes x styles = ~200. *Check:* Abloy.
+- *Personal items* › **Pen grips, calculator holders, hair combs, mobile device accessories, stationery pouches** — 100-300. many colors x styles across detectable plastic items = ~200. *Check:* verify.
+
+**Material Handling & Storage** — 61 opportunities
+- *Packaging* › **Packaging Machines (flow wrap, overwrap, skin, blister, suspension, foam fill)** — ~120. many machine types x sizes for film and protective packaging = ~120. *Check:* Sealed Air verify.
 - *Packaging* › **Case sealers, hand-wrapping stations, label winders, label printer/scanners** — 100-300. several sizes x configs = ~200. *Check:* 3M.
 - *Packaging* › **Elastic staples, corner protectors, bag sewing machines, open-top bag dispensers** — 100-300. many sizes x styles = ~200. *Check:* verify.
-- *Packaging* › **Shrink Bands & Bottle Cap Seals** — 200-400. many diameters x clear-or-printed x band-or-liner = a few hundred. *Check:* Uline.
+- *Packaging* › **Shrink Bands and Bottle Cap Seals** — 200-400. many diameters x clear-or-printed x band-or-liner = a few hundred. *Check:* Uline.
 - *Packaging* › **Cardboard Box Dividers** — ~150. about 15 box sizes x 10 cell counts = ~150. *Check:* Uline.
-- *Conveyors* › **Powered Conveyor Modules (turntables, shuttle, transfer, pallet)** — ~120. turntables, shuttle, transfer car, dispensers, stackers x sizes = ~120. *Check:* Hytrol verify.
+- *Conveyors* › **Powered Conveyor Modules (turntables, shuttle, transfer, pallet stack/dispense)** — ~120. turntables, shuttle, transfer car, dispensers, stackers x sizes = ~120. *Check:* Hytrol verify.
 - *Conveyors* › **Conveyor parts (belt guides, washers, material clamps, air-glide conveyors)** — 100-300. several sizes x types = ~200. *Check:* Dorner.
 - *Vehicle Racks* › **Vehicle Roof, Bed, Hitch and Cargo Racks** — ~120. many vehicle types x mount styles x sizes = ~120. *Check:* Thule.
 - *Carts/trucks* › **Specialty carts (filter bag housing, demolition hammer, charging, shaft, roll trucks)** — 100-300. several sizes x configs = ~200. *Check:* verify.
 - *Pallet Stacking & Containment* › **Pallet Stacking Frames, Collars, Sumps and Roll Cradles** — ~120. several styles x few sizes x materials = ~120. *Check:* Vestil.
 
-**Safety/PPE & Facility** — 61 opportunities
-- *Lawn Equipment* › **Lawn Sweepers, Edgers, Rollers, Sod Cutters, Tillers, Dethatchers, Mowers, Wheel Hoes** — ~150. about 11 machine types x 5 sizes x 3 power options = ~150. *Check:* DR Power.
-- *Railing & Framing Safety* › **Slip-On Framing Posts Gates and Panels** — ~250. posts + gates + gate kits + hinges + latches + infill panels + toeboard brackets + adj brackets + reveals, many sizes each = a few hundred. *Check:* Kee Safety.
-- *Fire Alarm* › **Fire Alarm Control Panels and Modules** — 100-300. about 10 panel sizes x several module types x many brands; covers alarm assemblies, notification modules, heat detector bases, smoke aspirator testers = a few hundred SKUs. *Check:* Honeywell.
-- *Fire Alarm* › **Fire Alarm Stations Panels and Annunciators** — 100-300. pull stations w/ cover + control panels + annunciators, models x configs. *Check:* Honeywell.
-- *Facility security* › **Trailer locks, security bars, doorbell cameras, parking meters, kiosks** — 100-300. several sizes x styles = ~200. *Check:* Abloy.
-- *Personal items* › **Pen grips, calculator holders, hair combs, mobile device accessories, stationery pouches** — 100-300. many colors x styles across detectable plastic items = ~200. *Check:* verify.
-
-**Cleaning/Chemicals & Lubrication** — 44 opportunities
-- *Lab Chemicals* › **Etching and Lab Reagent Chemicals** — ~120. potassium fluoride + ammonium hydroxide + potassium ferricyanide + butyl acetate + dietary supplement chemicals + silica chemicals + metal-detecting chemicals + metal dyes, about 15 chemicals x several grades/forms = ~120. *Check:* Sigma-Aldrich.
-- *Carpet Care* › **Carpet and Upholstery Cleaning Chemicals** — ~120. additives, rinse agents, pre-sprays, upholstery pre-sprays, floor restorers, neutralizers, floor restorers: several products x concentrate/powder x sizes = ~120. *Check:* Prochem.
-- *Oil Dispensing Systems* › **Oil Dispenser Kits, Pumps and Trolleys** — ~150. several mounts x with/without reel x meter x capacities = ~150 (lines 86, 95, 109, 135, 206, 242 oil supply units). *Check:* Graco.
-- *Vehicle Repair Kits* › **Plastic, Fiberglass, Rust, Scratch, Leather Repair Kits** — ~100. about 6 kit types x several sizes = ~100. *Check:* 3M Bondo.
-- *Chemicals* › **Sodium hydroxide, filter chemicals, bleach neutralizers** — 100-300. several formulations x grades x sizes = ~200. *Check:* Sigma-Aldrich.
-
-**Automation/Robotics & Controls** — 44 opportunities
+**Automation/Robotics & Controls** — 47 opportunities
 - *SCADA & Field Controllers* › **Building and Energy Management Controllers** — ~120. building automation + energy mgmt + power consumption (x2) + traffic signal, several models each = ~100+. *Check:* Honeywell.
 - *SCADA & Field Controllers* › **Remote Terminal Units and Data Acquisition Modules** — ~100. RTU (x2) + DAQ modules + sensor uploaders, several channel counts each = ~100. *Check:* Schneider Electric.
 - *Vehicle Electronics* › **Vehicle Controllers, Cameras, Sensors, I/O Modules, Joysticks** — ~120. about 6 device types x 5 protocols x 4 configurations = ~120. *Check:* Parker.
@@ -192,26 +186,34 @@
 - *Robot Arm Add-Ons* › **Robot Arm Safety and Sensing Add-Ons** — ~120. crash stoppers + force/touch grids + 6-axis sensors + leak scanners, each in several sizes = ~100-150. *Check:* ATI Industrial Automation.
 - *Sensors - Environmental* › **Gas CO2 and Dewpoint Sensors** — ~120. gas sensors + CO2 sensors + dewpoint + wind sensors, many gas/range types each = ~100+. *Check:* Sensirion.
 
-**Fasteners & Hardware** — 43 opportunities
+**Cleaning/Chemicals & Lubrication** — 42 opportunities
+- *Lab Chemicals* › **Etching and Lab Reagent Chemicals** — ~120. potassium fluoride + ammonium hydroxide + potassium ferricyanide + butyl acetate + dietary supplement chemicals + silica chemicals + metal-detecting chemicals + metal dyes, about 15 chemicals x several grades/forms = ~120. *Check:* Sigma-Aldrich.
+- *Oil Dispensing Systems* › **Oil Dispenser Kits, Pumps and Trolleys** — ~150. several mounts x with/without reel x meter x capacities = ~150 (lines 86, 95, 109, 135, 206, 242 oil supply units). *Check:* Graco.
+- *Vehicle Repair Kits* › **Plastic, Fiberglass, Rust, Scratch, Leather Repair Kits** — ~100. about 6 kit types x several sizes = ~100. *Check:* 3M Bondo.
+- *Carpet Care* › **Carpet and Upholstery Cleaning Chemicals** — ~120. additives, rinse agents, pre-sprays, upholstery pre-sprays, floor restorers, neutralizers: several products x concentrate/powder x sizes = ~120. *Check:* Prochem.
+- *Chemicals* › **Sodium hydroxide, filter chemicals, bleach neutralizers** — 100-300. several formulations x grades x sizes = ~200. *Check:* Sigma-Aldrich.
+
+**Fasteners & Hardware** — 42 opportunities
 - *Specialty Bolts* › **Askew Head, King, Turbine Rotor, Parking Curb, Smart, Load Monitoring Bolts** — ~150. about 8 bolt types x many sizes/grades = ~150. *Check:* Fastenal.
-- *Specialty Bolts* › **Liner Bolts and Banjo Bolts** — 100-300. oval-head liner bolts + banjo bolts, many sizes x materials = a couple hundred. *Check:* Fastenal.
+- *Specialty Bolts* › **Liner Bolts and Banjo Bolts** — 100-300. oval-head liner bolts + banjo bolts, many sizes x materials. *Check:* Fastenal.
 - *Blind & Aerospace Fasteners* › **Blind Bolts Locking-Collar Pins and Tools** — ~250. blind bolts + locking pins + 4 install tools, many diameters/lengths x materials = a few hundred. *Check:* Cherry Aerospace.
 - *Decorative & Furniture Fasteners* › **Button and Snap Fasteners and Eyelet Tools** — ~120. ball-head + fabric buttons + snap kits + eyelet tools + folding tools + positioning kits, several each = ~100+. *Check:* YKK.
 - *Anchors* › **Powder-actuated pins, screw jack points, suspension alignment bolts** — 100-300. many sizes x lengths x materials = ~200. *Check:* Hilti.
 - *Captive & Press-Fit Fasteners* › **Press-Fit Nut Plates and Connector Nut Plates** — ~200. nut plates + electrical connector plates + captive screw tools, many sizes each = ~100-300. *Check:* PennEngineering.
 
-**Hand & Power Tools** — 31 opportunities
+**Hand & Power Tools** — 32 opportunities
+- *Automotive Tools* › **Automotive Specialty Wrenches** — ~120. coolant cap + cam belt + fuel sensor + locknut release + ground anchor wrenches, about 8 types x several vehicle fits = ~120. *Check:* OEMTOOLS.
+- *Automotive Tools* › **Tire Changer and Balancer Parts** — ~120. merges tire changer replacement parts and tire balancer accessories = ~120. *Check:* verify.
 - *Tools* › **Slide hammer weights, grease gun drill adapters, cog wrench, DEF wrench** — 100-300. several sizes x types = ~200. *Check:* verify.
 - *Tools* › **Brake install/removal tools, harmonic balancers, coiled spring adjusters** — 100-300. many sizes x vehicle types = ~200. *Check:* verify.
-- *Automotive Tools* › **Automotive Specialty Wrenches** — ~120. coolant cap + cam belt + fuel sensor + locknut release + ground anchor wrenches, about 8 types x several vehicle fits = ~120. *Check:* OEMTOOLS.
 - *Kitchen Tools* › **Pastry Blenders, Graters, Garlic Presses, Corers** — ~120. about 6 tool types x 5 sizes x 4 materials = ~120. *Check:* OXO.
-- *Bolt Tensioning Tools* › **Bolt Tensioners (stretch a bolt with hydraulics instead of torquing)** — ~200. about 20 bolt sizes x 5 load ranges x subsea-or-not = ~200 (lines 53, 459, 28 split nuts counted elsewhere). *Check:* Enerpac.
 - *Crimping* › **Crimper die holders, wire sleeving tools and cutters** — 100-300. many die sizes plus sleeving tools/cutters = ~200. *Check:* verify.
+- *Pneumatic tools* › **Tank sprayer guns, pressure washer spray tips, conduit vacuum puller kits** — 100-300. many tip/spray sizes x types = ~200. *Check:* Graco.
 
 **Welding/Soldering & Joining** — 24 opportunities
 - *Soldering* › **Soldering iron tips, kits, adaptors, carrying straps, wire clamps** — 100-300. many tip shapes x sizes plus accessories = ~200. *Check:* Hakko.
 - *Soldering* › **Solder Preforms and Soldering Kits** — ~150. solder preforms (many alloys x shapes) + solder kits + static-control kits = around 150. *Check:* Indium Corporation.
-- *Crimping Tool Parts* › **Crimping Die Adapters Jaws and Dies** — ~150. many die series x jaw styles x wire-size ranges = ~150. *Check:* Burndy.
+- *Crimping Tools* › **Crimping Die Adapters Jaws and Dies** — ~150. many die series x jaw styles x wire-size ranges = ~150. *Check:* Burndy.
 - *Exothermic* › **Exothermic Welding Ignition Molds Powder and Rods** — 100-300. several connector shapes x many mold sizes x powder loads = a couple hundred. *Check:* nVent ERICO.
 - *MIG/TIG* › **MIG welding replacement parts, TIG torch gas cups, TIG torch gas valves** — 100-300. many nozzle/liner/cup sizes x torch models = ~200. *Check:* Tweco.
 - *Exothermic Welding* › **Exothermic Welding Molds and Enclosures** — 100-300. molds + housings, many connection types x conductor sizes = a couple hundred. *Check:* Erico Cadweld.
@@ -227,10 +229,10 @@
 
 ## Bucket 4 — Deep Families / Systems (about 500–5,000)
 
-**65 opportunities (1%); 13 families.** Full list with the math + a company to check:
+**62 opportunities (0%); 13 families.** Full list with the math + a company to check:
 
-**Test/Measurement & Inspection** — 25 opportunities
-- *Calibration Gases* › **Calibration & Bump-Test Gas Cylinders** — 500-1,000. about 80 different gases x ~4 concentrations x ~3 cylinder sizes = several hundred, plus zero-air and blends. *Check:* Gasco / Calgaz.
+**Test/Measurement & Inspection** — 22 opportunities
+- *Gas Detection* › **Calibration and Bump-Test Gas Cylinders** — 500-1,000. about 20 different gases x ~4 concentrations x ~3 cylinder sizes plus zero-air and reactive blends = several hundred. *Check:* Gasco / Calgaz.
 
 **Raw Materials & Stock** — 13 opportunities
 - *Rare Earth Metals* › **Rare Earth Metals** — 500-2,000. scandium, praseodymium, samarium, thulium, terbium, ytterbium, yttrium, rubidium, rhenium, palladium, rhodium, ruthenium, potassium: about 13 metals x several forms (foil, rod, wire, powder, sheet) x compounds = many hundreds. *Check:* American Elements.
@@ -262,10 +264,10 @@
 
 ## Bucket 5 — Massive Commodities (more than 5,000)
 
-**7 opportunities (0%); 4 families.** Full list:
+**6 opportunities (0%); 4 families.** Full list:
 
-**Lab/Optics & Scientific** — 4 opportunities
-- *Lab Consumables* › **Cell Culture Media & Reagents** — 5,000+. thousands of media formulas + antibiotics + medical reagents + agarose across catalogs = thousands. *Check:* Sigma-Aldrich / Thermo.
+**Lab/Optics & Scientific** — 3 opportunities
+- *Lab Consumables* › **Cell Culture Media and Reagents** — 5,000+. thousands of media formulas + antibiotics + medical reagents across catalogs = thousands. *Check:* Sigma-Aldrich / Thermo.
 
 **Power Transmission & Motion** — 1 opportunities
 - *Engine Parts* › **Combustion Engine Valves** — 5,000+. thousands of engine models x several valve types each = 5,000+. *Check:* Mahle.
@@ -279,23 +281,23 @@
 ## Where the depth is — Domain × bucket
 | Domain | Opps | B1 | B2 | B3 | B4 | B5 |
 |---|--:|--:|--:|--:|--:|--:|
-| Electrical & Electronic | 1634 | 511 | 904 | 215 | 3 | 1 |
-| Test/Measurement & Inspection | 1577 | 262 | 1168 | 122 | 25 | 0 |
-| Material Handling & Storage | 1101 | 309 | 727 | 63 | 2 | 0 |
-| Industrial & Specialty Equipment | 909 | 162 | 652 | 91 | 3 | 1 |
-| Lab/Optics & Scientific | 888 | 133 | 560 | 185 | 6 | 4 |
-| Safety/PPE & Facility | 863 | 199 | 603 | 61 | 0 | 0 |
-| Cutting/Machining & Metalworking | 777 | 184 | 466 | 127 | 0 | 0 |
-| Plumbing/Pipe & Fluid Handling | 738 | 182 | 473 | 83 | 0 | 0 |
-| HVAC/Thermal & Process | 678 | 113 | 464 | 100 | 1 | 0 |
-| Hand & Power Tools | 600 | 232 | 337 | 31 | 0 | 0 |
-| Cleaning/Chemicals & Lubrication | 579 | 145 | 390 | 44 | 0 | 0 |
-| Automation/Robotics & Controls | 550 | 85 | 410 | 44 | 11 | 0 |
-| Power Transmission & Motion | 543 | 184 | 274 | 84 | 0 | 1 |
-| Raw Materials & Stock | 340 | 4 | 238 | 85 | 13 | 0 |
-| Welding/Soldering & Joining | 316 | 77 | 215 | 24 | 0 | 0 |
-| Fasteners & Hardware | 290 | 85 | 162 | 43 | 0 | 0 |
-| Abrasives & Surface Finishing | 134 | 34 | 93 | 7 | 0 | 0 |
-| Automotive | 22 | 2 | 17 | 2 | 1 | 0 |
+| Electrical & Electronic | 1611 | 492 | 886 | 229 | 3 | 1 |
+| Test/Measurement & Inspection | 1580 | 262 | 1167 | 129 | 22 | 0 |
+| Material Handling & Storage | 1086 | 306 | 717 | 61 | 2 | 0 |
+| Industrial & Specialty Equipment | 908 | 159 | 657 | 88 | 3 | 1 |
+| Lab/Optics & Scientific | 880 | 124 | 562 | 185 | 6 | 3 |
+| Safety/PPE & Facility | 872 | 198 | 611 | 63 | 0 | 0 |
+| Cutting/Machining & Metalworking | 762 | 178 | 460 | 124 | 0 | 0 |
+| Plumbing/Pipe & Fluid Handling | 723 | 168 | 475 | 80 | 0 | 0 |
+| HVAC/Thermal & Process | 663 | 113 | 456 | 93 | 1 | 0 |
+| Hand & Power Tools | 591 | 221 | 338 | 32 | 0 | 0 |
+| Cleaning/Chemicals & Lubrication | 571 | 140 | 389 | 42 | 0 | 0 |
+| Power Transmission & Motion | 545 | 185 | 273 | 86 | 0 | 1 |
+| Automation/Robotics & Controls | 544 | 83 | 403 | 47 | 11 | 0 |
+| Raw Materials & Stock | 317 | 4 | 226 | 74 | 13 | 0 |
+| Welding/Soldering & Joining | 308 | 74 | 210 | 24 | 0 | 0 |
+| Fasteners & Hardware | 286 | 84 | 160 | 42 | 0 | 0 |
+| Abrasives & Surface Finishing | 129 | 33 | 89 | 7 | 0 | 0 |
+| Automotive | 21 | 1 | 17 | 2 | 1 | 0 |
 
 *Full per-family detail (number, math, company to check) is in the Excel workbook.*
