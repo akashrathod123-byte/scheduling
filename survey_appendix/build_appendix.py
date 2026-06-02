@@ -55,7 +55,7 @@ FEATURES = [
     "Other",
 ]
 
-MAX_IDS = 5   # cap CMF/MMF numbers shown per card (after dedup)
+MAX_IDS = 3   # how many CMF/MMF ids to show per card (after dedup)
 
 
 # ----------------------------------------------------------------------------
@@ -107,9 +107,7 @@ def ids_field(v):
             seen.append(p)
     if not seen:
         return ""
-    if len(seen) > MAX_IDS:
-        return ", ".join(seen[:MAX_IDS]) + f" (+{len(seen) - MAX_IDS} more)"
-    return ", ".join(seen)
+    return ", ".join(seen[:MAX_IDS])
 
 
 def marketed_label(v):
