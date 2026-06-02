@@ -141,8 +141,17 @@ BBULLET = ParagraphStyle("bbullet", fontName="Helvetica", fontSize=8.6,
                          bulletIndent=0)
 
 
+DASH = "—"
+
+
 def kv(label, value):
     return f'<b>{label}:</b> {value}' if value else ""
+
+
+def kvf(label, value):
+    """Fixed-template field: always render the label, falling back to an
+    em-dash when the value is missing, so every card shares one skeleton."""
+    return f'<b>{label}:</b> {value if value else DASH}'
 
 
 def build_card(row, n, content_w):
@@ -165,28 +174,34 @@ def build_card(row, n, content_w):
         ("BOTTOMPADDING", (0, 0), (-1, -1), 6),
     ]))
 
-    # ---- identity band: company + account ids (omitted if we have none) ----
-    left_lines = [ln for ln in [kv("Company", esc(company))] if ln]
-    right_lines = [ln for ln in [
-        kv("CMF", esc(ids_field(row.get("cmf")))),
-        kv("MMF", esc(ids_field(row.get("mmf")))),
-    ] if ln]
-    band = None
-    if left_lines or right_lines:
-        band = Table([[Paragraph("<br/>".join(left_lines) or "&nbsp;", INFO),
-                       Paragraph("<br/>".join(right_lines) or "&nbsp;", INFO)]],
-                     colWidths=[content_w * 0.56, content_w * 0.44])
-        band.setStyle(TableStyle([
-            ("BACKGROUND", (0, 0), (-1, -1), BAND),
-            ("VALIGN", (0, 0), (-1, -1), "TOP"),
-            ("LEFTPADDING", (0, 0), (0, 0), 9),
-            ("LEFTPADDING", (1, 0), (1, 0), 6),
-            ("RIGHTPADDING", (-1, 0), (-1, 0), 9),
-            ("TOPPADDING", (0, 0), (-1, -1), 6),
-            ("BOTTOMPADDING", (0, 0), (-1, -1), 6),
-        ]))
+    # ---- identity band: the same fixed fields on every card ----
+    role = g("role")
+    if role.lower().startswith("other"):
+        rt = g("role_text")
+        role = f"Other: {rt}" if rt else "Other"
+    left_lines = [
+        kvf("Company", esc(company)),
+        kvf("Role", esc(role)),
+        kvf("Email", esc(row.get("email"))),
+    ]
+    right_lines = [
+        kvf("CMF", esc(ids_field(row.get("cmf")))),
+        kvf("MMF", esc(ids_field(row.get("mmf")))),
+    ]
+    band = Table([[Paragraph("<br/>".join(left_lines), INFO),
+                   Paragraph("<br/>".join(right_lines), INFO)]],
+                 colWidths=[content_w * 0.56, content_w * 0.44])
+    band.setStyle(TableStyle([
+        ("BACKGROUND", (0, 0), (-1, -1), BAND),
+        ("VALIGN", (0, 0), (-1, -1), "TOP"),
+        ("LEFTPADDING", (0, 0), (0, 0), 9),
+        ("LEFTPADDING", (1, 0), (1, 0), 6),
+        ("RIGHTPADDING", (-1, 0), (-1, 0), 9),
+        ("TOPPADDING", (0, 0), (-1, -1), 6),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 6),
+    ]))
 
-    # ---- body: buying process (+ handoff), approval, frustration, features ----
+    # ---- body: the same fixed fields & sections on every card ----
     q1 = g("q1")
     if "depends" in q1.lower():
         t = g("q1_text")
@@ -195,20 +210,17 @@ def build_card(row, n, content_w):
     if "sometimes" in q2.lower():
         t = g("q2_text")
         q2 = "Sometimes" + (f" — {t}" if t else "")
+    handoff = "; ".join(split_multi(row.get("q3"), row.get("q3_text")))
 
-    body = []
-    if q1:
-        body.append(Paragraph(f"<b>Buying process:</b> {esc(q1)}", BTEXT))
-    handoff = split_multi(row.get("q3"), row.get("q3_text"))
-    if handoff:
-        body.append(Paragraph(f"<b>Handed off via:</b> {esc('; '.join(handoff))}", BTEXT))
-    if q2:
-        body.append(Paragraph(f"<b>Approval needed:</b> {esc(q2)}", BTEXT))
-
-    q8 = esc(row.get("q8"))
-    if q8:
-        body.append(Paragraph("Most frustrating part of their order process:", BLABEL))
-        body.append(Paragraph(q8, BTEXT))
+    body = [
+        Paragraph(kvf("Buying process", esc(q1)), BTEXT),
+        Paragraph(kvf("Handed off via", esc(handoff)), BTEXT),
+        Paragraph(kvf("Approval needed", esc(q2)), BTEXT),
+        Paragraph(kvf("Re-enters details", esc(g("q5"))), BTEXT),
+        Paragraph("Most frustrating part of their order process:", BLABEL),
+        Paragraph(esc(row.get("q8")) or DASH, BTEXT),
+        Paragraph("Features they would use on mcmaster.com:", BLABEL),
+    ]
 
     wanted = []
     for i, feat in enumerate(FEATURES):
@@ -225,38 +237,30 @@ def build_card(row, n, content_w):
             label = f'Other: "{ot}"' if ot else "Other"
         wanted.append(f"{label} <font color='#6b7280'>({tag})</font>")
     if wanted:
-        body.append(Paragraph("Features they would use on mcmaster.com:", BLABEL))
         for w in wanted:
             body.append(Paragraph(w, BBULLET, bulletText="•"))
-
-    if not body:
-        body.append(Paragraph("<i>No further detail provided.</i>", BTEXT))
+    else:
+        body.append(Paragraph(DASH, BTEXT))
 
     body_tbl = Table([[body]], colWidths=[content_w])
     body_tbl.setStyle(TableStyle([
         ("BACKGROUND", (0, 0), (-1, -1), colors.white),
         ("LEFTPADDING", (0, 0), (-1, -1), 9),
         ("RIGHTPADDING", (0, 0), (-1, -1), 9),
-        ("TOPPADDING", (0, 0), (-1, -1), 5),
+        ("TOPPADDING", (0, 0), (-1, -1), 6),
         ("BOTTOMPADDING", (0, 0), (-1, -1), 8),
     ]))
 
-    # ---- wrap header (+ band) + body in one bordered card ----
-    card_rows = [[header]]
-    if band is not None:
-        card_rows.append([band])
-    card_rows.append([body_tbl])
-    style = [
+    # ---- assemble: header + band + body, one bordered card ----
+    card = Table([[header], [band], [body_tbl]], colWidths=[content_w])
+    card.setStyle(TableStyle([
         ("LEFTPADDING", (0, 0), (-1, -1), 0),
         ("RIGHTPADDING", (0, 0), (-1, -1), 0),
         ("TOPPADDING", (0, 0), (-1, -1), 0),
         ("BOTTOMPADDING", (0, 0), (-1, -1), 0),
         ("BOX", (0, 0), (-1, -1), 0.6, BORDER),
-    ]
-    if band is not None:
-        style.append(("LINEBELOW", (0, 1), (-1, 1), 0.5, BORDER))
-    card = Table(card_rows, colWidths=[content_w])
-    card.setStyle(TableStyle(style))
+        ("LINEBELOW", (0, 1), (-1, 1), 0.5, BORDER),
+    ]))
     return card
 
 
