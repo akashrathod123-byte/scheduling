@@ -110,11 +110,13 @@ def ids_field(v):
     return ", ".join(seen[:MAX_IDS])
 
 
-def marketed_label(v):
+def marketed_label(v, anonymous=False):
     s = clean(v).lower()
     if s == "yes":
         return "Marketed", NAVY
-    if s == "no":
+    # A "No" only means "not on a marketing list we could match." For an
+    # anonymous respondent that isn't reliable, so call it Unknown.
+    if s == "no" and not anonymous:
         return "Not Marketed", STEEL
     return "Unknown", STEEL
 
@@ -156,7 +158,7 @@ def build_card(row, n, content_w):
     g = lambda key: clean(row.get(key))
     name = g("name")
     company = g("company")
-    mlabel, mcolor = marketed_label(row.get("marketed"))
+    mlabel, mcolor = marketed_label(row.get("marketed"), anonymous=not name)
 
     # ---- header bar: customer name + marketed tag + number ----
     header_left = Paragraph(esc(name or "Anonymous"), HEAD)
