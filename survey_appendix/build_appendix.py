@@ -182,7 +182,6 @@ def build_card(row, n, content_w):
     left_lines = [
         kvf("Company", esc(company)),
         kvf("Role", esc(role)),
-        kvf("Email", esc(row.get("email"))),
     ]
     right_lines = [
         kvf("CMF", esc(ids_field(row.get("cmf")))),
