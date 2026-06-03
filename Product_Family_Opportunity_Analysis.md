@@ -2,15 +2,15 @@
 
 *How this was made: 25 Claude readers read every one of the ~12,265 opportunity descriptions, grouped them into real product families, and for each family estimated **how many different items exist in the whole world**, showed the simple math, and named a real company you can look at to sanity-check. Everything is written in plain language.*
 
-**12,254 opportunities read · 8,547 families.**
+**12,265 opportunities read · 8,554 families.**
 
 ## The 5 size buckets
 | Bucket | Means | Opportunities | Share |
 |---|---|--:|--:|
-| **1** | Accessories / replacement parts | 2,815 | 23% |
-| **2** | Genuinely new, small (under ~100) | 8,004 | 65% |
+| **1** | Accessories / replacement parts | 2,821 | 23% |
+| **2** | Genuinely new, small (under ~100) | 8,015 | 65% |
 | **3** | Niche, real size+material depth (about 100-500) | 1,367 | 11% |
-| **4** | Deep family / system (about 500-5,000) | 62 | 1% |
+| **4** | Deep family / system (about 500-5,000) | 56 | 0% |
 | **5** | Massive / universal commodity (more than 5,000) | 6 | 0% |
 
 > Every family below shows a **number**, the **simple math** behind it, and a **company to check**. References come from the model's knowledge (no live web here), so treat them as leads to verify, not proof.
@@ -18,7 +18,7 @@
 
 ## Bucket 1 — Accessories & Replacement Parts
 
-**2,815 opportunities (23%).** Add-ons or spares for something else. 10 examples:
+**2,821 opportunities (23%).** Add-ons or spares for something else. 10 examples:
 - **Meter Replacement Probes and Sensors** — about **~120** in the world. temp, CO2, airflow, light, thickness probes + gas sensors, mics, windscreens, shims, sound adapters across meter models = ~120. *Check:* Reed verify.
 - **Filter Bag Housing Accessories** — about **~80** in the world. accessory rings, inserts, adapters, guards, balloons, legs, magnets, tools for filter bags (eight lines merged). *Check:* Eaton.
 - **Locker Filler Panels, Splices, Corner Angles, Risers, Drawers, Shelves** — about **~120** in the world. trim/replacement parts for lockers; many small pieces x sizes x colors. *Check:* List Industries.
@@ -32,7 +32,7 @@
 
 ## Bucket 2 — Genuinely New but Small (under ~100 in the world)
 
-**8,004 opportunities (65%).** 10 examples:
+**8,015 opportunities (65%).** 10 examples:
 - **Drywall Hand Tools and Accessories** — about **~80** in the world. tool holders, brushes, clips, tape dispensers, knives, repair clips, finishing brushes, felt brushes, scarifiers, skimming blades, panel trimmers, corner bead tools, taper holders, about 13 tool types x 3 sizes x 2 styles = ~80. *Check:* Marshalltown.
 - **Signal and Equipment Simulators** — about **~90** in the world. thermocouple, RTD, GPS, radar, battery, telephone, ESD, machinery fault, threat emitter, equipment, flight simulators, about 11 simulator types x 4 ranges x 2 styles = ~88. *Check:* Fluke.
 - **Sodium Compounds** — about **~90** in the world. sodium dihydrogen phosphate, metaphosphate, fluorophosphate, aluminum fluoride, nitroprusside, bromide, tellurate, tungstate, metavanadate: about 9 compounds x forms = under 100. *Check:* American Elements.
@@ -252,7 +252,7 @@
 
 ## Bucket 4 — Deep Families / Systems (about 500–5,000)
 
-**62 opportunities (1%); 13 families.** Full list with the math + a company to check:
+**56 opportunities (0%); 8 families.** Full list with the math + a company to check:
 
 **Test/Measurement & Inspection** — 22 opportunities
 - *Gas Detection* › **Calibration and Bump-Test Gas Cylinders** — 500-1,000. about 20 different gases x ~4 concentrations x ~3 cylinder sizes plus zero-air and reactive blends = several hundred. *Check:* Gasco / Calgaz.
@@ -266,21 +266,12 @@
 **Lab/Optics & Scientific** — 6 opportunities
 - *Lab Chemicals* › **Lab Reagent Chemicals (thiocyanate, sulfate, acetate, acid, phenol)** — 500-2,000. many distinct chemicals x several purities x several pack sizes; covers ammonium thiocyanate, ammonium sulfate, mercuric thiocyanate, ammonium acetate, hydrochloric acid, phenol = hundreds to a couple thousand SKUs. *Check:* Sigma-Aldrich.
 
-**Industrial & Specialty Equipment** — 3 opportunities
-- *Engine Parts* › **Spark Plugs** — 1,000+. thousands of engine fitments x several heat ranges x 2 electrode metals = well over 1000 plugs. *Check:* NGK.
-- *Utility* › **Digger Derricks** — ~30. a few boom lengths x truck classes x brands = ~600 large machines, but few models, count ~30. *Check:* verify.
-- *Power Plant* › **Coal Pulverizers** — ~20. a few capacities x brands = ~500 large machines, count ~20 distinct. *Check:* verify.
-
-**Electrical & Electronic** — 3 opportunities
-- *Distribution* › **Switchboards** — 500-2000. many breaker layouts x amp ratings x voltages x enclosure types = ~1,000. *Check:* Square D.
-- *Distribution* › **Large-Scale Power Distribution Units** — ~30. a few configs x ratings x brands = ~500, count ~30 distinct large units. *Check:* verify.
+**Electrical & Electronic** — 2 opportunities
 - *Audio* › **Computer Speakers** — 500+. hundreds of models x sizes x power x brands = many computer speaker SKUs. *Check:* Logitech.
+- *Distribution* › **Switchboards** — 500-2000. many breaker layouts x amp ratings x voltages x enclosure types = ~1,000. *Check:* Square D.
 
-**Material Handling & Storage** — 2 opportunities
-- *Autonomous* › **Autonomous Motor Vehicles** — ~50. covers autonomous pallet jacks and AGVs; about 5 types x 5 sizes x several payloads x brands = ~600+ but emerging, count as ~50 distinct world models. *Check:* verify.
-
-**HVAC/Thermal & Process** — 1 opportunities
-- *Boilers* › **Heat Recovery Boilers** — ~30. a few capacities x configs x brands = ~600 large machines, count ~30 distinct. *Check:* verify.
+**Industrial & Specialty Equipment** — 1 opportunities
+- *Engine Parts* › **Spark Plugs** — 1,000+. thousands of engine fitments x several heat ranges x 2 electrode metals = well over 1000 plugs. *Check:* NGK.
 
 **Automotive** — 1 opportunities
 - *Repair Parts* › **Vehicle Repair Parts** — ~300. broad misc auto parts, about 30 categories x 10 variants = ~300. *Check:* Dorman.
@@ -304,20 +295,20 @@
 ## Where the depth is — Domain × bucket
 | Domain | Opps | B1 | B2 | B3 | B4 | B5 |
 |---|--:|--:|--:|--:|--:|--:|
-| Electrical & Electronic | 1517 | 481 | 811 | 221 | 3 | 1 |
-| Test/Measurement & Inspection | 1482 | 251 | 1088 | 121 | 22 | 0 |
-| Material Handling & Storage | 1043 | 304 | 680 | 57 | 2 | 0 |
-| Industrial & Specialty Equipment | 885 | 159 | 635 | 87 | 3 | 1 |
+| Electrical & Electronic | 1523 | 486 | 813 | 221 | 2 | 1 |
+| Test/Measurement & Inspection | 1485 | 251 | 1091 | 121 | 22 | 0 |
+| Material Handling & Storage | 1043 | 304 | 682 | 57 | 0 | 0 |
+| Industrial & Specialty Equipment | 886 | 159 | 638 | 87 | 1 | 1 |
 | Safety/PPE & Facility | 834 | 190 | 586 | 58 | 0 | 0 |
-| Lab/Optics & Scientific | 818 | 119 | 514 | 176 | 6 | 3 |
-| Cutting/Machining & Metalworking | 720 | 178 | 414 | 128 | 0 | 0 |
-| Plumbing/Pipe & Fluid Handling | 696 | 164 | 455 | 77 | 0 | 0 |
-| HVAC/Thermal & Process | 637 | 111 | 437 | 88 | 1 | 0 |
+| Lab/Optics & Scientific | 817 | 119 | 513 | 176 | 6 | 3 |
+| Cutting/Machining & Metalworking | 723 | 178 | 417 | 128 | 0 | 0 |
+| Plumbing/Pipe & Fluid Handling | 693 | 164 | 452 | 77 | 0 | 0 |
+| HVAC/Thermal & Process | 638 | 112 | 438 | 88 | 0 | 0 |
 | Hand & Power Tools | 560 | 215 | 313 | 32 | 0 | 0 |
 | Cleaning/Chemicals & Lubrication | 539 | 139 | 358 | 42 | 0 | 0 |
 | Automation/Robotics & Controls | 510 | 83 | 366 | 50 | 11 | 0 |
 | Power Transmission & Motion | 510 | 182 | 244 | 83 | 0 | 1 |
-| Raw Materials & Stock | 299 | 4 | 214 | 68 | 13 | 0 |
+| Raw Materials & Stock | 300 | 4 | 215 | 68 | 13 | 0 |
 | Welding/Soldering & Joining | 284 | 73 | 191 | 20 | 0 | 0 |
 | Fasteners & Hardware | 267 | 80 | 152 | 35 | 0 | 0 |
 | Abrasives & Surface Finishing | 129 | 34 | 89 | 6 | 0 | 0 |
