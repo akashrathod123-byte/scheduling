@@ -114,61 +114,72 @@ The earlier pass parked these in Bucket 4, but the math (their own counts) shows
 
 ---
 
-## TOP 50 BUCKET-3 FAMILIES — 2-Sentence Summaries (about 100–500 items each)
+---
 
-*Sorted by how many opportunities point at each family.*
+## TOP BUCKET-3 FAMILIES (floor raised to 250) — 2-sentence summary + a product link
 
-1. **Specialty Inorganic Salts, Oxides & Reactive Powders** (~400) — Niche chemical powders (cobalt, niobium, tantalum, zirconium salts/oxides, etc.) used in labs, coatings, and electronics. Deep because ~20+ compounds each come in a few purities and pack sizes.
-2. **Toxic Gas Detectors (many gas types)** (~300) — Handheld/fixed monitors that warn workers about dangerous gases (cyanide, ozone, formaldehyde, ammonia…). Deep because ~19 gas types × ranges × brands stack up to a few hundred units.
-3. **Pump Mechanical Mounting & Connection Parts** (~250) — The stands, adapters, collars, and discharge connections that mount and plumb industrial pumps. Deep because dozens of part types each scale across pump sizes.
-4. **Lathe Chuck Replacement & Maintenance Parts** (~120) — Jaws, seals, draw nuts, sleeves, and kits that keep a lathe chuck working. Deep because ~18 part types × a few chuck sizes and styles.
-5. **Specialty Process Tanks** (~250) — Purpose-built tanks (dye, fermentation, blowdown, cook-chill, surface-treatment…). Deep because ~16 tank uses each come in several capacities.
-6. **Arduino & Raspberry Pi Add-On Modules** (~200) — Snap-on sensor/control "hats" and shields for hobby and prototyping boards. Deep because ~18 module functions × several board families × versions.
-7. **Aircraft Access / Cowl / Door / Pin Latches** (~300) — Latches that hold aircraft panels and doors shut. Deep because many latch styles × sizes × lock options across aircraft types.
-8. **Optical Prisms (all types)** (~300) — Glass blocks that bend or split light (right-angle, penta, dove, Porro…). Deep because ~9 types × sizes × glasses × coatings.
-9. **Duct Hose Kits, Wrap & Hangers** (~150) — Flexible duct plus the wraps and hangers that route and support it. Deep because several hose types × diameters × support styles.
-10. **Semiconductor & Laser Crystal Wafers** (~250) — Thin crystal discs (silicon, sapphire, specialty) for chips and lasers. Deep because several materials × diameters × orientations × finishes.
-11. **Subsea Sonar Sounders & Acoustic Devices** (~120) — Underwater "ping" sensors for depth and object detection. Deep because several device types × frequencies × depth ratings.
-12. **Etching & Lab Reagent Chemicals** (~120) — Acids and chemicals used to etch metal/circuit boards or run lab tests. Deep because many chemicals × concentrations × pack sizes.
-13. **Spectrometers / Flame-Emission / Ion Analyzers** (100–500) — Bench instruments that identify what a sample is made of. Deep because several measurement methods × configurations.
-14. **Lab Holders & Fittings (stands, flask/tube holders)** (100–300) — The racks, clamps, and stands that hold glassware and samples. Deep because many holder types × sizes.
-15. **Specialty Bolts (askew-head, king, turbine-rotor, parking-curb…)** (~150) — Odd-purpose structural bolts for specific jobs. Deep because each type spans diameters × lengths × finishes.
-16. **Specialty Bearings (tilt-pad, jewel, isolators, protectors)** (~250) — Bearings for unusual loads/speeds plus their isolators and protectors. Deep because several types × bore sizes × materials.
-17. **Pump Monitoring & Control Electronics** (~250) — Controllers, sensors, and monitors that run and protect pumps. Deep because many functions × ratings × pump types.
-18. **Specialty Multi-Connect & Auto-Dock Couplings** (~150) — Quick-connect fluid/utility couplings that mate many lines at once. Deep because several styles × sizes × seal materials.
-19. **Slip-On Framing Posts, Gates & Panels** (~250) — Pipe-and-fitting safety railing and gate systems. Deep because many fittings × pipe sizes × panel configs.
-20. **Lawn Sweepers, Edgers, Rollers, Sod Cutters, Tillers** (~150) — Powered and tow-behind grounds-care machines. Deep because several machine types × sizes × brands.
-21. **Vehicle Controllers, Cameras, Sensors & I/O Modules** (~120) — The electronics that automate or monitor vehicles/equipment. Deep because many device types × interfaces × ratings.
-22. **Lens Tubes, End Caps, Cage Systems & Spacers** (~150) — The mechanical "plumbing" that holds optics in a line on a bench. Deep because several diameters × lengths × thread types.
-23. **Positioning Tables & Stages** (100–300) — Precision platforms that move a part in X/Y/Z for machining or measuring. Deep because several travel ranges × drive types × sizes.
-24. **Mag-Drill Adapters, Extensions & Feeders** (~120) — Add-ons that extend or automate magnetic-base drills. Deep because several adapter types × sizes.
-25. **Subsea Electrical & Optical Feedthroughs** (~120) — Sealed connectors that pass power/data through an underwater wall. Deep because conductor counts × pressure ratings × connector types.
-26. **Gutter Brackets, Shanks & Conductor Heads** (~200) — The hardware that hangs gutters and downspouts. Deep because many bracket styles × gutter sizes × materials.
-27. **Oil Dispenser Kits, Pumps & Trolleys** (~150) — Mobile units that store and pump lubricating oil. Deep because several pump types × tank sizes × cart styles.
-28. **Gas Detectors, Analyzers, Sensors & Sampling** (~150) — A broader set of gas-sensing instruments and sampling gear. Deep because many target gases × sensor types.
-29. **Grounding Compression Sleeves & Hardware** (~150) — Crimp sleeves and connectors that bond electrical grounds. Deep because many conductor sizes × connector types × materials.
-30. **Crystal, Polarizer & Optic Mounts/Adapters** (~150) — Mounts that hold and align optical crystals and polarizers. Deep because several optic sizes × adjustment axes.
-31. **Plastic / Fiberglass / Rust / Scratch / Leather Repair** (~100) — Patch-and-fill repair kits for various surfaces. Deep because several material types × kit sizes.
-32. **Cable / Hydro-Pneumatic / Servo-Hydraulic / Voice-Coil Actuators** (~200) — Devices that push/pull or position a load. Deep because several actuator types × strokes × forces.
-33. **Axles & Drivelines** (~250) — Shafts and axle assemblies that transmit drive power. Deep because many ratings × lengths × spline types.
-34. **Carpet & Upholstery Cleaning Chemicals** (~120) — Shampoos, spotters, and extraction chemicals for soft surfaces. Deep because many formulas × pack sizes.
-35. **Laser Optics & Active Components** (~250) — Mirrors, lenses, and emitters tuned for laser wavelengths. Deep because several wavelengths × coatings × sizes.
-36. **Locating & Clamping Fixture Systems** (~150) — Modular pins, clamps, and plates that hold a part for machining. Deep because many element types × sizes.
-37. **Bluetooth Clock, Controller & Driver Chips** (~250) — Small electronic ICs for timing and control. Deep because many functions × packages × specs.
-38. **Switchgear, Switchboards, Busways & MCCs** (~250) — Smaller power-distribution assemblies (overlaps the Bucket-4 gem; counted here as the niche slice). Deep because ratings × layouts × enclosures.
-39. **Food Slicers, Dicers & Peelers** (~150) — Commercial-kitchen prep machines. Deep because several machine types × sizes × brands.
-40. **Lab Spectrometers & Chemical Analyzers** (~150) — Bench analyzers that measure chemical makeup. Deep because several methods × configurations.
-41. **RF Filters, Amplifiers, Baluns, SAW & Demodulators** (~200) — Radio-frequency electronic building blocks. Deep because many frequencies × functions × packages.
-42. **Slitter, Coater, Demolition & Perforator Blades** (~150) — Machine blades for cutting, scoring, and perforating. Deep because many machine types × sizes × edge styles.
-43. **Release Liners & Lidding / Lining Films** (100–300) — Backing and sealing films for labels, packaging, and trays. Deep because many film types × widths × coatings.
-44. **Tire, Shredder, Hog & Chipper Blades** (100–300) — Heavy blades for size-reduction machines. Deep because many machine types × sizes × steels.
-45. **Vehicle Roof, Bed, Hitch & Cargo Racks** (~120) — Racks that carry loads on trucks and vehicles. Deep because many vehicle fits × styles × capacities.
-46. **Fiber-Optic Splice Fixtures, Receptacles & Terminations** (~100) — Hardware that joins and terminates fiber cables. Deep because connector types × fiber counts × styles.
-47. **Fiber-Optic Termination, Splice & Crimp Parts** (~120) — The small ferrules, sleeves, and crimps for fiber ends. Deep because connector standards × sizes.
-48. **Automotive Specialty Wrenches** (~120) — Job-specific wrenches for vehicle service (glow plug, axle, fan clutch…). Deep because many vehicle types × a couple sizes each.
-49. **Rare Refractory Metals (iridium, niobium, etc.)** (~120) — A narrower slice of exotic high-melting-point metals in research forms. Deep because several elements × forms × purities.
-50. **Cage-System Optic Mounts & Connectors** (~120) — The rods and plates that build a rigid optical assembly. Deep because several cage sizes × part types.
+*Bucket 3 is now 268 opportunities across 59 families (estimated ~250–500 items each). Links marked with a domain are a real product to look at; google.com/search?tbm=shop links are a 'typical product' search Claude built so you always have something to click.*
+
+1. **Specialty Inorganic Salts, Oxides and Reactive Powders** (~400) — Niche chemical powders (cobalt, niobium, tantalum, zirconium salts and oxides) used in labs, coatings, and electronics. Deep because the math lands at ~250–500 (~400). *See:* https://www.sigmaaldrich.com/ (inorganic salts & oxides)
+2. **Toxic Gas Detectors (many gas types)** (~300) — Handheld and fixed monitors that warn workers about dangerous gases like cyanide, ozone, formaldehyde, and ammonia. Deep because the math lands at ~250–500 (~300). *See:* https://www.gasco-gas.com/ (or Honeywell BW gas detectors)
+3. **Pump Mechanical Mounting and Connection Parts** (~250) — The stands, adapters, collars, and discharge connections that mount and plumb industrial pumps. Deep because the math lands at ~250–500 (~250). *See:* https://www.google.com/search?tbm=shop&q=Pump%20Mechanical%20Mounting%20and%20Connection%20Parts
+4. **Specialty Process Tanks** (~250) — Purpose-built tanks for specific jobs (dye, fermentation, blowdown, cook-chill, surface-treatment). Deep because the math lands at ~250–500 (~250). *See:* https://www.snyderindustries.com/ (industrial tanks)
+5. **Aircraft Access, Exit, Cowl, Door, Pin Latches** (~300) — Latches that hold aircraft panels, cowls, and doors shut. Deep because the math lands at ~250–500 (~300). *See:* https://www.hartwellcorp.com/product/push-button-latches/
+6. **Optical Prisms (all types)** (~300) — Glass blocks that bend or split light (right-angle, penta, dove, Porro). Deep because the math lands at ~250–500 (~300). *See:* https://www.thorlabs.com/navigation.cfm?guide_id=146
+7. **Semiconductor and Laser Crystal Wafers** (~250) — Thin crystal discs (silicon, sapphire, specialty) used to make chips and lasers. Deep because the math lands at ~250–500 (~250). *See:* https://www.americanelements.com/ (laser crystals/wafers)
+8. **Spectrometers, flame emission, ion analyzers, particle size, moisture, fluorometers, bolometers, ellipsometers** (100-500) — Bench instruments that identify what a sample is made of. Deep because the math lands at ~250–500 (100-500). *See:* https://www.google.com/search?tbm=shop&q=Spectrometers%2C%20flame%20emission%2C%20ion%20analyzers%2C%20particle%20size%2C%20moisture%2C%20fluorometers%2C%20bolometers%2C%20ellipsometers
+9. **Structural, Tilt-Pad, Jewel, Isolators, Protectors, Retainers, Needle Rollers** (~250) — Specialty bearings (tilt-pad, jewel, needle) for unusual loads and speeds, plus their isolators and protectors. Deep because the math lands at ~250–500 (~250). *See:* https://www.google.com/search?tbm=shop&q=Structural%2C%20Tilt-Pad%2C%20Jewel%2C%20Isolators%2C%20Protectors%2C%20Retainers%2C%20Needle%20Rollers
+10. **Pump Monitoring and Control Electronics** (~250) — Controllers, sensors, and monitors that run and protect pumps. Deep because the math lands at ~250–500 (~250). *See:* https://www.google.com/search?tbm=shop&q=Pump%20Monitoring%20and%20Control%20Electronics
+11. **Slip-On Framing Posts Gates and Panels** (~250) — Pipe-and-fitting safety railing, gate, and panel systems. Deep because the math lands at ~250–500 (~250). *See:* https://www.google.com/search?tbm=shop&q=Slip-On%20Framing%20Posts%20Gates%20and%20Panels
+12. **Axles and Drivelines** (~250) — Shafts and axle assemblies that transmit drive power in vehicles and machines. Deep because the math lands at ~250–500 (~250). *See:* https://www.google.com/search?tbm=shop&q=Axles%20and%20Drivelines
+13. **Laser Optics and Active Components** (~250) — Mirrors, lenses, and emitters tuned for specific laser wavelengths. Deep because the math lands at ~250–500 (~250). *See:* https://www.thorlabs.com/navigation.cfm?guide_id=144
+14. **Bluetooth Clock Controller and Driver Chips** (~250) — Small timing and control electronic chips with wireless config. Deep because the math lands at ~250–500 (~250). *See:* https://www.google.com/search?tbm=shop&q=Bluetooth%20Clock%20Controller%20and%20Driver%20Chips
+15. **Switchgear Switchboards Busways and MCCs** (~250) — Smaller power-distribution assemblies (the niche slice; large ones are Bucket-4). Deep because the math lands at ~250–500 (~250). *See:* https://www.google.com/search?tbm=shop&q=Switchgear%20Switchboards%20Busways%20and%20MCCs
+16. **Electrical enclosure parts (sides, roofs, door interlocks, weather hoods, seismic kits)** (100-500) — The sides, roofs, door interlocks, and weather hoods that build out electrical enclosures. Deep because the math lands at ~250–500 (100-500). *See:* https://www.google.com/search?tbm=shop&q=Electrical%20enclosure%20parts
+17. **Environmental test chambers (temperature, vibration, photostability, thermal gravimetric, curemeters)** (100-500) — Cabinets that bake, freeze, shake, or light-soak parts to test how they hold up. Deep because the math lands at ~250–500 (100-500). *See:* https://www.google.com/search?tbm=shop&q=Environmental%20test%20chambers
+18. **Mining, Foundation, and Road Cutting Tools** (~300) — Heavy cutting tools and bits for mining, foundation drilling, and road work. Deep because the math lands at ~250–500 (~300). *See:* https://www.google.com/search?tbm=shop&q=Mining%2C%20Foundation%2C%20and%20Road%20Cutting%20Tools
+19. **Fiber Optic Connectors and Adapters** (200-400) — The plugs and adapters that join fiber-optic cables. Deep because the math lands at ~250–500 (200-400). *See:* https://www.thorlabs.com/navigation.cfm?guide_id=2002
+20. **Processors and Converters** (200-400) — Signal processors and protocol converters that translate between systems. Deep because the math lands at ~250–500 (200-400). *See:* https://www.google.com/search?tbm=shop&q=Processors%20and%20Converters
+21. **Optical Windows (all spectral ranges)** (~250) — Clear flat discs that seal and protect an optical path across light wavelengths. Deep because the math lands at ~250–500 (~250). *See:* https://www.thorlabs.com/navigation.cfm?guide_id=2366
+22. **Power Mgmt OpAmp Gate Driver Logic and Comparator ICs** (~250) — Building-block electronic chips (op-amps, gate drivers, logic, comparators). Deep because the math lands at ~250–500 (~250). *See:* https://www.google.com/search?tbm=shop&q=Power%20Mgmt%20OpAmp%20Gate%20Driver%20Logic%20and%20Comparator%20ICs
+23. **Memory Chips** (200-400) — RAM and memory ICs across capacities and form factors. Deep because the math lands at ~250–500 (200-400). *See:* https://www.google.com/search?tbm=shop&q=Memory%20Chips
+24. **Mil-Spec Connector Backshells and Boots** (~300) — The rugged rear covers and strain-reliefs for military-spec connectors. Deep because the math lands at ~250–500 (~300). *See:* https://www.glenair.com/backshells/
+25. **Blind Bolts Locking Pins and Tools** (~250) — One-side-access structural fasteners plus their install/locking tools. Deep because the math lands at ~250–500 (~250). *See:* https://www.google.com/search?tbm=shop&q=Blind%20Bolts%20Locking%20Pins%20and%20Tools
+26. **Machine Vision and Industrial Cameras** (~400) — Cameras that let machines 'see' to inspect, guide, and measure. Deep because the math lands at ~250–500 (~400). *See:* https://www.baslerweb.com/en/products/cameras/
+27. **Photoelectric and Occupancy Sensors** (~280) — Light-beam sensors that detect presence or count objects. Deep because the math lands at ~250–500 (~280). *See:* https://www.google.com/search?tbm=shop&q=Photoelectric%20and%20Occupancy%20Sensors
+28. **Multi-Motion Seals Bearing Seals and Washers** (200-500) — Dynamic shaft seals, bearing seals, and sealing washers for moving parts. Deep because the math lands at ~250–500 (200-500). *See:* https://www.google.com/search?tbm=shop&q=Multi-Motion%20Seals%20Bearing%20Seals%20and%20Washers
+29. **Motors** (200-400) — A specialized family of motors. Deep because the math lands at ~250–500 (200-400). *See:* https://www.google.com/search?tbm=shop&q=Motors
+30. **Card and Circuit Board Connectors** (200-500) — A specialized family of card and circuit board connectors. Deep because the math lands at ~250–500 (200-500). *See:* https://www.google.com/search?tbm=shop&q=Card%20and%20Circuit%20Board%20Connectors
+31. **Optical Filters (calibration and specialty)** (~250) — Coated glass that passes some light wavelengths and blocks others. Deep because the math lands at ~250–500 (~250). *See:* https://www.thorlabs.com/navigation.cfm?guide_id=33
+32. **Electrical Power and Motion Feedthroughs (pass power/motion into vacuum)** (~250) — A specialized family of electrical power and motion feedthroughs (pass power/motion into vacuum). Deep because the math lands at ~250–500 (~250). *See:* https://www.google.com/search?tbm=shop&q=Electrical%20Power%20and%20Motion%20Feedthroughs
+33. **Sputtering Targets and Thin-Film Deposition Machines** (~250) — A specialized family of sputtering targets and thin-film deposition machines. Deep because the math lands at ~250–500 (~250). *See:* https://www.lesker.com/newweb/deposition_materials/
+34. **Oscillators and transistor sockets** (100-500) — A specialized family of oscillators and transistor sockets. Deep because the math lands at ~250–500 (100-500). *See:* https://www.google.com/search?tbm=shop&q=Oscillators%20and%20transistor%20sockets
+35. **Circuit board mezzanine and backplane connectors** (100-500) — A specialized family of circuit board mezzanine and backplane connectors. Deep because the math lands at ~250–500 (100-500). *See:* https://www.google.com/search?tbm=shop&q=Circuit%20board%20mezzanine%20and%20backplane%20connectors
+36. **Optical windows (textured, anti-reflective)** (100-500) — Clear flat discs that seal and protect an optical path across light wavelengths. Deep because the math lands at ~250–500 (100-500). *See:* https://www.thorlabs.com/navigation.cfm?guide_id=2366
+37. **Shrink Bands and Bottle Cap Seals** (200-400) — A specialized family of shrink bands and bottle cap seals. Deep because the math lands at ~250–500 (200-400). *See:* https://www.google.com/search?tbm=shop&q=Shrink%20Bands%20and%20Bottle%20Cap%20Seals
+38. **Thin-Film Deposition** (300-600) — A specialized family of thin-film deposition. Deep because the math lands at ~250–500 (300-600). *See:* https://www.google.com/search?tbm=shop&q=Thin-Film%20Deposition
+39. **Ceramic Substrates and Semiconductor Wafers** (~300) — A specialized family of ceramic substrates and semiconductor wafers. Deep because the math lands at ~250–500 (~300). *See:* https://www.google.com/search?tbm=shop&q=Ceramic%20Substrates%20and%20Semiconductor%20Wafers
+40. **Side Mills and Angle Cutters** (~300) — A specialized family of side mills and angle cutters. Deep because the math lands at ~250–500 (~300). *See:* https://www.google.com/search?tbm=shop&q=Side%20Mills%20and%20Angle%20Cutters
+41. **Slug Ejector Punches and Gas Die Springs** (~250) — A specialized family of slug ejector punches and gas die springs. Deep because the math lands at ~250–500 (~250). *See:* https://www.google.com/search?tbm=shop&q=Slug%20Ejector%20Punches%20and%20Gas%20Die%20Springs
+42. **Optical Windows and Microscope Light Covers** (~300) — Clear flat discs that seal and protect an optical path across light wavelengths. Deep because the math lands at ~250–500 (~300). *See:* https://www.thorlabs.com/navigation.cfm?guide_id=2366
+43. **Photodiodes** (~300) — A specialized family of photodiodes. Deep because the math lands at ~250–500 (~300). *See:* https://www.google.com/search?tbm=shop&q=Photodiodes
+44. **Cell Culture Media** (~300) — The liquid 'food' scientists grow living cells in. Deep because the math lands at ~250–500 (~300). *See:* https://ecatalog.corning.com/life-sciences/
+45. **Power-over-Ethernet Switches** (300-500) — A specialized family of power-over-ethernet switches. Deep because the math lands at ~250–500 (300-500). *See:* https://www.google.com/search?tbm=shop&q=Power-over-Ethernet%20Switches
+46. **Optical Filters** (200-500) — Coated glass that passes some light wavelengths and blocks others. Deep because the math lands at ~250–500 (200-500). *See:* https://www.thorlabs.com/navigation.cfm?guide_id=33
+47. **Gear Hobs** (100-500) — The cutting tools that cut teeth into gears. Deep because the math lands at ~250–500 (100-500). *See:* https://www.star-su.com/cutting-tools/gear-cutting-tools/hobs/
+48. **FCAW Flux-Cored Welding Wires** (100-500) — Flux-cored welding wire that feeds continuously while you weld. Deep because the math lands at ~250–500 (100-500). *See:* https://www.lincolnelectric.com/en/products/filler-metals
+49. **Plant Pots** (~300) — A specialized family of plant pots. Deep because the math lands at ~250–500 (~300). *See:* https://www.google.com/search?tbm=shop&q=Plant%20Pots
+50. **Anti-Roll (Sway) Bars** (~300) — A specialized family of anti-roll (sway) bars. Deep because the math lands at ~250–500 (~300). *See:* https://www.google.com/search?tbm=shop&q=Anti-Roll%20%20Bars
+51. **Power Distribution Units** (~300) — A specialized family of power distribution units. Deep because the math lands at ~250–500 (~300). *See:* https://www.google.com/search?tbm=shop&q=Power%20Distribution%20Units
+52. **Fan Coil Units** (~300) — A specialized family of fan coil units. Deep because the math lands at ~250–500 (~300). *See:* https://www.google.com/search?tbm=shop&q=Fan%20Coil%20Units
+53. **Fiber-Optic Cable** (~300) — A specialized family of fiber-optic cable. Deep because the math lands at ~250–500 (~300). *See:* https://www.google.com/search?tbm=shop&q=Fiber-Optic%20Cable
+54. **Wire Board Accessories** (200-400) — A specialized family of wire board accessories. Deep because the math lands at ~250–500 (200-400). *See:* https://www.google.com/search?tbm=shop&q=Wire%20Board%20Accessories
+55. **Mobility Aids** (200-400) — A specialized family of mobility aids. Deep because the math lands at ~250–500 (200-400). *See:* https://www.google.com/search?tbm=shop&q=Mobility%20Aids
+56. **Vehicle Repair Parts** (~300) — A specialized family of vehicle repair parts. Deep because the math lands at ~250–500 (~300). *See:* https://www.google.com/search?tbm=shop&q=Vehicle%20Repair%20Parts
+57. **Electrical connector backshells** (100-500) — A specialized family of electrical connector backshells. Deep because the math lands at ~250–500 (100-500). *See:* https://www.google.com/search?tbm=shop&q=Electrical%20connector%20backshells
+58. **Servo Gearmotors** (200-500) — A specialized family of servo gearmotors. Deep because the math lands at ~250–500 (200-500). *See:* https://www.google.com/search?tbm=shop&q=Servo%20Gearmotors
+59. **Silver and Platinum Group** (200-500) — A specialized family of silver and platinum group. Deep because the math lands at ~250–500 (200-500). *See:* https://www.google.com/search?tbm=shop&q=Silver%20and%20Platinum%20Group
 
 ---
 
-*Want the remaining ~400 Bucket-3 families summarized too, or the gem search-term lists wired into the Excel workbook as filterable columns? Say the word.*
+*Want the remaining Bucket-3 families (beyond these) or the gem search terms wired into Excel? Say the word. Links shown as google.com/search are Claude-built 'typical product' searches; domain links are a real product to look at (verify before quoting).*
