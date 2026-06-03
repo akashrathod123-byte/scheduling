@@ -30,7 +30,7 @@
 - **Milling Machine Tool Holder Accessories** — about **~150** in the world. extenders, adapters, cleaners, test shafts, changing stations, collet extensions, coolant tubes, spindle adapters x tapers = ~150. *Check:* Haimer / BIG Kaiser.
 - **Can Racks, Frame Holders/Hooks, Connectors, Post Caps and Clamps** — about **~120** in the world. clip-on add-ons for shelving; many small pieces x sizes. *Check:* InterMetro.
 
-## Bucket 2 — Genuinely New but Small (under ~100 in the world)
+## Bucket 2 — Genuinely New but Small (under ~250 in the world)
 
 **9,115 opportunities (74%).** 10 examples:
 - **Lathe Chuck Replacement and Maintenance Parts** — about **~120** in the world. spindles, jaw drive seals, jaw adapters, plungers, draw nuts, sleeves, cover plugs, jaw blanks, jaw cleaners, fixture bases, mounting tools, maintenance kits, key adapters, hydraulic cylinders, about 18 part types x 4 chuck sizes x 2 styles = ~120. *Check:* verify.
@@ -44,7 +44,7 @@
 - **Fixture and Vise Locating Components** — about **~150** in the world. clamping washers, ratchet elements, vise ledges, leveling rests, support bolts, collets, repair kits etc = ~150. *Check:* Jergens / Carr Lane.
 - **Coordinate Measuring Machines** — about **~80** in the world. about 6 sizes x 5 brands x 2 fixed/portable = ~60 (two CMM lines merged). *Check:* Mitutoyo.
 
-## Bucket 3 — Niche, Real Size+Material Depth (about 100–500)
+## Bucket 3 — Niche, Real Size+Material Depth (about 250–500)
 
 **268 opportunities (2%).** 10 examples:
 - **Specialty Inorganic Salts, Oxides and Reactive Powders** — about **~400** in the world. grouped many named powders (phosphorus pentoxide, cobalt, niobium, tantalum, copper, nickel, lead, chromium, magnesium, aluminum, zirconium, strontium salts/oxides/fluorides, photoinitiator etc.): about 22 compounds x a few purities x pack sizes = ~400. *Check:* Sigma-Aldrich.

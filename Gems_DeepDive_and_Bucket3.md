@@ -6,113 +6,159 @@
 
 ---
 
-## BUCKET 5 — More than 5,000 items in the world
+## BUCKET 4 & 5 GEMS — Use Case & Total Addressable Market (plain language)
 
-### 1. Combustion Engine Valves  ·  ~5,000+  ·  Fit: **maybe (MRO repair, not OEM)**
-- **What it is / who buys it:** The little mushroom-shaped valves that open and close to let air/fuel in and exhaust out of an engine. A McMaster customer here is a maintenance tech or engine rebuilder fixing pumps, generators, compressors, or fleet/industrial engines — they want a replacement intake or exhaust valve that fits their specific engine.
-- **Why it's deep:** Thousands of engine models, each with its own intake and exhaust valve sizes, stem diameters, and materials → easily 5,000+ distinct valves worldwide.
-- **TAM:** Global engine valve market ≈ **$5–7B/yr**. McMaster's realistic slice is tiny — generic small-engine/industrial valves, not the auto-OEM volume.
-- **See a real one:** https://www.eaton.com/us/en-us/catalog/engine-valvetrain/engine-valves.html
+*Each gem gets the same 2-paragraph treatment as the calibration-gas example: paragraph 1 = what it is and who at McMaster buys it; paragraph 2 = the market size with caveats. Then a real product to look at, 10 ways a customer might search mcmaster.com, and a blank for real search volume.*
+
+### — Bucket 5 (more than 5,000 items) —
+
+### 1. Combustion Engine Valves  ·  ~5,000+ items  ·  Fit: **maybe (MRO repair, not OEM)**
+
+**Use Case and Total Addressable Market:**
+
+An engine valve is the little mushroom-shaped part that opens and shuts to let air and fuel into an engine and let the exhaust back out. For a typical McMaster customer (a maintenance tech or small-engine/industrial mechanic), the use case is swapping a worn or burnt valve so a pump, generator, compressor, or fleet engine runs right again. It's a wear part, so it gets reordered every time an engine is rebuilt, which makes demand steady.
+
+On market size, the global engine-valve TAM is roughly $5-7B/yr, but that's dominated by carmakers buying in bulk for brand-new engines. McMaster's realistic slice is much narrower - generic small-engine and industrial replacement valves a maintenance buyer grabs one or two at a time, not the auto-OEM volume.
+
+- **See a real product:** https://www.eaton.com/us/en-us/catalog/engine-valvetrain/engine-valves.html
 - **10 ways a customer might search mcmaster.com:** engine valve · intake valve · exhaust valve · valve stem · poppet valve · small engine valve · replacement engine valve · valve and guide · engine valvetrain · cylinder head valve
-- **Searches/day (fill from wayfinding):** ________
+- **Searches/day (fill from real wayfinding data):** ________
 
-### 2. Bone / Medical Screws  ·  ~5,000+  ·  Fit: **no (regulated medical)**
-- **What it is / who buys it:** Surgical-grade screws that hold broken bone together. Buyer is a medical device maker or surgical supplier — not a typical McMaster plant customer.
-- **Why it's deep:** Many diameters × lengths × thread types (cortical, cancellous, locking, cannulated) × materials (titanium, stainless, PEEK) → thousands.
-- **TAM:** Orthopedic trauma/screw segment ≈ **$3–5B/yr** (broader orthopedic devices much larger). Regulated (FDA) — outside McMaster's lane.
-- **See a real one:** https://orthomedinc.com/surgical-instruments/bone-screws-and-plates
-- **10 search terms:** bone screw · surgical screw · orthopedic screw · cortical screw · cancellous screw · titanium bone screw · cannulated screw · locking screw · medical fastener · trauma screw
-- **Searches/day (fill from wayfinding):** ________
+### 2. Bone / Medical Screws  ·  ~5,000+ items  ·  Fit: **no (regulated medical)**
 
-### 3. Cell-Culture Media & Reagents  ·  ~5,000+  ·  Fit: **no (lab life-science)**
-- **What it is / who buys it:** The liquid "food" and additives that scientists grow living cells in. Buyer is a lab/biotech researcher, not a plant maintenance buyer.
-- **Why it's deep:** Thousands of media formulas + serum + antibiotics + growth factors + agarose, each in several pack sizes.
-- **TAM:** Cell-culture media market ≈ **$2–4B/yr** (total cell-culture market larger). Cold-chain, lot-controlled — not McMaster's model.
-- **See a real one:** https://ecatalog.corning.com/life-sciences/b2c/US/en/Browse-Products-by-Application/3D-Cell-Culture/
-- **10 search terms:** cell culture media · growth medium · DMEM · agarose · culture reagent · cell growth media · serum · media supplement · buffer solution · lab reagent
-- **Searches/day (fill from wayfinding):** ________
+**Use Case and Total Addressable Market:**
 
-### 4. Computer Build Components (CPU/GPU/RAM/motherboards)  ·  ~5,000+  ·  Fit: **no (consumer electronics)**
-- **What it is / who buys it:** The guts of a PC. Buyer is an IT/electronics builder — a consumer-electronics space, not industrial MRO.
-- **Why it's deep:** Thousands of CPUs, GPUs, memory sticks, motherboards across brands/generations.
-- **TAM:** PC components ≈ **$60–80B+/yr** globally — huge, but a crowded consumer market McMaster doesn't compete in.
-- **See a real one:** (Newegg / Micro Center — general PC parts retailers)
-- **10 search terms:** computer parts · CPU · graphics card · RAM · motherboard · power supply · PC components · processor · memory module · solid state drive
-- **Searches/day (fill from wayfinding):** ________
+A bone screw is a surgical-grade screw a surgeon uses to hold a broken bone together. The buyer is a medical-device maker or hospital supply chain, not a plant maintenance tech - the use case is implanting or stocking screws for orthopedic surgery, which is tightly regulated and lot-traced.
 
----
+The orthopedic screw/trauma segment is about $3-5B/yr (the whole orthopedic-implant market is far bigger). Because these are FDA-regulated implants made of medical-grade titanium or PEEK, this is outside McMaster's lane - it's interesting as a genuinely deep family, but not a real opportunity for them.
 
-## BUCKET 4 — About 500–5,000 items in the world
+- **See a real product:** https://orthomedinc.com/surgical-instruments/bone-screws-and-plates
+- **10 ways a customer might search mcmaster.com:** bone screw · surgical screw · orthopedic screw · cortical screw · cancellous screw · titanium bone screw · cannulated screw · locking screw · medical fastener · trauma screw
+- **Searches/day (fill from real wayfinding data):** ________
 
-### 5. Calibration & Bump-Test Gas Cylinders  ·  ~500–1,000  ·  Fit: **YES (McMaster's lane)**
-- **What it is / who buys it:** Calibration gas is the "known-good reference" you spray at a gas detector to prove it still reads correctly — so for a typical McMaster customer (a plant maintenance tech, EHS/safety coordinator, or instrument tech), the use case is the routine bump-test and calibration of portable and fixed gas monitors before confined-space entry, hot work, or any job where a faulty detector could get someone killed. It's a recurring, compliance-driven consumable, which makes demand sticky.
-- **Why it's deep:** ~80 different gases × ~4 concentrations × ~3 cylinder sizes, plus zero-air and custom blends → several hundred.
-- **TAM:** Global calibration-gas market ≈ **$1.2–1.5B/yr** (2024). Caveat: don't confuse with the broader "specialty gas" category some put at $13B+ (that lumps in unrelated gases). McMaster's relevant slice is the disposable non-refillable cans + regulators a maintenance buyer reorders — not the large industrial-account volume.
-- **See a real one:** http://www.calgasdirect.com/hydrogen-sulfide-h2s-40-ppm-calibration-gas-balance-air-in-a-58-liter-aluminum-cylinder-gasco-58l-99-40/
-- **10 search terms:** calibration gas · bump test gas · cal gas · span gas · gas detector calibration · H2S calibration gas · calibration gas cylinder · 4 gas mix · zero air · gas monitor calibration kit
-- **Searches/day (fill from wayfinding):** ________
+### 3. Cell-Culture Media & Reagents  ·  ~5,000+ items  ·  Fit: **no (lab life-science)**
 
-### 6. Rare-Earth & Specialty / Refractory Metals  ·  ~500–2,000  ·  Fit: **YES (extends McMaster's metals)**
-- **What it is / who buys it:** Exotic pure metals (hafnium, tungsten, rhenium, yttrium, niobium, the rare earths) in lab/research forms. Buyer is an R&D engineer, university lab, or specialty manufacturer needing a small piece of an unusual metal. McMaster already sells common metal stock, so this is an adjacent extension.
-- **Why it's deep:** ~50 specialty elements × several forms (rod, wire, foil, sheet, powder, pellet) × purities → many hundreds to a couple thousand.
-- **TAM:** Rare-earth metals ≈ **$5–7B/yr**; specialty/refractory metals add billions more. McMaster's slice = small research-quantity pieces, not bulk industrial tonnage.
-- **See a real one:** https://www.americanelements.com/rhenium-tube-7440-15-5
-- **10 search terms:** tungsten rod · hafnium · niobium sheet · rare earth metal · rhenium · yttrium · tantalum foil · refractory metal · specialty metal · molybdenum wire
-- **Searches/day (fill from wayfinding):** ________
+**Use Case and Total Addressable Market:**
 
-### 7. Tower Packing / Raschig & Pall Rings  ·  ~500–2,000  ·  Fit: **YES (process/plumbing adjacent)**
-- **What it is / who buys it:** Small hollow rings/saddles you dump into a chemical column or scrubber to spread liquid and gas so they mix. Buyer is a process/chemical plant engineer or distiller. Customers search for "Raschig rings" weekly per the data.
-- **Why it's deep:** Several packing styles (Raschig, Pall, saddles) × many sizes (¼"–3") × materials (ceramic, metal, plastic) → hundreds to low thousands.
-- **TAM:** Random + structured tower packing ≈ **$1–2B/yr**.
-- **See a real one:** https://www.machengineering.com/metal-pall-rings/
-- **10 search terms:** raschig rings · tower packing · pall rings · column packing · ceramic saddles · random packing · scrubber packing · distillation packing · packing media · structured packing
-- **Searches/day (fill from wayfinding):** ________
+Cell-culture media is the liquid 'food' scientists grow living cells in, plus the serums and additives that go with it. The buyer is a lab or biotech researcher, and the use case is keeping cells alive and growing for experiments or making biologic drugs - a recurring lab consumable.
 
-### 8. Spark Plugs  ·  ~1,000+  ·  Fit: **maybe (small-engine MRO)**
-- **What it is / who buys it:** The plug that sparks to ignite fuel in a gasoline engine. Buyer is anyone maintaining small engines, generators, or equipment.
-- **Why it's deep:** Thousands of engine fitments × several heat ranges × 2 electrode metals (copper/iridium) → well over 1,000.
-- **TAM:** Global spark plug market ≈ **$4–6B/yr**. McMaster slice = generic small-engine/industrial plugs, not the auto-parts channel.
-- **See a real one:** https://www.e3sparkplugs.com/
-- **10 search terms:** spark plug · small engine spark plug · iridium spark plug · generator spark plug · spark plug gap · engine spark plug · replacement spark plug · ignition plug · plug heat range · industrial spark plug
-- **Searches/day (fill from wayfinding):** ________
+The cell-culture media market is roughly $2-4B/yr (the total cell-culture market is larger). But this stuff is cold-chain, lot-controlled, and short-dated, which is a very different model from McMaster's ship-from-the-shelf hardware - so it's a deep family but not their lane.
 
-### 9. GoBilda Robot-Building Parts  ·  ~500–1,500  ·  Fit: **maybe (maker/education)**
-- **What it is / who buys it:** A modular "Lego-for-robots" system of rails, brackets, wheels, shafts, lead screws, and fasteners. Buyer is a maker, FIRST-robotics team, or automation prototyper.
-- **Why it's deep:** Many part types × sizes × metals = a whole interlocking building system, hundreds of SKUs.
-- **TAM:** Small — educational/maker robotics build-systems are a **~$100–300M** niche.
-- **See a real one:** https://www.gobilda.com/timing-belts-pulleys
-- **10 search terms:** gobilda · robot building parts · aluminum extrusion robot · maker robot parts · servo bracket · lead screw kit · motion shaft · robot chassis parts · t-slot robot · goBILDA channel
-- **Searches/day (fill from wayfinding):** ________
+- **See a real product:** https://ecatalog.corning.com/life-sciences/b2c/US/en/Browse-Products-by-Application/3D-Cell-Culture/
+- **10 ways a customer might search mcmaster.com:** cell culture media · growth medium · DMEM · agarose · culture reagent · cell growth media · serum · media supplement · buffer solution · lab reagent
+- **Searches/day (fill from real wayfinding data):** ________
 
-### 10. Lab Reagent Chemicals (thiocyanate, sulfate, acetate, phenol…)  ·  ~500–2,000  ·  Fit: **partly (McMaster sells some chemicals)**
-- **What it is / who buys it:** Common lab and process chemicals in bottles. Buyer is a lab tech or process operator.
-- **Why it's deep:** Many distinct chemicals × purities × pack sizes → hundreds to a couple thousand SKUs.
-- **TAM:** Lab chemicals/reagents market ≈ **$20–30B/yr** (very large); McMaster's slice is a thin selection of common, non-hazmat chemicals.
-- **See a real one:** (Sigma-Aldrich — general lab reagents)
-- **10 search terms:** ammonium sulfate · sodium acetate · phenol · thiocyanate · lab chemical · reagent grade · hydrochloric acid · buffer chemical · lab reagent · acetate solution
-- **Searches/day (fill from wayfinding):** ________
+### 4. Computer Build Components  ·  ~5,000+ items  ·  Fit: **no (consumer electronics)**
 
-### 11. Switchgear / Switchboards / Busways / MCCs  ·  ~500–2,000  ·  Fit: **no (big-ticket electrical distribution)**
-- **What it is / who buys it:** Large metal cabinets full of breakers that distribute building/plant power. Buyer is an electrical contractor or facilities engineer — but these are engineered, big-ticket assemblies, not catalog parts.
-- **Why it's deep:** Many breaker layouts × amp ratings × voltages × enclosure types → ~1,000+.
-- **TAM:** Global switchgear ≈ **$80–100B/yr** — huge, but project-quoted, not McMaster's model.
-- **See a real one:** https://www.weg.net/catalog/weg/US/en/Electric-Panels/Electric-Panels/Medium-Voltage-Switchgear/c/GLOBAL_WDC_PAN_QE_MVSWITCHGEAR
-- **10 search terms:** switchboard · switchgear · busway · motor control center · MCC · panelboard · power distribution panel · electrical switchboard · breaker panel · bus plug
-- **Searches/day (fill from wayfinding):** ________
+**Use Case and Total Addressable Market:**
 
-### 12. Vehicle Repair Parts (broad auto-parts)  ·  ~300  ·  Fit: **no (auto aftermarket)**
-- **What it is / who buys it:** A grab-bag of generic automotive repair parts. Buyer is a fleet/auto mechanic — a different channel from industrial MRO.
-- **Why it's broad:** ~30 part categories × ~10 variants each ≈ ~300 (really a Bucket-3-sized family).
-- **TAM:** Automotive aftermarket parts ≈ **$400B+/yr** globally — enormous and crowded.
-- **See a real one:** (Dorman Products — general repair parts)
-- **10 search terms:** auto repair part · replacement car part · vehicle hardware · automotive clip · car fastener · engine bracket · auto trim part · vehicle repair kit · car maintenance part · automotive component
-- **Searches/day (fill from wayfinding):** ________
+These are the guts of a PC - processors, graphics cards, memory sticks, and motherboards. The buyer is an IT person or PC builder, and the use case is assembling or upgrading computers.
 
-### Reclassified out of Bucket 4 → Bucket 2 (big machines, few distinct models)
-The earlier pass parked these in Bucket 4, but the math (their own counts) shows only a few dozen distinct models exist worldwide — they belong in Bucket 2:
-- **Digger Derricks** (~30 models), **Coal Pulverizers** (~20), **Heat Recovery Boilers** (~30), **Large-Scale Power Distribution Units** (~30), **Autonomous Motor Vehicles / AGVs** (~50). These are big-ticket capital machines, not deep catalogs.
+The PC-components market is enormous, roughly $60-80B+/yr, but it's a fast-moving consumer-electronics space with razor-thin margins and constant model churn. That's the opposite of McMaster's stable industrial catalog, so despite being a huge family it isn't a fit.
 
----
+- **See a real product:** (Newegg / Micro Center - general PC parts retailers)
+- **10 ways a customer might search mcmaster.com:** computer parts · CPU · graphics card · RAM · motherboard · power supply · PC components · processor · memory module · solid state drive
+- **Searches/day (fill from real wayfinding data):** ________
+
+### — Bucket 4 (about 500-5,000 items) —
+
+### 5. Calibration & Bump-Test Gas Cylinders  ·  ~500-1,000 items  ·  Fit: **YES (McMaster's lane)**
+
+**Use Case and Total Addressable Market:**
+
+Calibration gas is the 'known-good reference' you spray at a gas detector to prove it still reads accurately - so for a typical McMaster customer (a plant maintenance tech, EHS/safety coordinator, or instrument technician), the use case is the routine bump-test and calibration of portable and fixed gas monitors before confined-space entry, hot work, or any job where a faulty detector could get someone killed. It's a recurring, compliance-driven consumable rather than a one-time purchase, which makes demand sticky.
+
+On market size, the global calibration-gas TAM is roughly $1-1.5 billion (most credible estimates land near $1.2-1.3B in 2024), with the non-refillable-cylinder niche that Calgaz leads being a subset of that. One caveat: don't conflate it with the broader 'specialty gas' category some reports cite at $13B+, which lumps in unrelated gases. For McMaster specifically, the relevant slice is narrower still - the disposable cans and regulators a maintenance buyer would reorder, not the large industrial-account or OEM volume.
+
+- **See a real product:** http://www.calgasdirect.com/hydrogen-sulfide-h2s-40-ppm-calibration-gas-balance-air-in-a-58-liter-aluminum-cylinder-gasco-58l-99-40/
+- **10 ways a customer might search mcmaster.com:** calibration gas · bump test gas · cal gas · span gas · gas detector calibration · H2S calibration gas · calibration gas cylinder · 4 gas mix · zero air · gas monitor calibration kit
+- **Searches/day (fill from real wayfinding data):** ________
+
+### 6. Rare-Earth & Specialty / Refractory Metals  ·  ~500-2,000 items  ·  Fit: **YES (extends metals)**
+
+**Use Case and Total Addressable Market:**
+
+These are exotic pure metals - things like hafnium, tungsten, rhenium, yttrium, and niobium - sold in small lab and research forms (rod, wire, foil, sheet, powder). The buyer is an R&D engineer, university lab, or specialty manufacturer who needs a small piece of an unusual metal, and since McMaster already sells common metal stock, this is a natural adjacent extension.
+
+The rare-earth metals market is roughly $5-7B/yr and specialty/refractory metals add billions more, but most of that is bulk industrial tonnage and magnet production. McMaster's slice is the small research-quantity pieces a lab orders one at a time - a real, in-lane opportunity even if the dollar slice is modest.
+
+- **See a real product:** https://www.americanelements.com/rhenium-tube-7440-15-5
+- **10 ways a customer might search mcmaster.com:** tungsten rod · hafnium · niobium sheet · rare earth metal · rhenium · yttrium · tantalum foil · refractory metal · specialty metal · molybdenum wire
+- **Searches/day (fill from real wayfinding data):** ________
+
+### 7. Tower Packing / Raschig & Pall Rings  ·  ~500-2,000 items  ·  Fit: **YES (process adjacent)**
+
+**Use Case and Total Addressable Market:**
+
+Tower packing is the handful of small hollow rings or saddles you dump into a chemical column or scrubber so liquid and gas spread out and mix well. The buyer is a process or chemical-plant engineer (or a distiller), and the data shows customers already search for 'Raschig rings' weekly - so there's pull. It's a consumable that gets replaced when it fouls or breaks down.
+
+The random + structured tower-packing market is roughly $1-2B/yr. The depth comes from several styles (Raschig, Pall, saddles) times many sizes times materials (ceramic, metal, plastic), and the small-quantity, ship-from-stock nature fits McMaster's model well.
+
+- **See a real product:** https://www.machengineering.com/metal-pall-rings/
+- **10 ways a customer might search mcmaster.com:** raschig rings · tower packing · pall rings · column packing · ceramic saddles · random packing · scrubber packing · distillation packing · packing media · structured packing
+- **Searches/day (fill from real wayfinding data):** ________
+
+### 8. Spark Plugs  ·  ~1,000+ items  ·  Fit: **maybe (small-engine MRO)**
+
+**Use Case and Total Addressable Market:**
+
+A spark plug is the part that makes the spark to ignite fuel in a gasoline engine. For a McMaster customer the use case is maintaining small engines, generators, and equipment - it's a classic wear-and-replace part, so it reorders.
+
+The global spark-plug market is roughly $4-6B/yr, but it's dominated by the automotive aftermarket channel (think auto-parts stores). McMaster's realistic slice is generic small-engine and industrial plugs, not the car-fitment business, so it's a 'maybe'.
+
+- **See a real product:** https://www.e3sparkplugs.com/
+- **10 ways a customer might search mcmaster.com:** spark plug · small engine spark plug · iridium spark plug · generator spark plug · spark plug gap · engine spark plug · replacement spark plug · ignition plug · plug heat range · industrial spark plug
+- **Searches/day (fill from real wayfinding data):** ________
+
+### 9. GoBilda Robot-Building Parts  ·  ~500-1,500 items  ·  Fit: **maybe (maker/education)**
+
+**Use Case and Total Addressable Market:**
+
+GoBilda is a modular 'Lego-for-robots' system - rails, brackets, wheels, shafts, lead screws, and fasteners that snap together. The buyer is a maker, a school robotics team, or an engineer prototyping automation, and the use case is building a custom robot or rig fast without machining custom parts.
+
+This is a small market - educational/maker robotics build-systems are maybe a $100-300M niche worldwide. It fits McMaster's small-parts, ship-fast model, but the total demand is limited, so it's a 'maybe' worth watching rather than a big prize.
+
+- **See a real product:** https://www.gobilda.com/timing-belts-pulleys
+- **10 ways a customer might search mcmaster.com:** gobilda · robot building parts · aluminum extrusion robot · maker robot parts · servo bracket · lead screw kit · motion shaft · robot chassis parts · t-slot robot · goBILDA channel
+- **Searches/day (fill from real wayfinding data):** ________
+
+### 10. Lab Reagent Chemicals  ·  ~500-2,000 items  ·  Fit: **partly**
+
+**Use Case and Total Addressable Market:**
+
+These are common lab and process chemicals sold in bottles - acids, salts, buffers, and solvents. The buyer is a lab tech or process operator, and the use case is everyday testing, cleaning, and small-batch processing.
+
+The lab-chemicals/reagents market is very large at roughly $20-30B/yr, but a lot of it is hazardous, regulated, or cold-shipped. McMaster's realistic slice is the thin selection of common, non-hazmat chemicals a maintenance or lab buyer reorders - hence 'partly' in their lane.
+
+- **See a real product:** (Sigma-Aldrich - general lab reagents)
+- **10 ways a customer might search mcmaster.com:** ammonium sulfate · sodium acetate · phenol · thiocyanate · lab chemical · reagent grade · hydrochloric acid · buffer chemical · lab reagent · acetate solution
+- **Searches/day (fill from real wayfinding data):** ________
+
+### 11. Switchgear / Switchboards / Busways / MCCs  ·  ~500-2,000 items  ·  Fit: **no (big-ticket electrical)**
+
+**Use Case and Total Addressable Market:**
+
+Switchgear and switchboards are the big metal cabinets full of breakers that distribute power around a building or plant. The buyer is an electrical contractor or facilities engineer, and the use case is feeding and protecting electrical circuits at scale.
+
+The global switchgear market is huge at roughly $80-100B/yr, but these are engineered, made-to-order, big-ticket assemblies that get project-quoted - not catalog parts you pull off a shelf. That's the opposite of McMaster's model, so despite the depth it isn't a fit.
+
+- **See a real product:** https://www.weg.net/catalog/weg/US/en/Electric-Panels/Electric-Panels/Medium-Voltage-Switchgear/c/GLOBAL_WDC_PAN_QE_MVSWITCHGEAR
+- **10 ways a customer might search mcmaster.com:** switchboard · switchgear · busway · motor control center · MCC · panelboard · power distribution panel · electrical switchboard · breaker panel · bus plug
+- **Searches/day (fill from real wayfinding data):** ________
+
+### 12. Vehicle Repair Parts (broad)  ·  ~300 items  ·  Fit: **no (auto aftermarket)**
+
+**Use Case and Total Addressable Market:**
+
+This is a grab-bag of generic automotive repair parts - clips, brackets, trim, and small hardware. The buyer is a fleet or auto mechanic, and the use case is fixing vehicles. (At ~300 items this is really Bucket-3-sized, not a true deep family.)
+
+The automotive aftermarket is enormous at $400B+/yr, but it's a separate, crowded channel with its own distributors and fitment data. It isn't McMaster's industrial-MRO lane.
+
+- **See a real product:** (Dorman Products - general repair parts)
+- **10 ways a customer might search mcmaster.com:** auto repair part · replacement car part · vehicle hardware · automotive clip · car fastener · engine bracket · auto trim part · vehicle repair kit · car maintenance part · automotive component
+- **Searches/day (fill from real wayfinding data):** ________
+
+> **Note:** five 'big machine, few models' families (digger derricks, coal pulverizers, heat-recovery boilers, large power-distribution units, autonomous vehicles) were moved from Bucket 4 down to Bucket 2 - only ~20-50 distinct models exist worldwide, so they aren't real depth.
 
 ---
 
