@@ -3,25 +3,21 @@
 Add column D = the actual CMF(s) for each company domain in the
 "Easy Wins by Company" tab of Connecting Account Curious.xlsx.
 
-How it works:
-    1. Read the Easy Wins tab -> the list of company domains we care about.
-    2. Read the full logins file (visitor_with_contacts_email_link) and keep
-       only the visitors whose email domain is one of those companies.
-    3. Look each of those visitors up in the warehouse to get their CMF id
-       (visitor -> contact_visitor_source -> contact -> contact_cmf_source -> cmf_id).
-    4. For each domain, tally which CMFs its linked people belong to, and write
-       the TOP 15 (cmf_id: #people) into a new column D, sorted most-common first.
-    5. Save the workbook back (the Summary tab and formatting are preserved).
+Source of "known" people: test_with_cmf_status.xlsx, rows where
+cmf_link_status == "Linked to CMF" (these have intact visitor IDs, unlike the
+with_contacts CSV which Excel mangled into scientific notation). For each such
+visitor we look up the CMF id in the warehouse, then list the top 15 CMFs per
+domain in column D.
 
 SPYDER USERS: edit CONFIG, press Run (F5).
 Requires:  pip install pyodbc openpyxl
 """
 
-import csv
-import os
+from copy import copy
 from collections import defaultdict, Counter
 
 import openpyxl
+from openpyxl.utils import get_column_letter
 import pyodbc
 
 
@@ -29,9 +25,10 @@ import pyodbc
 # EDIT THIS, THEN PRESS RUN (F5).
 # ===========================================================================
 CONFIG = {
-    "workbook":      r"P:\Capacity Management\Management\Akash\B2B\User Models\Account Curious\Connecting Account Curious.xlsx",
-    "sheet":         "Easy Wins by Company",
-    "with_contacts": r"P:\Capacity Management\Management\Akash\B2B\User Models\Account Curious\visitor_with_contacts_email_link.csv",
+    "workbook":     r"P:\Capacity Management\Management\Akash\B2B\User Models\Account Curious\Connecting Account Curious.xlsx",
+    "sheet":        "Easy Wins by Company",
+    # the file we already built, with clean integer IDs + status:
+    "linked_file":  r"P:\Capacity Management\Management\Akash\B2B\User Models\Account Curious\test_with_cmf_status.xlsx",
 
     "server":   r"sqlipmds\sqlipmds",
     "database": "DigitalAnalytics",
@@ -43,13 +40,6 @@ CONFIG = {
 # ===========================================================================
 
 
-CONSUMER_DOMAINS = {
-    "gmail.com", "googlemail.com", "outlook.com", "hotmail.com", "live.com",
-    "msn.com", "icloud.com", "me.com", "mac.com", "yahoo.com", "ymail.com",
-    "aol.com", "comcast.net", "verizon.net", "att.net", "sbcglobal.net",
-    "cox.net", "charter.net", "qq.com", "163.com", "126.com", "naver.com",
-    "mail.ru", "yandex.com", "proton.me", "protonmail.com", "mozmail.com",
-}
 MULTI_LABEL_SUFFIXES = {
     "co.uk", "org.uk", "gov.uk", "ac.uk", "com.au", "net.au", "org.au",
     "co.nz", "co.jp", "co.kr", "com.cn", "com.hk", "com.tw", "com.sg",
@@ -86,30 +76,34 @@ def find_header(ws):
     return 3, 1
 
 
-def read_csv_visitors(path, target_domains):
-    """Yield (visitor_id:int, registered_domain) for rows whose domain is a
-    target. Skips Excel-mangled (scientific-notation) ids and warns."""
+def read_linked_visitors(path, target_domains):
+    """From test_with_cmf_status.xlsx, yield (visitor_id, domain) for people
+    who ARE linked and whose domain is one we care about."""
+    wb = openpyxl.load_workbook(path, read_only=True)
+    ws = wb.active
+    status_col = None
     kept = 0
-    bad_ids = 0
-    with open(path, newline="", encoding="utf-8-sig") as fh:
-        reader = csv.reader(fh)
-        next(reader, None)  # header
-        for row in reader:
-            if not row or not row[0].strip():
-                continue
-            comp = registered_domain(domain_from_email(row[1] if len(row) > 1 else ""))
-            if comp not in target_domains:
-                continue
-            vid = row[0].strip()
-            if not vid.isdigit():          # e.g. "9.36332E+12" -> precision lost
-                bad_ids += 1
-                continue
+    for i, row in enumerate(ws.iter_rows(values_only=True)):
+        if i == 0:
+            for j, h in enumerate(row):
+                if h and "status" in str(h).lower():
+                    status_col = j
+            if status_col is None:
+                status_col = 4  # our column E
+            continue
+        if status_col >= len(row) or row[status_col] != "Linked to CMF":
+            continue
+        vid = row[0]
+        if isinstance(vid, str) and vid.strip().isdigit():
+            vid = int(vid)
+        if not isinstance(vid, int):
+            continue
+        comp = registered_domain(domain_from_email(row[1] if len(row) > 1 else ""))
+        if comp in target_domains:
             kept += 1
-            yield int(vid), comp
-    if bad_ids:
-        print(f"  WARNING: skipped {bad_ids:,} visitor IDs that were saved in "
-              f"scientific notation (re-export with_contacts as TEXT/xlsx to include them).")
-    print(f"  kept {kept:,} linked-candidate rows at target domains")
+            yield vid, comp
+    wb.close()
+    print(f"  kept {kept:,} linked people at target domains")
 
 
 def fetch_cmf_ids(cur, visitor_ids):
@@ -135,13 +129,12 @@ def fetch_cmf_ids(cur, visitor_ids):
 
 
 def main():
-    # ---- 1. read the domains from the Easy Wins tab ----
+    # ---- 1. domains from the Easy Wins tab ----
     print("Opening workbook...")
     wb = openpyxl.load_workbook(CONFIG["workbook"])
     ws = wb[CONFIG["sheet"]]
     hdr_row, dom_col = find_header(ws)
-    print(f"  header on row {hdr_row}, company domain in column "
-          f"{openpyxl.utils.get_column_letter(dom_col)}")
+    print(f"  header on row {hdr_row}, company domain in column {get_column_letter(dom_col)}")
 
     domain_rows = {}  # domain -> excel row number
     for r in range(hdr_row + 1, ws.max_row + 1):
@@ -151,9 +144,9 @@ def main():
     target_domains = set(domain_rows)
     print(f"  {len(target_domains):,} company domains to resolve")
 
-    # ---- 2. pull the linked-candidate visitors at those domains ----
-    print("Reading full logins file (only rows at those domains)...")
-    cand = list(read_csv_visitors(CONFIG["with_contacts"], target_domains))
+    # ---- 2. linked people at those domains (clean IDs) ----
+    print("Reading linked people from test_with_cmf_status.xlsx...")
+    cand = list(read_linked_visitors(CONFIG["linked_file"], target_domains))
     visitor_domain = {v: d for v, d in cand}
 
     # ---- 3. warehouse lookup ----
@@ -173,7 +166,7 @@ def main():
     # ---- 5. write column D ----
     out_col = 4  # column D
     ws.cell(hdr_row, out_col, f"Top {CONFIG['top_cmfs']} CMF(s)  (cmf_id: #linked people)")
-    ws.cell(hdr_row, out_col).font = ws.cell(hdr_row, 1).font  # mimic header style
+    ws.cell(hdr_row, out_col).font = copy(ws.cell(hdr_row, 1).font)  # copy, not proxy
 
     resolved = 0
     for d, r in domain_rows.items():
@@ -191,9 +184,8 @@ def main():
 
     # extend the autofilter to include column D if one is set
     if ws.auto_filter.ref:
-        ws.auto_filter.ref = ws.auto_filter.ref.replace(
-            ":C", ":D").replace(":c", ":D")
-    ws.column_dimensions[openpyxl.utils.get_column_letter(out_col)].width = 60
+        ws.auto_filter.ref = ws.auto_filter.ref.replace(":C", ":D").replace(":c", ":D")
+    ws.column_dimensions[get_column_letter(out_col)].width = 60
 
     wb.save(CONFIG["workbook"])
     print(f"\nDone. Resolved CMFs for {resolved:,}/{len(target_domains):,} domains.")
