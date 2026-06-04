@@ -225,18 +225,30 @@ def load_week_ahead_prefills(config: dict) -> dict:
     # ── Cross-department rule (universal) ─────────────────────────────────────
     # This is a dynamic, interactive scheduling tool: a person pre-filled into
     # ANY department on a given day is "spoken for" that day and must not be
-    # auto-assigned in any OTHER department — not even their home department.
-    # (e.g. a BSK employee pre-filled into BCK Mon–Wed must not also rotate into
-    # BSK Mon–Wed, but is still free to rotate Thu–Fri.)
+    # auto-assigned in any OTHER department for that day — not even their home
+    # department. (e.g. a BSK employee pre-filled into BCK Mon–Wed must not also
+    # rotate into BSK Mon–Wed, but is still free to rotate Thu–Fri.)
     #
-    # We fold a global per-day "placed" union into every department's per-day
-    # placed set, so each department's existing exclusion logic enforces it
-    # automatically. Only 'placed' is shared — 'slots' stay per-department, so
-    # operational slot protection and station-prefill detection are untouched.
+    # Two views are kept per department/day:
+    #   'placed_own' — only the names pre-filled in THIS department. Weekly
+    #                  departments (BCK/IAG/RSK/RCK/MC) use this to decide who is
+    #                  already represented here and should be left out of the
+    #                  rotation pool entirely.
+    #   'placed'     — the GLOBAL union across all departments. Used for per-day
+    #                  blanking: on a day someone is spoken for anywhere, their
+    #                  cell in every other department is left blank. This way a
+    #                  weekly person pre-filled elsewhere for part of the week
+    #                  KEEPS their weekly role and is only blanked on those days
+    #                  (Roy stays on BCK Station 7 Wed–Fri, blank Mon–Tue).
+    # Only 'placed' is shared — 'slots' stay per-department, so operational slot
+    # protection and station-prefill detection are untouched.
+    for dept in result:
+        for day in DAY_NAMES:
+            result[dept][day]['placed_own'] = set(result[dept][day]['placed'])
     for day in DAY_NAMES:
         global_placed_today = set()
         for dept in result:
-            global_placed_today |= result[dept][day]['placed']
+            global_placed_today |= result[dept][day]['placed_own']
         for dept in result:
             result[dept][day]['placed'] |= global_placed_today
 
@@ -587,10 +599,15 @@ def assign_bin_checking(hist_df: pd.DataFrame, config: dict, pto_by_day: dict, p
         results.append({'Employee': name, **day_vals_for(name, station),
                         'Last_Station': last, 'Distance': dist, 'Note': note})
 
-    # Collect pre-placed employees across the whole week
+    # Collect employees pre-placed in BCK itself across the week — these are
+    # already represented by their BCK prefill, so they're kept out of the
+    # rotation pool. Uses placed_own (not the global union): someone pre-filled
+    # in ANOTHER department only part of the week still keeps their BCK station,
+    # blanked on the days they're spoken for elsewhere (handled by day_vals_for
+    # and the per-day blanking below).
     bck_all_placed = set()
     for day in DAY_NAMES:
-        bck_all_placed.update((prefills or {}).get('BCK', {}).get(day, {}).get('placed', set()))
+        bck_all_placed.update((prefills or {}).get('BCK', {}).get(day, {}).get('placed_own', set()))
 
     # Collect pre-filled stations across the whole week (union — treat as unavailable for weekly assignment)
     prefilled_stations_week = set()
@@ -721,6 +738,10 @@ def assign_bin_checking(hist_df: pd.DataFrame, config: dict, pto_by_day: dict, p
                 for day in DAY_NAMES:
                     if in_pto(emp, pto_by_day[day]):
                         day_vals[day] = 'PTO'
+                    elif in_pto(emp, bck_placed_by_day[day]):
+                        # Spoken for in another department this day — keep their
+                        # weekly station but leave BCK blank for that day.
+                        day_vals[day] = ''
                     elif station in prefilled_by_day[day]:
                         # Their station is pre-filled this day — mark as extra
                         day_vals[day] = 'Extra'
@@ -730,7 +751,9 @@ def assign_bin_checking(hist_df: pd.DataFrame, config: dict, pto_by_day: dict, p
                                 'Last_Station': last, 'Distance': dist, 'Note': note})
             else:
                 results.append({'Employee': emp,
-                                **{day: 'PTO' if in_pto(emp, pto_by_day[day]) else 'Extra' for day in DAY_NAMES},
+                                **{day: 'PTO' if in_pto(emp, pto_by_day[day])
+                                   else ('' if in_pto(emp, bck_placed_by_day[day]) else 'Extra')
+                                   for day in DAY_NAMES},
                                 'Last_Station': last, 'Distance': None, 'Note': 'Extra'})
     elif remaining_emps:
         # Every real station is taken (fixed/pairs/pre-fills consumed them all).
@@ -739,7 +762,9 @@ def assign_bin_checking(hist_df: pd.DataFrame, config: dict, pto_by_day: dict, p
         for emp in remaining_emps:
             last = get_last_station(emp, hist_df)
             results.append({'Employee': emp,
-                            **{day: 'PTO' if in_pto(emp, pto_by_day[day]) else 'Extra' for day in DAY_NAMES},
+                            **{day: 'PTO' if in_pto(emp, pto_by_day[day])
+                               else ('' if in_pto(emp, bck_placed_by_day[day]) else 'Extra')
+                               for day in DAY_NAMES},
                             'Last_Station': last, 'Distance': None, 'Note': 'Extra — all stations full'})
 
     # Second pass — reassign blocked
@@ -1129,11 +1154,14 @@ def assign_iag(config: dict, pto_by_day: dict, hist_df: pd.DataFrame, prefills: 
     }
     for day in DAY_NAMES:
         day_data = (prefills or {}).get('IAG', {}).get(day, {})
-        iag_all_placed.update(day_data.get('placed', set()))
+        # placed_own: only IAG's own prefills keep someone out of the rotation.
+        # Someone pre-filled elsewhere part-week keeps their IAG role and is just
+        # blanked on those days (per-day blanking below uses the global 'placed').
+        iag_all_placed.update(day_data.get('placed_own', set()))
         for lbl in day_data.get('slots', {}):
             iag_all_prefilled_roles.add(LABEL_TO_ROLE.get(lbl, lbl))
 
-    # Rotation pool excludes desk and pre-placed employees
+    # Rotation pool excludes desk and IAG-prefilled employees
     rotation_employees = [e for e in employees
                           if e != desk_person and not in_pto(e, iag_all_placed)]
 
@@ -1423,10 +1451,12 @@ def assign_rsk(config: dict, pto_by_day: dict, hist_df: pd.DataFrame, prefills: 
             break
 
     # ── 3. Rotating pool — everyone else ─────────────────────────────────────
-    # Exclude employees pre-placed in Week Ahead for all days from pool
+    # Only RSK's own prefills keep someone out of the pool (placed_own). Someone
+    # pre-filled elsewhere part-week keeps their RSK role and is blanked on those
+    # days (per-day blanking below uses the global 'placed').
     rsk_all_placed = set()
     for day in DAY_NAMES:
-        rsk_all_placed.update((prefills or {}).get('RSK', {}).get(day, {}).get('placed', set()))
+        rsk_all_placed.update((prefills or {}).get('RSK', {}).get(day, {}).get('placed_own', set()))
     pool = [e for e in all_names if e not in assigned_fixed and not in_pto(e, rsk_all_placed)]
 
     # Each employee's vehicle sequence based purely on qualifications
@@ -1800,11 +1830,24 @@ def assign_rck(config: dict, pto_by_day: dict, hist_df: pd.DataFrame, prefills: 
     qualified   = rck['qualified']
     rtnr_qual   = set(qualified.get('rtnr', []))
 
+    # Per-day global "placed" set — anyone spoken for in another department that
+    # day is left blank in RCK (they keep their weekly RCK role on the other days).
+    rck_placed_by_day = {day: (prefills or {}).get('RCK', {}).get(day, {}).get('placed', set())
+                         for day in DAY_NAMES}
+
     def is_pto_all_week(name):
         return all(in_pto(name, pto_by_day[day]) for day in DAY_NAMES)
 
     def day_vals_fixed(name, role):
-        return {day: 'PTO' if in_pto(name, pto_by_day[day]) else role for day in DAY_NAMES}
+        out = {}
+        for day in DAY_NAMES:
+            if in_pto(name, pto_by_day[day]):
+                out[day] = 'PTO'
+            elif in_pto(name, rck_placed_by_day[day]):
+                out[day] = ''   # spoken for in another department this day
+            else:
+                out[day] = role
+        return out
 
     def declines(emp, role_label):
         """Check Confirmations / Do-Not-Ask list for the role."""
@@ -1851,9 +1894,12 @@ def assign_rck(config: dict, pto_by_day: dict, hist_df: pd.DataFrame, prefills: 
         results.append({'Employee': uld1, **day_vals_fixed(uld1, 'ULD-1'), 'Role': 'ULD-1', 'Note': 'ULD-1'})
 
     # ── Exclude pre-placed from Week Ahead ───────────────────────────────────
+    # Only RCK's own prefills (placed_own) keep someone out of the pool. Someone
+    # pre-filled elsewhere part-week keeps their RCK role and is blanked on those
+    # days via day_vals_fixed (which checks the global per-day placed set).
     rck_all_placed = set()
     for day in DAY_NAMES:
-        rck_all_placed.update((prefills or {}).get('RCK', {}).get(day, {}).get('placed', set()))
+        rck_all_placed.update((prefills or {}).get('RCK', {}).get(day, {}).get('placed_own', set()))
     checker_pool = [e for e in qualified['rack_checker']
                     if e not in assigned and not in_pto(e, rck_all_placed)]
 
@@ -1969,7 +2015,9 @@ def assign_rck(config: dict, pto_by_day: dict, hist_df: pd.DataFrame, prefills: 
     for emp in all_names:
         if emp not in covered:
             results.append({'Employee': emp,
-                            **{day: 'PTO' if in_pto(emp, pto_by_day[day]) else '— Unassigned —' for day in DAY_NAMES},
+                            **{day: 'PTO' if in_pto(emp, pto_by_day[day])
+                               else ('' if in_pto(emp, rck_placed_by_day[day]) else '— Unassigned —')
+                               for day in DAY_NAMES},
                             'Role': '', 'Note': 'Not in any pool'})
 
     return pd.DataFrame(results, columns=['Employee'] + DAY_NAMES + ['Role', 'Note'])
@@ -2140,11 +2188,13 @@ def assign_mc(config: dict, pto_by_day: dict, prefills: dict = None) -> pd.DataF
     employees = sorted(employees)
     print(f"✓ MC employees loaded: {len(employees)} total")
 
-    # Pre-placement awareness: if someone is pre-placed anywhere in MC this week,
-    # skip them from the alphabetical slot assignment so they only appear in the prefilled cell.
+    # Pre-placement awareness: only someone pre-placed in MC itself (placed_own)
+    # is skipped from the alphabetical slot assignment. Someone pre-filled
+    # elsewhere part-week keeps their MC slot and is just blanked on those days
+    # (per-day blanking below uses the global 'placed').
     mc_all_placed = set()
     for day in DAY_NAMES:
-        mc_all_placed.update((prefills or {}).get('MC', {}).get(day, {}).get('placed', set()))
+        mc_all_placed.update((prefills or {}).get('MC', {}).get(day, {}).get('placed_own', set()))
 
     def is_pto_all_week(name):
         return all(in_pto(name, pto_by_day[day]) for day in DAY_NAMES)
