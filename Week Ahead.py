@@ -2391,7 +2391,14 @@ def write_week_ahead(assignments: dict, config: dict, leave_by_day: dict = None,
                 cv     = row.get(day)
                 cv_str = str(cv).strip() if cv is not None else ''
                 if emp_day_class[emp][day] == 'assigned':
-                    write_assigned_day(dept, cv_str, note, role, day, ct_display(emp), floater_counters)
+                    placed = write_assigned_day(dept, cv_str, note, role, day,
+                                                ct_display(emp), floater_counters)
+                    if not placed:
+                        # Their named slot was full / missing / already taken (e.g. more
+                        # people than slots, or a duplicate role). Never let them fall off
+                        # the schedule — reclassify as Extra so Pass 2 writes them to the
+                        # Extra row. This applies to every department.
+                        emp_day_class[emp][day] = 'extra'
 
         # ── Pass 2: write overflow rows (PTO / TRN / Extra) ──────────────────
         def find_row_for_days(dept, section_label, days_needed):
