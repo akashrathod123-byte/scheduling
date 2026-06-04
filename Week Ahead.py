@@ -2142,6 +2142,124 @@ def assign_mc(config: dict, pto_by_day: dict, prefills: dict = None) -> pd.DataF
 
     return pd.DataFrame(results, columns=['Employee'] + DAY_NAMES + ['Slot', 'Note'])
 
+# ── IAG codings ───────────────────────────────────────────────────────────────
+
+def load_all_start_times(ct_file: str) -> dict:
+    """Map every employee to their assigned start time as 'HH:MM', from the
+    Cross Training Log's 'Assigned Start Time' column. Keyed by both the
+    'Last, First' (col E) and 'First Last' (col DT) forms, plus lowercase, so a
+    Week Ahead display name can always be matched back to a shift time."""
+    import re
+    out = {}
+    try:
+        df = pd.read_excel(ct_file, sheet_name='Cross Training', header=None)
+    except Exception as e:
+        print(f"  ⚠ Could not read start times from CT log: {e}")
+        return out
+
+    headers   = [str(v).strip() if pd.notna(v) else '' for v in df.iloc[4]]
+    start_col = next((i for i, h in enumerate(headers)
+                      if 'Assigned Start Time' in h or 'Start Time' in h), None)
+    if start_col is None:
+        return out
+    name_col, alt_col = 4, 123
+
+    def fmt(val):
+        try:
+            if hasattr(val, 'hour'):
+                return f"{val.hour:02d}:{val.minute:02d}"
+            t = pd.to_datetime(str(val))
+            return f"{t.hour:02d}:{t.minute:02d}"
+        except Exception:
+            m = re.match(r'^(\d{1,2}):(\d{2})', str(val).strip())
+            return f"{int(m.group(1)):02d}:{m.group(2)}" if m else None
+
+    for i in range(5, len(df)):
+        val = df.iloc[i, start_col]
+        if pd.isna(val):
+            continue
+        t = fmt(val)
+        if not t:
+            continue
+        col_e  = str(df.iloc[i, name_col]).strip() if pd.notna(df.iloc[i, name_col]) else ''
+        col_dt = str(df.iloc[i, alt_col]).strip()  if pd.notna(df.iloc[i, alt_col])  else ''
+        for key in (col_e, col_dt):
+            if key and key != 'nan':
+                out[key]         = t
+                out[key.lower()] = t
+    return out
+
+
+# IAG role labels (as they appear in col A of the IAG block), lowercased for matching.
+IAG_ROLE_LABELS = {
+    'desk/ macro', 'racks', 'bins 1', 'bins 2', 'bins 3',
+    'floater/1st floor', 'float/audits', 'counts/material found',
+}
+
+
+def update_iag_codings(wb, ws_names, config: dict):
+    """Rewrite the IAG codings in the 'Codings' sheet so each role's embedded
+    shift time matches the actual start time (from the CT log) of whoever is
+    placed in that role in the Week Ahead. The coding prefix (IAG / Counts) is
+    preserved — only the time changes, e.g. IAG09:30 → IAG08:30."""
+    import re
+    if 'Codings' not in wb.sheetnames:
+        print("  ⚠ No 'Codings' sheet — skipping IAG coding update")
+        return
+    ws_cod = wb['Codings']
+
+    IAG_COL  = 22  # DEPT_COL_START['IAG']
+    DAY_COLS = {'Monday': 23, 'Tuesday': 24, 'Wednesday': 25, 'Thursday': 26, 'Friday': 27}
+
+    start_times = load_all_start_times(config.get('ct_file', ''))
+    if not start_times:
+        print("  ⚠ No start times available — IAG codings left as-is")
+        return
+
+    def lookup_time(name):
+        if not name:
+            return None
+        name = str(name).strip()
+        for key in (name, name.lower(), ct_display(name), str(ct_display(name)).lower()):
+            if key in start_times:
+                return start_times[key]
+        return None
+
+    # Who's in each IAG role, per day, from the names sheet we just wrote.
+    names_by_label = {}
+    for r in range(2, ws_names.max_row + 1):
+        lbl = ws_names.cell(row=r, column=IAG_COL).value
+        if lbl is None:
+            continue
+        key = str(lbl).strip().lower()
+        if key not in IAG_ROLE_LABELS:
+            continue
+        names_by_label[key] = {day: ws_names.cell(row=r, column=col).value
+                               for day, col in DAY_COLS.items()}
+
+    updated = 0
+    for r in range(2, ws_cod.max_row + 1):
+        lbl = ws_cod.cell(row=r, column=IAG_COL).value
+        if lbl is None:
+            continue
+        key = str(lbl).strip().lower()
+        if key not in IAG_ROLE_LABELS or key not in names_by_label:
+            continue
+        for day, col in DAY_COLS.items():
+            t = lookup_time(names_by_label[key].get(day))
+            if not t:
+                continue  # nobody placed (or no start time) — keep the existing coding
+            cell    = ws_cod.cell(row=r, column=col)
+            current = str(cell.value) if cell.value is not None else ''
+            m       = re.match(r'^([^\d]*)', current)
+            prefix  = m.group(1) if (m and m.group(1)) else ('Counts' if key.startswith('counts') else 'IAG')
+            new_val = f"{prefix}{t}"
+            if new_val != current:
+                cell.value = new_val
+                updated += 1
+    print(f"  ✓ IAG codings synced to assigned shift times ({updated} cell(s) updated)")
+
+
 # ── Write to Week Ahead ───────────────────────────────────────────────────────
 
 def write_week_ahead(assignments: dict, config: dict, leave_by_day: dict = None, prefills: dict = None):
@@ -2462,6 +2580,12 @@ def write_week_ahead(assignments: dict, config: dict, leave_by_day: dict = None,
                         continue
                     ws.cell(row=target_row, column=col).value = display_emp
                     column_names[(dept, day)].add(display_emp)
+
+    # Sync IAG codings to the actual assigned shift times of who's placed where
+    try:
+        update_iag_codings(wb, ws, config)
+    except Exception as e:
+        print(f"  ⚠ IAG coding update skipped: {e}")
 
     wb.save(dest)
     print(f"\n✓ Week Ahead updated: {dest}")
