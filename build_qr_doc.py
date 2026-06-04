@@ -55,7 +55,7 @@ p("In January, Prepack items started to include modern McMaster-Carr branding "
   "and a QR code on every label. The QR code takes customers directly to "
   "the part's product detail page on McMaster.com, making reordering easier for "
   "customers who have the part in hand.")
-p("175 customers have scanned a Prepack code since launch. Weekly volume is climbing, "
+p("There have been 175 visits with a Prepack code scan since launch. Weekly volume is climbing, "
   "about half of scans match to a known customer account, and a handful of parts "
   "are getting scanned repeatedly.")
 
