@@ -222,6 +222,24 @@ def load_week_ahead_prefills(config: dict) -> dict:
                         dept_data[day]['slots'][label] = name
         result[dept] = dept_data
 
+    # ── Cross-department rule (universal) ─────────────────────────────────────
+    # This is a dynamic, interactive scheduling tool: a person pre-filled into
+    # ANY department on a given day is "spoken for" that day and must not be
+    # auto-assigned in any OTHER department — not even their home department.
+    # (e.g. a BSK employee pre-filled into BCK Mon–Wed must not also rotate into
+    # BSK Mon–Wed, but is still free to rotate Thu–Fri.)
+    #
+    # We fold a global per-day "placed" union into every department's per-day
+    # placed set, so each department's existing exclusion logic enforces it
+    # automatically. Only 'placed' is shared — 'slots' stay per-department, so
+    # operational slot protection and station-prefill detection are untouched.
+    for day in DAY_NAMES:
+        global_placed_today = set()
+        for dept in result:
+            global_placed_today |= result[dept][day]['placed']
+        for dept in result:
+            result[dept][day]['placed'] |= global_placed_today
+
     wb.close()
     return result
 
@@ -540,8 +558,23 @@ def assign_bin_checking(hist_df: pd.DataFrame, config: dict, pto_by_day: dict, p
     results              = []
     assigned             = set(fixed.keys())
 
+    # Per-day "placed" set for BCK (already folded with the global cross-department
+    # union in load_week_ahead_prefills). Anyone spoken for on a given day — whether
+    # pre-filled in BCK or in another department — is left blank for that day so a
+    # fixed/pair person is never double-booked.
+    bck_placed_by_day = {day: (prefills or {}).get('BCK', {}).get(day, {}).get('placed', set())
+                         for day in DAY_NAMES}
+
     def day_vals_for(name, station):
-        return {day: 'PTO' if (in_pto(name, pto_by_day[day])) else station for day in DAY_NAMES}
+        out = {}
+        for day in DAY_NAMES:
+            if in_pto(name, pto_by_day[day]):
+                out[day] = 'PTO'
+            elif in_pto(name, bck_placed_by_day[day]):
+                out[day] = ''   # spoken for elsewhere (or pre-filled here) — leave blank
+            else:
+                out[day] = station
+        return out
 
     def is_pto_all_week(name):
         return all(in_pto(name, pto_by_day[day]) for day in DAY_NAMES)
