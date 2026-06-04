@@ -45,7 +45,7 @@ tr.bold = True; tr.font.size = Pt(16); tr.underline = True
 title.paragraph_format.space_after = Pt(2)
 
 sub = doc.add_paragraph()
-sr = sub.add_run('January 21 – May 28, 2026')
+sr = sub.add_run('January 21 – May 30, 2026')
 sr.font.size = Pt(11); sr.italic = True
 sub.paragraph_format.space_after = Pt(14)
 
@@ -55,7 +55,7 @@ p("In January, Prepack items started to include modern McMaster-Carr branding "
   "and a QR code on every label. The QR code takes customers directly to "
   "the part's product detail page on McMaster.com, making reordering easier for "
   "customers who have the part in hand.")
-p("172 customers have scanned a Prepack code since launch. Weekly volume is climbing, "
+p("175 customers have scanned a Prepack code since launch. Weekly volume is climbing, "
   "about half of scans match to a known customer account, and a handful of parts "
   "are getting scanned repeatedly.")
 
@@ -67,14 +67,14 @@ r1 = para.add_run("Every Prepack QR code points to a McMaster.com URL with the s
                   "format: the part number, followed by a short tag ("); r1.font.size = Pt(11)
 r2 = para.add_run("mode=QR & codeid=4");                                  r2.font.size = Pt(11); r2.bold = True
 r3 = para.add_run(") that identifies it as a Prepack scan. We pulled every visit "
-                  "that landed on one of these URLs between January 21 and May 28."); r3.font.size = Pt(11)
-p("We filtered out scans associated with our internal IP addresses. That left 172 "
+                  "that landed on one of these URLs between January 21 and May 30."); r3.font.size = Pt(11)
+p("We filtered out scans associated with our internal IP addresses. That left 175 "
   "customer scans.")
 
 # ── VOLUME ──────────────────────────────────────────────────────────────────
 h('QR scan volume')
 p("Volume has grown steadily. Weekly scans averaged about 3 in February. By May, "
-  "weekly scans ranged from 9 to 27, with the high the week of May 18.")
+  "weekly scans ranged from 12 to 27, with the high the week of May 18.")
 doc.add_picture('/home/user/scheduling/qr_weekly.png', width=Inches(6.5))
 
 # ── WHO'S SCANNING ──────────────────────────────────────────────────────────
@@ -82,14 +82,14 @@ h('Who is scanning')
 p("Most customers scan without being logged in, so the visit alone doesn't tell us "
   "who they are. We matched scans to known customers using two signals: the "
   "visitor ID tied to each visit, and the IP address the scan came from.")
-p("About half — 90 of the 172 scans — matched to a known customer this way. The "
+p("About half — 90 of the 175 scans — matched to a known customer this way. The "
   "matches skew toward shops and credit-card buyers.")
 
 # ── WHAT THEY DO ────────────────────────────────────────────────────────────
 h('What customers do after they scan')
 p("Most visits are short. About seven in ten customers land on the part page and "
   "leave without taking any further action.")
-p("The remaining 31% went deeper. They filtered specs, expanded images, opened "
+p("The remaining 30% went deeper. They filtered specs, expanded images, opened "
   "related parts, and came back to the scanned product later in the visit. Three "
   "placed items in their order pad. One downloaded a CAD file.")
 
@@ -100,8 +100,8 @@ for i, label in enumerate(['Visit length', 'Visits', '% of total']):
     hdr[i].text = ''
     r = hdr[i].paragraphs[0].add_run(label); r.bold = True; r.font.size = Pt(11)
 rows_data = [
-    ('Single action (landing only)',  '119', '69%'),
-    ('2–5 actions',                    '41', '24%'),
+    ('Single action (landing only)',  '122', '70%'),
+    ('2–5 actions',                    '41', '23%'),
     ('6+ actions',                     '12',  '7%'),
 ]
 for ri, row in enumerate(rows_data, 1):
@@ -110,14 +110,14 @@ for ri, row in enumerate(rows_data, 1):
         r = c.paragraphs[0].add_run(v); r.font.size = Pt(11)
 
 p('', after=6)
-p("92% of scans came from a phone — roughly 60% iPhone and 40% Android. The "
-  "remaining 8% came from desktop browsers, usually a customer who scanned with "
+p("94% of scans came from a phone — roughly 60% iPhone and 40% Android. The "
+  "remaining 6% came from desktop browsers, usually a customer who scanned with "
   "their phone and finished the visit on a computer.")
 
 # ── PARTS ───────────────────────────────────────────────────────────────────
 h('Which parts get scanned')
-p("Customers scanned 127 different part numbers. About three-quarters (98 of the "
-  "127) were scanned only once. Twenty-nine were scanned more than once.")
+p("Customers scanned 129 different part numbers. About three-quarters (99 of the "
+  "129) were scanned only once. Thirty were scanned more than once.")
 
 t2 = doc.add_table(rows=12, cols=3)
 t2.style = 'Table Grid'
@@ -223,9 +223,9 @@ h('Takeaways')
 bullet("Volume is climbing. Weekly scans in May ran roughly five times higher than "
        "in February. We expect continued growth as more Prepacks ship.")
 bullet("About half of scans match to a known customer account.")
-bullet("Most visits are short. The 31% who go deeper engage meaningfully — filtering "
+bullet("Most visits are short. The 30% who go deeper engage meaningfully — filtering "
        "specs, expanding images, and in some cases adding items to the order pad.")
-bullet("Twenty-nine parts came up more than once.")
+bullet("Thirty parts came up more than once.")
 
 doc.save(OUT)
 print(f"Saved → {OUT}")
