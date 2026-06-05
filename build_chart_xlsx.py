@@ -48,16 +48,21 @@ chart = BarChart()
 chart.type = 'col'
 chart.style = 2
 chart.title = 'Weekly QR scans — Prepack items (Jan 21 – May 30, 2026)'
-chart.y_axis.title = 'QR scans'
-chart.x_axis.title = 'Week starting (Monday)'
 chart.height = 9
 chart.width = 22
 chart.legend = None
 chart.gapWidth = 40
 
-# Y axis: major unit of 5, no major gridlines (match doc)
+# Y axis: major unit of 5, no major gridlines (match doc), no axis title
 chart.y_axis.majorUnit = 5
 chart.y_axis.majorGridlines = None
+chart.y_axis.title = None
+chart.y_axis.delete = False
+
+# X axis: show category labels (week-starting dates), no axis title
+chart.x_axis.title = None
+chart.x_axis.delete = False
+chart.x_axis.tickLblPos = 'low'
 
 data = Reference(ws, min_col=2, min_row=1, max_row=len(weeks) + 1, max_col=2)
 cats = Reference(ws, min_col=1, min_row=2, max_row=len(weeks) + 1)
