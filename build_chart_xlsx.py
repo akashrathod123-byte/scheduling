@@ -37,11 +37,11 @@ for c in (ws['A1'], ws['B1']):
     c.fill = PatternFill('solid', fgColor='E8EEF3')
 
 for i, (d, n) in enumerate(weeks, start=2):
-    ws.cell(row=i, column=1, value=d)
-    ws.cell(row=i, column=1).number_format = 'yyyy-mm-dd'
+    # Text label so Excel uses a category axis (wide bars) instead of date axis (thin sticks)
+    ws.cell(row=i, column=1, value=d.strftime('%b %d'))
     ws.cell(row=i, column=2, value=n)
 
-ws.column_dimensions['A'].width = 24
+ws.column_dimensions['A'].width = 18
 ws.column_dimensions['B'].width = 12
 
 chart = BarChart()
@@ -50,10 +50,14 @@ chart.style = 2
 chart.title = 'Weekly QR scans — Prepack items (Jan 21 – May 30, 2026)'
 chart.y_axis.title = 'QR scans'
 chart.x_axis.title = 'Week starting (Monday)'
-chart.height = 10
+chart.height = 9
 chart.width = 22
 chart.legend = None
-chart.gapWidth = 60
+chart.gapWidth = 40
+
+# Y axis: major unit of 5, no major gridlines (match doc)
+chart.y_axis.majorUnit = 5
+chart.y_axis.majorGridlines = None
 
 data = Reference(ws, min_col=2, min_row=1, max_row=len(weeks) + 1, max_col=2)
 cats = Reference(ws, min_col=1, min_row=2, max_row=len(weeks) + 1)
