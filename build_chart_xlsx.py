@@ -2,6 +2,10 @@
 from openpyxl import Workbook, load_workbook
 from openpyxl.chart import BarChart, Reference
 from openpyxl.chart.label import DataLabelList
+from openpyxl.chart.shapes import GraphicalProperties
+from openpyxl.drawing.fill import ColorChoice, PatternFillProperties, ColorChoice
+from openpyxl.drawing.colors import ColorChoice
+from openpyxl.chart.layout import Layout, ManualLayout
 from openpyxl.styles import Font, PatternFill, Alignment
 from collections import Counter
 from datetime import timedelta
@@ -49,12 +53,18 @@ chart.x_axis.title = 'Week starting (Monday)'
 chart.height = 10
 chart.width = 22
 chart.legend = None
+chart.gapWidth = 60
 
 data = Reference(ws, min_col=2, min_row=1, max_row=len(weeks) + 1, max_col=2)
 cats = Reference(ws, min_col=1, min_row=2, max_row=len(weeks) + 1)
 chart.add_data(data, titles_from_data=True)
 chart.set_categories(cats)
-chart.dataLabels = DataLabelList(showVal=True)
+
+# Single navy series, value labels above bars (just the number, no series name/category)
+series = chart.series[0]
+series.graphicalProperties = GraphicalProperties(solidFill='1F4E79')
+series.graphicalProperties.line.solidFill = '1F4E79'
+series.dLbls = DataLabelList(showVal=True, showSerName=False, showCatName=False, showLegendKey=False)
 
 ws.add_chart(chart, 'D2')
 
