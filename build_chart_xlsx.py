@@ -3,9 +3,10 @@ from openpyxl import Workbook, load_workbook
 from openpyxl.chart import BarChart, Reference
 from openpyxl.chart.label import DataLabelList
 from openpyxl.chart.shapes import GraphicalProperties
-from openpyxl.drawing.fill import ColorChoice, PatternFillProperties, ColorChoice
-from openpyxl.drawing.colors import ColorChoice
-from openpyxl.chart.layout import Layout, ManualLayout
+from openpyxl.chart.text import RichText
+from openpyxl.drawing.text import (
+    RichTextProperties, Paragraph, ParagraphProperties, CharacterProperties
+)
 from openpyxl.styles import Font, PatternFill, Alignment
 from collections import Counter
 from datetime import timedelta
@@ -63,6 +64,13 @@ chart.y_axis.delete = False
 chart.x_axis.title = None
 chart.x_axis.delete = False
 chart.x_axis.tickLblPos = 'low'
+chart.x_axis.tickLblSkip = 2  # show every other date label, like the SVG
+
+# Rotate x-axis labels ~ -30° to mimic SVG
+chart.x_axis.txPr = RichText(
+    bodyPr=RichTextProperties(rot=-1800000, vert='horz'),
+    p=[Paragraph(pPr=ParagraphProperties(defRPr=CharacterProperties(sz=900)))]
+)
 
 data = Reference(ws, min_col=2, min_row=1, max_row=len(weeks) + 1, max_col=2)
 cats = Reference(ws, min_col=1, min_row=2, max_row=len(weeks) + 1)
