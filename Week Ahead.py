@@ -17,7 +17,7 @@ import pandas as pd
 from openpyxl import load_workbook
 import numpy as np
 from scipy.optimize import linear_sum_assignment
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 
 CONFIG_PATH        = r"P:\Sales Side Operations\Coordinated Models\Automated Scheduling\Supply Side\Inputs.xlsx"
 CONFIG_SHEET_FILES = "Files"
@@ -41,6 +41,20 @@ def load_config() -> dict:
 
     monday_str = _fmt_date(ws_files["C7"].value)
     monday     = datetime.strptime(monday_str, "%m/%d/%y")
+
+    # Guard against a stale Schedule Date. The Week Ahead plans an UPCOMING week,
+    # so Files!C7 must be a future date. If it's today or in the past, the user
+    # almost certainly forgot to update C7 (or forgot to SAVE Inputs.xlsx after
+    # changing it) — stop here instead of rebuilding a past week's schedule.
+    today     = date.today()
+    today_str = f"{today.month}/{today.day}/{str(today.year)[2:]}"
+    if monday.date() <= today:
+        wb.close()
+        raise ValueError(
+            f"Schedule Date in Inputs.xlsx (Files!C7) is {monday_str}, which is not a "
+            f"future date (today is {today_str}). "
+            f"Update C7 to the upcoming Monday AND SAVE Inputs.xlsx before running the Week Ahead."
+        )
 
     week_dates = {
         day: _fmt_date(monday + timedelta(days=i))
