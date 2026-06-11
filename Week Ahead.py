@@ -1052,6 +1052,24 @@ def assign_bin_stockkeeping(config: dict, pto_by_day: dict, hist_df: pd.DataFram
                 elif in_pto(emp, pto_today):
                     emp_days[emp][day] = 'PTO'
 
+        # Step 5: Consolidated Servicing — fill its 4 overflow slots from people
+        # who would otherwise be Extra, BEFORE anyone is left as Extra. These are
+        # servicing spots, NOT part of the zone rotation, so this never changes
+        # zone / floater / sizer assignment or PTO/pre-fill handling — it only
+        # upgrades some 'Extra' people to 'Consolidated Servicing' for the day.
+        # Respects any CS slots the user already pre-filled.
+        CS_LABELS = ('Consolidated Servicing1', 'Consolidated Servicing2',
+                     'Consolidated Servicing3', 'Consolidated Servicing4')
+        cs_prefilled = sum(1 for lbl in bsk_slots if lbl in CS_LABELS)
+        open_cs = max(0, len(CS_LABELS) - cs_prefilled)
+        if open_cs > 0:
+            # Only people currently marked Extra for this day are eligible.
+            # Qualified overflow first (shuffled, anti-bias), then unqualified.
+            overflow = ([e for e in shuffled_pool if emp_days[e].get(day) == 'Extra']
+                        + [e for e in extra_always if emp_days[e].get(day) == 'Extra'])
+            for emp in overflow[:open_cs]:
+                emp_days[emp][day] = 'Consolidated Servicing'
+
     results = []
     # Only write sizer row if sizer is not in training
     if sizer and sizer not in training and ct_display(sizer) not in training:
@@ -2507,6 +2525,20 @@ def write_week_ahead(assignments: dict, config: dict, leave_by_day: dict = None,
                         return True
                     fi += 1
                 floater_counters[day] = fi
+                return False
+            elif cv_str == 'Consolidated Servicing':
+                # Multi-slot like Floater: fill Consolidated Servicing1..4 in order.
+                # If all four are taken, return False so the Pass-1 catch-all sends
+                # the person to the Extra row instead of dropping them.
+                cs_labels = ['Consolidated Servicing1', 'Consolidated Servicing2',
+                             'Consolidated Servicing3', 'Consolidated Servicing4']
+                ci = floater_counters.get(('cs', day), 0)
+                while ci < len(cs_labels):
+                    if write_cell('BSK', cs_labels[ci], day, emp):
+                        floater_counters[('cs', day)] = ci + 1
+                        return True
+                    ci += 1
+                floater_counters[('cs', day)] = ci
                 return False
             elif cv_str == 'Sizer' or note == 'Sizer':
                 return write_cell('BSK', 'Sizer', day, emp)
