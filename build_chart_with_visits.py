@@ -22,20 +22,20 @@ wb_src = load_workbook(SRC, data_only=True)
 ws_src = wb_src['Cleaned Up']
 hdr = [c.value for c in ws_src[1]]
 ts_col  = hdr.index('search_start_user_action_server_ts')
-vid_col = hdr.index('visit_id')
+bid_col = hdr.index('browse_id')
 
-per_week = defaultdict(lambda: {'scans': 0, 'visits': set()})
+per_week = defaultdict(lambda: {'scans': 0, 'browse': set()})
 for row in ws_src.iter_rows(min_row=2, values_only=True):
     ts = row[ts_col]
     if not ts: continue
     monday = ts.date() - timedelta(days=ts.weekday())
     per_week[monday]['scans'] += 1
-    if row[vid_col]:
-        per_week[monday]['visits'].add(row[vid_col])
+    if row[bid_col]:
+        per_week[monday]['browse'].add(row[bid_col])
 
 weeks = sorted(per_week)
 scans  = [per_week[w]['scans'] for w in weeks]
-visits = [len(per_week[w]['visits']) for w in weeks]
+visits = [len(per_week[w]['browse']) for w in weeks]
 
 # ── Matplotlib renders (PNG / SVG / PDF) ─────────────────────────────────────
 for ext in ('png', 'svg', 'pdf'):
@@ -44,9 +44,9 @@ for ext in ('png', 'svg', 'pdf'):
                   label='QR scans')
     ax2 = ax.twinx()
     ax2.plot(weeks, visits, color='#c0504d', marker='o', linewidth=2,
-             markersize=5, label='Distinct visits')
+             markersize=5, label='Distinct browsers')
     ax.set_ylabel('QR scans', fontsize=10)
-    ax2.set_ylabel('Distinct visits', fontsize=10, color='#c0504d')
+    ax2.set_ylabel('Distinct browsers', fontsize=10, color='#c0504d')
     ax2.tick_params(axis='y', colors='#c0504d')
     ax2.set_ylim(0, max(scans) + 2)  # share scale w/ left
     ax.set_ylim(0, max(scans) + 2)
@@ -72,7 +72,7 @@ for ext in ('png', 'svg', 'pdf'):
 OUT_X = '/home/user/scheduling/qr_weekly_with_visits.xlsx'
 wb = Workbook(); ws = wb.active; ws.title = 'Weekly QR Scans'
 hdr_fill = PatternFill('solid', fgColor='E8EEF3')
-for i, h in enumerate(['Week starting (Monday)', 'QR scans', 'Distinct visits'], 1):
+for i, h in enumerate(['Week starting (Monday)', 'QR scans', 'Distinct browsers'], 1):
     c = ws.cell(row=1, column=i, value=h); c.font = Font(bold=True); c.fill = hdr_fill
 for i, w in enumerate(weeks, 2):
     ws.cell(row=i, column=1, value=w.strftime('%b %d'))
