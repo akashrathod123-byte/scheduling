@@ -15,6 +15,7 @@ INK_2       = RGBColor(0x55, 0x55, 0x55)
 HIGHLIGHT   = 'FDF3D3'
 BRAND_FILL  = '2F4A7C'
 ROW_ALT     = 'F6F7FA'
+SUBTOTAL    = 'E6ECF4'
 
 doc = Document()
 
@@ -24,7 +25,7 @@ section.orientation = WD_ORIENT.LANDSCAPE
 section.page_width  = Inches(11)
 section.page_height = Inches(8.5)
 section.left_margin = section.right_margin = Inches(0.75)
-section.top_margin  = section.bottom_margin = Inches(0.6)
+section.top_margin  = section.bottom_margin = Inches(0.55)
 
 body_style = doc.styles['Normal']
 body_style.font.name = 'Calibri'
@@ -80,9 +81,9 @@ pBdr.append(bottom); pPr.append(pBdr)
 r = p.add_run('Updating Shipping Location View Rules')
 r.bold = True; r.font.size = Pt(20); r.font.color.rgb = BRAND
 
-# --- INTRO (VP voice, business context) ---
+# --- INTRO ---
 p = doc.add_paragraph()
-p.paragraph_format.space_after = Pt(16)
+p.paragraph_format.space_after = Pt(14)
 r = p.add_run(
     'We introduced Shipping Location View in 2017 to let coworkers at the same shipping '
     'location see one another’s order history. The eligibility rules have not been revisited '
@@ -101,8 +102,8 @@ r.bold = True; r.font.size = Pt(14); r.font.color.rgb = BRAND
 p = doc.add_paragraph()
 p.paragraph_format.space_after = Pt(6)
 p.add_run(
-    'The current rule excludes any customer location with 10 or more active ordering contacts. '
-    'The table shows how many additional customer locations and orders each higher threshold '
+    'The current rule excludes any shipping location with 10 or more active ordering contacts. '
+    'The table shows how many additional shipping locations and orders each higher threshold '
     'would include, and what would remain excluded even at 50 contacts.'
 ).font.size = Pt(11)
 
@@ -115,15 +116,14 @@ rows_r1 = [
     ('20',           '541,297', '99.3%', '14,226,992', '+509,758',  '83.8%', False),
     ('25',           '542,518', '99.5%', '14,554,315', '+327,323',  '85.7%', False),
     ('50',           '544,279', '99.9%', '15,232,307', '+678,000',  '89.7%', False),
-    ('50+ (stays out)', '751',   '0.1%', '—',      '1,752,777','10.3%', True),
+    ('50+ (stays out)', '751',   '0.1%', '—',           '1,752,777','10.3%', True),
 ]
 t = doc.add_table(rows=1 + len(rows_r1), cols=6)
 t.alignment = WD_TABLE_ALIGNMENT.LEFT
 col_widths = [Inches(1.5), Inches(1.4), Inches(1.0), Inches(2.0), Inches(1.7), Inches(1.1)]
 for i, w in enumerate(col_widths):
     t.columns[i].width = w
-    for cell in t.columns[i].cells:
-        cell.width = w
+    for cell in t.columns[i].cells: cell.width = w
 for i, h in enumerate(hdr):
     cell = t.rows[0].cells[i]
     cell_text(cell, h, bold=True, color=RGBColor(0xFF, 0xFF, 0xFF), size=10.5,
@@ -141,38 +141,52 @@ for ri, row_data in enumerate(rows_r1, 1):
 # --- SECTION 2 ---
 p = doc.add_paragraph()
 p.paragraph_format.space_before = Pt(16); p.paragraph_format.space_after = Pt(4)
-r = p.add_run('2. Excluded List Codes')
+r = p.add_run('2. List Codes by Contact Count')
 r.bold = True; r.font.size = Pt(14); r.font.color.rgb = BRAND
 
 p = doc.add_paragraph()
 p.paragraph_format.space_after = Pt(6)
 p.add_run(
-    'The list codes below are excluded from Shipping Location View outright. '
-    'For each, the table shows how many customer locations would already meet the '
-    'contact-count rule (fewer than 10) versus those that would still be excluded on it.'
+    'Every list code, split by whether its shipping locations already meet the contact-count '
+    'rule (fewer than 10) or do not (10 or more). The highlighted rows are the list codes '
+    'excluded from Shipping Location View.'
 ).font.size = Pt(11)
 
 hdr2 = ['List Code', 'Category',
         'Total CMFs', 'Eligible (<10)', 'Ineligible (10+)', 'Total Orders']
 
-# (list_code, category, total_cmfs, elig_cmfs, inelig_cmfs, total_orders, highlight)
+# (list_code, category, total_cmfs, elig, inelig, orders, kind)
+# kind: 'excluded', 'excluded_subtotal', 'other', 'other_subtotal', 'total'
 rows_r3 = [
-    ('05', 'Federal Government (Domestic)',       3032,  2924,   108,   58169, False),
-    ('06', 'Federal Government (APO/FPO)',         186,   185,     1,     786, False),
-    ('07', 'State Government',                    6798,  6282,   516,  184911, False),
-    ('08', 'Municipal / Private Institute',      16009, 15787,   222,  222199, False),
-    ('09', 'Private College / University',        2423,  2160,   263,  112332, False),
-    ('15', 'McMaster-Carr Internal',                 5,     0,     5,   42130, True),
-    ('—', 'Total',                          28453, 27338,  1115,  620527, True),
+    # Excluded block (top)
+    ('05', 'Federal Gov (Domestic)',           3032,  2924,   108,   58169, 'excluded'),
+    ('06', 'Federal Gov (APO/FPO)',             186,   185,     1,     786, 'excluded'),
+    ('07', 'State Gov',                        6798,  6282,   516,  184911, 'excluded'),
+    ('08', 'Municipal / Private Institute',   16009, 15787,   222,  222199, 'excluded'),
+    ('09', 'Private College / University',     2423,  2160,   263,  112332, 'excluded'),
+    ('15', 'McMaster-Carr Internal',              5,     0,     5,   42130, 'excluded'),
+    ('97', 'Distributor',                     21547, 21319,   228,  387394, 'excluded'),
+    ('—',  'Excluded subtotal',               50000, 48657,  1343, 1007921, 'excluded_subtotal'),
+    # Non-excluded block (bottom)
+    ('01, 02', 'Regular / National',         277280,267581,  9699,13097828, 'other'),
+    ('14, 90, 98', 'Interbranch / Employee / Claims',
+                                             163228,163203,    25, 1710825, 'other'),
+    ('11, 12, 13', 'Export (Mexico / Canada / RoW)',
+                                              56854, 55797,  1057, 1081760, 'other'),
+    ('03', 'Utility',                          4310,  4131,   179,   85857, 'other'),
+    ('10', 'Hospital',                         2367,  2317,    50,   31201, 'other'),
+    ('04', 'Railroad',                          726,   705,    21,   13394, 'other'),
+    ('—',  'Not-excluded subtotal',          504765,493734, 11031,16020865, 'other_subtotal'),
+    # Grand total
+    ('—',  'Total',                          554765,542391, 12374,17028786, 'total'),
 ]
 
 t2 = doc.add_table(rows=1 + len(rows_r3), cols=6)
 t2.alignment = WD_TABLE_ALIGNMENT.LEFT
-col_widths_2 = [Inches(1.0), Inches(3.0), Inches(1.3), Inches(1.4), Inches(1.4), Inches(1.6)]
+col_widths_2 = [Inches(1.0), Inches(3.2), Inches(1.2), Inches(1.3), Inches(1.4), Inches(1.5)]
 for i, w in enumerate(col_widths_2):
     t2.columns[i].width = w
-    for cell in t2.columns[i].cells:
-        cell.width = w
+    for cell in t2.columns[i].cells: cell.width = w
 
 for i, h in enumerate(hdr2):
     cell = t2.rows[0].cells[i]
@@ -181,18 +195,32 @@ for i, h in enumerate(hdr2):
 set_row_height(t2.rows[0], 22)
 
 for ri, row_data in enumerate(rows_r3, 1):
-    highlight = row_data[-1]
-    fill = HIGHLIGHT if highlight else (ROW_ALT if ri % 2 == 0 else None)
+    kind = row_data[-1]
+    if kind == 'excluded':
+        fill = HIGHLIGHT
+        bold = False
+    elif kind == 'excluded_subtotal':
+        fill = HIGHLIGHT
+        bold = True
+    elif kind == 'other':
+        fill = ROW_ALT if ri % 2 == 0 else None
+        bold = False
+    elif kind == 'other_subtotal':
+        fill = SUBTOTAL
+        bold = True
+    else:  # total
+        fill = SUBTOTAL
+        bold = True
+
     vals = [
         row_data[0], row_data[1],
         f'{row_data[2]:,}', f'{row_data[3]:,}', f'{row_data[4]:,}', f'{row_data[5]:,}',
     ]
     for ci, val in enumerate(vals):
         cell = t2.rows[ri].cells[ci]
-        bold = highlight and ci >= 1
         cell_text(cell, val, bold=bold, color=INK, size=10.5,
                   align='right' if ci >= 2 else 'left', fill=fill)
-    set_row_height(t2.rows[ri], 20)
+    set_row_height(t2.rows[ri], 18)
 
 doc.save(OUT)
 print(f'Saved → {OUT}')
