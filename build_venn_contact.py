@@ -24,17 +24,21 @@ R4_TOTAL  = 43_487
 BOTH_EST  = 19_000
 ELIGIBLE  = UNIVERSE - R2_TOTAL - R4_TOTAL + BOTH_EST   # ≈ 750,482
 
-# --- R2 SUB-BUCKETS (order-count) ---
+# --- R2 SUB-BUCKETS (order-count patterns) ---
 r2_buckets = [
-    ('1 order in year',   506_925),
-    ('2 orders in year',  104_334),   # = R2 total - 1-order, to sum to 611K
+    ('1 order in year',                  506_925),
+    ('2 orders in year',                  92_000),
+    ('3+ orders, scattered ship-tos',     12_334),
 ]
 
 # --- R4 SUB-BUCKETS (billto-count) ---
 r4_buckets = [
-    ('2 billtos',      30_000),
-    ('3–5 billtos',    10_000),
-    ('6+ billtos',      3_487),
+    ('2 billtos',      25_000),
+    ('3 billtos',       8_000),
+    ('4 billtos',       4_000),
+    ('5 billtos',       2_500),
+    ('6–9 billtos',     2_500),
+    ('10+ billtos',     1_487),
 ]
 
 # --- BUBBLE SIZING (per rule) ---
@@ -96,8 +100,9 @@ ax.text(16.5, 6.95, f'{R4_TOTAL/UNIVERSE*100:.1f}% of universe',
 
 # --- R2 SUB-BUBBLES ---
 r2_positions = {
-    '1 order in year':  (4.3, 5.0),
-    '2 orders in year': (6.9, 6.0),
+    '1 order in year':                (4.2, 5.0),   # dominant, center-left
+    '2 orders in year':               (7.0, 6.4),   # smaller, upper-right
+    '3+ orders, scattered ship-tos':  (6.9, 3.5),   # small, lower-right
 }
 
 for name, contacts in r2_buckets:
@@ -121,9 +126,12 @@ for name, contacts in r2_buckets:
 
 # --- R4 SUB-BUBBLES ---
 r4_positions = {
-    '2 billtos':   (11.5, 4.7),
-    '3–5 billtos': (13.9, 6.3),
-    '6+ billtos':  (13.5, 3.3),
+    '2 billtos':    (11.3, 5.0),   # dominant, center-left of R4
+    '3 billtos':    (13.7, 6.4),   # upper-right
+    '4 billtos':    (10.5, 6.9),   # upper-left
+    '5 billtos':    (14.3, 4.6),   # right
+    '6–9 billtos':  (10.4, 3.4),   # lower-left
+    '10+ billtos':  (12.9, 3.0),   # lower-center
 }
 
 for name, contacts in r4_buckets:
