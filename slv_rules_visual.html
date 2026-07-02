@@ -2,135 +2,284 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>SLV Eligibility — Universe Map</title>
+<title>SLV Eligibility — The Universe Map</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,700;9..144,900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-  @page { size: 17in 11in; margin: 0.35in; }
+  @page { size: 17in 11in; margin: 0.4in; }
+
   :root {
-    --ink:        #0f0f0f;
-    --ink-2:      #4a4a4a;
-    --muted:      #8a8a8a;
-    --page:       #fafaf7;
-    --card:       #ffffff;
-    --hairline:   #e2e0d8;
+    /* editorial paper stock */
+    --paper:      #f2ede0;   /* warm cream */
+    --paper-2:    #e8e2d1;   /* slightly darker for layering */
+    --ink:        #1a1a15;
+    --ink-2:      #55524b;
+    --ink-3:      #8a877c;
+    --hairline:   #c8c2b0;
+    --hair-thin:  #d8d3c0;
 
-    /* rule hues */
-    --r1:  #c8352f;  /* red    — R1: too many contacts */
-    --r2:  #4a3aa7;  /* violet — R2: thin ordering    */
-    --r3:  #2461a8;  /* blue   — R3: bad listcode     */
-    --r4:  #d99416;  /* yellow — R4: multi-billto     */
-    --sweet: #14764f; /* green — eligible pool         */
+    /* sophisticated muted palette — no primary colors */
+    --r3:  #2c4a5c;   /* deep slate blue — R3 listcode */
+    --r1:  #b04c2a;   /* burnt sienna — R1 headcount */
+    --r2:  #7a7a2d;   /* olive — R2 thin orders */
+    --r4:  #7b4a5a;   /* dusty plum — R4 billto */
+    --sweet: #4a6b52; /* forest sage — eligible */
+    --overlap: #4b3b6b; /* deep indigo — both-fail regions */
 
-    /* soft rule shells */
-    --r1-shell: rgba(200,53,47,0.10);
-    --r2-shell: rgba(74,58,167,0.10);
-    --r3-shell: rgba(36,97,168,0.10);
-    --r4-shell: rgba(217,148,22,0.12);
-    --sweet-shell: rgba(20,118,79,0.10);
+    /* softer fills for shells */
+    --r3-shell: rgba(44,74,92,0.09);
+    --r1-shell: rgba(176,76,42,0.10);
+    --r2-shell: rgba(122,122,45,0.10);
+    --r4-shell: rgba(123,74,90,0.11);
+    --sweet-shell: rgba(74,107,82,0.12);
   }
-  html, body { margin: 0; padding: 0; background: var(--page); color: var(--ink);
-    font: 12.5px/1.4 "Helvetica Neue", Helvetica, Arial, sans-serif; }
-  .poster { width: 16.3in; margin: 0 auto; padding: 0.25in 0.35in 0.3in;
-    box-sizing: border-box; }
 
-  /* -------- masthead -------- */
+  html, body { margin: 0; padding: 0; background: var(--paper); color: var(--ink);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-feature-settings: 'ss01', 'cv11';
+    font-size: 12.5px; line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+  }
+  .poster {
+    width: 16.2in; margin: 0 auto;
+    padding: 0.25in 0.4in 0.35in;
+    box-sizing: border-box;
+  }
+
+  /* ============================================================ */
+  /* MASTHEAD                                                     */
+  /* ============================================================ */
   .masthead {
-    display: grid; grid-template-columns: 1fr auto; align-items: end;
-    gap: 20px; padding-bottom: 10px; border-bottom: 2px solid var(--ink);
-    margin-bottom: 14px;
+    display: grid; grid-template-columns: 1.6fr 1fr;
+    gap: 40px; align-items: end;
+    padding-bottom: 24px;
+    margin-bottom: 26px;
+    border-bottom: 0.5px solid var(--ink);
   }
-  .masthead h1 { font-size: 34px; font-weight: 800; letter-spacing: -0.015em;
-    line-height: 1.02; margin: 0; }
-  .masthead .sub { font-size: 12px; color: var(--ink-2); margin-top: 4px; max-width: 940px; }
-  .kpi-row { display: flex; gap: 20px; }
-  .kpi { text-align: right; }
-  .kpi .n { font-size: 26px; font-weight: 800; letter-spacing: -0.01em; line-height: 1; }
-  .kpi .lbl { font-size: 10px; color: var(--ink-2); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 3px; }
-  .kpi.k-sweet .n { color: var(--sweet); }
-  .kpi.k-r1 .n { color: var(--r1); }
-  .kpi.k-r2 .n { color: var(--r2); }
+  .masthead h1 {
+    font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-size: 62px;
+    line-height: 0.94;
+    letter-spacing: -0.028em;
+    margin: 0 0 10px;
+    color: var(--ink);
+  }
+  .masthead h1 em {
+    font-style: italic;
+    font-weight: 300;
+  }
+  .masthead .kicker {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 10.5px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--r3);
+    margin-bottom: 12px;
+  }
+  .masthead .dek {
+    font-family: 'Fraunces', Georgia, serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.42;
+    color: var(--ink-2);
+    max-width: 32em;
+    margin: 0;
+  }
+  .masthead .dek strong {
+    color: var(--ink); font-weight: 500;
+  }
 
-  /* -------- main constellation canvas -------- */
-  .canvas-row {
-    display: grid; grid-template-columns: 1fr 240px;
-    gap: 18px;
-    margin-bottom: 14px;
+  /* Headline KPI cluster (top-right) — no boxes, editorial style */
+  .kpi-cluster {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    column-gap: 22px; row-gap: 4px;
+    padding-left: 28px;
+    border-left: 0.5px solid var(--hairline);
   }
-  .canvas {
-    position: relative; background: var(--card);
-    border: 1px solid var(--hairline); border-radius: 10px;
-    overflow: hidden;
+  .kpi {
+    display: flex; flex-direction: column;
   }
+  .kpi .n {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 400; font-size: 38px;
+    line-height: 1; letter-spacing: -0.02em;
+    color: var(--ink);
+    font-variant-numeric: lining-nums tabular-nums;
+  }
+  .kpi.sweet .n { color: var(--sweet); }
+  .kpi.r1 .n { color: var(--r1); }
+  .kpi.r2 .n { color: var(--r2); }
+  .kpi .lbl {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 9.5px; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ink-3);
+    margin-top: 6px;
+    line-height: 1.3;
+  }
+
+  /* ============================================================ */
+  /* MAIN GRID: universe map + inline sidenotes                    */
+  /* ============================================================ */
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 200px;
+    gap: 34px;
+    margin-bottom: 24px;
+  }
+
+  .canvas { position: relative; }
   .canvas svg { display: block; width: 100%; height: auto; }
 
-  /* -------- side rail -------- */
-  .rail { display: flex; flex-direction: column; gap: 12px; }
-  .rail-card {
-    background: var(--card); border: 1px solid var(--hairline);
-    border-radius: 10px; padding: 12px 14px;
-  }
-  .rail-card h3 {
-    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--ink-2); margin: 0 0 8px; font-weight: 800;
-    border-bottom: 1px solid var(--hairline); padding-bottom: 4px;
-  }
-  .rail-card .row {
-    display: flex; justify-content: space-between; align-items: center;
-    font-size: 11.5px; padding: 3px 0; gap: 8px;
-  }
-  .rail-card .row .name { color: var(--ink-2); display: flex; align-items: center; gap: 6px; }
-  .rail-card .row .name .sw {
-    width: 10px; height: 10px; border-radius: 50%; display: inline-block;
-    border: 1.5px solid;
-  }
-  .rail-card .row .n { font-weight: 700; font-variant-numeric: tabular-nums; }
-
-  .impact-row {
-    display: grid; grid-template-columns: 50px 1fr 90px;
-    align-items: center; gap: 8px; margin-bottom: 6px;
-  }
-  .impact-row:last-child { margin-bottom: 0; }
-  .impact-row .rname { font-weight: 800; font-size: 14px; letter-spacing: -0.01em; }
-  .impact-row .rname.r1 { color: var(--r1); }
-  .impact-row .rname.r2 { color: var(--r2); }
-  .impact-row .rname.r3 { color: var(--r3); }
-  .impact-row .rname.r4 { color: var(--r4); }
-  .impact-row .track { height: 14px; background: var(--hairline); border-radius: 2px; overflow: hidden; }
-  .impact-row .track .fill { height: 100%; }
-  .impact-row .track .fill.r1 { background: var(--r1); }
-  .impact-row .track .fill.r2 { background: var(--r2); }
-  .impact-row .track .fill.r3 { background: var(--r3); }
-  .impact-row .track .fill.r4 { background: var(--r4); }
-  .impact-row .num { text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; font-size: 12.5px; }
-  .impact-row .num .pct { color: var(--ink-2); font-weight: 400; font-size: 10px; display: block; }
-
-  /* -------- footer bar -------- */
-  .footer-bar {
-    background: var(--card); border: 1px solid var(--hairline); border-radius: 10px;
-    padding: 10px 14px;
-    display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;
+  /* Sidenotes column — just typography, no boxes */
+  .sidenotes {
+    padding-top: 6px;
+    display: flex; flex-direction: column;
     gap: 20px;
-    font-size: 10.5px; color: var(--ink-2);
   }
-  .footer-bar .col strong { display: block; color: var(--ink); font-size: 11px;
-    letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 3px; }
-  .foot { color: var(--muted); font-size: 9.5px; margin-top: 6px; text-align: right;
-    letter-spacing: 0.03em; }
+  .sidenote h4 {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 9.5px; font-weight: 700;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--ink-3);
+    margin: 0 0 8px;
+    padding-bottom: 4px;
+    border-bottom: 0.5px solid var(--hairline);
+  }
+  .sidenote .row {
+    display: grid; grid-template-columns: 1fr auto;
+    column-gap: 10px; row-gap: 2px;
+    font-size: 11.5px; padding: 4px 0;
+    border-bottom: 0.5px dotted var(--hair-thin);
+  }
+  .sidenote .row:last-child { border-bottom: 0; }
+  .sidenote .row .name { color: var(--ink-2); }
+  .sidenote .row .n {
+    font-weight: 700; font-variant-numeric: tabular-nums;
+    color: var(--ink);
+  }
 
-  /* -------- SVG element styles -------- */
-  .bubble-label { font: 700 12px "Helvetica Neue", Helvetica, Arial, sans-serif;
-    fill: var(--ink); text-anchor: middle; pointer-events: none; }
-  .bubble-label.sm { font-size: 10px; font-weight: 600; }
-  .bubble-label.xs { font-size: 8.5px; font-weight: 600; fill: var(--ink-2); }
-  .bubble-num { font: 700 15px "Helvetica Neue", Helvetica, Arial, sans-serif;
-    fill: var(--ink); text-anchor: middle; }
-  .bubble-num.lg { font-size: 22px; }
-  .bubble-num.sm { font-size: 11px; }
+  /* Rule impact — no bar chart, just typographic ranks */
+  .rank-list { display: flex; flex-direction: column; }
+  .rank-item {
+    display: grid; grid-template-columns: 20px 1fr auto;
+    align-items: baseline; padding: 8px 0;
+    border-bottom: 0.5px dotted var(--hair-thin);
+    column-gap: 8px;
+  }
+  .rank-item:last-child { border-bottom: 0; }
+  .rank-item .rk {
+    font-family: 'Fraunces', serif;
+    font-weight: 300; font-style: italic;
+    color: var(--ink-3); font-size: 12px;
+  }
+  .rank-item .rname {
+    font-family: 'Fraunces', serif;
+    font-weight: 700; font-size: 16px;
+    letter-spacing: -0.005em;
+  }
+  .rank-item .rname.r1 { color: var(--r1); }
+  .rank-item .rname.r2 { color: var(--r2); }
+  .rank-item .rname.r3 { color: var(--r3); }
+  .rank-item .rname.r4 { color: var(--r4); }
+  .rank-item .rname small {
+    display: block; font-family: 'Inter', sans-serif;
+    font-size: 9.5px; font-weight: 500;
+    color: var(--ink-3); letter-spacing: 0.04em;
+    margin-top: 1px;
+  }
+  .rank-item .n {
+    font-family: 'Fraunces', serif;
+    font-variant-numeric: tabular-nums;
+    font-weight: 700; font-size: 18px;
+    color: var(--ink);
+  }
+  .rank-item .n small {
+    display: block; font-family: 'Inter', sans-serif;
+    font-size: 9.5px; font-weight: 500;
+    color: var(--ink-3); text-align: right; margin-top: -1px;
+  }
+
+  /* ============================================================ */
+  /* FOOTER — 4 columns of editorial takeaways                    */
+  /* ============================================================ */
+  .storyfeet {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+    padding-top: 22px;
+    border-top: 0.5px solid var(--ink);
+  }
+  .story {
+    padding-right: 6px;
+  }
+  .story .drop {
+    font-family: 'Fraunces', serif;
+    font-weight: 400; font-style: italic;
+    font-size: 15px; line-height: 1.15;
+    color: var(--ink);
+    margin: 0 0 6px;
+  }
+  .story .drop b {
+    font-style: normal; font-weight: 700;
+  }
+  .story p {
+    font-family: 'Inter', sans-serif;
+    font-size: 10.5px; line-height: 1.5;
+    color: var(--ink-2);
+    margin: 0;
+  }
+  .story.r1 .drop { color: var(--r1); }
+  .story.r2 .drop { color: var(--r2); }
+  .story.r3 .drop { color: var(--r3); }
+  .story.r4 .drop { color: var(--r4); }
+
+  .colophon {
+    margin-top: 20px;
+    font-size: 9px;
+    color: var(--ink-3);
+    letter-spacing: 0.05em;
+    display: flex; justify-content: space-between;
+    padding-top: 8px;
+    border-top: 0.5px solid var(--hair-thin);
+  }
+  .colophon em { font-style: italic; }
+
+  /* ============================================================ */
+  /* SVG element styles                                            */
+  /* ============================================================ */
+  .bubble-label {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-weight: 600; font-size: 11px;
+    fill: var(--paper); text-anchor: middle;
+    letter-spacing: 0.01em;
+  }
+  .bubble-label.sm { font-size: 9.5px; }
+  .bubble-label.xs { font-size: 8px; font-weight: 500; opacity: 0.85; }
+  .bubble-num {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 700; font-size: 18px;
+    fill: var(--paper); text-anchor: middle;
+    font-variant-numeric: tabular-nums;
+  }
+  .bubble-num.lg { font-size: 24px; }
+  .bubble-num.sm { font-size: 12px; }
+  .bubble-num.xs { font-size: 10px; }
+
   .shell-tag {
-    font: 800 12px "Helvetica Neue", Helvetica, Arial, sans-serif;
-    letter-spacing: 0.14em; text-transform: uppercase;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700; font-size: 10px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
   }
   .shell-sub {
-    font: 600 10.5px "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 300; font-style: italic;
+    font-size: 11px;
     fill: var(--ink-2);
   }
 </style>
@@ -138,315 +287,294 @@
 <body>
 <div class="poster">
 
-  <!-- MASTHEAD -->
+  <!-- ================== MASTHEAD ================== -->
   <div class="masthead">
     <div>
-      <h1>Shipping Location View · The Universe Map</h1>
-      <p class="sub">Every dot is a real customer segment, sized by the number of CMFs it holds. Four translucent rule shells (R1, R2, R3, R4) show which segments the eligibility rules catch — where shells overlap, that segment fails multiple rules. Window: 3/12/2025 – 3/12/2026 · ex-three shared credit-card CMFs.</p>
+      <div class="kicker">Shipping Location View · Eligibility deep-read</div>
+      <h1>Who <em>gets</em> shared view,<br>and who the rules leave <em>out</em>.</h1>
+      <p class="dek">
+        Every dot below is a real customer segment, sized by how many CMFs it holds. Four translucent
+        rule regions — <b>R1</b>, <b>R2</b>, <b>R3</b>, <b>R4</b> — layer on top, showing which
+        segments the current eligibility rules catch. Where regions overlap, that segment fails
+        multiple rules at once.
+        <br><br>
+        Window: <span style="font-family:'Fraunces',serif; font-style: italic;">3/12/2025 – 3/12/2026</span> · source <span style="font-family:'Fraunces',serif; font-style: italic;">secure.order_source</span> · three shared credit-card CMFs excluded.
+      </p>
     </div>
-    <div class="kpi-row">
-      <div class="kpi k-sweet"><div class="n">1.03M</div><div class="lbl">CMFs pass<br>all 4 rules</div></div>
-      <div class="kpi k-r1"><div class="n">20.9%</div><div class="lbl">Orders blocked<br>by R1 alone</div></div>
-      <div class="kpi k-r2"><div class="n">44%</div><div class="lbl">Ordering contacts<br>fail R2</div></div>
+    <div class="kpi-cluster">
+      <div class="kpi sweet">
+        <div class="n">1.03M</div>
+        <div class="lbl">CMFs pass<br>all four rules</div>
+      </div>
+      <div class="kpi r1">
+        <div class="n">20.9%</div>
+        <div class="lbl">Orders blocked<br>by R1 alone</div>
+      </div>
+      <div class="kpi r2">
+        <div class="n">44%</div>
+        <div class="lbl">Ordering contacts<br>fail R2</div>
+      </div>
     </div>
   </div>
 
-  <!-- CONSTELLATION + RAIL -->
-  <div class="canvas-row">
+  <!-- ================== MAIN CANVAS + SIDENOTES ================== -->
+  <div class="grid">
 
-    <!-- ================== MAIN CANVAS ================== -->
     <div class="canvas">
-      <svg viewBox="0 0 1400 780" preserveAspectRatio="xMidYMid meet"
-           xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 0 1400 780" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
 
-        <!-- ------- background rule SHELLS (draw first so bubbles sit on top) ------- -->
-        <!-- R3 (listcode) shell: wraps the R3 listcode bubbles on the left/top-left -->
-        <path d="M 30 60 Q 30 30 60 30 L 620 30 Q 720 30 720 130
-                 L 720 500 Q 720 620 600 620 L 100 620 Q 30 620 30 550 Z"
-              fill="var(--r3-shell)" stroke="var(--r3)" stroke-width="2" stroke-dasharray="0"/>
-        <text x="60" y="60" class="shell-tag" fill="var(--r3)">R3 · LISTCODE EXCLUDED</text>
-        <text x="60" y="78" class="shell-sub">107,209 CMFs · 1.16M orders (5.9%) · listcode ∈ {gov, college, distributor}</text>
+        <!-- SHELLS -->
+        <path d="M 30 60 Q 30 30 60 30 L 630 30 Q 720 30 720 130
+                 L 720 500 Q 720 620 610 620 L 100 620 Q 30 620 30 550 Z"
+              fill="var(--r3-shell)" stroke="var(--r3)" stroke-width="0.8"/>
+        <text x="60" y="58" class="shell-tag" fill="var(--r3)">R3 · Listcode excluded</text>
+        <text x="60" y="76" class="shell-sub">107,209 CMFs · 1.16M orders · <tspan font-style="normal" font-weight="700">gov · college · distributor</tspan></text>
 
-        <!-- R1 (threshold) shell: right side -->
-        <path d="M 780 60 Q 780 30 810 30 L 1120 30 Q 1170 30 1170 90
-                 L 1170 380 Q 1170 440 1110 440 L 810 440 Q 780 440 780 400 Z"
-              fill="var(--r1-shell)" stroke="var(--r1)" stroke-width="2"/>
-        <text x="810" y="60" class="shell-tag" fill="var(--r1)">R1 · ≥ 10 ACTIVE CONTACTS</text>
-        <text x="810" y="78" class="shell-sub">13,079 CMFs · 4.08M orders (20.9%) · CMF has too many contacts to share view</text>
+        <!-- R1 shell -->
+        <path d="M 780 60 Q 780 30 810 30 L 1130 30 Q 1180 30 1180 90
+                 L 1180 400 Q 1180 450 1120 450 L 810 450 Q 780 450 780 400 Z"
+              fill="var(--r1-shell)" stroke="var(--r1)" stroke-width="0.8"/>
+        <text x="810" y="58" class="shell-tag" fill="var(--r1)">R1 · ≥ 10 active contacts</text>
+        <text x="810" y="76" class="shell-sub">13,079 CMFs · 4.08M orders · <tspan font-style="normal" font-weight="700">the volume killer</tspan></text>
 
-        <!-- Small overlap zone between R3 and R1 (bottom-right of R3, left of R1) -->
-        <ellipse cx="750" cy="240" rx="60" ry="52"
-                 fill="#7f2a94" fill-opacity="0.14" stroke="#7f2a94" stroke-width="1.5" stroke-dasharray="4 3"/>
-        <text x="750" y="230" text-anchor="middle" font-size="10" font-weight="800" fill="#7f2a94" letter-spacing="0.08em">FAIL BOTH R1 + R3</text>
-        <text x="750" y="252" text-anchor="middle" font-size="18" font-weight="800" fill="#7f2a94">1,446</text>
-        <text x="750" y="268" text-anchor="middle" font-size="9.5" fill="var(--ink-2)">CMFs</text>
+        <!-- Overlap -->
+        <ellipse cx="750" cy="250" rx="62" ry="52"
+                 fill="var(--overlap)" fill-opacity="0.14"
+                 stroke="var(--overlap)" stroke-width="1" stroke-dasharray="3 2"/>
+        <text x="750" y="240" text-anchor="middle" font-family="Inter, sans-serif" font-size="8.5" font-weight="700" fill="var(--overlap)" letter-spacing="0.18em">FAIL BOTH</text>
+        <text x="750" y="262" text-anchor="middle" font-family="Fraunces, serif" font-weight="700" font-size="20" fill="var(--overlap)">1,446</text>
+        <text x="750" y="278" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="var(--ink-2)">CMFs</text>
 
-        <!-- R2 shell (contact-level, bottom left) -->
-        <path d="M 780 470 Q 780 460 800 460 L 1120 460 Q 1170 460 1170 500
-                 L 1170 720 Q 1170 750 1140 750 L 810 750 Q 780 750 780 720 Z"
-              fill="var(--r2-shell)" stroke="var(--r2)" stroke-width="2"/>
-        <text x="810" y="488" class="shell-tag" fill="var(--r2)">R2 · &lt; 3 ORDERS AT SAME SHIP-TO</text>
-        <text x="810" y="506" class="shell-sub">611,259 contacts · 44.1% of ordering contacts · 835K orders (4.3%)</text>
+        <!-- R2 shell -->
+        <path d="M 780 480 Q 780 470 800 470 L 1130 470 Q 1180 470 1180 510
+                 L 1180 720 Q 1180 748 1150 748 L 810 748 Q 780 748 780 720 Z"
+              fill="var(--r2-shell)" stroke="var(--r2)" stroke-width="0.8"/>
+        <text x="810" y="500" class="shell-tag" fill="var(--r2)">R2 · &lt; 3 orders at same ship-to</text>
+        <text x="810" y="518" class="shell-sub">611,259 contacts · 44% of ordering contacts · 835K orders</text>
 
-        <!-- R4 shell (contact-level, small, bottom center) -->
+        <!-- R4 shell -->
         <path d="M 30 650 Q 30 640 50 640 L 740 640 Q 760 640 760 660
-                 L 760 750 Q 760 760 740 760 L 50 760 Q 30 760 30 750 Z"
-              fill="var(--r4-shell)" stroke="var(--r4)" stroke-width="2"/>
-        <text x="60" y="668" class="shell-tag" fill="#b57200">R4 · MULTIPLE NON-INDIVIDUAL BILLTOS</text>
-        <text x="60" y="686" class="shell-sub">43,487 contacts · 3.1% · but ~43 orders each — dense customers</text>
+                 L 760 748 Q 760 760 740 760 L 50 760 Q 30 760 30 748 Z"
+              fill="var(--r4-shell)" stroke="var(--r4)" stroke-width="0.8"/>
+        <text x="60" y="668" class="shell-tag" fill="var(--r4)">R4 · Multi-billto</text>
+        <text x="60" y="686" class="shell-sub">43,487 contacts · 3.1% · but ~43 orders each — dense buyers</text>
 
-        <!-- ------- SWEET SPOT (center-ish, floating between shells) ------- -->
-        <circle cx="900" cy="600" r="82" fill="var(--sweet-shell)" stroke="var(--sweet)" stroke-width="2.5"/>
-        <text x="900" y="580" text-anchor="middle" font-size="10.5" font-weight="800" fill="var(--sweet)" letter-spacing="0.1em">SWEET SPOT</text>
-        <text x="900" y="605" text-anchor="middle" font-size="22" font-weight="800" fill="var(--sweet)">~196K</text>
-        <text x="900" y="623" text-anchor="middle" font-size="10.5" fill="var(--ink-2)">CMFs with 2–9 ordering contacts</text>
-        <text x="900" y="638" text-anchor="middle" font-size="10.5" fill="var(--ink-2)">17% of universe · the SLV target</text>
+        <!-- Sweet spot -->
+        <circle cx="900" cy="600" r="86" fill="var(--sweet-shell)" stroke="var(--sweet)" stroke-width="1.5"/>
+        <text x="900" y="578" text-anchor="middle" font-family="Inter" font-size="9.5" font-weight="700" fill="var(--sweet)" letter-spacing="0.24em">SWEET SPOT</text>
+        <text x="900" y="608" text-anchor="middle" font-family="Fraunces" font-weight="400" font-size="30" fill="var(--sweet)" font-variant-numeric="tabular-nums">~196K</text>
+        <text x="900" y="628" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="300" font-size="11.5" fill="var(--ink-2)">CMFs with 2–9 ordering contacts</text>
+        <text x="900" y="644" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="300" font-size="11.5" fill="var(--ink-2)">— the SLV target —</text>
 
-        <!-- ============================================================ -->
-        <!-- R3 LISTCODE BUBBLES (inside R3 shell)                          -->
-        <!-- radius = 8 + sqrt(CMFs)*0.42 — for legible poster scale        -->
-        <!-- ============================================================ -->
+        <!-- ============ R3 listcode bubbles ============ -->
+        <!-- Government (23,476) -->
+        <circle cx="180" cy="200" r="70" fill="var(--r3)" fill-opacity="0.86"/>
+        <text x="180" y="188" class="bubble-label">Government</text>
+        <text x="180" y="208" class="bubble-num lg">23,476</text>
+        <text x="180" y="226" class="bubble-label xs">CMFs · 468K orders</text>
 
-        <!-- Government (23,476 CMFs · 468K orders) -->
-        <circle cx="180" cy="200" r="70" fill="var(--r3)" fill-opacity="0.72" stroke="var(--r3)" stroke-width="1.5"/>
-        <text x="180" y="188" class="bubble-label" fill="white">Government</text>
-        <text x="180" y="205" class="bubble-num lg" fill="white">23,476</text>
-        <text x="180" y="222" class="bubble-label sm" fill="white">CMFs · 468K orders</text>
+        <!-- Distributor (20,870) -->
+        <circle cx="380" cy="180" r="66" fill="var(--r3)" fill-opacity="0.86"/>
+        <text x="380" y="168" class="bubble-label">Distributor</text>
+        <text x="380" y="188" class="bubble-num lg">20,870</text>
+        <text x="380" y="206" class="bubble-label xs">CMFs · 408K orders</text>
+        <text x="380" y="235" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="300" font-size="10.5" fill="var(--r3)">— carved out (Action 1) —</text>
 
-        <!-- Distributor (20,870 CMFs · 408K orders) — action 1 excludes -->
-        <circle cx="380" cy="180" r="66" fill="var(--r3)" fill-opacity="0.72" stroke="var(--r3)" stroke-width="1.5"/>
-        <text x="380" y="168" class="bubble-label" fill="white">Distributor</text>
-        <text x="380" y="185" class="bubble-num lg" fill="white">20,870</text>
-        <text x="380" y="202" class="bubble-label sm" fill="white">CMFs · 408K orders</text>
-        <text x="380" y="228" class="bubble-label xs" fill="var(--r3)">— carved out (Action 1) —</text>
+        <!-- Unknown (53,469) -->
+        <circle cx="570" cy="300" r="86" fill="var(--r3)" fill-opacity="0.62"/>
+        <text x="570" y="280" class="bubble-label">Unknown</text>
+        <text x="570" y="304" class="bubble-num lg">53,469</text>
+        <text x="570" y="322" class="bubble-label xs">CMFs · just 55K orders</text>
+        <text x="570" y="336" class="bubble-label xs">(dormant / retired)</text>
 
-        <!-- Unknown listcode (53,469 CMFs · 55K orders — huge CMF count, tiny orders) -->
-        <circle cx="570" cy="290" r="86" fill="var(--r3)" fill-opacity="0.55" stroke="var(--r3)" stroke-width="1.5"/>
-        <text x="570" y="272" class="bubble-label" fill="white">Unknown</text>
-        <text x="570" y="290" class="bubble-num lg" fill="white">53,469</text>
-        <text x="570" y="308" class="bubble-label sm" fill="white">CMFs · only 55K orders</text>
-        <text x="570" y="322" class="bubble-label xs" fill="white">(dormant / retired)</text>
+        <!-- Municipal (13,920) -->
+        <circle cx="130" cy="390" r="56" fill="var(--r3)" fill-opacity="0.86"/>
+        <text x="130" y="380" class="bubble-label sm">Municipal</text>
+        <text x="130" y="398" class="bubble-num">13,920</text>
+        <text x="130" y="416" class="bubble-label xs">222K orders</text>
 
-        <!-- Municipal (13,920 · 222K) -->
-        <circle cx="130" cy="380" r="56" fill="var(--r3)" fill-opacity="0.72" stroke="var(--r3)" stroke-width="1.5"/>
-        <text x="130" y="372" class="bubble-label sm" fill="white">Municipal</text>
-        <text x="130" y="392" class="bubble-num" fill="white">13,920</text>
-        <text x="130" y="408" class="bubble-label xs" fill="white">222K orders</text>
+        <!-- State (6,535) -->
+        <circle cx="260" cy="420" r="39" fill="var(--r3)" fill-opacity="0.86"/>
+        <text x="260" y="415" class="bubble-label sm">State</text>
+        <text x="260" y="432" class="bubble-num sm">6,535</text>
 
-        <!-- State Gov (6,535 · 187K) -->
-        <circle cx="260" cy="410" r="39" fill="var(--r3)" fill-opacity="0.72" stroke="var(--r3)" stroke-width="1.5"/>
-        <text x="260" y="405" class="bubble-label sm" fill="white">State</text>
-        <text x="260" y="423" class="bubble-num sm" fill="white">6,535</text>
+        <!-- Utility (4,101) -->
+        <circle cx="360" cy="410" r="33" fill="var(--r3)" fill-opacity="0.86"/>
+        <text x="360" y="408" class="bubble-label sm">Utility</text>
+        <text x="360" y="424" class="bubble-num sm">4,101</text>
 
-        <!-- Utility (4,101 · 87K) -->
-        <circle cx="360" cy="405" r="33" fill="var(--r3)" fill-opacity="0.72" stroke="var(--r3)" stroke-width="1.5"/>
-        <text x="360" y="402" class="bubble-label sm" fill="white">Utility</text>
-        <text x="360" y="418" class="bubble-num sm" fill="white">4,101</text>
+        <!-- Fed Gov (3,021) -->
+        <circle cx="450" cy="430" r="29" fill="var(--r3)" fill-opacity="0.86"/>
+        <text x="450" y="428" class="bubble-label sm">Fed</text>
+        <text x="450" y="444" class="bubble-num sm">3,021</text>
 
-        <!-- Fed Gov (3,021 · 60K) -->
-        <circle cx="450" cy="430" r="29" fill="var(--r3)" fill-opacity="0.72" stroke="var(--r3)" stroke-width="1.5"/>
-        <text x="450" y="428" class="bubble-label sm" fill="white">Fed</text>
-        <text x="450" y="444" class="bubble-num sm" fill="white">3,021</text>
+        <!-- University (2,374) -->
+        <circle cx="180" cy="500" r="27" fill="var(--r3)" fill-opacity="0.86"/>
+        <text x="180" y="500" class="bubble-label sm">Uni</text>
+        <text x="180" y="514" class="bubble-num sm">2,374</text>
 
-        <!-- University (2,374 · 113K) -->
-        <circle cx="180" cy="490" r="27" fill="var(--r3)" fill-opacity="0.72" stroke="var(--r3)" stroke-width="1.5"/>
-        <text x="180" y="488" class="bubble-label sm" fill="white">Uni</text>
-        <text x="180" y="504" class="bubble-num sm" fill="white">2,374</text>
+        <!-- Hospital (2,268) -->
+        <circle cx="260" cy="518" r="27" fill="var(--r3)" fill-opacity="0.86"/>
+        <text x="260" y="518" class="bubble-label sm">Hosp</text>
+        <text x="260" y="532" class="bubble-num sm">2,268</text>
 
-        <!-- Hospital (2,268 · 31K) -->
-        <circle cx="260" cy="510" r="27" fill="var(--r3)" fill-opacity="0.72" stroke="var(--r3)" stroke-width="1.5"/>
-        <text x="260" y="508" class="bubble-label sm" fill="white">Hosp</text>
-        <text x="260" y="524" class="bubble-num sm" fill="white">2,268</text>
+        <!-- Railroad (697) -->
+        <circle cx="345" cy="518" r="17" fill="var(--r3)" fill-opacity="0.86"/>
+        <text x="345" y="522" class="bubble-num sm">697</text>
 
-        <!-- Railroad (697 · 13K) -->
-        <circle cx="345" cy="510" r="17" fill="var(--r3)" fill-opacity="0.72" stroke="var(--r3)" stroke-width="1.5"/>
-        <text x="345" y="514" class="bubble-num sm" fill="white">697</text>
+        <!-- ============ R1 threshold bands ============ -->
+        <circle cx="880" cy="170" r="32" fill="var(--r1)" fill-opacity="0.85"/>
+        <text x="880" y="167" class="bubble-label sm">10–11</text>
+        <text x="880" y="184" class="bubble-num sm">3,350</text>
 
-        <!-- ============================================================ -->
-        <!-- R1 THRESHOLD-BAND BUBBLES (inside R1 shell)                    -->
-        <!-- radius = 8 + sqrt(CMFs)*0.42                                    -->
-        <!-- ============================================================ -->
+        <circle cx="965" cy="135" r="30" fill="var(--r1)" fill-opacity="0.85"/>
+        <text x="965" y="133" class="bubble-label sm">12–14</text>
+        <text x="965" y="149" class="bubble-num sm">2,864</text>
 
-        <!-- 10-11 : 3,350 CMFs -->
-        <circle cx="880" cy="160" r="32" fill="var(--r1)" fill-opacity="0.72" stroke="var(--r1)" stroke-width="1.5"/>
-        <text x="880" y="156" class="bubble-label sm" fill="white">10–11</text>
-        <text x="880" y="174" class="bubble-num sm" fill="white">3,350</text>
+        <circle cx="1055" cy="150" r="28" fill="var(--r1)" fill-opacity="0.85"/>
+        <text x="1055" y="148" class="bubble-label sm">15–19</text>
+        <text x="1055" y="164" class="bubble-num sm">2,391</text>
 
-        <!-- 12-14 : 2,864 -->
-        <circle cx="965" cy="130" r="30" fill="var(--r1)" fill-opacity="0.72" stroke="var(--r1)" stroke-width="1.5"/>
-        <text x="965" y="128" class="bubble-label sm" fill="white">12–14</text>
-        <text x="965" y="144" class="bubble-num sm" fill="white">2,864</text>
+        <circle cx="1135" cy="200" r="22" fill="var(--r1)" fill-opacity="0.85"/>
+        <text x="1135" y="200" class="bubble-label sm">20–24</text>
+        <text x="1135" y="213" class="bubble-num sm">1,221</text>
 
-        <!-- 15-19 : 2,391 -->
-        <circle cx="1055" cy="150" r="28" fill="var(--r1)" fill-opacity="0.72" stroke="var(--r1)" stroke-width="1.5"/>
-        <text x="1055" y="148" class="bubble-label sm" fill="white">15–19</text>
-        <text x="1055" y="164" class="bubble-num sm" fill="white">2,391</text>
+        <circle cx="1100" cy="290" r="25" fill="var(--r1)" fill-opacity="0.85"/>
+        <text x="1100" y="288" class="bubble-label sm">25–49</text>
+        <text x="1100" y="304" class="bubble-num sm">1,761</text>
 
-        <!-- 20-24 : 1,221 -->
-        <circle cx="1135" cy="200" r="22" fill="var(--r1)" fill-opacity="0.72" stroke="var(--r1)" stroke-width="1.5"/>
-        <text x="1135" y="200" class="bubble-label sm" fill="white">20–24</text>
-        <text x="1135" y="213" class="bubble-num sm" fill="white">1,221</text>
+        <!-- 50+ highlighted with a Fraunces italic callout -->
+        <circle cx="990" cy="340" r="19" fill="var(--r1)" fill-opacity="1"/>
+        <circle cx="990" cy="340" r="26" fill="none" stroke="var(--r1)" stroke-width="0.8" stroke-dasharray="1.5 2"/>
+        <text x="990" y="340" class="bubble-label sm">50+</text>
+        <text x="990" y="353" class="bubble-num sm">751</text>
+        <path d="M 1015 348 L 1080 400" stroke="var(--r1)" stroke-width="0.6" fill="none"/>
+        <text x="1180" y="405" text-anchor="end" font-family="Fraunces" font-style="italic" font-weight="400" font-size="12.5" fill="var(--r1)">751 CMFs · 10% of all orders</text>
+        <text x="1180" y="422" text-anchor="end" font-family="Inter" font-size="9" fill="var(--ink-3)" letter-spacing="0.06em">— the never-eligible tail —</text>
 
-        <!-- 25-49 : 1,761 -->
-        <circle cx="1100" cy="290" r="25" fill="var(--r1)" fill-opacity="0.72" stroke="var(--r1)" stroke-width="1.5"/>
-        <text x="1100" y="288" class="bubble-label sm" fill="white">25–49</text>
-        <text x="1100" y="304" class="bubble-num sm" fill="white">1,761</text>
-
-        <!-- 50+ : 751 CMFs but 10% of ALL orders — highlighted with a ring -->
-        <circle cx="990" cy="330" r="19" fill="var(--r1)" fill-opacity="0.9" stroke="#7f0000" stroke-width="2.5"/>
-        <text x="990" y="330" class="bubble-label sm" fill="white">50+</text>
-        <text x="990" y="343" class="bubble-num sm" fill="white">751</text>
-        <path d="M 1010 340 L 1055 380" stroke="var(--r1)" stroke-width="1" fill="none"/>
-        <text x="1160" y="385" text-anchor="end" font-size="10" font-weight="700" fill="var(--r1)">751 CMFs · 10% of ALL orders</text>
-        <text x="1160" y="398" text-anchor="end" font-size="9" fill="var(--ink-2)">the never-eligible tail</text>
-
-        <!-- R1 label: total CMFs -->
-        <text x="900" y="418" text-anchor="middle" font-size="10.5" fill="var(--ink-2)">
-          bubbles sized by CMF count · density (ord/CMF) rises from 152 → 385 → 2,300+ up the tail
-        </text>
-
-        <!-- ============================================================ -->
-        <!-- R2 CONTACT-ACTIVITY BUBBLES (inside R2 shell, bottom-right)    -->
-        <!-- ============================================================ -->
-
-        <!-- 1 order all year : 506,925 contacts -->
-        <circle cx="900" cy="600" r="0" fill="none"/> <!-- placeholder to keep sweet spot on top -->
-
-        <!-- rearranged: place R2 sub-bubbles around sweet spot -->
+        <!-- ============ R2 activity bubbles ============ -->
         <!-- Exactly 1 order (506,925) -->
-        <circle cx="1050" cy="580" r="58" fill="var(--r2)" fill-opacity="0.72" stroke="var(--r2)" stroke-width="1.5"/>
-        <text x="1050" y="568" class="bubble-label sm" fill="white">Exactly 1 order</text>
-        <text x="1050" y="588" class="bubble-num" fill="white">506,925</text>
-        <text x="1050" y="605" class="bubble-label xs" fill="white">contacts · 12mo</text>
+        <circle cx="1050" cy="580" r="58" fill="var(--r2)" fill-opacity="0.85"/>
+        <text x="1050" y="568" class="bubble-label sm">Exactly 1 order</text>
+        <text x="1050" y="590" class="bubble-num">506,925</text>
+        <text x="1050" y="608" class="bubble-label xs">contacts · in 12mo</text>
 
-        <!-- Exactly 2 orders (185,179) -->
-        <circle cx="1155" cy="640" r="42" fill="var(--r2)" fill-opacity="0.72" stroke="var(--r2)" stroke-width="1.5"/>
-        <text x="1155" y="630" class="bubble-label sm" fill="white">Exactly 2</text>
-        <text x="1155" y="650" class="bubble-num sm" fill="white">185,179</text>
+        <!-- Exactly 2 (185,179) -->
+        <circle cx="1160" cy="645" r="42" fill="var(--r2)" fill-opacity="0.85"/>
+        <text x="1160" y="637" class="bubble-label sm">Exactly 2</text>
+        <text x="1160" y="655" class="bubble-num sm">185,179</text>
 
-        <!-- <3 total (692,104) — the "will never pass" set, ringed -->
-        <circle cx="1050" cy="700" r="45" fill="var(--r2)" fill-opacity="0.9" stroke="#2c1470" stroke-width="2.5"/>
-        <text x="1050" y="688" class="bubble-label sm" fill="white">&lt; 3 orders total</text>
-        <text x="1050" y="708" class="bubble-num sm" fill="white">692,104</text>
-        <text x="1050" y="722" class="bubble-label xs" fill="white">will NEVER pass R2</text>
+        <!-- <3 total ringed -->
+        <circle cx="1050" cy="695" r="45" fill="var(--r2)" fill-opacity="1"/>
+        <circle cx="1050" cy="695" r="52" fill="none" stroke="var(--r2)" stroke-width="0.8" stroke-dasharray="1.5 2"/>
+        <text x="1050" y="683" class="bubble-label sm">&lt; 3 orders total</text>
+        <text x="1050" y="703" class="bubble-num sm">692,104</text>
+        <text x="1050" y="717" class="bubble-label xs">— never pass R2 —</text>
 
-        <!-- scattered ≥3 (est. ~200K) -->
-        <circle cx="1180" cy="720" r="30" fill="var(--r2)" fill-opacity="0.55" stroke="var(--r2)" stroke-width="1.5" stroke-dasharray="3 3"/>
-        <text x="1180" y="718" class="bubble-label sm" fill="white">≥3 scattered</text>
-        <text x="1180" y="733" class="bubble-num sm" fill="white">~200K</text>
+        <!-- scattered ≥3 -->
+        <circle cx="1160" cy="720" r="28" fill="var(--r2)" fill-opacity="0.55" stroke="var(--r2)" stroke-width="0.6" stroke-dasharray="2 2"/>
+        <text x="1160" y="718" class="bubble-label sm">≥3 scattered</text>
+        <text x="1160" y="732" class="bubble-num sm">~200K</text>
 
-        <!-- ============================================================ -->
-        <!-- R4 BILLTO BUBBLES (inside R4 shell, bottom band)               -->
-        <!-- ============================================================ -->
+        <!-- ============ R4 billto bubbles ============ -->
+        <circle cx="120" cy="710" r="26" fill="var(--r4)" fill-opacity="0.9"/>
+        <text x="120" y="705" class="bubble-label sm">2 billtos</text>
+        <text x="120" y="720" class="bubble-num sm">~30K</text>
 
-        <!-- 2 billtos ~30K est -->
-        <circle cx="120" cy="710" r="26" fill="var(--r4)" fill-opacity="0.85" stroke="var(--r4)" stroke-width="1.5"/>
-        <text x="120" y="705" class="bubble-label sm" fill="white">2 billtos</text>
-        <text x="120" y="720" class="bubble-num sm" fill="white">~30K</text>
+        <circle cx="230" cy="710" r="19" fill="var(--r4)" fill-opacity="0.9"/>
+        <text x="230" y="710" class="bubble-label sm">3–5</text>
+        <text x="230" y="723" class="bubble-num xs">~10K</text>
 
-        <!-- 3–5 billtos ~10K est -->
-        <circle cx="230" cy="710" r="19" fill="var(--r4)" fill-opacity="0.85" stroke="var(--r4)" stroke-width="1.5"/>
-        <text x="230" y="708" class="bubble-label sm" fill="white">3–5</text>
-        <text x="230" y="722" class="bubble-num sm" fill="white">~10K</text>
+        <circle cx="315" cy="710" r="13" fill="var(--r4)" fill-opacity="0.9"/>
+        <text x="315" y="713" class="bubble-num xs">~3K</text>
 
-        <!-- 6+ billtos ~3K est power users -->
-        <circle cx="315" cy="710" r="13" fill="var(--r4)" fill-opacity="0.85" stroke="var(--r4)" stroke-width="1.5"/>
-        <text x="315" y="712" class="bubble-num sm" fill="white">~3K</text>
+        <text x="400" y="705" font-family="Fraunces" font-style="italic" font-weight="300" font-size="12" fill="var(--ink-2)">Contacts failing R4 order ~43 units/year —</text>
+        <text x="400" y="722" font-family="Fraunces" font-style="italic" font-weight="300" font-size="12" fill="var(--ink-2)">vs. universe avg of 14. Small headcount, dense buying.</text>
 
-        <!-- R4 punch-above label -->
-        <text x="400" y="705" font-size="10.5" fill="var(--ink-2)">Contacts failing R4 order ~43 units/year</text>
-        <text x="400" y="720" font-size="10.5" fill="var(--ink-2)">vs. universe avg of ~14 — punches above weight</text>
-
-        <!-- ============================================================ -->
-        <!-- R2 ∩ R4 overlap dot (bridge between shells)                     -->
-        <!-- ============================================================ -->
-        <path d="M 700 700 L 780 640" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 3" fill="none"/>
-        <circle cx="720" cy="700" r="18" fill="#7f2a94" fill-opacity="0.35" stroke="#7f2a94" stroke-width="2" stroke-dasharray="3 2"/>
-        <text x="720" y="700" text-anchor="middle" font-size="9" font-weight="800" fill="#7f2a94">~19K</text>
-        <text x="720" y="713" text-anchor="middle" font-size="8" fill="var(--ink-2)">R2 ∩ R4 est.</text>
+        <!-- R2 ∩ R4 est bridge -->
+        <path d="M 700 690 Q 720 660 780 640" stroke="var(--overlap)" stroke-width="0.6" stroke-dasharray="2 2" fill="none"/>
+        <circle cx="705" cy="700" r="20" fill="var(--overlap)" fill-opacity="0.35" stroke="var(--overlap)" stroke-width="0.8" stroke-dasharray="2 2"/>
+        <text x="705" y="700" text-anchor="middle" font-family="Fraunces" font-weight="700" font-size="10" fill="var(--overlap)">~19K</text>
+        <text x="705" y="714" text-anchor="middle" font-family="Inter" font-size="7.5" fill="var(--ink-3)" letter-spacing="0.08em">R2 ∩ R4 EST</text>
 
       </svg>
     </div>
 
-    <!-- ================== RAIL ================== -->
-    <div class="rail">
+    <!-- ================== SIDENOTES ================== -->
+    <div class="sidenotes">
 
-      <!-- Legend / how to read -->
-      <div class="rail-card">
-        <h3>How to read</h3>
-        <div class="row"><span class="name"><span class="sw" style="background:var(--r3); border-color:var(--r3);"></span>R3 · listcode</span><span class="n" style="color:var(--r3)">CMF level</span></div>
-        <div class="row"><span class="name"><span class="sw" style="background:var(--r1); border-color:var(--r1);"></span>R1 · ≥10 contacts</span><span class="n" style="color:var(--r1)">CMF level</span></div>
-        <div class="row"><span class="name"><span class="sw" style="background:var(--r2); border-color:var(--r2);"></span>R2 · thin orders</span><span class="n" style="color:var(--r2)">contact ↔ ship-to</span></div>
-        <div class="row"><span class="name"><span class="sw" style="background:var(--r4); border-color:var(--r4);"></span>R4 · multi-billto</span><span class="n" style="color:#b57200">contact level</span></div>
-        <div class="row"><span class="name"><span class="sw" style="background:var(--sweet); border-color:var(--sweet);"></span>Sweet spot</span><span class="n" style="color:var(--sweet)">eligible</span></div>
-        <div class="row"><span class="name"><span class="sw" style="background:#7f2a94; border-color:#7f2a94;"></span>Overlap</span><span class="n" style="color:#7f2a94">fails both</span></div>
-        <div class="row" style="border-top: 1px dotted var(--hairline); padding-top:6px; margin-top:3px;">
-          <span class="name" style="font-style:italic;">Bubble size ∝ CMF or contact count</span>
+      <div class="sidenote">
+        <h4>How to read</h4>
+        <div class="row"><span class="name">Bubble size</span><span class="n" style="font-family:'Fraunces',serif; font-style:italic; font-weight:400;">∝ CMFs / contacts</span></div>
+        <div class="row"><span class="name">Shell color</span><span class="n" style="font-family:'Fraunces',serif; font-style:italic; font-weight:400;">rule regime</span></div>
+        <div class="row"><span class="name">Ring outline</span><span class="n" style="font-family:'Fraunces',serif; font-style:italic; font-weight:400;">never-eligible</span></div>
+        <div class="row"><span class="name">Dashed shape</span><span class="n" style="font-family:'Fraunces',serif; font-style:italic; font-weight:400;">estimate</span></div>
+      </div>
+
+      <div class="sidenote">
+        <h4>Orders blocked · ranked</h4>
+        <div class="rank-list">
+          <div class="rank-item">
+            <div class="rk">1</div>
+            <div class="rname r1">R1<small>too many contacts</small></div>
+            <div class="n">4.08M<small>20.9%</small></div>
+          </div>
+          <div class="rank-item">
+            <div class="rk">2</div>
+            <div class="rname r4">R4<small>multi-billto</small></div>
+            <div class="n">1.86M<small>9.6%</small></div>
+          </div>
+          <div class="rank-item">
+            <div class="rk">3</div>
+            <div class="rname r3">R3<small>bad listcode</small></div>
+            <div class="n">1.16M<small>5.9%</small></div>
+          </div>
+          <div class="rank-item">
+            <div class="rk">4</div>
+            <div class="rname r2">R2<small>thin orders</small></div>
+            <div class="n">835K<small>4.3%</small></div>
+          </div>
         </div>
       </div>
 
-      <!-- Rule-impact bars -->
-      <div class="rail-card">
-        <h3>Orders blocked · 19.5M denominator</h3>
-        <div class="impact-row">
-          <div class="rname r1">R1</div>
-          <div class="track"><div class="fill r1" style="width: 20.9%;"></div></div>
-          <div class="num">4.08M<span class="pct">20.9%</span></div>
-        </div>
-        <div class="impact-row">
-          <div class="rname r4">R4</div>
-          <div class="track"><div class="fill r4" style="width: 9.6%;"></div></div>
-          <div class="num">1.86M<span class="pct">9.6%</span></div>
-        </div>
-        <div class="impact-row">
-          <div class="rname r3">R3</div>
-          <div class="track"><div class="fill r3" style="width: 5.9%;"></div></div>
-          <div class="num">1.16M<span class="pct">5.9%</span></div>
-        </div>
-        <div class="impact-row">
-          <div class="rname r2">R2</div>
-          <div class="track"><div class="fill r2" style="width: 4.3%;"></div></div>
-          <div class="num">835K<span class="pct">4.3%</span></div>
-        </div>
-      </div>
-
-      <!-- Sensitivity teaser -->
-      <div class="rail-card">
-        <h3>R1 sensitivity — loosen the threshold</h3>
-        <div class="row"><span class="name">10 → 12</span><span class="n">+511K orders</span></div>
+      <div class="sidenote">
+        <h4>R1 · loosen the threshold</h4>
+        <div class="row"><span class="name">10 → 12</span><span class="n">+511K</span></div>
         <div class="row"><span class="name">12 → 15</span><span class="n">+510K</span></div>
         <div class="row"><span class="name">15 → 20</span><span class="n">+510K</span></div>
         <div class="row"><span class="name">20 → 25</span><span class="n">+327K</span></div>
         <div class="row"><span class="name">25 → 50</span><span class="n">+678K</span></div>
-        <div class="row" style="border-top: 1px dotted var(--hairline); padding-top:6px; margin-top:3px;">
-          <span class="name">50+ still out</span><span class="n" style="color:var(--r1)">1.75M orders</span>
-        </div>
+        <div class="row"><span class="name" style="color:var(--r1); font-style:italic;">50+ still out</span><span class="n" style="color:var(--r1);">1.75M</span></div>
       </div>
 
     </div>
+
   </div>
 
-  <!-- FOOTER BAR: story in 4 columns -->
-  <div class="footer-bar">
-    <div class="col">
-      <strong>R1 is the volume killer</strong>
-      1% of CMFs, 21% of orders. High-headcount ship-tos concentrate the volume — the 751 with 50+ contacts alone cover 10% of every order booked.
+  <!-- ================== EDITORIAL FOOTER ================== -->
+  <div class="storyfeet">
+    <div class="story r1">
+      <p class="drop"><b>R1</b> is the <em>volume</em> killer.</p>
+      <p>One percent of CMFs, twenty-one percent of orders. High-headcount ship-tos concentrate the volume — the 751 with fifty-plus contacts alone cover ten percent of every order booked.</p>
     </div>
-    <div class="col">
-      <strong>R2 is the headcount killer</strong>
-      Half of all ordering contacts placed &lt;3 orders total in the year — they can't pass R2 at any ship-to, ever. Rule shuts out 611K contacts.
+    <div class="story r2">
+      <p class="drop"><b>R2</b> is the <em>headcount</em> killer.</p>
+      <p>Half of all ordering contacts placed fewer than three orders total in the year. They cannot pass R2 at any ship-to, ever. The rule shuts out 611,259 contacts.</p>
     </div>
-    <div class="col">
-      <strong>R3 without distributor</strong>
-      Once Action 1 carves out distributors (20,870 CMFs), R3 shrinks to gov + college + hospital ≈ 26K CMFs, ~613K orders (3.5% of universe).
+    <div class="story r3">
+      <p class="drop"><b>R3</b> without <em>distributor</em>.</p>
+      <p>Once Action 1 carves out distributors — 20,870 CMFs — R3 shrinks to government, college, and hospital: roughly 26K CMFs and 613K orders, 3.5% of the universe.</p>
     </div>
-    <div class="col">
-      <strong>R4 punches above weight</strong>
-      Only 43K contacts (3.1%) fail — but they average 43 orders each vs. the 14 universe avg. Small headcount, heavy order density.
+    <div class="story r4">
+      <p class="drop"><b>R4</b> punches <em>above</em> its weight.</p>
+      <p>Only 43,487 contacts fail R4 — 3.1% of the universe — but they average 43 orders each versus the universe average of 14. Small headcount, heavy order density.</p>
     </div>
   </div>
 
-  <div class="foot">Source: secure.order_source · window 3/12/2025–3/12/2026 · ex-3 shared credit-card CMFs. Contact counts as of 12-mo window. R2∩R4 overlap estimated pending direct join.</div>
+  <div class="colophon">
+    <span><em>Source</em> · secure.order_source · window 3/12/2025–3/12/2026 · three shared credit-card CMFs excluded</span>
+    <span><em>Estimates</em> · R2 ∩ R4 overlap and R4 sub-bands flagged with ~ or dashed borders</span>
+  </div>
 
 </div>
 </body>
