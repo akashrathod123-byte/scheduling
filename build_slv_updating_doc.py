@@ -99,10 +99,11 @@ r.bold = True; r.font.size = Pt(20); r.font.color.rgb = BRAND
 p = doc.add_paragraph()
 p.paragraph_format.space_after = Pt(14)
 r = p.add_run(
-    'Customers with shared order history and purple links reorder more. '
-    'We introduced Shipping Location View in 2017 to bring this experience to coworkers '
-    'at the same shipping location, and the eligibility rules have not been revisited since. '
-    'This is an opportunity to extend the benefit to more of our customers.'
+    'We introduced Shipping Location View in 2017 to let coworkers at the same shipping '
+    'location see one another’s order history. Since then, we have seen the reordering '
+    'benefits from customers with shared order history and purple links. The eligibility '
+    'rules have not been revisited. This is an opportunity to revisit the combination of '
+    'rules as a starting point to extend the benefit to more of our customers.'
 )
 r.font.size = Pt(11)
 
@@ -122,13 +123,13 @@ p.add_run(
 hdr = ['Threshold', 'CMFs', '% of CMFs',
        'Orders', 'Marginal Orders (Δ)', '% of Orders']
 rows_r1 = [
-    ('10 (current)',        '532,692', '97.7%', '12,696,477', '—',         '74.8%', False),
-    ('12',                  '536,042', '98.4%', '13,207,047', '+510,570',  '77.8%', False),
-    ('15',                  '538,906', '98.9%', '13,717,234', '+510,187',  '80.8%', False),
-    ('20',                  '541,297', '99.3%', '14,226,992', '+509,758',  '83.8%', False),
-    ('25',                  '542,518', '99.5%', '14,554,315', '+327,323',  '85.7%', False),
-    ('50',                  '544,279', '99.9%', '15,232,307', '+678,000',  '89.7%', False),
-    ('Above 50 (excluded)',     '751',  '0.1%',  '1,752,777', '—',         '10.3%', True),
+    ('10 (current)', '532,692',  '97.7%', '12,696,477', '—',           '74.8%',  False),
+    ('12',           '536,042',  '98.4%', '13,207,047', '+510,570',    '77.8%',  False),
+    ('15',           '538,906',  '98.9%', '13,717,234', '+510,187',    '80.8%',  False),
+    ('20',           '541,297',  '99.3%', '14,226,992', '+509,758',    '83.8%',  False),
+    ('25',           '542,518',  '99.5%', '14,554,315', '+327,323',    '85.7%',  False),
+    ('50',           '544,279',  '99.9%', '15,232,307', '+678,000',    '89.7%',  False),
+    ('Above 50',     '545,030', '100.0%', '16,985,084', '+1,752,777', '100.0%',  False),
 ]
 t = doc.add_table(rows=1 + len(rows_r1), cols=6)
 t.alignment = WD_TABLE_ALIGNMENT.LEFT
