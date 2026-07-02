@@ -1,162 +1,184 @@
-"""Single 11x17 landscape PDF: CMF-level rules (R1 ∩ R3), sub-bubbles per listcode & threshold band."""
+"""Single 11x17 landscape: CMF-level rules with sub-bubbles that actually fill the space.
+
+Metric: CMFs (shipping locations). Universe = ~555K active CMFs.
+R3 sub-bubbles = individual listcodes.  R1 sub-bubbles = contact-count bands.
+Per-rule bubble sizing (Distributor fills R3, 10-11 band fills R1) so both circles pack well.
+"""
+import math
 import matplotlib.pyplot as plt
-from matplotlib.patches import Circle, FancyBboxPatch
+from matplotlib.patches import Circle
 import matplotlib as mpl
 
 mpl.rcParams['font.family'] = 'DejaVu Sans'
 
 # --- COLORS ---
-R3_C   = '#a63a48'   # deep red
-R3_BUB = '#8f2938'   # bubble fill
-R1_C   = '#3b6e8a'   # steel blue
-R1_BUB = '#2d5a72'
-SWEET  = '#2d7a3b'
-OVERLAP = '#7f2a94'
+R3_C, R3_BUB = '#a63a48', '#8f2938'
+R1_C, R1_BUB = '#3b6e8a', '#2d5a72'
+SWEET, OVERLAP = '#2d7a3b', '#7f2a94'
 INK, INK2, MUTED = '#1a1a1a', '#4a4a4a', '#8a8a8a'
 
-# --- DATA (orders metric) ---
-UNIVERSE   = 17_028_786
-R3_TOTAL   = 1_007_921
-R1_TOTAL   = 4_288_615
-BOTH_EST   = 60_000       # rough estimate for R1 ∩ R3 orders
-ELIGIBLE   = UNIVERSE - R3_TOTAL - R1_TOTAL + BOTH_EST   # ~11.79M
+# --- DATA (CMFs metric) ---
+UNIVERSE  = 554_765
+R3_TOTAL  = 50_000       # listcodes 05+06+07+08+09+15+97
+R1_TOTAL  = 12_338
+BOTH      = 1_446
+ELIGIBLE  = UNIVERSE - R3_TOTAL - R1_TOTAL + BOTH   # ≈ 493,873
 
-MAX_ORDERS = 1_752_777     # 50+ band — biggest sub-bubble
+# --- LISTCODES for R3 (with CMFs) ---
+listcodes = [
+    # name, code, CMFs
+    ('Distributor',       '97', 21_547),
+    ('Municipal',         '08', 16_009),
+    ('State Gov',         '07',  6_798),
+    ('Fed Gov (Domestic)','05',  3_032),
+    ('University',        '09',  2_423),
+    ('Fed Gov (APO/FPO)', '06',    186),
+    ('McMaster Internal', '15',      5),
+]
 
-def bubble_r(orders):
-    return max(0.13, 1.40 * (orders / MAX_ORDERS) ** 0.5)
+# --- THRESHOLD BANDS for R1 (with CMFs) ---
+bands = [
+    ('10–11 contacts', 3_350),
+    ('12–14 contacts', 2_864),
+    ('15–19 contacts', 2_391),
+    ('25–49 contacts', 1_761),
+    ('20–24 contacts', 1_221),
+    ('50+ contacts',      751),
+]
+
+# --- BUBBLE SIZING (per rule so each fills its container) ---
+R3_MAX_SUB = 21_547   # Distributor
+R1_MAX_SUB = 3_350    # 10-11 band
+
+def r_r3(cmfs, biggest_r=1.85, floor=0.30):
+    return max(floor, biggest_r * math.sqrt(cmfs / R3_MAX_SUB))
+
+def r_r1(cmfs, biggest_r=1.55, floor=0.30):
+    return max(floor, biggest_r * math.sqrt(cmfs / R1_MAX_SUB))
 
 # --- FIGURE ---
 fig = plt.figure(figsize=(17, 11), dpi=100)
 fig.patch.set_facecolor('white')
 ax = fig.add_axes([0, 0, 1, 1])
-ax.set_xlim(0, 17)
-ax.set_ylim(0, 11)
-ax.set_aspect('equal')
-ax.axis('off')
+ax.set_xlim(0, 17); ax.set_ylim(0, 11); ax.set_aspect('equal'); ax.axis('off')
 
-# --- TITLE ---
-ax.text(8.5, 10.5, 'CMF-Level Rules · Orders Blocked',
-        ha='center', va='top', fontsize=22, fontweight='bold', color=INK)
-ax.text(8.5, 9.85,
-        'Rules 1 and 3 apply to shipping locations. Sub-bubbles inside each rule are individual '
-        'listcodes (R3) and contact-count bands (R1), sized on a common orders scale.',
-        ha='center', va='top', fontsize=11, color=INK2)
-ax.text(8.5, 9.45, 'Universe: 17.0M contact-attributable orders',
+# --- MASTHEAD ---
+ax.text(8.5, 10.55, 'CMF-Level Rules  ·  Shipping Locations Blocked',
+        ha='center', va='top', fontsize=24, fontweight='bold', color=INK)
+ax.text(8.5, 9.95,
+        'R3 (listcode) and R1 (contact count) both apply to shipping locations. '
+        'Sub-bubbles inside each rule show the composition by listcode and by contact-count band.',
+        ha='center', va='top', fontsize=11.5, color=INK2)
+ax.text(8.5, 9.55, f'Universe: {UNIVERSE:,} active CMFs',
         ha='center', va='top', fontsize=10, color=MUTED, style='italic')
 
 # --- BIG VENN CIRCLES (soft fill so sub-bubbles pop) ---
-R3_CENTER = (5.5, 4.8)
-R1_CENTER = (11.5, 4.8)
-BIG_R = 3.7
-
-ax.add_patch(Circle(R3_CENTER, BIG_R, facecolor=R3_C, alpha=0.09,
+R3_CENTER = (5.0, 5.0); R1_CENTER = (12.0, 5.0)
+BIG_R = 4.2
+ax.add_patch(Circle(R3_CENTER, BIG_R, facecolor=R3_C, alpha=0.08,
                     edgecolor=R3_C, linewidth=2.5))
-ax.add_patch(Circle(R1_CENTER, BIG_R, facecolor=R1_C, alpha=0.09,
+ax.add_patch(Circle(R1_CENTER, BIG_R, facecolor=R1_C, alpha=0.08,
                     edgecolor=R1_C, linewidth=2.5))
 
-# --- R3 SUB-BUBBLES: listcodes ---
-listcodes = [
-    ('Distributor',       '97', 387_394, (5.0, 5.6)),
-    ('Municipal',         '08', 222_199, (3.7, 4.0)),
-    ('State Gov',         '07', 184_911, (5.7, 3.5)),
-    ('University',        '09', 112_332, (6.7, 5.2)),
-    ('Fed Gov (Dom.)',    '05',  58_169, (3.4, 5.5)),
-    ('McMaster Internal', '15',  42_130, (6.6, 6.4)),
-    ('Fed Gov (APO/FPO)', '06',     786, (3.9, 6.5)),
-]
+# --- RULE LABELS at the outer corners ---
+# Rule 3 (top-left)
+ax.text(0.5, 8.9, 'Rule 3', color=R3_C, fontweight='bold', fontsize=19, ha='left')
+ax.text(0.5, 8.48, 'Listcode', color=INK, fontsize=13, ha='left')
+ax.text(0.5, 8.13, 'Shipping locations with',    color=INK2, fontsize=10, ha='left')
+ax.text(0.5, 7.92, 'list codes for government,', color=INK2, fontsize=10, ha='left')
+ax.text(0.5, 7.71, 'college, distributor,',      color=INK2, fontsize=10, ha='left')
+ax.text(0.5, 7.50, 'or internal.',               color=INK2, fontsize=10, ha='left')
+ax.text(0.5, 7.05, f'Blocks {R3_TOTAL:,} CMFs',
+        color=R3_C, fontweight='bold', fontsize=12, ha='left')
+ax.text(0.5, 6.80, f'{R3_TOTAL/UNIVERSE*100:.1f}% of universe',
+        color=INK2, fontsize=10, ha='left')
 
-for name, code, orders, (x, y) in listcodes:
-    r = bubble_r(orders)
-    ax.add_patch(Circle((x, y), r, facecolor=R3_BUB, alpha=0.90,
-                        edgecolor='white', linewidth=1.4))
-    # Labels inside if bubble is big enough, otherwise pointer
-    if r >= 0.32:
-        ax.text(x, y + 0.10, name, ha='center', va='center', color='white',
-                fontsize=8.5, fontweight='bold')
-        ax.text(x, y - 0.14, f'{orders/1000:.0f}K orders',
-                ha='center', va='center', color='white', fontsize=7)
+# Rule 1 (top-right)
+ax.text(16.5, 8.9, 'Rule 1', color=R1_C, fontweight='bold', fontsize=19, ha='right')
+ax.text(16.5, 8.48, 'Contact count', color=INK, fontsize=13, ha='right')
+ax.text(16.5, 8.13, 'Shipping locations with',      color=INK2, fontsize=10, ha='right')
+ax.text(16.5, 7.92, '10 or more active ordering',   color=INK2, fontsize=10, ha='right')
+ax.text(16.5, 7.71, 'contacts.',                    color=INK2, fontsize=10, ha='right')
+ax.text(16.5, 7.05, f'Blocks {R1_TOTAL:,} CMFs',
+        color=R1_C, fontweight='bold', fontsize=12, ha='right')
+ax.text(16.5, 6.80, f'{R1_TOTAL/UNIVERSE*100:.1f}% of universe',
+        color=INK2, fontsize=10, ha='right')
+
+# --- R3 SUB-BUBBLES (arranged to fill R3 circle) ---
+# Manually positioned for a compact pack; largest at center-ish
+listcode_positions = {
+    'Distributor':       (4.2, 4.7),   # biggest, center-left
+    'Municipal':         (6.6, 5.6),   # upper-right of R3
+    'State Gov':         (4.0, 7.4),   # top-left area
+    'Fed Gov (Domestic)':(6.4, 3.2),   # lower-right
+    'University':        (2.3, 5.9),   # far left
+    'Fed Gov (APO/FPO)': (2.8, 3.8),   # lower-left small
+    'McMaster Internal': (3.4, 2.6),   # bottom-left tiny
+}
+
+for name, code, cmfs in listcodes:
+    x, y = listcode_positions[name]
+    r = r_r3(cmfs)
+    ax.add_patch(Circle((x, y), r, facecolor=R3_BUB, alpha=0.92,
+                        edgecolor='white', linewidth=1.6))
+    if r >= 0.55:
+        ax.text(x, y + 0.20, name, ha='center', va='center',
+                color='white', fontsize=9.5, fontweight='bold')
+        ax.text(x, y - 0.15, f'{cmfs:,}', ha='center', va='center',
+                color='white', fontsize=8.5)
+    elif r >= 0.40:
+        ax.text(x, y + 0.12, name.split()[0][:8], ha='center', va='center',
+                color='white', fontsize=7.5, fontweight='bold')
+        ax.text(x, y - 0.10, f'{cmfs:,}', ha='center', va='center',
+                color='white', fontsize=7)
     else:
-        # small bubble — external label
-        ax.text(x, y - r - 0.20, f'{name}\n{orders:,}',
-                ha='center', va='top', color=INK, fontsize=6.8)
+        # too small — label outside with leader
+        ax.text(x, y - r - 0.30, f'{name}\n{cmfs:,}',
+                ha='center', va='top', color=INK, fontsize=7.5)
 
-# --- R1 SUB-BUBBLES: threshold bands ---
-bands = [
-    ('50+',   1_752_777, (12.3, 4.8)),
-    ('25–49',   678_000, (10.5, 7.3)),
-    ('10–11',   510_570, (13.6, 6.9)),
-    ('12–14',   510_187, (13.9, 4.2)),
-    ('15–19',   509_758, (10.7, 3.0)),
-    ('20–24',   327_323, (12.7, 2.6)),
-]
+# --- R1 SUB-BUBBLES ---
+band_positions = {
+    '10–11 contacts':  (11.6, 5.1),  # biggest, near center
+    '12–14 contacts':  (13.9, 6.4),  # upper-right
+    '15–19 contacts':  (9.9,  6.8),  # upper-left
+    '25–49 contacts':  (14.0, 3.8),  # lower-right
+    '20–24 contacts':  (10.4, 3.4),  # lower-left
+    '50+ contacts':    (14.6, 5.6),  # small far right (highlighted)
+}
 
-for name, orders, (x, y) in bands:
-    r = bubble_r(orders)
-    ax.add_patch(Circle((x, y), r, facecolor=R1_BUB, alpha=0.90,
-                        edgecolor='white', linewidth=1.4))
-    if r >= 0.32:
-        ax.text(x, y + 0.18, name + ' contacts', ha='center', va='center',
-                color='white', fontsize=9, fontweight='bold')
-        ax.text(x, y - 0.16, f'{orders/1000:.0f}K orders',
-                ha='center', va='center', color='white', fontsize=7.5)
-
-# --- OUTER RULE LABELS ---
-# R3 (left panel)
-ax.text(1.7, 8.4, 'Rule 3', color=R3_C, fontweight='bold', fontsize=17, ha='left')
-ax.text(1.7, 8.02, 'Listcode', color=INK, fontsize=12, ha='left', fontweight='500')
-ax.text(1.7, 7.62, 'Shipping locations with',    color=INK2, fontsize=9.5, ha='left')
-ax.text(1.7, 7.40, 'list codes for government,', color=INK2, fontsize=9.5, ha='left')
-ax.text(1.7, 7.18, 'college, distributor, or',    color=INK2, fontsize=9.5, ha='left')
-ax.text(1.7, 6.96, 'internal.',                   color=INK2, fontsize=9.5, ha='left')
-ax.text(1.7, 6.50, f'Blocks {R3_TOTAL/1e6:.2f}M orders',
-        color=R3_C, fontweight='bold', fontsize=11, ha='left')
-ax.text(1.7, 6.24, f'({R3_TOTAL/UNIVERSE*100:.1f}% of universe)',
-        color=INK2, fontsize=9.5, ha='left')
-
-# R1 (right panel)
-ax.text(15.3, 8.4, 'Rule 1', color=R1_C, fontweight='bold', fontsize=17, ha='right')
-ax.text(15.3, 8.02, 'Contact count', color=INK, fontsize=12, ha='right', fontweight='500')
-ax.text(15.3, 7.62, 'Shipping locations with 10',   color=INK2, fontsize=9.5, ha='right')
-ax.text(15.3, 7.40, 'or more active ordering',      color=INK2, fontsize=9.5, ha='right')
-ax.text(15.3, 7.18, 'contacts.',                    color=INK2, fontsize=9.5, ha='right')
-ax.text(15.3, 6.50, f'Blocks {R1_TOTAL/1e6:.2f}M orders',
-        color=R1_C, fontweight='bold', fontsize=11, ha='right')
-ax.text(15.3, 6.24, f'({R1_TOTAL/UNIVERSE*100:.1f}% of universe)',
-        color=INK2, fontsize=9.5, ha='right')
+for name, cmfs in bands:
+    x, y = band_positions[name]
+    r = r_r1(cmfs)
+    ax.add_patch(Circle((x, y), r, facecolor=R1_BUB, alpha=0.92,
+                        edgecolor='white', linewidth=1.6))
+    ax.text(x, y + 0.18, name, ha='center', va='center',
+            color='white', fontsize=9.5, fontweight='bold')
+    ax.text(x, y - 0.15, f'{cmfs:,}', ha='center', va='center',
+            color='white', fontsize=8.5)
 
 # --- OVERLAP CALLOUT (in the lens) ---
 lens_x = (R3_CENTER[0] + R1_CENTER[0]) / 2
-ax.text(lens_x, 5.6, 'R1 ∩ R3', ha='center', va='center',
-        color=OVERLAP, fontweight='bold', fontsize=10)
-ax.text(lens_x, 5.25, '1,446', ha='center', va='center',
-        color=OVERLAP, fontweight='bold', fontsize=16)
-ax.text(lens_x, 4.95, 'CMFs fail both', ha='center', va='center',
-        color=OVERLAP, fontsize=8.5)
-ax.text(lens_x, 4.15, '(both a bad listcode', ha='center', va='center',
-        color=MUTED, fontsize=7.5, style='italic')
-ax.text(lens_x, 3.95, 'and 10+ contacts)', ha='center', va='center',
-        color=MUTED, fontsize=7.5, style='italic')
+ax.text(lens_x, 6.0, 'R1 ∩ R3', ha='center', va='center',
+        color=OVERLAP, fontweight='bold', fontsize=11)
+ax.text(lens_x, 5.55, f'{BOTH:,}', ha='center', va='center',
+        color=OVERLAP, fontweight='bold', fontsize=22)
+ax.text(lens_x, 5.15, 'CMFs fail both', ha='center', va='center',
+        color=OVERLAP, fontsize=10)
 
-# --- ELIGIBLE POOL LABEL (bottom, outside both circles) ---
-ax.text(8.5, 1.05, 'Eligible pool',
-        ha='center', va='center', fontsize=13, fontweight='bold', color=SWEET)
-ax.text(8.5, 0.65, f'≈ {ELIGIBLE/1e6:.1f}M orders  ·  {ELIGIBLE/UNIVERSE*100:.0f}% of universe',
-        ha='center', va='center', fontsize=11, color=INK)
+# --- ELIGIBLE POOL FOOTER ---
+ax.text(8.5, 0.95, 'Eligible pool',
+        ha='center', va='center', fontsize=14, fontweight='bold', color=SWEET)
+ax.text(8.5, 0.55, f'≈ {ELIGIBLE/1000:.0f}K CMFs   ·   {ELIGIBLE/UNIVERSE*100:.0f}% of universe',
+        ha='center', va='center', fontsize=12, color=INK)
 
-# --- KEY INSIGHT CALLOUT ---
-ax.text(8.5, 1.9,
-        'The single 50+ contacts band blocks more orders than ALL R3 listcodes combined.',
-        ha='center', va='center', fontsize=10.5, color=INK, style='italic',
-        fontweight='500')
+# --- LEGEND NOTE ---
+ax.text(0.5, 0.30,
+        'Bubble size ∝ CMFs blocked, scaled per rule so each circle is filled.',
+        ha='left', va='center', fontsize=9, color=MUTED, style='italic')
 
-# --- FOOTER: sizing legend ---
-ax.text(0.5, 0.4, 'Bubble size ∝ orders blocked   ·   Same scale across both rules',
-        ha='left', va='center', fontsize=9, color=MUTED)
-
-fig.savefig('/home/user/scheduling/venn_cmf_orders_11x17.pdf',
-            bbox_inches='tight', pad_inches=0.25)
-fig.savefig('/home/user/scheduling/venn_cmf_orders_11x17.png',
-            dpi=200, bbox_inches='tight', pad_inches=0.25)
+fig.savefig('/home/user/scheduling/venn_cmf_11x17.pdf',
+            bbox_inches='tight', pad_inches=0.20)
+fig.savefig('/home/user/scheduling/venn_cmf_11x17.png',
+            dpi=200, bbox_inches='tight', pad_inches=0.20)
 plt.close(fig)
-print("Saved venn_cmf_orders_11x17.pdf and .png")
+print("Saved venn_cmf_11x17.pdf and .png")
