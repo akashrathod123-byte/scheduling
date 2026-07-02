@@ -4,6 +4,7 @@ from docx.shared import Pt, Inches, RGBColor
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.enum.table import WD_ALIGN_VERTICAL, WD_TABLE_ALIGNMENT
 from docx.enum.section import WD_ORIENT
+from docx.enum.text import WD_BREAK
 from docx.oxml.ns import qn
 from docx.oxml import OxmlElement
 
@@ -69,6 +70,19 @@ def set_row_height(row, points, rule='atLeast'):
     height.set(qn('w:val'), str(int(points * 20)))
     height.set(qn('w:hRule'), rule)
     tr_pr.append(height)
+
+# --- PAGE 1: SLV Eligibility reference page (embedded image of the PDF) ---
+# Landscape page is 11" wide with 0.75" side margins → 9.5" usable
+p_img = doc.add_paragraph()
+p_img.alignment = WD_ALIGN_PARAGRAPH.CENTER
+p_img.paragraph_format.space_before = Pt(0)
+p_img.paragraph_format.space_after  = Pt(0)
+run_img = p_img.add_run()
+run_img.add_picture('/home/user/scheduling/slv_eligibility_page1.png', width=Inches(9.5))
+
+# Page break before the analysis pages
+p_break = doc.add_paragraph()
+p_break.add_run().add_break(WD_BREAK.PAGE)
 
 # --- TITLE ---
 p = doc.add_paragraph()
