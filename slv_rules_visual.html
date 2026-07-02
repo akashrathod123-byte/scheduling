@@ -2,607 +2,561 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>SLV Eligibility — The Universe Map</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,700;9..144,900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<title>SLV Eligibility — Rule Overlap</title>
 <style>
   @page { size: 17in 11in; margin: 0.4in; }
 
   :root {
-    --paper:      #f2ede0;
-    --paper-2:    #ebe5d3;
-    --ink:        #1a1a15;
-    --ink-2:      #55524b;
-    --ink-3:      #8a877c;
-    --hairline:   #c8c2b0;
-    --hair-thin:  #d8d3c0;
+    --ground:   #f7f8fa;
+    --card:     #ffffff;
+    --ink:      #111827;
+    --ink-2:    #4b5563;
+    --muted:    #9ca3af;
+    --hairline: #e5e7eb;
 
-    --r3:  #2c4a5c;
-    --r3-hi: #4d7185;
-    --r3-lo: #1c3244;
+    --r1:  #b91c1c;
+    --r1-fill: rgba(185,28,28,0.10);
+    --r2:  #065f46;
+    --r2-fill: rgba(6,95,70,0.10);
+    --r3:  #1e40af;
+    --r3-fill: rgba(30,64,175,0.10);
+    --r4:  #9a3412;
+    --r4-fill: rgba(154,52,18,0.10);
+    --sweet: #059669;
 
-    --r1:  #b04c2a;
-    --r1-hi: #d47048;
-    --r1-lo: #7c331c;
-
-    --r2:  #7a7a2d;
-    --r2-hi: #a0a047;
-    --r2-lo: #545420;
-
-    --r4:  #7b4a5a;
-    --r4-hi: #a06d80;
-    --r4-lo: #55323f;
-
-    --sweet: #4a6b52;
-    --sweet-hi: #6d8d75;
-    --sweet-lo: #33513c;
-
-    --overlap: #4b3b6b;
-    --overlap-hi: #6c5a8e;
-    --overlap-lo: #33254c;
-
-    --r3-shell: rgba(44,74,92,0.08);
-    --r1-shell: rgba(176,76,42,0.09);
-    --r2-shell: rgba(122,122,45,0.10);
-    --r4-shell: rgba(123,74,90,0.10);
-    --sweet-shell: rgba(74,107,82,0.13);
+    --r1-tone: #7f0f0f;
+    --r2-tone: #04412f;
+    --r3-tone: #142d7c;
+    --r4-tone: #6b230d;
   }
 
-  html, body { margin: 0; padding: 0; background: var(--paper); color: var(--ink);
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    font-feature-settings: 'ss01', 'cv11';
-    font-size: 12.5px; line-height: 1.45;
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--ground); color: var(--ink);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 12.5px; line-height: 1.4;
     -webkit-font-smoothing: antialiased;
+    font-feature-settings: 'ss01', 'cv11';
   }
   .poster {
-    width: 16.2in; margin: 0 auto;
-    padding: 0.25in 0.4in 0.35in;
-    box-sizing: border-box;
+    width: 16.2in; margin: 0 auto; padding: 0.25in 0.4in 0.35in;
   }
 
-  /* ============================================================ */
-  /* MASTHEAD                                                     */
-  /* ============================================================ */
-  .masthead {
-    display: grid; grid-template-columns: 1.6fr 1fr;
-    gap: 40px; align-items: end;
-    padding-bottom: 24px;
-    margin-bottom: 26px;
-    border-bottom: 0.5px solid var(--ink);
+  /* -------- header -------- */
+  header {
+    display: grid; grid-template-columns: 1fr auto; gap: 40px;
+    align-items: end; padding-bottom: 20px;
+    border-bottom: 1px solid var(--ink);
+    margin-bottom: 24px;
   }
-  .masthead h1 {
-    font-family: 'Fraunces', Georgia, serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-size: 62px;
-    line-height: 0.94;
-    letter-spacing: -0.028em;
-    margin: 0 0 10px;
-    color: var(--ink);
+  header .eyebrow {
+    font-size: 10.5px; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--ink-2); margin-bottom: 10px;
   }
-  .masthead h1 em { font-style: italic; font-weight: 300; }
-  .masthead .kicker {
-    font-family: 'Inter', system-ui, sans-serif;
-    font-weight: 700;
-    font-size: 10.5px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--r3);
-    margin-bottom: 12px;
+  header h1 {
+    font-size: 40px; font-weight: 700; letter-spacing: -0.02em;
+    margin: 0 0 8px; line-height: 1.05;
   }
-  .masthead .dek {
-    font-family: 'Fraunces', Georgia, serif;
-    font-optical-sizing: auto;
-    font-weight: 300;
-    font-size: 16px;
-    line-height: 1.42;
-    color: var(--ink-2);
-    max-width: 32em;
-    margin: 0;
+  header .dek {
+    font-size: 13px; color: var(--ink-2); max-width: 44em; margin: 0;
   }
-  .masthead .dek strong { color: var(--ink); font-weight: 500; }
 
-  .kpi-cluster {
-    display: grid; grid-template-columns: repeat(3, 1fr);
-    column-gap: 22px; padding-left: 28px;
-    border-left: 0.5px solid var(--hairline);
+  .kpis {
+    display: grid; grid-template-columns: repeat(3, auto); gap: 32px;
+    padding-left: 32px; border-left: 1px solid var(--hairline);
   }
-  .kpi { display: flex; flex-direction: column; }
   .kpi .n {
-    font-family: 'Fraunces', Georgia, serif;
-    font-weight: 400; font-size: 42px;
-    line-height: 1; letter-spacing: -0.025em;
-    color: var(--ink);
-    font-variant-numeric: lining-nums tabular-nums;
+    font-size: 30px; font-weight: 700; letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums; line-height: 1;
   }
   .kpi.sweet .n { color: var(--sweet); }
   .kpi.r1 .n { color: var(--r1); }
   .kpi.r2 .n { color: var(--r2); }
   .kpi .lbl {
-    font-family: 'Inter', system-ui, sans-serif;
-    font-size: 9.5px; font-weight: 600;
-    letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--ink-3); margin-top: 8px; line-height: 1.3;
+    font-size: 10px; font-weight: 600;
+    letter-spacing: 0.10em; text-transform: uppercase;
+    color: var(--ink-2); margin-top: 8px; line-height: 1.35;
   }
 
-  /* ============================================================ */
-  /* MAIN GRID                                                    */
-  /* ============================================================ */
-  .grid {
-    display: grid;
-    grid-template-columns: 1fr 200px;
-    gap: 34px;
+  /* -------- Two-Venn row -------- */
+  .venn-row {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
     margin-bottom: 24px;
   }
-  .canvas { position: relative; }
-  .canvas svg { display: block; width: 100%; height: auto; }
-
-  /* SIDENOTES */
-  .sidenotes {
-    padding-top: 6px;
+  .venn-card {
+    background: var(--card); border: 1px solid var(--hairline);
+    border-radius: 6px; padding: 20px 20px 24px;
     display: flex; flex-direction: column;
-    gap: 20px;
   }
-  .sidenote h4 {
-    font-family: 'Inter', system-ui, sans-serif;
-    font-size: 9.5px; font-weight: 700;
-    letter-spacing: 0.16em; text-transform: uppercase;
-    color: var(--ink-3);
-    margin: 0 0 8px;
-    padding-bottom: 4px;
-    border-bottom: 0.5px solid var(--hairline);
+  .venn-card h2 {
+    font-size: 15px; font-weight: 700; margin: 0 0 3px; letter-spacing: -0.005em;
   }
-  .sidenote .row {
-    display: grid; grid-template-columns: 1fr auto;
-    column-gap: 10px; row-gap: 2px;
-    font-size: 11.5px; padding: 4px 0;
-    border-bottom: 0.5px dotted var(--hair-thin);
+  .venn-card .card-sub {
+    font-size: 11.5px; color: var(--ink-2); margin: 0 0 4px;
   }
-  .sidenote .row:last-child { border-bottom: 0; }
-  .sidenote .row .name { color: var(--ink-2); }
-  .sidenote .row .n {
-    font-weight: 700; font-variant-numeric: tabular-nums;
-    color: var(--ink);
-  }
-
-  .rank-list { display: flex; flex-direction: column; }
-  .rank-item {
-    display: grid; grid-template-columns: 20px 1fr auto;
-    align-items: baseline; padding: 8px 0;
-    border-bottom: 0.5px dotted var(--hair-thin);
-    column-gap: 8px;
-  }
-  .rank-item:last-child { border-bottom: 0; }
-  .rank-item .rk {
-    font-family: 'Fraunces', serif;
-    font-weight: 300; font-style: italic;
-    color: var(--ink-3); font-size: 12px;
-  }
-  .rank-item .rname {
-    font-family: 'Fraunces', serif;
-    font-weight: 700; font-size: 16px;
-    letter-spacing: -0.005em;
-  }
-  .rank-item .rname.r1 { color: var(--r1); }
-  .rank-item .rname.r2 { color: var(--r2); }
-  .rank-item .rname.r3 { color: var(--r3); }
-  .rank-item .rname.r4 { color: var(--r4); }
-  .rank-item .rname small {
-    display: block; font-family: 'Inter', sans-serif;
-    font-size: 9.5px; font-weight: 500;
-    color: var(--ink-3); letter-spacing: 0.04em; margin-top: 1px;
-  }
-  .rank-item .n {
-    font-family: 'Fraunces', serif;
+  .venn-card .universe {
+    font-size: 10.5px; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--muted); margin: 0 0 12px;
     font-variant-numeric: tabular-nums;
-    font-weight: 700; font-size: 18px;
-    color: var(--ink);
   }
-  .rank-item .n small {
-    display: block; font-family: 'Inter', sans-serif;
-    font-size: 9.5px; font-weight: 500;
-    color: var(--ink-3); text-align: right; margin-top: -1px;
+  .venn-card svg {
+    width: 100%; height: auto; display: block;
   }
 
-  /* ============================================================ */
-  /* FOOTER — 4 columns of editorial takeaways                    */
-  /* ============================================================ */
-  .storyfeet {
-    display: grid; grid-template-columns: repeat(4, 1fr);
-    gap: 28px;
-    padding-top: 22px;
-    border-top: 0.5px solid var(--ink);
+  /* -------- rule tags below each venn -------- */
+  .rule-legend {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+    margin-top: 12px;
   }
-  .story { padding-right: 6px; }
-  .story .drop {
-    font-family: 'Fraunces', serif;
-    font-weight: 400; font-style: italic;
-    font-size: 15px; line-height: 1.15;
-    color: var(--ink);
-    margin: 0 0 6px;
+  .rule-tag {
+    display: grid; grid-template-columns: auto 1fr;
+    gap: 10px; align-items: start;
+    padding: 10px 12px;
+    background: #fafbfc;
+    border-left: 3px solid;
+    border-radius: 0 4px 4px 0;
   }
-  .story .drop b { font-style: normal; font-weight: 700; }
-  .story p {
-    font-family: 'Inter', sans-serif;
-    font-size: 10.5px; line-height: 1.5;
-    color: var(--ink-2); margin: 0;
-  }
-  .story.r1 .drop { color: var(--r1); }
-  .story.r2 .drop { color: var(--r2); }
-  .story.r3 .drop { color: var(--r3); }
-  .story.r4 .drop { color: var(--r4); }
+  .rule-tag.r3 { border-color: var(--r3); }
+  .rule-tag.r1 { border-color: var(--r1); }
+  .rule-tag.r2 { border-color: var(--r2); }
+  .rule-tag.r4 { border-color: var(--r4); }
 
-  .colophon {
-    margin-top: 20px;
-    font-size: 9px;
-    color: var(--ink-3);
-    letter-spacing: 0.05em;
-    display: flex; justify-content: space-between;
-    padding-top: 8px;
-    border-top: 0.5px solid var(--hair-thin);
+  .rule-tag .tag {
+    font-size: 12px; font-weight: 700;
+    padding: 3px 7px; border-radius: 3px;
+    color: white; letter-spacing: 0.02em;
+    height: fit-content;
+    font-variant-numeric: tabular-nums;
   }
-  .colophon em { font-style: italic; }
+  .rule-tag.r3 .tag { background: var(--r3); }
+  .rule-tag.r1 .tag { background: var(--r1); }
+  .rule-tag.r2 .tag { background: var(--r2); }
+  .rule-tag.r4 .tag { background: var(--r4); }
+
+  .rule-tag .desc {
+    font-size: 11px; line-height: 1.35; color: var(--ink);
+  }
+  .rule-tag .desc strong {
+    display: block; font-weight: 600; margin-bottom: 1px;
+  }
+  .rule-tag .desc .m {
+    color: var(--ink-2); font-size: 10.5px; margin-top: 3px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* -------- bottom strip -------- */
+  .strip {
+    display: grid; grid-template-columns: 1.15fr 0.7fr 1.15fr; gap: 24px;
+  }
+  .strip .panel {
+    background: var(--card); border: 1px solid var(--hairline);
+    border-radius: 6px; padding: 18px 20px;
+  }
+  .strip .panel h3 {
+    font-size: 10.5px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--ink-2); margin: 0 0 12px;
+    padding-bottom: 8px; border-bottom: 1px solid var(--hairline);
+  }
+
+  /* Impact bar */
+  .impact { display: grid; grid-template-columns: 34px 1fr auto; row-gap: 12px; column-gap: 12px; align-items: center; }
+  .impact .r { font-size: 13px; font-weight: 700; letter-spacing: -0.005em; }
+  .impact .r.r1 { color: var(--r1); }
+  .impact .r.r2 { color: var(--r2); }
+  .impact .r.r3 { color: var(--r3); }
+  .impact .r.r4 { color: var(--r4); }
+  .impact .track { height: 18px; background: #eef0f4; border-radius: 3px; overflow: hidden; }
+  .impact .fill { height: 100%; }
+  .impact .fill.r1 { background: var(--r1); }
+  .impact .fill.r2 { background: var(--r2); }
+  .impact .fill.r3 { background: var(--r3); }
+  .impact .fill.r4 { background: var(--r4); }
+  .impact .num { text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; font-size: 13px; line-height: 1; }
+  .impact .num .p { display: block; font-weight: 500; color: var(--ink-2); font-size: 10.5px; margin-top: 3px; }
+
+  /* Sensitivity table */
+  .sens { display: grid; grid-template-columns: 1fr auto; row-gap: 7px; font-size: 11.5px; }
+  .sens .n { font-weight: 600; font-variant-numeric: tabular-nums; }
+  .sens .lbl { color: var(--ink-2); }
+  .sens .divider { grid-column: 1 / -1; border-top: 1px solid var(--hairline); margin: 4px 0 2px; }
+  .sens .highlight .lbl { color: var(--r1); font-weight: 600; }
+  .sens .highlight .n { color: var(--r1); }
+
+  /* Takeaways */
+  .takeaways { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .takeaway {
+    padding: 10px 12px;
+    background: #fafbfc; border-left: 3px solid;
+  }
+  .takeaway.r1 { border-color: var(--r1); }
+  .takeaway.r2 { border-color: var(--r2); }
+  .takeaway.r3 { border-color: var(--r3); }
+  .takeaway.r4 { border-color: var(--r4); }
+  .takeaway .head {
+    font-size: 12px; font-weight: 700; margin-bottom: 4px;
+  }
+  .takeaway.r1 .head { color: var(--r1); }
+  .takeaway.r2 .head { color: var(--r2); }
+  .takeaway.r3 .head { color: var(--r3); }
+  .takeaway.r4 .head { color: var(--r4); }
+  .takeaway p { font-size: 10.5px; line-height: 1.4; color: var(--ink); margin: 0; font-variant-numeric: tabular-nums; }
+
+  .foot {
+    margin-top: 16px; font-size: 10px; color: var(--muted);
+    text-align: right; letter-spacing: 0.04em;
+  }
+
+  /* -------- SVG helpers -------- */
+  .venn-title { font: 700 11px 'Inter', sans-serif; letter-spacing: 0.14em;
+    text-transform: uppercase; }
+  .venn-sub { font: 400 10px 'Inter', sans-serif; letter-spacing: 0; }
+  .venn-count { font: 700 12px 'Inter', sans-serif; font-variant-numeric: tabular-nums; }
+  .venn-label { font: 700 10px 'Inter', sans-serif; letter-spacing: 0.06em;
+    text-transform: uppercase; }
+  .bub-name { font: 600 9px 'Inter', sans-serif; letter-spacing: 0.04em; text-anchor: middle; }
+  .bub-num  { font: 700 11px 'Inter', sans-serif; font-variant-numeric: tabular-nums; text-anchor: middle; }
+  .bub-num.lg { font-size: 15px; }
+  .bub-num.xl { font-size: 20px; }
+  .bub-sub  { font: 500 8.5px 'Inter', sans-serif; text-anchor: middle; opacity: 0.9; }
 </style>
 </head>
 <body>
 <div class="poster">
 
-  <!-- ================== MASTHEAD ================== -->
-  <div class="masthead">
+  <!-- HEADER -->
+  <header>
     <div>
-      <div class="kicker">Shipping Location View · Eligibility deep-read</div>
-      <h1>Who <em>gets</em> shared view,<br>and who the rules leave <em>out</em>.</h1>
-      <p class="dek">
-        Each shape is a real customer segment, sized by the CMFs (or contacts) it holds.
-        Four translucent rule regions layer on top; where they overlap, that segment fails
-        more than one rule. Bubbles that carry <em>special status</em> — carved out,
-        dormant, never-eligible — wear their own visual mark.
-        <br><br>
-        Window <span style="font-family:'Fraunces',serif; font-style: italic;">3/12/2025 – 3/12/2026</span> · source <span style="font-family:'Fraunces',serif; font-style: italic;">secure.order_source</span> · three shared credit-card CMFs excluded.
-      </p>
+      <div class="eyebrow">Shipping Location View · Rule Overlap Analysis</div>
+      <h1>Who gets shared view. Who the rules leave out.</h1>
+      <p class="dek">Two Venn diagrams — one at the CMF level (R1 &amp; R3), one at the contact level (R2 &amp; R4). Each rule's circle contains the sub-categories it catches, sized by count. Window 3/12/2025–3/12/2026 · <em>secure.order_source</em> · ex-three shared credit-card CMFs.</p>
     </div>
-    <div class="kpi-cluster">
-      <div class="kpi sweet"><div class="n">1.03M</div><div class="lbl">CMFs pass<br>all four rules</div></div>
+    <div class="kpis">
+      <div class="kpi sweet"><div class="n">1.03M</div><div class="lbl">CMFs pass<br>all 4 rules</div></div>
       <div class="kpi r1"><div class="n">20.9%</div><div class="lbl">Orders blocked<br>by R1 alone</div></div>
       <div class="kpi r2"><div class="n">44%</div><div class="lbl">Ordering contacts<br>fail R2</div></div>
     </div>
-  </div>
+  </header>
 
-  <!-- ================== MAIN CANVAS + SIDENOTES ================== -->
-  <div class="grid">
+  <!-- ============================================================ -->
+  <!-- TWO VENN DIAGRAMS SIDE BY SIDE                                -->
+  <!-- ============================================================ -->
+  <div class="venn-row">
 
-    <div class="canvas">
-      <svg viewBox="0 0 1400 820" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+    <!-- ================ LEFT: CMF-level Venn ================ -->
+    <div class="venn-card">
+      <h2>CMF-level rules · R1 ∩ R3</h2>
+      <p class="card-sub">Each nested bubble is a sub-category, sized by CMF count.</p>
+      <p class="universe">Universe · 1,145,469 active CMFs</p>
 
-        <defs>
-          <!-- Radial gradients per rule (light-top, darker-bottom) -->
-          <radialGradient id="grad-r3" cx="35%" cy="30%" r="70%">
-            <stop offset="0%" stop-color="#5f829a" stop-opacity="1"/>
-            <stop offset="60%" stop-color="var(--r3)" stop-opacity="1"/>
-            <stop offset="100%" stop-color="var(--r3-lo)" stop-opacity="1"/>
-          </radialGradient>
-          <radialGradient id="grad-r1" cx="35%" cy="30%" r="70%">
-            <stop offset="0%" stop-color="#d67b53" stop-opacity="1"/>
-            <stop offset="60%" stop-color="var(--r1)" stop-opacity="1"/>
-            <stop offset="100%" stop-color="var(--r1-lo)" stop-opacity="1"/>
-          </radialGradient>
-          <radialGradient id="grad-r2" cx="35%" cy="30%" r="70%">
-            <stop offset="0%" stop-color="#a5a54a" stop-opacity="1"/>
-            <stop offset="60%" stop-color="var(--r2)" stop-opacity="1"/>
-            <stop offset="100%" stop-color="var(--r2-lo)" stop-opacity="1"/>
-          </radialGradient>
-          <radialGradient id="grad-r4" cx="35%" cy="30%" r="70%">
-            <stop offset="0%" stop-color="#a67285" stop-opacity="1"/>
-            <stop offset="60%" stop-color="var(--r4)" stop-opacity="1"/>
-            <stop offset="100%" stop-color="var(--r4-lo)" stop-opacity="1"/>
-          </radialGradient>
-          <radialGradient id="grad-sweet" cx="35%" cy="30%" r="70%">
-            <stop offset="0%" stop-color="#7a9b81" stop-opacity="1"/>
-            <stop offset="60%" stop-color="var(--sweet)" stop-opacity="1"/>
-            <stop offset="100%" stop-color="var(--sweet-lo)" stop-opacity="1"/>
-          </radialGradient>
-          <radialGradient id="grad-overlap" cx="35%" cy="30%" r="70%">
-            <stop offset="0%" stop-color="#7b6ba0" stop-opacity="1"/>
-            <stop offset="60%" stop-color="var(--overlap)" stop-opacity="1"/>
-            <stop offset="100%" stop-color="var(--overlap-lo)" stop-opacity="1"/>
-          </radialGradient>
+      <svg viewBox="0 0 820 500" xmlns="http://www.w3.org/2000/svg">
+        <!-- Universe boundary (subtle) -->
+        <rect x="10" y="10" width="800" height="480" rx="8"
+              fill="none" stroke="var(--hairline)" stroke-width="1" stroke-dasharray="3 4"/>
 
-          <!-- Very soft drop shadow -->
-          <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
-            <feOffset dy="1"/>
-            <feComponentTransfer><feFuncA type="linear" slope="0.20"/></feComponentTransfer>
-            <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
-          </filter>
+        <!-- Eligible label in the space outside both circles -->
+        <text x="770" y="470" text-anchor="end" class="venn-label" fill="var(--sweet)">Eligible · 1,026,627 CMFs</text>
 
-          <!-- Diagonal stripe pattern for the "carved out" treatment -->
-          <pattern id="pat-carved" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(45)">
-            <rect width="6" height="6" fill="var(--r3)"/>
-            <line x1="0" y1="0" x2="0" y2="6" stroke="var(--paper)" stroke-width="1.6" opacity="0.35"/>
-          </pattern>
+        <!-- R3 circle (big blue) — proportional to 107,209 CMFs -->
+        <circle cx="290" cy="250" r="210" fill="var(--r3-fill)" stroke="var(--r3)" stroke-width="2"/>
+        <!-- R1 circle (small red) — proportional to 13,079 CMFs, ratio sqrt(13079/107209) ~ 0.35 -->
+        <circle cx="600" cy="250" r="90" fill="var(--r1-fill)" stroke="var(--r1)" stroke-width="2"/>
 
-          <!-- Soft dot pattern for "dormant" -->
-          <pattern id="pat-dormant" patternUnits="userSpaceOnUse" width="7" height="7">
-            <circle cx="3.5" cy="3.5" r="1.2" fill="var(--r3)"/>
-          </pattern>
-        </defs>
+        <!-- Title tags on top of each rule circle -->
+        <text x="290" y="55" text-anchor="middle" class="venn-title" fill="var(--r3)">R3 · Bad Listcode</text>
+        <text x="290" y="72" text-anchor="middle" class="venn-sub" fill="var(--ink-2)">107,209 CMFs · 1.16M orders (5.9%)</text>
 
-        <!-- ============ RULE SHELLS ============ -->
-        <path d="M 30 60 Q 30 30 60 30 L 630 30 Q 720 30 720 130
-                 L 720 500 Q 720 620 610 620 L 100 620 Q 30 620 30 550 Z"
-              fill="var(--r3-shell)" stroke="var(--r3)" stroke-width="0.5" stroke-dasharray="1 2"/>
-        <text x="60" y="58" font-family="Inter" font-weight="700" font-size="10" letter-spacing="0.24em" fill="var(--r3)">R3 · LISTCODE EXCLUDED</text>
-        <text x="60" y="76" font-family="Fraunces" font-style="italic" font-weight="300" font-size="11" fill="var(--ink-2)">107,209 CMFs · 1.16M orders · <tspan font-style="normal" font-weight="500">gov · college · distributor</tspan></text>
+        <text x="600" y="140" text-anchor="middle" class="venn-title" fill="var(--r1)">R1 · ≥10 Contacts</text>
+        <text x="600" y="156" text-anchor="middle" class="venn-sub" fill="var(--ink-2)">13,079 CMFs · 4.08M orders (20.9%)</text>
 
-        <path d="M 780 60 Q 780 30 810 30 L 1130 30 Q 1180 30 1180 90
-                 L 1180 400 Q 1180 450 1120 450 L 810 450 Q 780 450 780 400 Z"
-              fill="var(--r1-shell)" stroke="var(--r1)" stroke-width="0.5" stroke-dasharray="1 2"/>
-        <text x="810" y="58" font-family="Inter" font-weight="700" font-size="10" letter-spacing="0.24em" fill="var(--r1)">R1 · ≥ 10 ACTIVE CONTACTS</text>
-        <text x="810" y="76" font-family="Fraunces" font-style="italic" font-weight="300" font-size="11" fill="var(--ink-2)">13,079 CMFs · 4.08M orders · <tspan font-style="normal" font-weight="500">the volume killer</tspan></text>
+        <!-- Overlap zone label (in the R1 ∩ R3 lens) -->
+        <text x="510" y="248" text-anchor="middle" class="venn-label" fill="var(--r3-tone)">Fail both</text>
+        <text x="510" y="270" text-anchor="middle" font-weight="700" font-size="18" fill="var(--r3-tone)"
+              font-variant-numeric="tabular-nums">1,446</text>
 
-        <!-- Overlap capsule between R3 & R1 -->
-        <ellipse cx="750" cy="250" rx="62" ry="52"
-                 fill="var(--overlap)" fill-opacity="0.12" stroke="var(--overlap)" stroke-width="0.6" stroke-dasharray="2 2"/>
-        <text x="750" y="238" text-anchor="middle" font-family="Inter" font-size="8.5" font-weight="700" letter-spacing="0.20em" fill="var(--overlap)">FAIL BOTH</text>
-        <text x="750" y="264" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="500" font-size="22" fill="var(--overlap)">1,446</text>
-        <text x="750" y="280" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="300" font-size="10" fill="var(--ink-2)">CMFs</text>
-
-        <path d="M 780 480 Q 780 470 800 470 L 1130 470 Q 1180 470 1180 510
-                 L 1180 720 Q 1180 748 1150 748 L 810 748 Q 780 748 780 720 Z"
-              fill="var(--r2-shell)" stroke="var(--r2)" stroke-width="0.5" stroke-dasharray="1 2"/>
-        <text x="810" y="500" font-family="Inter" font-weight="700" font-size="10" letter-spacing="0.24em" fill="var(--r2)">R2 · &lt; 3 ORDERS AT SAME SHIP-TO</text>
-        <text x="810" y="518" font-family="Fraunces" font-style="italic" font-weight="300" font-size="11" fill="var(--ink-2)">611,259 contacts · 44% of ordering contacts · 835K orders</text>
-
-        <path d="M 30 660 Q 30 650 50 650 L 740 650 Q 760 650 760 670
-                 L 760 758 Q 760 770 740 770 L 50 770 Q 30 770 30 758 Z"
-              fill="var(--r4-shell)" stroke="var(--r4)" stroke-width="0.5" stroke-dasharray="1 2"/>
-        <text x="60" y="678" font-family="Inter" font-weight="700" font-size="10" letter-spacing="0.24em" fill="var(--r4)">R4 · MULTIPLE NON-INDIVIDUAL BILLTOS</text>
-        <text x="60" y="696" font-family="Fraunces" font-style="italic" font-weight="300" font-size="11" fill="var(--ink-2)">43,487 contacts · 3.1% · but ~43 orders each — dense buyers</text>
-
-        <!-- ============ SWEET SPOT — hero circle w/ orbit ============ -->
-        <circle cx="900" cy="600" r="118" fill="none" stroke="var(--sweet)" stroke-width="0.4" stroke-dasharray="1 2" opacity="0.6"/>
-        <circle cx="900" cy="600" r="86" fill="url(#grad-sweet)" filter="url(#shadow)" opacity="0.9"/>
-        <circle cx="900" cy="600" r="86" fill="none" stroke="var(--sweet-lo)" stroke-width="0.5" opacity="0.4"/>
-        <text x="900" y="575" text-anchor="middle" font-family="Inter" font-size="9" font-weight="700" letter-spacing="0.30em" fill="var(--paper)">SWEET SPOT</text>
-        <text x="900" y="612" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="400" font-size="34" fill="var(--paper)" font-variant-numeric="tabular-nums">~196K</text>
-        <text x="900" y="632" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="300" font-size="11" fill="var(--paper)" opacity="0.9">CMFs · 2–9 contacts</text>
-        <text x="900" y="649" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="300" font-size="11" fill="var(--paper)" opacity="0.9">— the SLV target —</text>
-
-        <!-- ============================================================ -->
-        <!-- R3 LISTCODE BUBBLES                                            -->
-        <!-- ============================================================ -->
-
-        <!-- Government (23,476) — hero, gradient, gold-thin ring like a coin -->
-        <circle cx="180" cy="200" r="72" fill="url(#grad-r3)" filter="url(#shadow)"/>
-        <circle cx="180" cy="200" r="72" fill="none" stroke="var(--r3-lo)" stroke-width="0.5" opacity="0.5"/>
-        <circle cx="180" cy="200" r="78" fill="none" stroke="var(--r3)" stroke-width="0.4" stroke-dasharray="0.5 2" opacity="0.5"/>
-        <text x="180" y="182" text-anchor="middle" font-family="Inter" font-size="9" font-weight="700" letter-spacing="0.24em" fill="var(--paper)" opacity="0.85">GOVERNMENT</text>
-        <text x="180" y="212" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="500" font-size="30" fill="var(--paper)" font-variant-numeric="tabular-nums">23,476</text>
-        <text x="180" y="230" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="300" font-size="10.5" fill="var(--paper)" opacity="0.85">468K orders</text>
-
-        <!-- Distributor (20,870) — CARVED OUT: diagonal stripe pattern + strikethrough treatment -->
-        <circle cx="380" cy="180" r="66" fill="url(#pat-carved)" opacity="0.75" filter="url(#shadow)"/>
-        <circle cx="380" cy="180" r="66" fill="none" stroke="var(--r3-lo)" stroke-width="1.5"/>
-        <circle cx="380" cy="180" r="72" fill="none" stroke="var(--r3)" stroke-width="0.5" stroke-dasharray="4 2"/>
-        <text x="380" y="164" text-anchor="middle" font-family="Inter" font-size="8.5" font-weight="700" letter-spacing="0.24em" fill="var(--paper)" opacity="0.85">DISTRIBUTOR</text>
-        <text x="380" y="192" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="500" font-size="28" fill="var(--paper)" font-variant-numeric="tabular-nums">20,870</text>
-        <text x="380" y="209" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="300" font-size="10.5" fill="var(--paper)" opacity="0.85">408K orders</text>
-        <!-- Annotation for Distributor: hairline leader to italic serif label -->
-        <path d="M 445 180 Q 480 175 500 155" stroke="var(--r3)" stroke-width="0.5" fill="none"/>
-        <circle cx="500" cy="155" r="1.5" fill="var(--r3)"/>
-        <text x="508" y="150" font-family="Fraunces" font-style="italic" font-weight="400" font-size="11.5" fill="var(--r3)">Carved out</text>
-        <text x="508" y="164" font-family="Fraunces" font-style="italic" font-weight="300" font-size="10" fill="var(--ink-2)">via Action 1</text>
-
-        <!-- Unknown (53,469) — DORMANT: hollow-ish, dot pattern, thin ring -->
-        <circle cx="570" cy="330" r="90" fill="url(#pat-dormant)" opacity="0.65"/>
-        <circle cx="570" cy="330" r="90" fill="none" stroke="var(--r3-lo)" stroke-width="0.8"/>
-        <circle cx="570" cy="330" r="60" fill="url(#grad-r3)" opacity="0.35" filter="url(#shadow)"/>
-        <text x="570" y="312" text-anchor="middle" font-family="Inter" font-size="9" font-weight="700" letter-spacing="0.24em" fill="var(--r3-lo)">UNKNOWN</text>
-        <text x="570" y="342" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="500" font-size="32" fill="var(--r3-lo)" font-variant-numeric="tabular-nums">53,469</text>
-        <text x="570" y="360" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="300" font-size="10.5" fill="var(--r3-lo)">only 55K orders</text>
-        <!-- Annotation -->
-        <path d="M 660 330 Q 685 335 705 330" stroke="var(--r3-lo)" stroke-width="0.4" fill="none"/>
-        <text x="712" y="333" font-family="Fraunces" font-style="italic" font-weight="300" font-size="10" fill="var(--ink-3)">dormant · retired</text>
-
+        <!-- ==== R3 sub-bubbles inside R3 circle ==== -->
+        <!-- radii k = 0.55 * sqrt(CMFs) -->
+        <!-- Government (23,476) -->
+        <g>
+          <circle cx="160" cy="180" r="70" fill="var(--r3)" fill-opacity="0.85"/>
+          <text x="160" y="170" fill="white" class="bub-name">GOVERNMENT</text>
+          <text x="160" y="190" fill="white" class="bub-num xl">23,476</text>
+          <text x="160" y="207" fill="white" class="bub-sub">468K orders</text>
+        </g>
+        <!-- Distributor (20,870) — carved out -->
+        <g>
+          <circle cx="315" cy="150" r="65" fill="var(--r3)" fill-opacity="0.85"/>
+          <circle cx="315" cy="150" r="70" fill="none" stroke="var(--r3)" stroke-width="1" stroke-dasharray="3 3"/>
+          <text x="315" y="140" fill="white" class="bub-name">DISTRIBUTOR</text>
+          <text x="315" y="160" fill="white" class="bub-num lg">20,870</text>
+          <text x="315" y="176" fill="white" class="bub-sub">carved out · Action 1</text>
+        </g>
         <!-- Municipal (13,920) -->
-        <circle cx="130" cy="410" r="56" fill="url(#grad-r3)" filter="url(#shadow)"/>
-        <circle cx="130" cy="410" r="56" fill="none" stroke="var(--r3-lo)" stroke-width="0.4" opacity="0.4"/>
-        <text x="130" y="398" text-anchor="middle" font-family="Inter" font-size="8" font-weight="700" letter-spacing="0.22em" fill="var(--paper)" opacity="0.85">MUNICIPAL</text>
-        <text x="130" y="422" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="500" font-size="20" fill="var(--paper)" font-variant-numeric="tabular-nums">13,920</text>
-        <text x="130" y="438" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="300" font-size="9.5" fill="var(--paper)" opacity="0.85">222K</text>
-
+        <g>
+          <circle cx="150" cy="330" r="53" fill="var(--r3)" fill-opacity="0.85"/>
+          <text x="150" y="323" fill="white" class="bub-name">MUNICIPAL</text>
+          <text x="150" y="342" fill="white" class="bub-num lg">13,920</text>
+          <text x="150" y="357" fill="white" class="bub-sub">222K orders</text>
+        </g>
         <!-- State (6,535) -->
-        <circle cx="255" cy="440" r="39" fill="url(#grad-r3)" filter="url(#shadow)"/>
-        <text x="255" y="434" text-anchor="middle" font-family="Inter" font-size="7.5" font-weight="700" letter-spacing="0.20em" fill="var(--paper)" opacity="0.85">STATE</text>
-        <text x="255" y="452" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="500" font-size="14" fill="var(--paper)" font-variant-numeric="tabular-nums">6,535</text>
-
+        <g>
+          <circle cx="270" cy="345" r="36" fill="var(--r3)" fill-opacity="0.85"/>
+          <text x="270" y="342" fill="white" class="bub-name">STATE</text>
+          <text x="270" y="358" fill="white" class="bub-num">6,535</text>
+        </g>
         <!-- Utility (4,101) -->
-        <circle cx="352" cy="428" r="33" fill="url(#grad-r3)" filter="url(#shadow)"/>
-        <text x="352" y="424" text-anchor="middle" font-family="Inter" font-size="7" font-weight="700" letter-spacing="0.20em" fill="var(--paper)" opacity="0.85">UTILITY</text>
-        <text x="352" y="441" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="500" font-size="12" fill="var(--paper)" font-variant-numeric="tabular-nums">4,101</text>
-
+        <g>
+          <circle cx="350" cy="340" r="28" fill="var(--r3)" fill-opacity="0.85"/>
+          <text x="350" y="338" fill="white" class="bub-name">UTILITY</text>
+          <text x="350" y="352" fill="white" class="bub-num">4,101</text>
+        </g>
         <!-- Fed (3,021) -->
-        <circle cx="438" cy="450" r="29" fill="url(#grad-r3)" filter="url(#shadow)"/>
-        <text x="438" y="446" text-anchor="middle" font-family="Inter" font-size="7" font-weight="700" letter-spacing="0.20em" fill="var(--paper)" opacity="0.85">FED</text>
-        <text x="438" y="461" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="500" font-size="11" fill="var(--paper)" font-variant-numeric="tabular-nums">3,021</text>
-
+        <g>
+          <circle cx="410" cy="240" r="24" fill="var(--r3)" fill-opacity="0.85"/>
+          <text x="410" y="240" fill="white" class="bub-name">FED</text>
+          <text x="410" y="252" fill="white" class="bub-num">3,021</text>
+        </g>
         <!-- University (2,374) -->
-        <circle cx="170" cy="520" r="27" fill="url(#grad-r3)" filter="url(#shadow)"/>
-        <text x="170" y="518" text-anchor="middle" font-family="Inter" font-size="6.5" font-weight="700" letter-spacing="0.16em" fill="var(--paper)" opacity="0.85">UNIVERSITY</text>
-        <text x="170" y="533" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="500" font-size="10.5" fill="var(--paper)" font-variant-numeric="tabular-nums">2,374</text>
-
+        <g>
+          <circle cx="230" cy="415" r="22" fill="var(--r3)" fill-opacity="0.85"/>
+          <text x="230" y="413" fill="white" class="bub-name">UNI</text>
+          <text x="230" y="425" fill="white" class="bub-num">2,374</text>
+        </g>
         <!-- Hospital (2,268) -->
-        <circle cx="250" cy="530" r="27" fill="url(#grad-r3)" filter="url(#shadow)"/>
-        <text x="250" y="528" text-anchor="middle" font-family="Inter" font-size="6.5" font-weight="700" letter-spacing="0.16em" fill="var(--paper)" opacity="0.85">HOSPITAL</text>
-        <text x="250" y="543" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="500" font-size="10.5" fill="var(--paper)" font-variant-numeric="tabular-nums">2,268</text>
+        <g>
+          <circle cx="290" cy="425" r="21" fill="var(--r3)" fill-opacity="0.85"/>
+          <text x="290" y="424" fill="white" class="bub-name">HOSP</text>
+          <text x="290" y="436" fill="white" class="bub-num">2,268</text>
+        </g>
 
-        <!-- Railroad (697) — tiny -->
-        <circle cx="332" cy="530" r="17" fill="url(#grad-r3)" filter="url(#shadow)"/>
-        <text x="332" y="534" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="500" font-size="10" fill="var(--paper)" font-variant-numeric="tabular-nums">697</text>
-
-        <!-- ============================================================ -->
-        <!-- R1 THRESHOLD BANDS — orbital arrangement                       -->
-        <!-- ============================================================ -->
-
-        <!-- Faint orbit path connecting the bands to convey progression -->
-        <path d="M 850 175 Q 970 100 1090 150 Q 1170 230 1105 300 Q 1030 360 990 340"
-              stroke="var(--r1)" stroke-width="0.4" stroke-dasharray="1 3" fill="none" opacity="0.4"/>
-
-        <!-- 10–11 (3,350) -->
-        <circle cx="860" cy="175" r="32" fill="url(#grad-r1)" filter="url(#shadow)"/>
-        <text x="860" y="172" text-anchor="middle" font-family="Inter" font-size="7" font-weight="700" letter-spacing="0.20em" fill="var(--paper)" opacity="0.85">10–11</text>
-        <text x="860" y="188" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="500" font-size="13" fill="var(--paper)" font-variant-numeric="tabular-nums">3,350</text>
-
-        <!-- 12–14 (2,864) -->
-        <circle cx="950" cy="130" r="30" fill="url(#grad-r1)" filter="url(#shadow)"/>
-        <text x="950" y="128" text-anchor="middle" font-family="Inter" font-size="7" font-weight="700" letter-spacing="0.20em" fill="var(--paper)" opacity="0.85">12–14</text>
-        <text x="950" y="144" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="500" font-size="12" fill="var(--paper)" font-variant-numeric="tabular-nums">2,864</text>
-
-        <!-- 15–19 (2,391) -->
-        <circle cx="1045" cy="150" r="28" fill="url(#grad-r1)" filter="url(#shadow)"/>
-        <text x="1045" y="148" text-anchor="middle" font-family="Inter" font-size="7" font-weight="700" letter-spacing="0.20em" fill="var(--paper)" opacity="0.85">15–19</text>
-        <text x="1045" y="164" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="500" font-size="11" fill="var(--paper)" font-variant-numeric="tabular-nums">2,391</text>
-
-        <!-- 20–24 (1,221) -->
-        <circle cx="1130" cy="200" r="22" fill="url(#grad-r1)" filter="url(#shadow)"/>
-        <text x="1130" y="200" text-anchor="middle" font-family="Inter" font-size="6.5" font-weight="700" letter-spacing="0.18em" fill="var(--paper)" opacity="0.85">20–24</text>
-        <text x="1130" y="213" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="500" font-size="10" fill="var(--paper)" font-variant-numeric="tabular-nums">1,221</text>
-
-        <!-- 25–49 (1,761) -->
-        <circle cx="1100" cy="288" r="25" fill="url(#grad-r1)" filter="url(#shadow)"/>
-        <text x="1100" y="286" text-anchor="middle" font-family="Inter" font-size="7" font-weight="700" letter-spacing="0.20em" fill="var(--paper)" opacity="0.85">25–49</text>
-        <text x="1100" y="302" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="500" font-size="11" fill="var(--paper)" font-variant-numeric="tabular-nums">1,761</text>
-
-        <!-- 50+ NEVER-ELIGIBLE — halo + dashed orbit ring, italic caption -->
-        <circle cx="990" cy="340" r="34" fill="none" stroke="var(--r1)" stroke-width="0.4" stroke-dasharray="1 2" opacity="0.65"/>
-        <circle cx="990" cy="340" r="22" fill="url(#grad-r1)" filter="url(#shadow)"/>
-        <circle cx="990" cy="340" r="22" fill="none" stroke="var(--r1-lo)" stroke-width="0.6"/>
-        <text x="990" y="338" text-anchor="middle" font-family="Inter" font-size="7" font-weight="700" letter-spacing="0.24em" fill="var(--paper)" opacity="0.85">50+</text>
-        <text x="990" y="352" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="500" font-size="10.5" fill="var(--paper)" font-variant-numeric="tabular-nums">751</text>
-        <!-- Callout: hairline curve to italic serif tag -->
-        <path d="M 1015 350 Q 1080 380 1160 395" stroke="var(--r1)" stroke-width="0.4" fill="none"/>
-        <circle cx="1160" cy="395" r="1.5" fill="var(--r1)"/>
-        <text x="1168" y="392" font-family="Fraunces" font-style="italic" font-weight="400" font-size="12" fill="var(--r1)">10% of every order</text>
-        <text x="1168" y="406" font-family="Inter" font-size="9" font-weight="500" letter-spacing="0.10em" fill="var(--ink-3)">NEVER-ELIGIBLE TAIL</text>
-
-        <!-- ============================================================ -->
-        <!-- R2 ACTIVITY BUBBLES                                            -->
-        <!-- ============================================================ -->
-
-        <!-- Exactly 1 (506,925) — hero -->
-        <circle cx="1060" cy="590" r="60" fill="url(#grad-r2)" filter="url(#shadow)"/>
-        <circle cx="1060" cy="590" r="60" fill="none" stroke="var(--r2-lo)" stroke-width="0.4" opacity="0.5"/>
-        <text x="1060" y="573" text-anchor="middle" font-family="Inter" font-size="7.5" font-weight="700" letter-spacing="0.22em" fill="var(--paper)" opacity="0.85">EXACTLY 1 ORDER</text>
-        <text x="1060" y="598" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="500" font-size="22" fill="var(--paper)" font-variant-numeric="tabular-nums">506,925</text>
-        <text x="1060" y="616" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="300" font-size="9.5" fill="var(--paper)" opacity="0.85">contacts · 12mo</text>
-
-        <!-- Exactly 2 (185,179) -->
-        <circle cx="1160" cy="655" r="42" fill="url(#grad-r2)" filter="url(#shadow)"/>
-        <text x="1160" y="646" text-anchor="middle" font-family="Inter" font-size="7" font-weight="700" letter-spacing="0.22em" fill="var(--paper)" opacity="0.85">EXACTLY 2</text>
-        <text x="1160" y="666" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="500" font-size="16" fill="var(--paper)" font-variant-numeric="tabular-nums">185,179</text>
-
-        <!-- <3 total (692,104) NEVER PASS: outer dashed ring -->
-        <circle cx="1055" cy="710" r="60" fill="none" stroke="var(--r2)" stroke-width="0.4" stroke-dasharray="1 2" opacity="0.65"/>
-        <circle cx="1055" cy="710" r="46" fill="url(#grad-r2)" filter="url(#shadow)"/>
-        <circle cx="1055" cy="710" r="46" fill="none" stroke="var(--r2-lo)" stroke-width="0.6"/>
-        <text x="1055" y="695" text-anchor="middle" font-family="Inter" font-size="7" font-weight="700" letter-spacing="0.20em" fill="var(--paper)" opacity="0.85">&lt; 3 ORDERS TOTAL</text>
-        <text x="1055" y="717" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="500" font-size="17" fill="var(--paper)" font-variant-numeric="tabular-nums">692,104</text>
-        <text x="1055" y="732" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="300" font-size="9" fill="var(--paper)" opacity="0.85">— never pass R2 —</text>
-
-        <!-- Scattered ≥3 (est) — hollow -->
-        <circle cx="1170" cy="725" r="26" fill="none" stroke="var(--r2)" stroke-width="1" stroke-dasharray="2 2"/>
-        <circle cx="1170" cy="725" r="26" fill="var(--r2)" fill-opacity="0.2"/>
-        <text x="1170" y="720" text-anchor="middle" font-family="Inter" font-size="6.5" font-weight="700" letter-spacing="0.16em" fill="var(--r2-lo)">≥3 SCATTER</text>
-        <text x="1170" y="734" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="500" font-size="11" fill="var(--r2-lo)" font-variant-numeric="tabular-nums">~200K</text>
-
-        <!-- ============================================================ -->
-        <!-- R4 BILLTO BUBBLES                                             -->
-        <!-- ============================================================ -->
-        <circle cx="120" cy="720" r="26" fill="url(#grad-r4)" filter="url(#shadow)"/>
-        <text x="120" y="715" text-anchor="middle" font-family="Inter" font-size="7" font-weight="700" letter-spacing="0.20em" fill="var(--paper)" opacity="0.85">2 BILLTOS</text>
-        <text x="120" y="731" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="500" font-size="11" fill="var(--paper)" font-variant-numeric="tabular-nums">~30K</text>
-
-        <circle cx="220" cy="720" r="19" fill="url(#grad-r4)" filter="url(#shadow)"/>
-        <text x="220" y="718" text-anchor="middle" font-family="Inter" font-size="6.5" font-weight="700" letter-spacing="0.18em" fill="var(--paper)" opacity="0.85">3–5</text>
-        <text x="220" y="732" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="500" font-size="10" fill="var(--paper)" font-variant-numeric="tabular-nums">~10K</text>
-
-        <circle cx="300" cy="720" r="13" fill="url(#grad-r4)" filter="url(#shadow)"/>
-        <text x="300" y="723" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="500" font-size="9" fill="var(--paper)" font-variant-numeric="tabular-nums">~3K</text>
-
-        <!-- R4 annotation -->
-        <text x="370" y="708" font-family="Fraunces" font-style="italic" font-weight="300" font-size="12" fill="var(--ink-2)">Contacts failing R4 order ~43 units/year —</text>
-        <text x="370" y="726" font-family="Fraunces" font-style="italic" font-weight="300" font-size="12" fill="var(--ink-2)">vs. universe average of 14. Small headcount, dense buying.</text>
-
-        <!-- R2 ∩ R4 bridge dot -->
-        <path d="M 700 705 Q 720 670 780 645" stroke="var(--overlap)" stroke-width="0.5" stroke-dasharray="1 2" fill="none"/>
-        <circle cx="705" cy="710" r="20" fill="url(#grad-overlap)" opacity="0.45" filter="url(#shadow)"/>
-        <circle cx="705" cy="710" r="20" fill="none" stroke="var(--overlap)" stroke-width="0.6" stroke-dasharray="1.5 2"/>
-        <text x="705" y="710" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="500" font-size="11" fill="var(--paper)">~19K</text>
-        <text x="705" y="723" text-anchor="middle" font-family="Inter" font-size="7" font-weight="700" letter-spacing="0.16em" fill="var(--ink-3)">R2 ∩ R4 EST</text>
-
+        <!-- ==== R1 sub-bubbles inside R1 circle (threshold bands) ==== -->
+        <!-- 10-11: 3,350 -->
+        <g>
+          <circle cx="620" cy="200" r="26" fill="var(--r1)" fill-opacity="0.85"/>
+          <text x="620" y="200" fill="white" class="bub-name">10–11</text>
+          <text x="620" y="213" fill="white" class="bub-num">3,350</text>
+        </g>
+        <!-- 12-14: 2,864 -->
+        <g>
+          <circle cx="562" cy="235" r="24" fill="var(--r1)" fill-opacity="0.85"/>
+          <text x="562" y="235" fill="white" class="bub-name">12–14</text>
+          <text x="562" y="248" fill="white" class="bub-num">2,864</text>
+        </g>
+        <!-- 15-19: 2,391 -->
+        <g>
+          <circle cx="670" cy="255" r="22" fill="var(--r1)" fill-opacity="0.85"/>
+          <text x="670" y="255" fill="white" class="bub-name">15–19</text>
+          <text x="670" y="268" fill="white" class="bub-num">2,391</text>
+        </g>
+        <!-- 20-24: 1,221 -->
+        <g>
+          <circle cx="570" cy="290" r="16" fill="var(--r1)" fill-opacity="0.85"/>
+          <text x="570" y="290" fill="white" class="bub-name">20–24</text>
+          <text x="570" y="301" fill="white" class="bub-num">1,221</text>
+        </g>
+        <!-- 25-49: 1,761 -->
+        <g>
+          <circle cx="618" cy="298" r="19" fill="var(--r1)" fill-opacity="0.85"/>
+          <text x="618" y="298" fill="white" class="bub-name">25–49</text>
+          <text x="618" y="310" fill="white" class="bub-num">1,761</text>
+        </g>
+        <!-- 50+: 751 — highlighted -->
+        <g>
+          <circle cx="655" cy="315" r="13" fill="var(--r1)" fill-opacity="1"/>
+          <circle cx="655" cy="315" r="18" fill="none" stroke="var(--r1)" stroke-width="1" stroke-dasharray="2 2"/>
+          <text x="655" y="313" fill="white" class="bub-name">50+</text>
+          <text x="655" y="325" fill="white" class="bub-num">751</text>
+        </g>
+        <!-- Callout for 50+ -->
+        <path d="M 680 325 L 750 385" stroke="var(--r1)" stroke-width="0.8" fill="none"/>
+        <text x="810" y="392" text-anchor="end" font-size="10" font-weight="600" fill="var(--r1)">10% of ALL orders</text>
+        <text x="810" y="406" text-anchor="end" font-size="9" fill="var(--muted)" letter-spacing="0.08em">NEVER-ELIGIBLE TAIL</text>
       </svg>
-    </div>
 
-    <!-- ================== SIDENOTES ================== -->
-    <div class="sidenotes">
-      <div class="sidenote">
-        <h4>Bubble language</h4>
-        <div class="row"><span class="name">Solid, glowing</span><span class="n" style="font-family:'Fraunces',serif; font-style:italic; font-weight:400;">active</span></div>
-        <div class="row"><span class="name">Diagonal stripe</span><span class="n" style="font-family:'Fraunces',serif; font-style:italic; font-weight:400;">carved out</span></div>
-        <div class="row"><span class="name">Dot pattern</span><span class="n" style="font-family:'Fraunces',serif; font-style:italic; font-weight:400;">dormant</span></div>
-        <div class="row"><span class="name">Halo ring</span><span class="n" style="font-family:'Fraunces',serif; font-style:italic; font-weight:400;">never-eligible</span></div>
-        <div class="row"><span class="name">Dashed outline</span><span class="n" style="font-family:'Fraunces',serif; font-style:italic; font-weight:400;">estimate</span></div>
-        <div class="row"><span class="name">Size</span><span class="n" style="font-family:'Fraunces',serif; font-style:italic; font-weight:400;">∝ CMFs / contacts</span></div>
-      </div>
-
-      <div class="sidenote">
-        <h4>Orders blocked · ranked</h4>
-        <div class="rank-list">
-          <div class="rank-item"><div class="rk">1</div><div class="rname r1">R1<small>too many contacts</small></div><div class="n">4.08M<small>20.9%</small></div></div>
-          <div class="rank-item"><div class="rk">2</div><div class="rname r4">R4<small>multi-billto</small></div><div class="n">1.86M<small>9.6%</small></div></div>
-          <div class="rank-item"><div class="rk">3</div><div class="rname r3">R3<small>bad listcode</small></div><div class="n">1.16M<small>5.9%</small></div></div>
-          <div class="rank-item"><div class="rk">4</div><div class="rname r2">R2<small>thin orders</small></div><div class="n">835K<small>4.3%</small></div></div>
+      <div class="rule-legend">
+        <div class="rule-tag r3">
+          <div class="tag">R3</div>
+          <div class="desc">
+            <strong>Bad listcode</strong>
+            CMF listcode ∈ {government, college, distributor}. Applies at CMF level.
+            <div class="m">107,209 CMFs · 1.16M orders</div>
+          </div>
+        </div>
+        <div class="rule-tag r1">
+          <div class="tag">R1</div>
+          <div class="desc">
+            <strong>≥ 10 active contacts</strong>
+            Ship-to has too many active-contact orderers to share the view.
+            <div class="m">13,079 CMFs · 4.08M orders</div>
+          </div>
         </div>
       </div>
+    </div>
 
-      <div class="sidenote">
-        <h4>R1 · loosen the threshold</h4>
-        <div class="row"><span class="name">10 → 12</span><span class="n">+511K</span></div>
-        <div class="row"><span class="name">12 → 15</span><span class="n">+510K</span></div>
-        <div class="row"><span class="name">15 → 20</span><span class="n">+510K</span></div>
-        <div class="row"><span class="name">20 → 25</span><span class="n">+327K</span></div>
-        <div class="row"><span class="name">25 → 50</span><span class="n">+678K</span></div>
-        <div class="row"><span class="name" style="color:var(--r1); font-style:italic;">50+ still out</span><span class="n" style="color:var(--r1);">1.75M</span></div>
+    <!-- ================ RIGHT: Contact-level Venn ================ -->
+    <div class="venn-card">
+      <h2>Contact-level rules · R2 ∩ R4</h2>
+      <p class="card-sub">Each nested bubble is a sub-category, sized by contact count.</p>
+      <p class="universe">Universe · 1,386,228 contacts who ordered in window</p>
+
+      <svg viewBox="0 0 820 500" xmlns="http://www.w3.org/2000/svg">
+        <rect x="10" y="10" width="800" height="480" rx="8"
+              fill="none" stroke="var(--hairline)" stroke-width="1" stroke-dasharray="3 4"/>
+
+        <text x="770" y="470" text-anchor="end" class="venn-label" fill="var(--sweet)">Eligible · ~750,000 contacts</text>
+
+        <!-- R2 circle (big teal) — 611,259 contacts -->
+        <circle cx="290" cy="250" r="220" fill="var(--r2-fill)" stroke="var(--r2)" stroke-width="2"/>
+        <!-- R4 circle (small rust) — 43,487 contacts, ratio sqrt(43487/611259) ~ 0.267 -->
+        <circle cx="620" cy="250" r="70" fill="var(--r4-fill)" stroke="var(--r4)" stroke-width="2"/>
+
+        <text x="290" y="48" text-anchor="middle" class="venn-title" fill="var(--r2)">R2 · Thin Orders</text>
+        <text x="290" y="65" text-anchor="middle" class="venn-sub" fill="var(--ink-2)">611,259 contacts · 835K orders (4.3%)</text>
+
+        <text x="620" y="160" text-anchor="middle" class="venn-title" fill="var(--r4)">R4 · Multi-Billto</text>
+        <text x="620" y="177" text-anchor="middle" class="venn-sub" fill="var(--ink-2)">43,487 contacts · 1.86M orders (9.6%)</text>
+
+        <!-- Overlap label -->
+        <text x="530" y="250" text-anchor="middle" class="venn-label" fill="var(--r2-tone)">Fail both</text>
+        <text x="530" y="272" text-anchor="middle" font-weight="700" font-size="15" fill="var(--r2-tone)" font-variant-numeric="tabular-nums">~19K est.</text>
+
+        <!-- ==== R2 sub-bubbles ==== -->
+        <!-- Exactly 1 order (506,925) — hero -->
+        <g>
+          <circle cx="200" cy="230" r="105" fill="var(--r2)" fill-opacity="0.85"/>
+          <text x="200" y="218" fill="white" class="bub-name">EXACTLY 1 ORDER</text>
+          <text x="200" y="243" fill="white" class="bub-num xl">506,925</text>
+          <text x="200" y="262" fill="white" class="bub-sub">contacts · 12mo</text>
+        </g>
+        <!-- Exactly 2 (185,179) -->
+        <g>
+          <circle cx="360" cy="180" r="63" fill="var(--r2)" fill-opacity="0.85"/>
+          <text x="360" y="172" fill="white" class="bub-name">EXACTLY 2</text>
+          <text x="360" y="190" fill="white" class="bub-num lg">185,179</text>
+          <text x="360" y="207" fill="white" class="bub-sub">contacts</text>
+        </g>
+        <!-- <3 orders TOTAL (692,104) — this is a subset that overlaps others, so visually shown as a broader ring across -->
+        <g>
+          <circle cx="290" cy="380" r="80" fill="var(--r2)" fill-opacity="0.85"/>
+          <circle cx="290" cy="380" r="86" fill="none" stroke="var(--r2)" stroke-width="1" stroke-dasharray="3 3"/>
+          <text x="290" y="367" fill="white" class="bub-name">&lt; 3 ORDERS TOTAL</text>
+          <text x="290" y="390" fill="white" class="bub-num xl">692,104</text>
+          <text x="290" y="410" fill="white" class="bub-sub">will never pass R2</text>
+        </g>
+
+        <!-- ==== R4 sub-bubbles ==== -->
+        <!-- 2 billtos (~30K est) -->
+        <g>
+          <circle cx="600" cy="240" r="28" fill="var(--r4)" fill-opacity="0.85"/>
+          <text x="600" y="238" fill="white" class="bub-name">2 BILLTOS</text>
+          <text x="600" y="252" fill="white" class="bub-num">~30K</text>
+        </g>
+        <!-- 3-5 (~10K est) -->
+        <g>
+          <circle cx="650" cy="270" r="18" fill="var(--r4)" fill-opacity="0.85"/>
+          <text x="650" y="269" fill="white" class="bub-name">3–5</text>
+          <text x="650" y="281" fill="white" class="bub-num">~10K</text>
+        </g>
+        <!-- 6+ (~3K est) -->
+        <g>
+          <circle cx="620" cy="295" r="11" fill="var(--r4)" fill-opacity="0.85"/>
+          <text x="620" y="298" fill="white" class="bub-num" font-size="9">~3K</text>
+        </g>
+
+        <!-- Callout for R4 density -->
+        <path d="M 620 200 L 680 130" stroke="var(--r4)" stroke-width="0.8" fill="none"/>
+        <text x="810" y="130" text-anchor="end" font-size="10" font-weight="600" fill="var(--r4)">~43 orders each</text>
+        <text x="810" y="144" text-anchor="end" font-size="9" fill="var(--muted)" letter-spacing="0.08em">VS. UNIVERSE AVG OF 14</text>
+      </svg>
+
+      <div class="rule-legend">
+        <div class="rule-tag r2">
+          <div class="tag">R2</div>
+          <div class="desc">
+            <strong>&lt; 3 orders at same ship-to</strong>
+            Contact hasn't placed enough orders at any single ship-to to qualify.
+            <div class="m">611,259 contacts · 835K orders</div>
+          </div>
+        </div>
+        <div class="rule-tag r4">
+          <div class="tag">R4</div>
+          <div class="desc">
+            <strong>Multiple non-individual billtos</strong>
+            Contact orders across too many bill-to CMFs.
+            <div class="m">43,487 contacts · 1.86M orders</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- BOTTOM STRIP                                                  -->
+  <!-- ============================================================ -->
+  <div class="strip">
+
+    <!-- Rule impact bars -->
+    <div class="panel">
+      <h3>Orders blocked, ranked · denominator 19.5M</h3>
+      <div class="impact">
+        <div class="r r1">R1</div>
+        <div class="track"><div class="fill r1" style="width: 20.9%;"></div></div>
+        <div class="num">4.08M<span class="p">20.9%</span></div>
+
+        <div class="r r4">R4</div>
+        <div class="track"><div class="fill r4" style="width: 9.6%;"></div></div>
+        <div class="num">1.86M<span class="p">9.6%</span></div>
+
+        <div class="r r3">R3</div>
+        <div class="track"><div class="fill r3" style="width: 5.9%;"></div></div>
+        <div class="num">1.16M<span class="p">5.9%</span></div>
+
+        <div class="r r2">R2</div>
+        <div class="track"><div class="fill r2" style="width: 4.3%;"></div></div>
+        <div class="num">835K<span class="p">4.3%</span></div>
+      </div>
+    </div>
+
+    <!-- R1 sensitivity -->
+    <div class="panel">
+      <h3>R1 threshold · loosen from 10</h3>
+      <div class="sens">
+        <div class="lbl">10 → 12</div><div class="n">+511K orders</div>
+        <div class="lbl">12 → 15</div><div class="n">+510K</div>
+        <div class="lbl">15 → 20</div><div class="n">+510K</div>
+        <div class="lbl">20 → 25</div><div class="n">+327K</div>
+        <div class="lbl">25 → 50</div><div class="n">+678K</div>
+        <div class="divider"></div>
+        <div class="highlight"><span class="lbl">50+ still out</span></div><div class="n highlight">1.75M orders</div>
+      </div>
+    </div>
+
+    <!-- Takeaways -->
+    <div class="panel">
+      <h3>Takeaways</h3>
+      <div class="takeaways">
+        <div class="takeaway r1">
+          <div class="head">R1 · volume killer</div>
+          <p>1% of CMFs, 21% of orders. 751 with 50+ contacts alone cover 10% of every order booked.</p>
+        </div>
+        <div class="takeaway r2">
+          <div class="head">R2 · headcount killer</div>
+          <p>Half of ordering contacts placed &lt;3 orders total — cannot pass R2 anywhere.</p>
+        </div>
+        <div class="takeaway r3">
+          <div class="head">R3 minus distributor</div>
+          <p>After Action 1 carves distributor: 26K CMFs, ~613K orders (3.5% of universe).</p>
+        </div>
+        <div class="takeaway r4">
+          <div class="head">R4 punches above weight</div>
+          <p>3.1% of contacts, but 9.6% of orders — 43 orders each vs. 14 universe avg.</p>
+        </div>
       </div>
     </div>
 
   </div>
 
-  <!-- ================== EDITORIAL FOOTER ================== -->
-  <div class="storyfeet">
-    <div class="story r1">
-      <p class="drop"><b>R1</b> is the <em>volume</em> killer.</p>
-      <p>One percent of CMFs, twenty-one percent of orders. High-headcount ship-tos concentrate the volume — the 751 with fifty-plus contacts alone cover ten percent of every order booked.</p>
-    </div>
-    <div class="story r2">
-      <p class="drop"><b>R2</b> is the <em>headcount</em> killer.</p>
-      <p>Half of all ordering contacts placed fewer than three orders total in the year. They cannot pass R2 at any ship-to, ever. The rule shuts out 611,259 contacts.</p>
-    </div>
-    <div class="story r3">
-      <p class="drop"><b>R3</b> without <em>distributor</em>.</p>
-      <p>Once Action 1 carves out distributors — 20,870 CMFs — R3 shrinks to government, college, and hospital: roughly 26K CMFs and 613K orders, 3.5% of the universe.</p>
-    </div>
-    <div class="story r4">
-      <p class="drop"><b>R4</b> punches <em>above</em> its weight.</p>
-      <p>Only 43,487 contacts fail R4 — 3.1% of the universe — but they average 43 orders each versus the universe average of 14. Small headcount, heavy order density.</p>
-    </div>
-  </div>
-
-  <div class="colophon">
-    <span><em>Source</em> · secure.order_source · window 3/12/2025–3/12/2026 · three shared credit-card CMFs excluded</span>
-    <span><em>Estimates</em> · R2 ∩ R4 overlap and R4 sub-bands flagged with ~ or dashed borders</span>
-  </div>
+  <div class="foot">Source: secure.order_source · window 3/12/2025–3/12/2026 · ex-3 shared credit-card CMFs · R2∩R4 overlap estimated from independence pending direct join.</div>
 
 </div>
 </body>
