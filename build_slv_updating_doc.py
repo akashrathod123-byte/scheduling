@@ -1,10 +1,11 @@
 """Build the Word one-pager: 'Updating Shipping Location View Rules'.
-Clean corporate format — title, intro placeholder, two sections, two tables. That's it.
+Landscape letter, business language, clean tables.
 """
 from docx import Document
 from docx.shared import Pt, Inches, RGBColor
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.enum.table import WD_ALIGN_VERTICAL, WD_TABLE_ALIGNMENT
+from docx.enum.section import WD_ORIENT
 from docx.oxml.ns import qn
 from docx.oxml import OxmlElement
 
@@ -20,9 +21,13 @@ ROW_ALT     = 'F6F7FA'
 
 doc = Document()
 
-for section in doc.sections:
-    section.left_margin = section.right_margin = Inches(0.75)
-    section.top_margin = section.bottom_margin = Inches(0.7)
+# Landscape letter
+section = doc.sections[0]
+section.orientation = WD_ORIENT.LANDSCAPE
+section.page_width  = Inches(11)
+section.page_height = Inches(8.5)
+section.left_margin = section.right_margin = Inches(0.7)
+section.top_margin  = section.bottom_margin = Inches(0.6)
 
 body_style = doc.styles['Normal']
 body_style.font.name = 'Calibri'
@@ -49,6 +54,8 @@ def set_cell_borders(cell, size=6, color='B0B7C3'):
 def cell_text(cell, text, bold=False, color=INK, size=10, align='left', fill=None):
     cell.text = ''
     para = cell.paragraphs[0]
+    para.paragraph_format.space_before = Pt(0)
+    para.paragraph_format.space_after = Pt(0)
     if align == 'right':
         para.alignment = WD_ALIGN_PARAGRAPH.RIGHT
     elif align == 'center':
@@ -64,11 +71,11 @@ def cell_text(cell, text, bold=False, color=INK, size=10, align='left', fill=Non
     if fill:
         set_cell_shading(cell, fill)
 
-def set_row_height(row, points):
+def set_row_height(row, points, rule='atLeast'):
     tr_pr = row._tr.get_or_add_trPr()
     height = OxmlElement('w:trHeight')
     height.set(qn('w:val'), str(int(points * 20)))
-    height.set(qn('w:hRule'), 'atLeast')
+    height.set(qn('w:hRule'), rule)
     tr_pr.append(height)
 
 # --- TITLE ---
@@ -97,15 +104,15 @@ r.font.color.rgb = MUTED
 p = doc.add_paragraph()
 p.paragraph_format.space_before = Pt(2)
 p.paragraph_format.space_after = Pt(4)
-r = p.add_run('1. R1 Threshold Sensitivity')
+r = p.add_run('1. Raising the Contact-Count Threshold')
 r.bold = True; r.font.size = Pt(14); r.font.color.rgb = BRAND
 
 p = doc.add_paragraph()
 p.paragraph_format.space_after = Pt(6)
 p.add_run(
-    'R1 currently excludes CMFs with 10 or more active ordering contacts. '
-    'The table shows what each higher threshold adds and where the residual tail sits. '
-    'Universe is 545,030 CMFs and 16,985,084 orders after removing distributors (Action 1).'
+    'The current rule excludes any customer location with 10 or more active ordering contacts. '
+    'The table shows how many additional customer locations and orders would be included at each higher threshold, '
+    'and what would remain excluded even at 50 contacts.'
 ).font.size = Pt(11)
 
 hdr = ['Threshold', 'Eligible CMFs', '% CMFs',
@@ -121,14 +128,16 @@ rows_r1 = [
 ]
 t = doc.add_table(rows=1 + len(rows_r1), cols=6)
 t.alignment = WD_TABLE_ALIGNMENT.LEFT
-col_widths = [Inches(1.3), Inches(1.15), Inches(0.75), Inches(1.55), Inches(1.35), Inches(0.85)]
+col_widths = [Inches(1.5), Inches(1.4), Inches(1.0), Inches(2.0), Inches(1.7), Inches(1.1)]
 for i, w in enumerate(col_widths):
     t.columns[i].width = w
+    for cell in t.columns[i].cells:
+        cell.width = w
 for i, h in enumerate(hdr):
     cell = t.rows[0].cells[i]
-    cell_text(cell, h, bold=True, color=RGBColor(0xFF, 0xFF, 0xFF), size=10,
+    cell_text(cell, h, bold=True, color=RGBColor(0xFF, 0xFF, 0xFF), size=10.5,
               align='right' if i > 0 else 'left', fill=BRAND_FILL)
-set_row_height(t.rows[0], 24)
+set_row_height(t.rows[0], 22)
 for ri, row_data in enumerate(rows_r1, 1):
     fill = HIGHLIGHT if row_data[-1] else (ROW_ALT if ri % 2 == 0 else None)
     for ci, val in enumerate(row_data[:-1]):
@@ -136,24 +145,25 @@ for ri, row_data in enumerate(rows_r1, 1):
         cell_text(cell, val, bold=(row_data[-1] and ci == 0),
                   color=INK, size=10.5,
                   align='right' if ci > 0 else 'left', fill=fill)
+    set_row_height(t.rows[ri], 20)
 
 # --- SECTION 2 ---
 p = doc.add_paragraph()
 p.paragraph_format.space_before = Pt(16)
 p.paragraph_format.space_after = Pt(4)
-r = p.add_run('2. R3 Listcodes by Contact-Count Range')
+r = p.add_run('2. Excluded List Codes by Contact Count')
 r.bold = True; r.font.size = Pt(14); r.font.color.rgb = BRAND
 
 p = doc.add_paragraph()
 p.paragraph_format.space_after = Pt(6)
 p.add_run(
-    'For each R3-excluded listcode, CMFs and orders split by active-contact range. '
-    'Distributors removed per Action 1.'
+    'The list codes below are excluded from Shipping Location View. '
+    'For each, the number of customer locations and orders are broken out by active-contact range.'
 ).font.size = Pt(11)
 
-hdr2 = ['Listcode', 'Category',
-        'Total\nCMFs', 'CMFs\n<10', 'CMFs\n10–25', 'CMFs\n25+',
-        'Total\nOrders', 'Orders\n<10', 'Orders\n10–25', 'Orders\n25+']
+hdr2 = ['List Code', 'Category',
+        'Total CMFs', 'CMFs <10', 'CMFs 10–25', 'CMFs 25+',
+        'Total Orders', 'Orders <10', 'Orders 10–25', 'Orders 25+']
 
 rows_r3 = [
     ('05', 'Federal Gov (Domestic)',
@@ -166,25 +176,27 @@ rows_r3 = [
        16009, 15787,  176,  46,  222199, 151639,  22623,  47937, False),
     ('09', 'Private College / University',
         2423,  2160,  171,  92,  112332,  32102,  17286,  62944, False),
-    ('15', 'McMaster-Carr internal',
+    ('15', 'McMaster-Carr Internal',
            5,     0,    0,   5,   42130,      0,      0,  42130, True),
-    ('—',  'Total (ex-distributor)',
+    ('—',  'Total',
        28453, 27338,  817, 298,  620527, 294540,  94686, 231301, True),
 ]
 
 t2 = doc.add_table(rows=1 + len(rows_r3), cols=10)
 t2.alignment = WD_TABLE_ALIGNMENT.LEFT
-col_widths_2 = [Inches(0.55), Inches(1.65), Inches(0.65),
-                Inches(0.55), Inches(0.6), Inches(0.55),
-                Inches(0.75), Inches(0.6), Inches(0.65), Inches(0.6)]
+col_widths_2 = [Inches(0.7), Inches(2.3), Inches(0.85),
+                Inches(0.75), Inches(0.85), Inches(0.75),
+                Inches(1.0), Inches(0.85), Inches(0.95), Inches(0.85)]
 for i, w in enumerate(col_widths_2):
     t2.columns[i].width = w
+    for cell in t2.columns[i].cells:
+        cell.width = w
 
 for i, h in enumerate(hdr2):
     cell = t2.rows[0].cells[i]
-    cell_text(cell, h, bold=True, color=RGBColor(0xFF, 0xFF, 0xFF), size=9.5,
+    cell_text(cell, h, bold=True, color=RGBColor(0xFF, 0xFF, 0xFF), size=10,
               align='right' if i >= 2 else 'left', fill=BRAND_FILL)
-set_row_height(t2.rows[0], 32)
+set_row_height(t2.rows[0], 22)
 
 for ri, row_data in enumerate(rows_r3, 1):
     highlight = row_data[-1]
@@ -197,8 +209,9 @@ for ri, row_data in enumerate(rows_r3, 1):
     for ci, val in enumerate(vals):
         cell = t2.rows[ri].cells[ci]
         bold = highlight and ci >= 1
-        cell_text(cell, val, bold=bold, color=INK, size=9.5,
+        cell_text(cell, val, bold=bold, color=INK, size=10,
                   align='right' if ci >= 2 else 'left', fill=fill)
+    set_row_height(t2.rows[ri], 20)
 
 doc.save(OUT)
 print(f'Saved → {OUT}')
