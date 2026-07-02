@@ -84,14 +84,11 @@ r.bold = True; r.font.size = Pt(20); r.font.color.rgb = BRAND
 p = doc.add_paragraph()
 p.paragraph_format.space_after = Pt(16)
 r = p.add_run(
-    'McMaster-Carr introduced Shipping Location View in 2017 to let coworkers at the same '
-    'customer location see one another’s order history and reorder from it. '
-    'The eligibility rules have not been revisited since. As reordering becomes a larger '
-    'part of how customers use McMaster.com, several of the current thresholds are worth '
-    'reopening — the rules today keep out customer locations where the original intent '
-    '(small teams of coworkers sharing an order pad) is already met. '
-    'This document recommends two changes: raising the active-contact threshold, and refining '
-    'which list codes are excluded outright.'
+    'We introduced Shipping Location View in 2017 to let coworkers at the same shipping '
+    'location see one another’s order history. The eligibility rules have not been revisited '
+    'since. Given the reordering benefits we see from customers with shared order history '
+    'and purple links, we recommend revisiting the combination of rules to open shared view '
+    'to more customers.'
 )
 r.font.size = Pt(11)
 
