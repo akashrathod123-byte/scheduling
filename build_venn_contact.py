@@ -184,13 +184,37 @@ for name, val in r1_buckets:
     x, y = r1_positions[name]
     draw_bubble(x, y, r_r1(val), name, val, R1_BUB)
 
-# --- ELIGIBLE POOL — small callout at bottom right ---
-ax.text(16.7, 1.2, 'Passes all three rules',
+# --- OVERLAP CALLOUTS (contacts failing multiple rules, est. under independence) ---
+OVERLAP_C = '#7f2a94'
+
+def overlap_tag(x, y, label, val):
+    ax.text(x, y + 0.15, label, ha='center', va='center',
+            color=OVERLAP_C, fontweight='bold', fontsize=9, alpha=0.95)
+    ax.text(x, y - 0.10, val, ha='center', va='center',
+            color=OVERLAP_C, fontweight='bold', fontsize=13)
+
+# R1 ∩ R2 only (left side between R1 and R2, outside R4)
+overlap_tag(6.0, 5.4, 'R1 ∩ R2', '≈107K')
+# R2 ∩ R4 only (top between R2 and R4, above R1)
+overlap_tag(8.5, 7.5, 'R2 ∩ R4', '≈16K')
+# R1 ∩ R4 only (right side between R1 and R4, outside R2)
+overlap_tag(11.0, 5.4, 'R1 ∩ R4', '≈4K')
+# All three (center of triangle)
+overlap_tag(8.5, 5.5, 'All 3', '≈3K')
+
+# --- ELIGIBLE POOL — bottom-right callout ---
+ax.text(16.7, 1.4, 'Passes all three rules',
         ha='right', va='center', fontsize=12, fontweight='bold', color=SWEET)
-ax.text(16.7, 0.88, f'≈ {ELIGIBLE/1000:.0f}K contacts',
+ax.text(16.7, 1.08, f'≈ {ELIGIBLE/1000:.0f}K contacts',
         ha='right', va='center', fontsize=11, color=INK)
-ax.text(16.7, 0.65, f'({ELIGIBLE/UNIVERSE*100:.0f}% of universe · R3 not shown)',
+ax.text(16.7, 0.85, f'({ELIGIBLE/UNIVERSE*100:.0f}% of universe · R3 not shown)',
         ha='right', va='center', fontsize=9, color=MUTED, style='italic')
+
+# --- LEGEND NOTE ---
+ax.text(0.3, 0.35,
+        'Sub-bubbles = total contacts caught by each rule (may fall in more than one region). '
+        'Overlaps estimated under independence.',
+        ha='left', va='center', fontsize=8.5, color=MUTED, style='italic')
 
 fig.savefig('/home/user/scheduling/venn_contact_11x17.pdf',
             bbox_inches='tight', pad_inches=0.20)
