@@ -85,11 +85,10 @@ r.bold = True; r.font.size = Pt(20); r.font.color.rgb = BRAND
 p = doc.add_paragraph()
 p.paragraph_format.space_after = Pt(14)
 r = p.add_run(
-    'We introduced Shipping Location View in 2017 to let coworkers at the same shipping '
-    'location see one another’s order history. The eligibility rules have not been revisited '
-    'since. Given the reordering benefits we see from customers with shared order history '
-    'and purple links, we recommend revisiting the combination of rules to open shared view '
-    'to more customers.'
+    'Customers with shared order history and purple links reorder more. '
+    'We introduced Shipping Location View in 2017 to bring this experience to coworkers '
+    'at the same shipping location, and the eligibility rules have not been revisited since. '
+    'This is an opportunity to extend the benefit to more of our customers.'
 )
 r.font.size = Pt(11)
 
@@ -103,8 +102,7 @@ p = doc.add_paragraph()
 p.paragraph_format.space_after = Pt(6)
 p.add_run(
     'The current rule excludes any shipping location with 10 or more active ordering contacts. '
-    'The table shows how many additional shipping locations and orders each higher threshold '
-    'would include, and what would remain excluded even at 50 contacts.'
+    'The table below shows how many shipping locations and orders would qualify at each higher threshold.'
 ).font.size = Pt(11)
 
 hdr = ['Threshold', 'CMFs', '% of CMFs',
@@ -127,7 +125,7 @@ for i, w in enumerate(col_widths):
 for i, h in enumerate(hdr):
     cell = t.rows[0].cells[i]
     cell_text(cell, h, bold=True, color=RGBColor(0xFF, 0xFF, 0xFF), size=10.5,
-              align='right' if i > 0 else 'left', fill=BRAND_FILL)
+              align='center', fill=BRAND_FILL)
 set_row_height(t.rows[0], 22)
 for ri, row_data in enumerate(rows_r1, 1):
     fill = HIGHLIGHT if row_data[-1] else (ROW_ALT if ri % 2 == 0 else None)
@@ -135,7 +133,7 @@ for ri, row_data in enumerate(rows_r1, 1):
         cell = t.rows[ri].cells[ci]
         cell_text(cell, val, bold=(row_data[-1] and ci == 0),
                   color=INK, size=10.5,
-                  align='right' if ci > 0 else 'left', fill=fill)
+                  align='center', fill=fill)
     set_row_height(t.rows[ri], 20)
 
 # --- SECTION 2 ---
@@ -189,7 +187,7 @@ for i, w in enumerate(col_widths_2):
 for i, h in enumerate(hdr2):
     cell = t2.rows[0].cells[i]
     cell_text(cell, h, bold=True, color=RGBColor(0xFF, 0xFF, 0xFF), size=10.5,
-              align='right' if i >= 2 else 'left', fill=BRAND_FILL)
+              align='center', fill=BRAND_FILL)
 set_row_height(t2.rows[0], 22)
 
 for ri, row_data in enumerate(rows_r3, 1):
@@ -218,7 +216,7 @@ for ri, row_data in enumerate(rows_r3, 1):
     for ci, val in enumerate(vals):
         cell = t2.rows[ri].cells[ci]
         cell_text(cell, val, bold=bold, color=INK, size=10.5,
-                  align='right' if ci >= 2 else 'left', fill=fill)
+                  align='center', fill=fill)
     set_row_height(t2.rows[ri], 18)
 
 doc.save(OUT)
