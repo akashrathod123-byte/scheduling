@@ -25,8 +25,8 @@ section = doc.sections[0]
 section.orientation = WD_ORIENT.LANDSCAPE
 section.page_width  = Inches(11)
 section.page_height = Inches(8.5)
-section.left_margin = section.right_margin = Inches(0.75)
-section.top_margin  = section.bottom_margin = Inches(0.55)
+section.left_margin = section.right_margin = Inches(0.5)
+section.top_margin  = section.bottom_margin = Inches(0.5)
 
 body_style = doc.styles['Normal']
 body_style.font.name = 'Calibri'
@@ -70,6 +70,18 @@ def set_row_height(row, points, rule='atLeast'):
     height.set(qn('w:val'), str(int(points * 20)))
     height.set(qn('w:hRule'), rule)
     tr_pr.append(height)
+
+def add_table_outer_border(table, size=12, color='4A4A4A'):
+    """Add a thicker outer border around the table."""
+    tblPr = table._tbl.tblPr
+    tblBorders = OxmlElement('w:tblBorders')
+    for edge in ('top', 'left', 'bottom', 'right'):
+        b = OxmlElement(f'w:{edge}')
+        b.set(qn('w:val'), 'single')
+        b.set(qn('w:sz'), str(size))
+        b.set(qn('w:color'), color)
+        tblBorders.append(b)
+    tblPr.append(tblBorders)
 
 # --- PAGE 1: SLV Eligibility reference page (embedded image of the PDF) ---
 # Landscape page is 11" wide with 0.75" side margins → 9.5" usable
@@ -123,13 +135,13 @@ p.add_run(
 hdr = ['Threshold', 'CMFs', '% of CMFs',
        'Orders', 'Marginal Orders (Δ)', '% of Orders']
 rows_r1 = [
-    ('10 (current)', '532,692',  '97.7%', '12,696,477', '—',           '74.8%',  False),
-    ('12',           '536,042',  '98.4%', '13,207,047', '+510,570',    '77.8%',  False),
-    ('15',           '538,906',  '98.9%', '13,717,234', '+510,187',    '80.8%',  False),
-    ('20',           '541,297',  '99.3%', '14,226,992', '+509,758',    '83.8%',  False),
-    ('25',           '542,518',  '99.5%', '14,554,315', '+327,323',    '85.7%',  False),
-    ('50',           '544,279',  '99.9%', '15,232,307', '+678,000',    '89.7%',  False),
-    ('Above 50',     '545,030', '100.0%', '16,985,084', '+1,752,777', '100.0%',  False),
+    ('10 (current)', '532,692',  '96.0%', '12,696,477', '—',           '74.6%', False),
+    ('12',           '536,042',  '96.6%', '13,207,047', '+510,570',    '77.6%', False),
+    ('15',           '538,906',  '97.1%', '13,717,234', '+510,187',    '80.6%', False),
+    ('20',           '541,297',  '97.6%', '14,226,992', '+509,758',    '83.6%', False),
+    ('25',           '542,518',  '97.8%', '14,554,315', '+327,323',    '85.5%', False),
+    ('50',           '544,279',  '98.1%', '15,232,307', '+678,000',    '89.5%', False),
+    ('Above 50',     '554,765', '100.0%', '17,028,786', '+1,796,479', '100.0%', False),
 ]
 t = doc.add_table(rows=1 + len(rows_r1), cols=6)
 t.alignment = WD_TABLE_ALIGNMENT.LEFT
@@ -150,6 +162,7 @@ for ri, row_data in enumerate(rows_r1, 1):
                   color=INK, size=10.5,
                   align='center', fill=fill)
     set_row_height(t.rows[ri], 20)
+add_table_outer_border(t)
 
 # --- SECTION 2 ---
 p = doc.add_paragraph()
@@ -233,6 +246,7 @@ for ri, row_data in enumerate(rows_r3, 1):
         cell_text(cell, val, bold=bold, color=INK, size=10.5,
                   align='center', fill=fill)
     set_row_height(t2.rows[ri], 18)
+add_table_outer_border(t2)
 
 doc.save(OUT)
 print(f'Saved → {OUT}')
