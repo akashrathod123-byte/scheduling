@@ -65,7 +65,8 @@ r_r4 = make_size_fn( 25_000, biggest_r=1.40)
 r_r1 = make_size_fn( 65_000, biggest_r=1.25)
 
 # --- FIGURE ---
-fig = plt.figure(figsize=(17, 11), dpi=100)
+# figsize chosen so the PDF prints inside 8x14 landscape paper (14 wide, 8 tall).
+fig = plt.figure(figsize=(12.36, 8.0), dpi=100)
 fig.patch.set_facecolor('white')
 ax = fig.add_axes([0, 0, 1, 1])
 ax.set_xlim(0, 17); ax.set_ylim(0, 11); ax.set_aspect('equal'); ax.axis('off')
@@ -216,9 +217,7 @@ ax.text(0.3, 0.35,
         'Overlaps estimated under independence.',
         ha='left', va='center', fontsize=8.5, color=MUTED, style='italic')
 
-fig.savefig('/home/user/scheduling/venn_contact_11x17.pdf',
-            bbox_inches='tight', pad_inches=0.20)
-fig.savefig('/home/user/scheduling/venn_contact_11x17.png',
-            dpi=200, bbox_inches='tight', pad_inches=0.20)
+fig.savefig('/home/user/scheduling/venn_contact_11x17.pdf')          # exact 12.36 x 8 in
+fig.savefig('/home/user/scheduling/venn_contact_11x17.png', dpi=200)
 plt.close(fig)
 print("Saved venn_contact_11x17.pdf and .png")
