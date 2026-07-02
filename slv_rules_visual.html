@@ -2,561 +2,387 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>SLV Eligibility — Rule Overlap</title>
+<title>Updating Shipping Location View Rules</title>
 <style>
-  @page { size: 17in 11in; margin: 0.4in; }
+  @page { size: letter portrait; margin: 0.55in 0.65in; }
 
   :root {
-    --ground:   #f7f8fa;
-    --card:     #ffffff;
-    --ink:      #111827;
-    --ink-2:    #4b5563;
-    --muted:    #9ca3af;
-    --hairline: #e5e7eb;
-
-    --r1:  #b91c1c;
-    --r1-fill: rgba(185,28,28,0.10);
-    --r2:  #065f46;
-    --r2-fill: rgba(6,95,70,0.10);
-    --r3:  #1e40af;
-    --r3-fill: rgba(30,64,175,0.10);
-    --r4:  #9a3412;
-    --r4-fill: rgba(154,52,18,0.10);
-    --sweet: #059669;
-
-    --r1-tone: #7f0f0f;
-    --r2-tone: #04412f;
-    --r3-tone: #142d7c;
-    --r4-tone: #6b230d;
+    --ink:      #1a1a1a;
+    --ink-2:    #4a4a4a;
+    --muted:    #7a7a7a;
+    --brand:    #2f4a7c;
+    --brand-2:  #3a5eb8;
+    --brand-fill: #e6ecf4;
+    --highlight:  #fdf3d3;
+    --highlight-border: #e6c66a;
+    --row-alt:  #f6f7fa;
+    --hairline: #d0d5dd;
+    --border:   #b0b7c3;
   }
 
   * { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; background: var(--ground); color: var(--ink);
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    font-size: 12.5px; line-height: 1.4;
+  html, body { margin: 0; padding: 0; background: white; color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 10.5px; line-height: 1.45;
     -webkit-font-smoothing: antialiased;
-    font-feature-settings: 'ss01', 'cv11';
   }
-  .poster {
-    width: 16.2in; margin: 0 auto; padding: 0.25in 0.4in 0.35in;
-  }
-
-  /* -------- header -------- */
-  header {
-    display: grid; grid-template-columns: 1fr auto; gap: 40px;
-    align-items: end; padding-bottom: 20px;
-    border-bottom: 1px solid var(--ink);
-    margin-bottom: 24px;
-  }
-  header .eyebrow {
-    font-size: 10.5px; font-weight: 600;
-    letter-spacing: 0.16em; text-transform: uppercase;
-    color: var(--ink-2); margin-bottom: 10px;
-  }
-  header h1 {
-    font-size: 40px; font-weight: 700; letter-spacing: -0.02em;
-    margin: 0 0 8px; line-height: 1.05;
-  }
-  header .dek {
-    font-size: 13px; color: var(--ink-2); max-width: 44em; margin: 0;
+  .page {
+    width: 7.2in; margin: 0 auto;
+    padding: 0.05in 0;
   }
 
-  .kpis {
-    display: grid; grid-template-columns: repeat(3, auto); gap: 32px;
-    padding-left: 32px; border-left: 1px solid var(--hairline);
+  /* -------- title -------- */
+  h1 {
+    font-size: 22px; font-weight: 700; color: var(--brand);
+    margin: 0 0 4px; letter-spacing: -0.01em; line-height: 1.15;
   }
-  .kpi .n {
-    font-size: 30px; font-weight: 700; letter-spacing: -0.02em;
-    font-variant-numeric: tabular-nums; line-height: 1;
-  }
-  .kpi.sweet .n { color: var(--sweet); }
-  .kpi.r1 .n { color: var(--r1); }
-  .kpi.r2 .n { color: var(--r2); }
-  .kpi .lbl {
-    font-size: 10px; font-weight: 600;
-    letter-spacing: 0.10em; text-transform: uppercase;
-    color: var(--ink-2); margin-top: 8px; line-height: 1.35;
+  .subtitle {
+    font-size: 11px; color: var(--ink-2);
+    margin: 0 0 14px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--brand);
   }
 
-  /* -------- Two-Venn row -------- */
-  .venn-row {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
-    margin-bottom: 24px;
+  /* -------- intro -------- */
+  .intro {
+    font-size: 10.5px; line-height: 1.55; color: var(--ink);
+    margin: 0 0 18px;
   }
-  .venn-card {
-    background: var(--card); border: 1px solid var(--hairline);
-    border-radius: 6px; padding: 20px 20px 24px;
+  .intro .placeholder {
+    color: var(--muted); font-style: italic;
+  }
+
+  /* -------- sections -------- */
+  section {
+    margin-bottom: 20px;
+  }
+  section h2 {
+    font-size: 14px; font-weight: 700; color: var(--brand);
+    margin: 0 0 4px; letter-spacing: -0.005em;
+  }
+  section .lede {
+    font-size: 10.5px; color: var(--ink-2);
+    margin: 0 0 10px;
+  }
+
+  /* -------- tables -------- */
+  table {
+    width: 100%; border-collapse: collapse;
+    font-size: 10px; line-height: 1.3;
+    font-variant-numeric: tabular-nums;
+  }
+  th, td {
+    border: 0.5px solid var(--border);
+    padding: 6px 8px;
+  }
+  th {
+    background: var(--brand);
+    color: white;
+    font-weight: 600;
+    text-align: right;
+    letter-spacing: 0.01em;
+  }
+  th.l, td.l { text-align: left; }
+  th.c, td.c { text-align: center; }
+  tbody tr:nth-child(even) { background: var(--row-alt); }
+  tbody tr.highlight {
+    background: var(--highlight) !important;
+    border-left: 3px solid var(--highlight-border);
+  }
+  tbody tr.highlight td:first-child { font-weight: 700; }
+  td.num { font-weight: 500; }
+  td.strong { font-weight: 700; }
+  td.mut { color: var(--muted); }
+  .footnote {
+    font-size: 9.5px; color: var(--muted);
+    margin-top: 6px; line-height: 1.4;
+    font-style: italic;
+  }
+
+  /* -------- SQL block -------- */
+  .sql-block {
+    margin-top: 18px;
+    background: #fafbfc;
+    border: 1px solid var(--hairline);
+    border-left: 3px solid var(--brand-2);
+    border-radius: 3px;
+    padding: 10px 14px;
+  }
+  .sql-block h3 {
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--brand); margin: 0 0 6px;
+  }
+  .sql-block p {
+    font-size: 10px; color: var(--ink-2); margin: 0 0 8px;
+  }
+  .sql-block pre {
+    margin: 0;
+    font-family: 'SF Mono', Menlo, Consolas, monospace;
+    font-size: 8.5px; line-height: 1.45;
+    color: var(--ink);
+    background: white;
+    border: 1px solid var(--hairline);
+    border-radius: 3px;
+    padding: 8px 10px;
+    overflow-x: auto;
+    white-space: pre;
+  }
+
+  .starting-callout {
+    display: flex; gap: 20px;
+    background: var(--brand-fill);
+    border-left: 3px solid var(--brand);
+    padding: 8px 12px;
+    margin: 0 0 18px;
+    font-size: 10px;
+  }
+  .starting-callout .item {
     display: flex; flex-direction: column;
   }
-  .venn-card h2 {
-    font-size: 15px; font-weight: 700; margin: 0 0 3px; letter-spacing: -0.005em;
+  .starting-callout .lbl {
+    font-size: 8.5px; font-weight: 700;
+    letter-spacing: 0.10em; text-transform: uppercase;
+    color: var(--brand); margin-bottom: 2px;
   }
-  .venn-card .card-sub {
-    font-size: 11.5px; color: var(--ink-2); margin: 0 0 4px;
-  }
-  .venn-card .universe {
-    font-size: 10.5px; font-weight: 600; letter-spacing: 0.12em;
-    text-transform: uppercase; color: var(--muted); margin: 0 0 12px;
-    font-variant-numeric: tabular-nums;
-  }
-  .venn-card svg {
-    width: 100%; height: auto; display: block;
+  .starting-callout .val {
+    font-weight: 700; color: var(--ink); font-variant-numeric: tabular-nums;
+    font-size: 12px;
   }
 
-  /* -------- rule tags below each venn -------- */
-  .rule-legend {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
-    margin-top: 12px;
+  .colophon {
+    margin-top: 20px; padding-top: 8px;
+    border-top: 0.5px solid var(--hairline);
+    font-size: 8.5px; color: var(--muted);
+    text-align: center; letter-spacing: 0.02em;
   }
-  .rule-tag {
-    display: grid; grid-template-columns: auto 1fr;
-    gap: 10px; align-items: start;
-    padding: 10px 12px;
-    background: #fafbfc;
-    border-left: 3px solid;
-    border-radius: 0 4px 4px 0;
-  }
-  .rule-tag.r3 { border-color: var(--r3); }
-  .rule-tag.r1 { border-color: var(--r1); }
-  .rule-tag.r2 { border-color: var(--r2); }
-  .rule-tag.r4 { border-color: var(--r4); }
-
-  .rule-tag .tag {
-    font-size: 12px; font-weight: 700;
-    padding: 3px 7px; border-radius: 3px;
-    color: white; letter-spacing: 0.02em;
-    height: fit-content;
-    font-variant-numeric: tabular-nums;
-  }
-  .rule-tag.r3 .tag { background: var(--r3); }
-  .rule-tag.r1 .tag { background: var(--r1); }
-  .rule-tag.r2 .tag { background: var(--r2); }
-  .rule-tag.r4 .tag { background: var(--r4); }
-
-  .rule-tag .desc {
-    font-size: 11px; line-height: 1.35; color: var(--ink);
-  }
-  .rule-tag .desc strong {
-    display: block; font-weight: 600; margin-bottom: 1px;
-  }
-  .rule-tag .desc .m {
-    color: var(--ink-2); font-size: 10.5px; margin-top: 3px;
-    font-variant-numeric: tabular-nums;
-  }
-
-  /* -------- bottom strip -------- */
-  .strip {
-    display: grid; grid-template-columns: 1.15fr 0.7fr 1.15fr; gap: 24px;
-  }
-  .strip .panel {
-    background: var(--card); border: 1px solid var(--hairline);
-    border-radius: 6px; padding: 18px 20px;
-  }
-  .strip .panel h3 {
-    font-size: 10.5px; font-weight: 700;
-    letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--ink-2); margin: 0 0 12px;
-    padding-bottom: 8px; border-bottom: 1px solid var(--hairline);
-  }
-
-  /* Impact bar */
-  .impact { display: grid; grid-template-columns: 34px 1fr auto; row-gap: 12px; column-gap: 12px; align-items: center; }
-  .impact .r { font-size: 13px; font-weight: 700; letter-spacing: -0.005em; }
-  .impact .r.r1 { color: var(--r1); }
-  .impact .r.r2 { color: var(--r2); }
-  .impact .r.r3 { color: var(--r3); }
-  .impact .r.r4 { color: var(--r4); }
-  .impact .track { height: 18px; background: #eef0f4; border-radius: 3px; overflow: hidden; }
-  .impact .fill { height: 100%; }
-  .impact .fill.r1 { background: var(--r1); }
-  .impact .fill.r2 { background: var(--r2); }
-  .impact .fill.r3 { background: var(--r3); }
-  .impact .fill.r4 { background: var(--r4); }
-  .impact .num { text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; font-size: 13px; line-height: 1; }
-  .impact .num .p { display: block; font-weight: 500; color: var(--ink-2); font-size: 10.5px; margin-top: 3px; }
-
-  /* Sensitivity table */
-  .sens { display: grid; grid-template-columns: 1fr auto; row-gap: 7px; font-size: 11.5px; }
-  .sens .n { font-weight: 600; font-variant-numeric: tabular-nums; }
-  .sens .lbl { color: var(--ink-2); }
-  .sens .divider { grid-column: 1 / -1; border-top: 1px solid var(--hairline); margin: 4px 0 2px; }
-  .sens .highlight .lbl { color: var(--r1); font-weight: 600; }
-  .sens .highlight .n { color: var(--r1); }
-
-  /* Takeaways */
-  .takeaways { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  .takeaway {
-    padding: 10px 12px;
-    background: #fafbfc; border-left: 3px solid;
-  }
-  .takeaway.r1 { border-color: var(--r1); }
-  .takeaway.r2 { border-color: var(--r2); }
-  .takeaway.r3 { border-color: var(--r3); }
-  .takeaway.r4 { border-color: var(--r4); }
-  .takeaway .head {
-    font-size: 12px; font-weight: 700; margin-bottom: 4px;
-  }
-  .takeaway.r1 .head { color: var(--r1); }
-  .takeaway.r2 .head { color: var(--r2); }
-  .takeaway.r3 .head { color: var(--r3); }
-  .takeaway.r4 .head { color: var(--r4); }
-  .takeaway p { font-size: 10.5px; line-height: 1.4; color: var(--ink); margin: 0; font-variant-numeric: tabular-nums; }
-
-  .foot {
-    margin-top: 16px; font-size: 10px; color: var(--muted);
-    text-align: right; letter-spacing: 0.04em;
-  }
-
-  /* -------- SVG helpers -------- */
-  .venn-title { font: 700 11px 'Inter', sans-serif; letter-spacing: 0.14em;
-    text-transform: uppercase; }
-  .venn-sub { font: 400 10px 'Inter', sans-serif; letter-spacing: 0; }
-  .venn-count { font: 700 12px 'Inter', sans-serif; font-variant-numeric: tabular-nums; }
-  .venn-label { font: 700 10px 'Inter', sans-serif; letter-spacing: 0.06em;
-    text-transform: uppercase; }
-  .bub-name { font: 600 9px 'Inter', sans-serif; letter-spacing: 0.04em; text-anchor: middle; }
-  .bub-num  { font: 700 11px 'Inter', sans-serif; font-variant-numeric: tabular-nums; text-anchor: middle; }
-  .bub-num.lg { font-size: 15px; }
-  .bub-num.xl { font-size: 20px; }
-  .bub-sub  { font: 500 8.5px 'Inter', sans-serif; text-anchor: middle; opacity: 0.9; }
 </style>
 </head>
 <body>
-<div class="poster">
+<div class="page">
 
-  <!-- HEADER -->
-  <header>
-    <div>
-      <div class="eyebrow">Shipping Location View · Rule Overlap Analysis</div>
-      <h1>Who gets shared view. Who the rules leave out.</h1>
-      <p class="dek">Two Venn diagrams — one at the CMF level (R1 &amp; R3), one at the contact level (R2 &amp; R4). Each rule's circle contains the sub-categories it catches, sized by count. Window 3/12/2025–3/12/2026 · <em>secure.order_source</em> · ex-three shared credit-card CMFs.</p>
+  <h1>Updating Shipping Location View Rules</h1>
+  <p class="subtitle">Follow-up to the sprint eligibility analysis</p>
+
+  <!-- INTRO — user will fill -->
+  <p class="intro"><span class="placeholder">[Intro paragraph — one paragraph of McMaster-Carr voice framing the two decisions we're bringing forward: (1) loosening the R1 contact-count threshold, and (2) narrowing the R3 listcode exclusion by evaluating each listcode's contact-count profile.]</span></p>
+
+  <!-- STARTING POINT CALLOUT -->
+  <div class="starting-callout">
+    <div class="item">
+      <div class="lbl">Starting universe</div>
+      <div class="val">566,092 CMFs</div>
     </div>
-    <div class="kpis">
-      <div class="kpi sweet"><div class="n">1.03M</div><div class="lbl">CMFs pass<br>all 4 rules</div></div>
-      <div class="kpi r1"><div class="n">20.9%</div><div class="lbl">Orders blocked<br>by R1 alone</div></div>
-      <div class="kpi r2"><div class="n">44%</div><div class="lbl">Ordering contacts<br>fail R2</div></div>
+    <div class="item">
+      <div class="lbl">After Action 1 · distributor removed</div>
+      <div class="val">545,030 CMFs · 16.99M orders</div>
     </div>
-  </header>
-
-  <!-- ============================================================ -->
-  <!-- TWO VENN DIAGRAMS SIDE BY SIDE                                -->
-  <!-- ============================================================ -->
-  <div class="venn-row">
-
-    <!-- ================ LEFT: CMF-level Venn ================ -->
-    <div class="venn-card">
-      <h2>CMF-level rules · R1 ∩ R3</h2>
-      <p class="card-sub">Each nested bubble is a sub-category, sized by CMF count.</p>
-      <p class="universe">Universe · 1,145,469 active CMFs</p>
-
-      <svg viewBox="0 0 820 500" xmlns="http://www.w3.org/2000/svg">
-        <!-- Universe boundary (subtle) -->
-        <rect x="10" y="10" width="800" height="480" rx="8"
-              fill="none" stroke="var(--hairline)" stroke-width="1" stroke-dasharray="3 4"/>
-
-        <!-- Eligible label in the space outside both circles -->
-        <text x="770" y="470" text-anchor="end" class="venn-label" fill="var(--sweet)">Eligible · 1,026,627 CMFs</text>
-
-        <!-- R3 circle (big blue) — proportional to 107,209 CMFs -->
-        <circle cx="290" cy="250" r="210" fill="var(--r3-fill)" stroke="var(--r3)" stroke-width="2"/>
-        <!-- R1 circle (small red) — proportional to 13,079 CMFs, ratio sqrt(13079/107209) ~ 0.35 -->
-        <circle cx="600" cy="250" r="90" fill="var(--r1-fill)" stroke="var(--r1)" stroke-width="2"/>
-
-        <!-- Title tags on top of each rule circle -->
-        <text x="290" y="55" text-anchor="middle" class="venn-title" fill="var(--r3)">R3 · Bad Listcode</text>
-        <text x="290" y="72" text-anchor="middle" class="venn-sub" fill="var(--ink-2)">107,209 CMFs · 1.16M orders (5.9%)</text>
-
-        <text x="600" y="140" text-anchor="middle" class="venn-title" fill="var(--r1)">R1 · ≥10 Contacts</text>
-        <text x="600" y="156" text-anchor="middle" class="venn-sub" fill="var(--ink-2)">13,079 CMFs · 4.08M orders (20.9%)</text>
-
-        <!-- Overlap zone label (in the R1 ∩ R3 lens) -->
-        <text x="510" y="248" text-anchor="middle" class="venn-label" fill="var(--r3-tone)">Fail both</text>
-        <text x="510" y="270" text-anchor="middle" font-weight="700" font-size="18" fill="var(--r3-tone)"
-              font-variant-numeric="tabular-nums">1,446</text>
-
-        <!-- ==== R3 sub-bubbles inside R3 circle ==== -->
-        <!-- radii k = 0.55 * sqrt(CMFs) -->
-        <!-- Government (23,476) -->
-        <g>
-          <circle cx="160" cy="180" r="70" fill="var(--r3)" fill-opacity="0.85"/>
-          <text x="160" y="170" fill="white" class="bub-name">GOVERNMENT</text>
-          <text x="160" y="190" fill="white" class="bub-num xl">23,476</text>
-          <text x="160" y="207" fill="white" class="bub-sub">468K orders</text>
-        </g>
-        <!-- Distributor (20,870) — carved out -->
-        <g>
-          <circle cx="315" cy="150" r="65" fill="var(--r3)" fill-opacity="0.85"/>
-          <circle cx="315" cy="150" r="70" fill="none" stroke="var(--r3)" stroke-width="1" stroke-dasharray="3 3"/>
-          <text x="315" y="140" fill="white" class="bub-name">DISTRIBUTOR</text>
-          <text x="315" y="160" fill="white" class="bub-num lg">20,870</text>
-          <text x="315" y="176" fill="white" class="bub-sub">carved out · Action 1</text>
-        </g>
-        <!-- Municipal (13,920) -->
-        <g>
-          <circle cx="150" cy="330" r="53" fill="var(--r3)" fill-opacity="0.85"/>
-          <text x="150" y="323" fill="white" class="bub-name">MUNICIPAL</text>
-          <text x="150" y="342" fill="white" class="bub-num lg">13,920</text>
-          <text x="150" y="357" fill="white" class="bub-sub">222K orders</text>
-        </g>
-        <!-- State (6,535) -->
-        <g>
-          <circle cx="270" cy="345" r="36" fill="var(--r3)" fill-opacity="0.85"/>
-          <text x="270" y="342" fill="white" class="bub-name">STATE</text>
-          <text x="270" y="358" fill="white" class="bub-num">6,535</text>
-        </g>
-        <!-- Utility (4,101) -->
-        <g>
-          <circle cx="350" cy="340" r="28" fill="var(--r3)" fill-opacity="0.85"/>
-          <text x="350" y="338" fill="white" class="bub-name">UTILITY</text>
-          <text x="350" y="352" fill="white" class="bub-num">4,101</text>
-        </g>
-        <!-- Fed (3,021) -->
-        <g>
-          <circle cx="410" cy="240" r="24" fill="var(--r3)" fill-opacity="0.85"/>
-          <text x="410" y="240" fill="white" class="bub-name">FED</text>
-          <text x="410" y="252" fill="white" class="bub-num">3,021</text>
-        </g>
-        <!-- University (2,374) -->
-        <g>
-          <circle cx="230" cy="415" r="22" fill="var(--r3)" fill-opacity="0.85"/>
-          <text x="230" y="413" fill="white" class="bub-name">UNI</text>
-          <text x="230" y="425" fill="white" class="bub-num">2,374</text>
-        </g>
-        <!-- Hospital (2,268) -->
-        <g>
-          <circle cx="290" cy="425" r="21" fill="var(--r3)" fill-opacity="0.85"/>
-          <text x="290" y="424" fill="white" class="bub-name">HOSP</text>
-          <text x="290" y="436" fill="white" class="bub-num">2,268</text>
-        </g>
-
-        <!-- ==== R1 sub-bubbles inside R1 circle (threshold bands) ==== -->
-        <!-- 10-11: 3,350 -->
-        <g>
-          <circle cx="620" cy="200" r="26" fill="var(--r1)" fill-opacity="0.85"/>
-          <text x="620" y="200" fill="white" class="bub-name">10–11</text>
-          <text x="620" y="213" fill="white" class="bub-num">3,350</text>
-        </g>
-        <!-- 12-14: 2,864 -->
-        <g>
-          <circle cx="562" cy="235" r="24" fill="var(--r1)" fill-opacity="0.85"/>
-          <text x="562" y="235" fill="white" class="bub-name">12–14</text>
-          <text x="562" y="248" fill="white" class="bub-num">2,864</text>
-        </g>
-        <!-- 15-19: 2,391 -->
-        <g>
-          <circle cx="670" cy="255" r="22" fill="var(--r1)" fill-opacity="0.85"/>
-          <text x="670" y="255" fill="white" class="bub-name">15–19</text>
-          <text x="670" y="268" fill="white" class="bub-num">2,391</text>
-        </g>
-        <!-- 20-24: 1,221 -->
-        <g>
-          <circle cx="570" cy="290" r="16" fill="var(--r1)" fill-opacity="0.85"/>
-          <text x="570" y="290" fill="white" class="bub-name">20–24</text>
-          <text x="570" y="301" fill="white" class="bub-num">1,221</text>
-        </g>
-        <!-- 25-49: 1,761 -->
-        <g>
-          <circle cx="618" cy="298" r="19" fill="var(--r1)" fill-opacity="0.85"/>
-          <text x="618" y="298" fill="white" class="bub-name">25–49</text>
-          <text x="618" y="310" fill="white" class="bub-num">1,761</text>
-        </g>
-        <!-- 50+: 751 — highlighted -->
-        <g>
-          <circle cx="655" cy="315" r="13" fill="var(--r1)" fill-opacity="1"/>
-          <circle cx="655" cy="315" r="18" fill="none" stroke="var(--r1)" stroke-width="1" stroke-dasharray="2 2"/>
-          <text x="655" y="313" fill="white" class="bub-name">50+</text>
-          <text x="655" y="325" fill="white" class="bub-num">751</text>
-        </g>
-        <!-- Callout for 50+ -->
-        <path d="M 680 325 L 750 385" stroke="var(--r1)" stroke-width="0.8" fill="none"/>
-        <text x="810" y="392" text-anchor="end" font-size="10" font-weight="600" fill="var(--r1)">10% of ALL orders</text>
-        <text x="810" y="406" text-anchor="end" font-size="9" fill="var(--muted)" letter-spacing="0.08em">NEVER-ELIGIBLE TAIL</text>
-      </svg>
-
-      <div class="rule-legend">
-        <div class="rule-tag r3">
-          <div class="tag">R3</div>
-          <div class="desc">
-            <strong>Bad listcode</strong>
-            CMF listcode ∈ {government, college, distributor}. Applies at CMF level.
-            <div class="m">107,209 CMFs · 1.16M orders</div>
-          </div>
-        </div>
-        <div class="rule-tag r1">
-          <div class="tag">R1</div>
-          <div class="desc">
-            <strong>≥ 10 active contacts</strong>
-            Ship-to has too many active-contact orderers to share the view.
-            <div class="m">13,079 CMFs · 4.08M orders</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ================ RIGHT: Contact-level Venn ================ -->
-    <div class="venn-card">
-      <h2>Contact-level rules · R2 ∩ R4</h2>
-      <p class="card-sub">Each nested bubble is a sub-category, sized by contact count.</p>
-      <p class="universe">Universe · 1,386,228 contacts who ordered in window</p>
-
-      <svg viewBox="0 0 820 500" xmlns="http://www.w3.org/2000/svg">
-        <rect x="10" y="10" width="800" height="480" rx="8"
-              fill="none" stroke="var(--hairline)" stroke-width="1" stroke-dasharray="3 4"/>
-
-        <text x="770" y="470" text-anchor="end" class="venn-label" fill="var(--sweet)">Eligible · ~750,000 contacts</text>
-
-        <!-- R2 circle (big teal) — 611,259 contacts -->
-        <circle cx="290" cy="250" r="220" fill="var(--r2-fill)" stroke="var(--r2)" stroke-width="2"/>
-        <!-- R4 circle (small rust) — 43,487 contacts, ratio sqrt(43487/611259) ~ 0.267 -->
-        <circle cx="620" cy="250" r="70" fill="var(--r4-fill)" stroke="var(--r4)" stroke-width="2"/>
-
-        <text x="290" y="48" text-anchor="middle" class="venn-title" fill="var(--r2)">R2 · Thin Orders</text>
-        <text x="290" y="65" text-anchor="middle" class="venn-sub" fill="var(--ink-2)">611,259 contacts · 835K orders (4.3%)</text>
-
-        <text x="620" y="160" text-anchor="middle" class="venn-title" fill="var(--r4)">R4 · Multi-Billto</text>
-        <text x="620" y="177" text-anchor="middle" class="venn-sub" fill="var(--ink-2)">43,487 contacts · 1.86M orders (9.6%)</text>
-
-        <!-- Overlap label -->
-        <text x="530" y="250" text-anchor="middle" class="venn-label" fill="var(--r2-tone)">Fail both</text>
-        <text x="530" y="272" text-anchor="middle" font-weight="700" font-size="15" fill="var(--r2-tone)" font-variant-numeric="tabular-nums">~19K est.</text>
-
-        <!-- ==== R2 sub-bubbles ==== -->
-        <!-- Exactly 1 order (506,925) — hero -->
-        <g>
-          <circle cx="200" cy="230" r="105" fill="var(--r2)" fill-opacity="0.85"/>
-          <text x="200" y="218" fill="white" class="bub-name">EXACTLY 1 ORDER</text>
-          <text x="200" y="243" fill="white" class="bub-num xl">506,925</text>
-          <text x="200" y="262" fill="white" class="bub-sub">contacts · 12mo</text>
-        </g>
-        <!-- Exactly 2 (185,179) -->
-        <g>
-          <circle cx="360" cy="180" r="63" fill="var(--r2)" fill-opacity="0.85"/>
-          <text x="360" y="172" fill="white" class="bub-name">EXACTLY 2</text>
-          <text x="360" y="190" fill="white" class="bub-num lg">185,179</text>
-          <text x="360" y="207" fill="white" class="bub-sub">contacts</text>
-        </g>
-        <!-- <3 orders TOTAL (692,104) — this is a subset that overlaps others, so visually shown as a broader ring across -->
-        <g>
-          <circle cx="290" cy="380" r="80" fill="var(--r2)" fill-opacity="0.85"/>
-          <circle cx="290" cy="380" r="86" fill="none" stroke="var(--r2)" stroke-width="1" stroke-dasharray="3 3"/>
-          <text x="290" y="367" fill="white" class="bub-name">&lt; 3 ORDERS TOTAL</text>
-          <text x="290" y="390" fill="white" class="bub-num xl">692,104</text>
-          <text x="290" y="410" fill="white" class="bub-sub">will never pass R2</text>
-        </g>
-
-        <!-- ==== R4 sub-bubbles ==== -->
-        <!-- 2 billtos (~30K est) -->
-        <g>
-          <circle cx="600" cy="240" r="28" fill="var(--r4)" fill-opacity="0.85"/>
-          <text x="600" y="238" fill="white" class="bub-name">2 BILLTOS</text>
-          <text x="600" y="252" fill="white" class="bub-num">~30K</text>
-        </g>
-        <!-- 3-5 (~10K est) -->
-        <g>
-          <circle cx="650" cy="270" r="18" fill="var(--r4)" fill-opacity="0.85"/>
-          <text x="650" y="269" fill="white" class="bub-name">3–5</text>
-          <text x="650" y="281" fill="white" class="bub-num">~10K</text>
-        </g>
-        <!-- 6+ (~3K est) -->
-        <g>
-          <circle cx="620" cy="295" r="11" fill="var(--r4)" fill-opacity="0.85"/>
-          <text x="620" y="298" fill="white" class="bub-num" font-size="9">~3K</text>
-        </g>
-
-        <!-- Callout for R4 density -->
-        <path d="M 620 200 L 680 130" stroke="var(--r4)" stroke-width="0.8" fill="none"/>
-        <text x="810" y="130" text-anchor="end" font-size="10" font-weight="600" fill="var(--r4)">~43 orders each</text>
-        <text x="810" y="144" text-anchor="end" font-size="9" fill="var(--muted)" letter-spacing="0.08em">VS. UNIVERSE AVG OF 14</text>
-      </svg>
-
-      <div class="rule-legend">
-        <div class="rule-tag r2">
-          <div class="tag">R2</div>
-          <div class="desc">
-            <strong>&lt; 3 orders at same ship-to</strong>
-            Contact hasn't placed enough orders at any single ship-to to qualify.
-            <div class="m">611,259 contacts · 835K orders</div>
-          </div>
-        </div>
-        <div class="rule-tag r4">
-          <div class="tag">R4</div>
-          <div class="desc">
-            <strong>Multiple non-individual billtos</strong>
-            Contact orders across too many bill-to CMFs.
-            <div class="m">43,487 contacts · 1.86M orders</div>
-          </div>
-        </div>
-      </div>
+    <div class="item">
+      <div class="lbl">Window</div>
+      <div class="val" style="font-size:11px;">3/12/2025 – 3/12/2026</div>
     </div>
   </div>
 
   <!-- ============================================================ -->
-  <!-- BOTTOM STRIP                                                  -->
+  <!-- SECTION 1: R1 THRESHOLD SENSITIVITY (revised)                 -->
   <!-- ============================================================ -->
-  <div class="strip">
+  <section>
+    <h2>1. R1 Threshold Sensitivity</h2>
+    <p class="lede">R1 currently excludes CMFs with 10 or more active ordering contacts. Cumulative view shows what each step-up admits; the final row is the residual tail that stays out even at threshold 50.</p>
 
-    <!-- Rule impact bars -->
-    <div class="panel">
-      <h3>Orders blocked, ranked · denominator 19.5M</h3>
-      <div class="impact">
-        <div class="r r1">R1</div>
-        <div class="track"><div class="fill r1" style="width: 20.9%;"></div></div>
-        <div class="num">4.08M<span class="p">20.9%</span></div>
+    <table>
+      <thead>
+        <tr>
+          <th class="l">Threshold</th>
+          <th>Eligible CMFs</th>
+          <th>% CMFs</th>
+          <th>Eligible Orders (cumulative)</th>
+          <th>Marginal Orders (Δ)</th>
+          <th>% of Orders</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="l strong">10 <span style="color:var(--muted); font-weight:400;">(current)</span></td>
+          <td class="num">532,692</td>
+          <td class="num">97.7%</td>
+          <td class="num">12,696,477</td>
+          <td class="mut">baseline</td>
+          <td class="num">74.8%</td>
+        </tr>
+        <tr>
+          <td class="l">12</td>
+          <td class="num">536,042</td>
+          <td class="num">98.4%</td>
+          <td class="num">13,207,047</td>
+          <td class="num" style="color:var(--brand);">+510,570</td>
+          <td class="num">77.8%</td>
+        </tr>
+        <tr>
+          <td class="l">15</td>
+          <td class="num">538,906</td>
+          <td class="num">98.9%</td>
+          <td class="num">13,717,234</td>
+          <td class="num" style="color:var(--brand);">+510,187</td>
+          <td class="num">80.8%</td>
+        </tr>
+        <tr>
+          <td class="l">20</td>
+          <td class="num">541,297</td>
+          <td class="num">99.3%</td>
+          <td class="num">14,226,992</td>
+          <td class="num" style="color:var(--brand);">+509,758</td>
+          <td class="num">83.8%</td>
+        </tr>
+        <tr>
+          <td class="l">25</td>
+          <td class="num">542,518</td>
+          <td class="num">99.5%</td>
+          <td class="num">14,554,315</td>
+          <td class="num" style="color:var(--brand);">+327,323</td>
+          <td class="num">85.7%</td>
+        </tr>
+        <tr>
+          <td class="l">50</td>
+          <td class="num">544,279</td>
+          <td class="num">99.9%</td>
+          <td class="num">15,232,307</td>
+          <td class="num" style="color:var(--brand);">+678,000</td>
+          <td class="num">89.7%</td>
+        </tr>
+        <tr class="highlight">
+          <td class="l">50+ &nbsp;<span style="color:var(--ink-2); font-weight:400;">(stays out)</span></td>
+          <td class="num">751</td>
+          <td class="num">0.1%</td>
+          <td class="num mut">—</td>
+          <td class="num">1,752,777</td>
+          <td class="num">10.3%</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="footnote">Density climbs at every step (152 → 178 → 213 → 268 → 385 orders per added CMF). The 751 CMFs above 50 contacts still cover 10% of orders — they will never qualify on contact count alone.</p>
+  </section>
 
-        <div class="r r4">R4</div>
-        <div class="track"><div class="fill r4" style="width: 9.6%;"></div></div>
-        <div class="num">1.86M<span class="p">9.6%</span></div>
+  <!-- ============================================================ -->
+  <!-- SECTION 2: LISTCODE × CONTACT-COUNT BREAKOUT                  -->
+  <!-- ============================================================ -->
+  <section>
+    <h2>2. Listcode × Contact-Count Profile</h2>
+    <p class="lede">For each R3-excluded listcode, how many CMFs sit at contact counts that <strong>would pass R1</strong> (&lt;10), sit in the recoverable middle (10–25), or stay ineligible on headcount alone (25+). Splits show whether narrowing R3 would actually unlock the segment.</p>
 
-        <div class="r r3">R3</div>
-        <div class="track"><div class="fill r3" style="width: 5.9%;"></div></div>
-        <div class="num">1.16M<span class="p">5.9%</span></div>
+    <table>
+      <thead>
+        <tr>
+          <th class="l" rowspan="2" style="vertical-align:middle;">Listcode</th>
+          <th rowspan="2" style="vertical-align:middle;">Total CMFs</th>
+          <th colspan="3" style="text-align:center; border-bottom:1px solid rgba(255,255,255,0.3);">Contact-count bucket</th>
+          <th rowspan="2" style="vertical-align:middle;">Total Orders</th>
+        </tr>
+        <tr>
+          <th>&lt; 10 <span style="opacity:0.7;">(R1-eligible)</span></th>
+          <th>10–25</th>
+          <th>25+ <span style="opacity:0.7;">(never eligible)</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="l strong">Government total <span style="color:var(--muted); font-weight:400;">(05/06/07/08)</span></td>
+          <td class="num">23,476</td>
+          <td class="num mut">TBD</td>
+          <td class="num mut">TBD</td>
+          <td class="num mut">TBD</td>
+          <td class="num">468,286</td>
+        </tr>
+        <tr>
+          <td class="l" style="padding-left:22px;">Municipal <span style="color:var(--muted);">(08)</span></td>
+          <td class="num">13,920</td>
+          <td class="num mut">TBD</td>
+          <td class="num mut">TBD</td>
+          <td class="num mut">TBD</td>
+          <td class="num">221,551</td>
+        </tr>
+        <tr>
+          <td class="l" style="padding-left:22px;">State <span style="color:var(--muted);">(07)</span></td>
+          <td class="num">6,535</td>
+          <td class="num mut">TBD</td>
+          <td class="num mut">TBD</td>
+          <td class="num mut">TBD</td>
+          <td class="num">187,171</td>
+        </tr>
+        <tr>
+          <td class="l" style="padding-left:22px;">Federal <span style="color:var(--muted);">(05/06)</span></td>
+          <td class="num">3,021</td>
+          <td class="num mut">TBD</td>
+          <td class="num mut">TBD</td>
+          <td class="num mut">TBD</td>
+          <td class="num">59,564</td>
+        </tr>
+        <tr class="highlight">
+          <td class="l strong">Distributor <span style="color:var(--muted); font-weight:400;">(97)</span></td>
+          <td class="num">20,870</td>
+          <td class="num mut">TBD</td>
+          <td class="num mut">TBD</td>
+          <td class="num mut">TBD</td>
+          <td class="num">408,064</td>
+        </tr>
+        <tr>
+          <td class="l strong">Private College / University <span style="color:var(--muted); font-weight:400;">(09)</span></td>
+          <td class="num">2,374</td>
+          <td class="num mut">TBD</td>
+          <td class="num mut">TBD</td>
+          <td class="num mut">TBD</td>
+          <td class="num">113,266</td>
+        </tr>
+        <tr>
+          <td class="l">Hospital <span style="color:var(--muted);">(10)</span></td>
+          <td class="num">2,268</td>
+          <td class="num mut">TBD</td>
+          <td class="num mut">TBD</td>
+          <td class="num mut">TBD</td>
+          <td class="num">31,392</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="footnote">Distributor and Private College / University shaded in cream are the two currently-in-scope R3 buckets after government breakout. The <strong>&lt;10 column is what SLV would actually gain</strong> if that listcode were removed from R3 — everything to its right stays excluded on R1.</p>
+  </section>
 
-        <div class="r r2">R2</div>
-        <div class="track"><div class="fill r2" style="width: 4.3%;"></div></div>
-        <div class="num">835K<span class="p">4.3%</span></div>
-      </div>
-    </div>
-
-    <!-- R1 sensitivity -->
-    <div class="panel">
-      <h3>R1 threshold · loosen from 10</h3>
-      <div class="sens">
-        <div class="lbl">10 → 12</div><div class="n">+511K orders</div>
-        <div class="lbl">12 → 15</div><div class="n">+510K</div>
-        <div class="lbl">15 → 20</div><div class="n">+510K</div>
-        <div class="lbl">20 → 25</div><div class="n">+327K</div>
-        <div class="lbl">25 → 50</div><div class="n">+678K</div>
-        <div class="divider"></div>
-        <div class="highlight"><span class="lbl">50+ still out</span></div><div class="n highlight">1.75M orders</div>
-      </div>
-    </div>
-
-    <!-- Takeaways -->
-    <div class="panel">
-      <h3>Takeaways</h3>
-      <div class="takeaways">
-        <div class="takeaway r1">
-          <div class="head">R1 · volume killer</div>
-          <p>1% of CMFs, 21% of orders. 751 with 50+ contacts alone cover 10% of every order booked.</p>
-        </div>
-        <div class="takeaway r2">
-          <div class="head">R2 · headcount killer</div>
-          <p>Half of ordering contacts placed &lt;3 orders total — cannot pass R2 anywhere.</p>
-        </div>
-        <div class="takeaway r3">
-          <div class="head">R3 minus distributor</div>
-          <p>After Action 1 carves distributor: 26K CMFs, ~613K orders (3.5% of universe).</p>
-        </div>
-        <div class="takeaway r4">
-          <div class="head">R4 punches above weight</div>
-          <p>3.1% of contacts, but 9.6% of orders — 43 orders each vs. 14 universe avg.</p>
-        </div>
-      </div>
-    </div>
-
+  <!-- SQL — needed to fill the TBD cells above -->
+  <div class="sql-block">
+    <h3>Query needed to fill the "TBD" cells above</h3>
+    <p>One pass over <em>secure.order_source</em> aggregated to CMF, joined to the CMF dimension for listcode, then binned by active-contact count. Same universe as the R1 table (ex-distributor for the totals column if we want them to line up).</p>
+    <pre>WITH cmf_activity AS (
+  SELECT
+    o.ship_to_cmf                AS cmf_id,
+    COUNT(DISTINCT o.contact_id) AS active_contacts,
+    COUNT(*)                     AS orders
+  FROM secure.order_source o
+  WHERE o.entry_date  &gt;= 20250312
+    AND o.entry_date  &lt;  20260312
+    AND o.cancel_indicator = 'N'
+    AND o.hk_stat_cd       = 'ACTIVE'
+    AND o.contact_id  IS NOT NULL
+    AND o.ship_to_cmf NOT IN (130387900, 12121200, 144173500)
+  GROUP BY o.ship_to_cmf
+)
+SELECT
+  c.listcode,
+  COUNT(*)                                                            AS total_cmfs,
+  SUM(CASE WHEN ca.active_contacts &lt;  10               THEN 1 ELSE 0 END) AS cmfs_lt_10,
+  SUM(CASE WHEN ca.active_contacts BETWEEN 10 AND 25   THEN 1 ELSE 0 END) AS cmfs_10_25,
+  SUM(CASE WHEN ca.active_contacts &gt;  25               THEN 1 ELSE 0 END) AS cmfs_gt_25,
+  SUM(ca.orders)                                                      AS total_orders,
+  SUM(CASE WHEN ca.active_contacts &lt;  10               THEN ca.orders ELSE 0 END) AS orders_lt_10,
+  SUM(CASE WHEN ca.active_contacts BETWEEN 10 AND 25   THEN ca.orders ELSE 0 END) AS orders_10_25,
+  SUM(CASE WHEN ca.active_contacts &gt;  25               THEN ca.orders ELSE 0 END) AS orders_gt_25
+FROM cmf_activity ca
+JOIN &lt;cmf_dim&gt; c ON c.cmf_id = ca.cmf_id
+WHERE c.listcode IN ('05','06','07','08','09','10','97')  -- R3 listcodes only
+GROUP BY c.listcode
+ORDER BY total_cmfs DESC;</pre>
+    <p style="margin-top:8px;">Only piece I don't have locked down: the CMF-dimension table name that carries <code>listcode</code>. If you can confirm (or send me a column list of the likely table), I'll finalize.</p>
   </div>
 
-  <div class="foot">Source: secure.order_source · window 3/12/2025–3/12/2026 · ex-3 shared credit-card CMFs · R2∩R4 overlap estimated from independence pending direct join.</div>
+  <div class="colophon">SLV Sprint · Follow-up · Universe: CMFs that placed at least one order in the window · ex-3 shared CC CMFs</div>
 
 </div>
 </body>
