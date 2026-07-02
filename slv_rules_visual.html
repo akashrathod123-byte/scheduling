@@ -2,351 +2,327 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>SLV eligibility — where the exclusions happen</title>
+<title>SLV Eligibility — Who's Out, and Why</title>
 <style>
+  @page {
+    size: 17in 11in;
+    margin: 0.5in;
+  }
   :root {
-    color-scheme: light dark;
-    --surface-1:   #fcfcfb;
-    --page:        #f6f5f0;
-    --ink-1:       #0b0b0b;
-    --ink-2:       #52514e;
-    --muted:       #898781;
-    --grid:        #e1e0d9;
-    --border:      rgba(11,11,11,0.10);
+    --ink:      #111111;
+    --ink-2:    #555555;
+    --muted:    #888888;
+    --hairline: #d8d8d5;
+    --page:     #ffffff;
 
-    /* rule hues */
-    --r1: #e34948;   /* red    — CMF headcount rule */
-    --r2: #4a3aa7;   /* violet — contact ship-to freq rule */
-    --r3: #2a78d6;   /* blue   — CMF listcode rule */
-    --r4: #eda100;   /* yellow — contact billto rule */
-    --sweet: #1baf7a; /* aqua  — eligible / sweet spot */
-
-    --r1-soft: rgba(227,73,72,0.14);
-    --r3-soft: rgba(42,120,214,0.14);
-    --r2-soft: rgba(74,58,167,0.14);
-    --r4-soft: rgba(237,161,0,0.18);
-
-    --chip-bg: rgba(255,255,255,0.85);
-    --chip-border: rgba(11,11,11,0.14);
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --surface-1: #1a1a19; --page: #0d0d0d;
-      --ink-1: #ffffff; --ink-2: #c3c2b7; --muted: #898781;
-      --grid: #2c2c2a; --border: rgba(255,255,255,0.10);
-      --r1: #e66767; --r2: #9085e9; --r3: #3987e5; --r4: #c98500;
-      --sweet: #199e70;
-      --r1-soft: rgba(230,103,103,0.20);
-      --r3-soft: rgba(57,135,229,0.20);
-      --r2-soft: rgba(144,133,233,0.22);
-      --r4-soft: rgba(201,133,0,0.22);
-      --chip-bg: rgba(26,26,25,0.85);
-      --chip-border: rgba(255,255,255,0.20);
-    }
-  }
-  html, body { margin: 0; padding: 0; background: var(--page); color: var(--ink-1);
-    font: 14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
-  .deck { max-width: 1200px; margin: 0 auto; padding: 40px 32px 80px; }
-  h1 { font-size: 30px; font-weight: 700; margin: 0 0 6px; letter-spacing: -0.01em; }
-  .sub { color: var(--ink-2); font-size: 14px; margin: 0 0 32px; }
-  section { background: var(--surface-1); border: 1px solid var(--border);
-    border-radius: 12px; padding: 24px 28px; margin-bottom: 20px; }
-  section h2 { font-size: 17px; font-weight: 600; margin: 0 0 4px; letter-spacing: -0.005em; }
-  section .caption { color: var(--ink-2); font-size: 13px; margin: 0 0 22px; }
-
-  /* Hero KPI row */
-  .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-  .kpi { padding: 14px 16px; border-left: 3px solid var(--muted); }
-  .kpi .n { font-size: 30px; font-weight: 700; letter-spacing: -0.02em; line-height: 1; }
-  .kpi .lbl { color: var(--ink-2); font-size: 12px; margin-top: 6px; line-height: 1.35; }
-  .kpi.k1 { border-color: var(--r3); }
-  .kpi.k2 { border-color: var(--r2); }
-  .kpi.k3 { border-color: var(--r1); }
-  .kpi.k4 { border-color: var(--sweet); }
-
-  /* Venn */
-  .venn-wrap { position: relative; height: 640px; margin: 0 auto; }
-  .venn-svg { display: block; margin: 0 auto; overflow: visible; }
-  .chip {
-    position: absolute; background: var(--chip-bg); border: 1px solid var(--chip-border);
-    border-radius: 999px; padding: 4px 10px; font-size: 11.5px; font-weight: 600;
-    color: var(--ink-1); white-space: nowrap;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-    transform: translate(-50%, -50%);
-  }
-  .chip .n { color: var(--ink-2); font-weight: 500; margin-left: 6px; font-variant-numeric: tabular-nums; }
-  .chip.big  { font-size: 13px;  padding: 6px 12px; }
-  .chip.hero { font-size: 15px;  padding: 8px 14px; font-weight: 700; }
-  .chip.r1   { border-color: var(--r1); }
-  .chip.r3   { border-color: var(--r3); }
-  .chip.r2   { border-color: var(--r2); }
-  .chip.r4   { border-color: var(--r4); }
-  .chip.both { border-color: #7f2a94; background: #f5e9ff; color: #4a1266; }
-  @media (prefers-color-scheme: dark) {
-    .chip.both { background: #331342; color: #f0d6ff; border-color: #b06fd6; }
-  }
-  .chip.sweet{ border-color: var(--sweet); }
-  .region-label {
-    position: absolute; font-weight: 700; letter-spacing: 0.02em;
-    text-transform: uppercase; font-size: 11px; color: var(--ink-2);
-    transform: translate(-50%, -50%); pointer-events: none;
-  }
-  .region-total {
-    position: absolute; font-weight: 800; font-size: 22px; color: var(--ink-1);
-    transform: translate(-50%, -50%); font-variant-numeric: tabular-nums;
+    /* two rule hues + neutral overlap */
+    --hue-A:    #2461a8;   /* deep blue for the "big" rule */
+    --hue-A-fill: rgba(36,97,168,0.16);
+    --hue-B:    #b8302f;   /* deep red for the "small" rule */
+    --hue-B-fill: rgba(184,48,47,0.16);
+    --overlap:  #6d2c7a;   /* blended purple where both fail */
+    --sweet:    #14764f;   /* green for eligible */
   }
 
-  /* Waterfall */
-  .waterfall {
-    display: grid; grid-template-columns: 130px 1fr 100px; row-gap: 10px; column-gap: 14px;
-    align-items: center; margin-top: 4px;
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--page);
+    color: var(--ink);
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   }
-  .waterfall .lbl { font-weight: 600; font-size: 13px; }
-  .waterfall .lbl .sub-lbl { display: block; color: var(--ink-2); font-weight: 400; font-size: 11px; margin-top: 1px; }
-  .waterfall .num { text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; }
-  .waterfall .num .pct { display: block; color: var(--ink-2); font-weight: 500; font-size: 11px; margin-top: 1px; }
-  .bar-track { position: relative; height: 22px; background: var(--grid); border-radius: 3px; overflow: hidden; }
-  .bar-fill  { position: absolute; top: 0; bottom: 0; }
-  .bar-fill.pass { background: var(--sweet); left: 0; }
-  .bar-fill.r1 { background: var(--r1); }
-  .bar-fill.r2 { background: var(--r2); }
-  .bar-fill.r3 { background: var(--r3); }
-  .bar-fill.r4 { background: var(--r4); }
 
-  /* Threshold-sensitivity mini chart */
-  .thresholds {
-    display: grid; grid-template-columns: 60px repeat(6, 1fr); gap: 8px;
-    margin-top: 8px; font-size: 12px; color: var(--ink-2);
+  .poster {
+    width: 16in;
+    min-height: 10in;
+    margin: 0 auto;
+    padding: 0.4in 0.4in 0.3in;
+    box-sizing: border-box;
   }
-  .thresholds .h { font-weight: 700; color: var(--ink-1); text-align: center; }
-  .thresholds .cell {
-    background: var(--r1-soft); border: 1px solid var(--r1);
-    border-radius: 4px; padding: 8px 6px; text-align: center;
-    color: var(--ink-1);
-  }
-  .thresholds .cell .big { font-size: 15px; font-weight: 700; display: block; }
-  .thresholds .row-lbl { align-self: center; font-weight: 600; color: var(--ink-1); }
 
-  .footnote { color: var(--muted); font-size: 11px; margin-top: 24px; line-height: 1.5; }
-  .legend { display: flex; gap: 22px; flex-wrap: wrap; margin: 12px 0 0; color: var(--ink-2); font-size: 12px; }
-  .legend .sw { display: inline-block; width: 12px; height: 12px; border-radius: 3px;
-    vertical-align: middle; margin-right: 6px; border: 1px solid var(--border); }
+  /* -------------------- MASTHEAD -------------------- */
+  .masthead {
+    border-bottom: 3px solid var(--ink);
+    padding-bottom: 12px;
+    margin-bottom: 24px;
+  }
+  .masthead h1 {
+    font-size: 44px;
+    font-weight: 800;
+    letter-spacing: -0.015em;
+    margin: 0;
+    line-height: 1.02;
+  }
+  .masthead .sub {
+    font-size: 14px;
+    color: var(--ink-2);
+    margin-top: 6px;
+    max-width: 900px;
+  }
+
+  /* -------------------- TWO-VENN ROW -------------------- */
+  .venn-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 32px;
+  }
+  .venn-card h2 {
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin: 0 0 4px;
+    color: var(--ink);
+  }
+  .venn-card .headline {
+    font-size: 15px;
+    color: var(--ink-2);
+    margin: 0 0 12px;
+    line-height: 1.35;
+  }
+  .venn-svg {
+    display: block;
+    width: 100%;
+    height: 320px;
+  }
+
+  /* Under-Venn breakdown */
+  .breakdown {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 8px;
+  }
+  .breakdown h3 {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin: 0 0 6px;
+    color: var(--ink-2);
+    border-bottom: 1px solid var(--hairline);
+    padding-bottom: 3px;
+  }
+  .breakdown h3.A { color: var(--hue-A); border-color: var(--hue-A); }
+  .breakdown h3.B { color: var(--hue-B); border-color: var(--hue-B); }
+  .breakdown ul { list-style: none; padding: 0; margin: 0; }
+  .breakdown li {
+    display: flex; justify-content: space-between;
+    font-size: 13px; padding: 3px 0;
+    border-bottom: 1px dotted var(--hairline);
+  }
+  .breakdown li:last-child { border-bottom: 0; }
+  .breakdown li .n {
+    font-weight: 700; font-variant-numeric: tabular-nums;
+    color: var(--ink);
+  }
+  .breakdown li .name { color: var(--ink-2); }
+
+  /* -------------------- FOOTER: RULE-IMPACT BARS -------------------- */
+  .impact {
+    border-top: 2px solid var(--ink);
+    padding-top: 18px;
+  }
+  .impact h2 {
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin: 0 0 4px;
+  }
+  .impact .headline {
+    font-size: 15px;
+    color: var(--ink-2);
+    margin: 0 0 16px;
+  }
+  .impact-grid {
+    display: grid;
+    grid-template-columns: 60px 1fr 90px;
+    row-gap: 12px;
+    column-gap: 16px;
+    align-items: center;
+  }
+  .impact-grid .rlabel {
+    font-size: 22px; font-weight: 800; letter-spacing: -0.01em;
+  }
+  .impact-grid .rlabel.r1 { color: var(--hue-B); }
+  .impact-grid .rlabel.r2 { color: var(--overlap); }
+  .impact-grid .rlabel.r3 { color: var(--hue-A); }
+  .impact-grid .rlabel.r4 { color: #b57200; }
+  .impact-grid .track {
+    height: 20px; background: var(--hairline); border-radius: 2px; overflow: hidden;
+  }
+  .impact-grid .track .fill { height: 100%; }
+  .impact-grid .track .fill.r1 { background: var(--hue-B); }
+  .impact-grid .track .fill.r2 { background: var(--overlap); }
+  .impact-grid .track .fill.r3 { background: var(--hue-A); }
+  .impact-grid .track .fill.r4 { background: #d99416; }
+  .impact-grid .num {
+    text-align: right; font-weight: 800; font-size: 18px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Footer methodology */
+  .foot {
+    margin-top: 22px;
+    font-size: 10.5px;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+    line-height: 1.4;
+  }
 </style>
 </head>
 <body>
-<div class="deck" data-palette="#2a78d6,#e34948,#4a3aa7,#eda100,#1baf7a">
+<div class="poster">
 
-  <h1>SLV eligibility — where the exclusions happen</h1>
-  <p class="sub">Window: 3/12/2025 – 3/12/2026 · Source: <em>secure.order_source</em> · Universe: active CMFs and ordering contacts, ex-three shared credit-card CMFs.</p>
-
-  <!-- ================================================= -->
-  <!-- HERO KPI ROW                                      -->
-  <!-- ================================================= -->
-  <section>
-    <div class="kpi-row">
-      <div class="kpi k1"><div class="n">1.03M</div><div class="lbl">CMFs pass all 4 rules<br>(89.6% of 1,145,469 active)</div></div>
-      <div class="kpi k2"><div class="n">750K</div><div class="lbl">Ordering contacts pass all 4 rules<br>(~54% of 1,386,228)</div></div>
-      <div class="kpi k3"><div class="n">4.08M</div><div class="lbl">Orders R1 alone blocks<br>(20.9% of 19.5M · biggest single rule)</div></div>
-      <div class="kpi k4"><div class="n">692K</div><div class="lbl">Contacts who <em>cannot</em> pass R2 at any ship-to<br>(&lt; 3 orders total in 12 mo)</div></div>
-    </div>
-  </section>
-
-  <!-- ================================================= -->
-  <!-- CMF-LEVEL VENN (R1 ∩ R3) with listcode + threshold chips inside -->
-  <!-- ================================================= -->
-  <section>
-    <h2>1 · CMF exclusions — what's inside the R3 and R1 circles</h2>
-    <p class="caption">R3 (listcode) shuts out 107,209 CMFs across seven distinct sub-categories. R1 (headcount) shuts out 13,079 — the higher the contact count, the fewer CMFs but the higher the density. Only 1,446 CMFs fail both.</p>
-
-    <div class="venn-wrap">
-      <svg class="venn-svg" viewBox="0 0 1100 620" width="1100" height="620" xmlns="http://www.w3.org/2000/svg">
-        <!-- Universe backdrop -->
-        <rect x="4" y="4" width="1092" height="612" rx="14" fill="none" stroke="var(--grid)" stroke-width="1.2" stroke-dasharray="4 6"/>
-        <text x="24" y="30" font-size="12" font-weight="700" fill="var(--muted)" letter-spacing="0.08em">UNIVERSE · 1,145,469 ACTIVE CMFs</text>
-
-        <!-- R3 circle (big blue) -->
-        <circle cx="480" cy="330" r="270" fill="var(--r3-soft)" stroke="var(--r3)" stroke-width="2"/>
-        <text x="230" y="82" font-size="14" font-weight="800" fill="var(--r3)" letter-spacing="0.08em">R3 · LISTCODE EXCLUDED</text>
-        <text x="230" y="100" font-size="11.5" fill="var(--ink-2)">107,209 CMFs · 9.4% of universe</text>
-
-        <!-- R1 circle (small red, overlaps R3 on the right) -->
-        <circle cx="820" cy="330" r="145" fill="var(--r1-soft)" stroke="var(--r1)" stroke-width="2"/>
-        <text x="820" y="150" text-anchor="middle" font-size="14" font-weight="800" fill="var(--r1)" letter-spacing="0.08em">R1 · ≥ 10 CONTACTS</text>
-        <text x="820" y="168" text-anchor="middle" font-size="11.5" fill="var(--ink-2)">13,079 CMFs · 1.1% of universe</text>
-
-        <!-- Intersection label -->
-        <text x="710" y="330" text-anchor="middle" font-size="10.5" font-weight="700" fill="#7f2a94" letter-spacing="0.06em">FAIL BOTH</text>
-        <text x="710" y="352" text-anchor="middle" font-size="20" font-weight="800" fill="#7f2a94">1,446</text>
-
-        <!-- Eligible pool callout (outside circles) -->
-        <text x="1030" y="565" text-anchor="end" font-size="12" font-weight="800" fill="var(--sweet)" letter-spacing="0.06em">ELIGIBLE POOL</text>
-        <text x="1030" y="582" text-anchor="end" font-size="20" font-weight="800" fill="var(--ink-1)">1,026,627</text>
-        <text x="1030" y="600" text-anchor="end" font-size="11" fill="var(--ink-2)">of these, only ~196K have 2–9 ordering contacts (the SLV sweet spot)</text>
-      </svg>
-
-      <!-- Listcode chips inside R3 -->
-      <div class="chip r3 hero" style="left:280px; top:210px;">🏛 Government<span class="n">23,476 CMFs · 468K orders</span></div>
-      <div class="chip r3 big"  style="left:295px; top:265px;">📦 Distributor<span class="n">20,870 · 408K orders</span></div>
-      <div class="chip r3 big"  style="left:275px; top:315px;">🏙 Municipal<span class="n">13,920 · 222K orders</span></div>
-      <div class="chip r3"      style="left:305px; top:360px;">🎓 University<span class="n">2,374 · 113K orders</span></div>
-      <div class="chip r3"      style="left:290px; top:400px;">🏥 Hospital<span class="n">2,268 · 31K orders</span></div>
-      <div class="chip r3"      style="left:355px; top:445px;">🚂 Railroad<span class="n">697 · 13K orders</span></div>
-      <div class="chip r3"      style="left:485px; top:490px;">❓ Unknown listcode<span class="n">53,469 · 55K orders</span></div>
-
-      <!-- R1 threshold bands (inside R1 circle) -->
-      <div class="chip r1 big"  style="left:830px; top:255px;">10–11 contacts<span class="n">3,350 CMFs · 152 ord/CMF</span></div>
-      <div class="chip r1"      style="left:830px; top:295px;">12–14 contacts<span class="n">2,864 · 178 ord/CMF</span></div>
-      <div class="chip r1"      style="left:830px; top:335px;">15–19 contacts<span class="n">2,391 · 213 ord/CMF</span></div>
-      <div class="chip r1"      style="left:830px; top:375px;">20–24 contacts<span class="n">1,221 · 268 ord/CMF</span></div>
-      <div class="chip r1"      style="left:830px; top:415px;">25–49 contacts<span class="n">1,761 · 385 ord/CMF</span></div>
-      <div class="chip r1 hero" style="left:830px; top:465px;">50+ contacts<span class="n">751 CMFs · 10% of ALL orders</span></div>
-
-      <!-- Sweet spot callout in the eligible region (top right, outside R3/R1) -->
-      <div class="chip sweet hero" style="left:980px; top:80px;">✨ SLV sweet spot<span class="n">2–9 ordering contacts</span></div>
-      <div class="chip sweet"      style="left:980px; top:120px;">~196K CMFs · ~17% of universe</div>
-
-      <!-- Overlap detail chips -->
-      <div class="chip both" style="left:710px; top:400px;">Gov contractors ≥10 people<br><span style="font-size:10.5px; font-weight:500;">bulk of the 1,446 both-fail</span></div>
-    </div>
-
-    <div class="legend">
-      <span><span class="sw" style="background:var(--r3-soft); border-color:var(--r3);"></span>R3 — listcode excluded</span>
-      <span><span class="sw" style="background:var(--r1-soft); border-color:var(--r1);"></span>R1 — ≥10 ordering contacts</span>
-      <span><span class="sw" style="background:#f5e9ff; border-color:#7f2a94;"></span>Fails both</span>
-      <span><span class="sw" style="background:transparent; border-color:var(--sweet);"></span>Eligible / SLV sweet spot</span>
-    </div>
-  </section>
-
-  <!-- ================================================= -->
-  <!-- R1 THRESHOLD SENSITIVITY (marginal density)       -->
-  <!-- ================================================= -->
-  <section>
-    <h2>2 · R1 threshold sensitivity — density climbs at every band</h2>
-    <p class="caption">If we loosened R1 from &lt;10 to a higher cap, each added band admits denser CMFs. The tradeoff is transparent: how much of the tail do we want to let in?</p>
-
-    <div class="thresholds">
-      <div></div>
-      <div class="h">10 → 12</div><div class="h">12 → 15</div><div class="h">15 → 20</div>
-      <div class="h">20 → 25</div><div class="h">25 → 50</div><div class="h">50+ still out</div>
-
-      <div class="row-lbl">CMFs<br>added</div>
-      <div class="cell"><span class="big">+3,350</span> CMFs</div>
-      <div class="cell"><span class="big">+2,864</span> CMFs</div>
-      <div class="cell"><span class="big">+2,391</span> CMFs</div>
-      <div class="cell"><span class="big">+1,221</span> CMFs</div>
-      <div class="cell"><span class="big">+1,761</span> CMFs</div>
-      <div class="cell" style="background:transparent; border-color:var(--muted); color:var(--ink-2);"><span class="big" style="color:var(--ink-1);">751</span> stay out</div>
-
-      <div class="row-lbl">Orders<br>captured</div>
-      <div class="cell"><span class="big">+511K</span></div>
-      <div class="cell"><span class="big">+510K</span></div>
-      <div class="cell"><span class="big">+510K</span></div>
-      <div class="cell"><span class="big">+327K</span></div>
-      <div class="cell"><span class="big">+678K</span></div>
-      <div class="cell" style="background:transparent; border-color:var(--muted); color:var(--ink-2);"><span class="big" style="color:var(--ink-1);">1.75M</span> orders</div>
-
-      <div class="row-lbl">Density<br>ord/CMF</div>
-      <div class="cell"><span class="big">152</span></div>
-      <div class="cell"><span class="big">178</span></div>
-      <div class="cell"><span class="big">213</span></div>
-      <div class="cell"><span class="big">268</span></div>
-      <div class="cell"><span class="big">385</span></div>
-      <div class="cell" style="background:transparent; border-color:var(--muted); color:var(--ink-2);"><span class="big" style="color:var(--ink-1);">~2,300</span></div>
-    </div>
-
-    <p class="footnote">Distributors already carved out. Even at threshold 50, the 751 CMFs still shut out account for 10.3% of all orders in this universe — they will never qualify on contact count alone; they need a separate mechanism if we want to serve them.</p>
-  </section>
-
-  <!-- ================================================= -->
-  <!-- CONTACT-LEVEL VENN                                -->
-  <!-- ================================================= -->
-  <section>
-    <h2>3 · Contact exclusions — what's inside the R2 and R4 circles</h2>
-    <p class="caption">R2 (never placed ≥3 orders at the same ship-to) shuts out 611,259 contacts — 44% of every contact who ordered anything. R4 (multiple non-individual billtos) is much smaller but denser: 43,487 contacts who order ~3× the average.</p>
-
-    <div class="venn-wrap" style="height: 520px;">
-      <svg class="venn-svg" viewBox="0 0 1100 500" width="1100" height="500" xmlns="http://www.w3.org/2000/svg">
-        <rect x="4" y="4" width="1092" height="492" rx="14" fill="none" stroke="var(--grid)" stroke-width="1.2" stroke-dasharray="4 6"/>
-        <text x="24" y="30" font-size="12" font-weight="700" fill="var(--muted)" letter-spacing="0.08em">UNIVERSE · 1,386,228 CONTACTS WHO ORDERED IN 12MO</text>
-
-        <!-- R2 big violet circle -->
-        <circle cx="440" cy="270" r="230" fill="var(--r2-soft)" stroke="var(--r2)" stroke-width="2"/>
-        <text x="220" y="80" font-size="14" font-weight="800" fill="var(--r2)" letter-spacing="0.08em">R2 · &lt; 3 ORDERS AT SAME SHIP-TO</text>
-        <text x="220" y="98" font-size="11.5" fill="var(--ink-2)">611,259 contacts · 44.1% of universe</text>
-
-        <!-- R4 smaller yellow circle -->
-        <circle cx="800" cy="270" r="85" fill="var(--r4-soft)" stroke="var(--r4)" stroke-width="2"/>
-        <text x="800" y="130" text-anchor="middle" font-size="14" font-weight="800" fill="var(--r4)" letter-spacing="0.08em">R4 · &gt; 1 NON-INDIV BILLTO</text>
-        <text x="800" y="148" text-anchor="middle" font-size="11.5" fill="var(--ink-2)">43,487 contacts · 3.1% of universe</text>
-
-        <!-- Overlap -->
-        <text x="700" y="273" text-anchor="middle" font-size="10.5" font-weight="700" fill="#7f2a94" letter-spacing="0.06em">FAIL BOTH</text>
-        <text x="700" y="295" text-anchor="middle" font-size="18" font-weight="800" fill="#7f2a94">~ 19K est.</text>
-
-        <!-- Eligible pool callout -->
-        <text x="1030" y="440" text-anchor="end" font-size="12" font-weight="800" fill="var(--sweet)" letter-spacing="0.06em">ELIGIBLE POOL</text>
-        <text x="1030" y="460" text-anchor="end" font-size="20" font-weight="800" fill="var(--ink-1)">~ 750,500</text>
-        <text x="1030" y="478" text-anchor="end" font-size="11" fill="var(--ink-2)">contacts pass both — but their CMF may still fail R1 or R3</text>
-      </svg>
-
-      <!-- R2 sub-bucket chips -->
-      <div class="chip r2 hero" style="left:290px; top:200px;">Exactly 1 order in 12mo<span class="n">506,925 contacts</span></div>
-      <div class="chip r2 big"  style="left:295px; top:245px;">Exactly 2 orders in 12mo<span class="n">185,179</span></div>
-      <div class="chip r2 hero" style="left:290px; top:295px;">&lt; 3 orders <em>total</em> anywhere<span class="n">692,104 · CANNOT pass R2</span></div>
-      <div class="chip r2"      style="left:290px; top:345px;">≥ 3 orders total, but never at same ship-to<span class="n">~ 200K</span></div>
-
-      <!-- R4 sub-bucket chips -->
-      <div class="chip r4 big"  style="left:800px; top:225px;">2 billtos<span class="n">~30K</span></div>
-      <div class="chip r4"      style="left:800px; top:260px;">3–5 billtos<span class="n">~10K</span></div>
-      <div class="chip r4"      style="left:800px; top:295px;">6+ billtos<span class="n">~3K power users</span></div>
-
-      <!-- Overlap chip -->
-      <div class="chip both" style="left:695px; top:335px;">Multi-billto AND thin at each ship-to<br><span style="font-size:10.5px; font-weight:500;">est. from independence assumption</span></div>
-
-      <!-- Eligible chip -->
-      <div class="chip sweet hero" style="left:990px; top:80px;">✅ Passes R2 + R4<span class="n">~ 750K contacts</span></div>
-    </div>
-
-    <div class="legend">
-      <span><span class="sw" style="background:var(--r2-soft); border-color:var(--r2);"></span>R2 — thin order history at ship-to</span>
-      <span><span class="sw" style="background:var(--r4-soft); border-color:var(--r4);"></span>R4 — multi-billto</span>
-      <span><span class="sw" style="background:#f5e9ff; border-color:#7f2a94;"></span>Fails both (est.)</span>
-    </div>
-  </section>
-
-  <!-- ================================================= -->
-  <!-- ORDERS WATERFALL                                  -->
-  <!-- ================================================= -->
-  <section>
-    <h2>4 · Where the 19.5M orders go — rule by rule</h2>
-    <p class="caption">Bars use the 19.5M contact-attributable orders as a common denominator. Rules overlap, so totals don't add — but the ranking is stable.</p>
-
-    <div class="waterfall">
-      <div class="lbl">Universe<span class="sub-lbl">Contact-attributable orders</span></div>
-      <div class="bar-track"><div class="bar-fill pass" style="left:0; width:100%;"></div></div>
-      <div class="num">19.5M<span class="pct">100%</span></div>
-
-      <div class="lbl" style="color:var(--r1);">R1 blocks<span class="sub-lbl">CMF has ≥10 active contacts</span></div>
-      <div class="bar-track"><div class="bar-fill r1" style="left:0; width:20.9%;"></div></div>
-      <div class="num">4.08M<span class="pct">20.9%</span></div>
-
-      <div class="lbl" style="color:var(--r4);">R4 blocks<span class="sub-lbl">Multiple non-individual billtos</span></div>
-      <div class="bar-track"><div class="bar-fill r4" style="left:0; width:9.6%;"></div></div>
-      <div class="num">1.86M<span class="pct">9.6%</span></div>
-
-      <div class="lbl" style="color:var(--r3);">R3 blocks<span class="sub-lbl">Listcode excluded</span></div>
-      <div class="bar-track"><div class="bar-fill r3" style="left:0; width:5.9%;"></div></div>
-      <div class="num">1.16M<span class="pct">5.9%</span></div>
-
-      <div class="lbl" style="color:var(--r2);">R2 blocks<span class="sub-lbl">Thin order history at ship-to</span></div>
-      <div class="bar-track"><div class="bar-fill r2" style="left:0; width:4.3%;"></div></div>
-      <div class="num">835K<span class="pct">4.3%</span></div>
-    </div>
-
-    <p class="footnote">
-      <strong>The story in one line:</strong> R1 is the volume killer (1% of CMFs, 21% of orders). R2 is the headcount killer (half of ordering contacts can't pass it anywhere). R3 is largely the distributor bucket — being addressed separately. R4 punches above its weight because multi-billto contacts order ~3× the average.
+  <!-- MASTHEAD -->
+  <div class="masthead">
+    <h1>Shipping Location View · Who's out, and why</h1>
+    <p class="sub">
+      Rules R1–R4 measured over a 12-month window (3/12/25–3/12/26). Universe: active CMFs and ordering contacts, ex-three shared credit-card CMFs.
+      <strong>89.6% of CMFs pass. Only 54% of ordering contacts pass. R1 alone accounts for the biggest slice of blocked orders.</strong>
     </p>
-  </section>
+  </div>
+
+  <!-- ==================== VENN ROW ==================== -->
+  <div class="venn-row">
+
+    <!-- ============ CMF VENN ============ -->
+    <div class="venn-card">
+      <h2>CMFs · 1,145,469 active</h2>
+      <p class="headline">R3 (bad listcode) shuts out 8× more CMFs than R1 (too many contacts). Overlap is negligible.</p>
+
+      <svg class="venn-svg" viewBox="0 0 600 320" preserveAspectRatio="xMidYMid meet">
+        <!-- R3 large blue circle: radius ~sqrt(107209) → scaled -->
+        <circle cx="230" cy="170" r="130" fill="var(--hue-A-fill)" stroke="var(--hue-A)" stroke-width="2.5"/>
+        <!-- R1 small red circle: sqrt(13079)/sqrt(107209) ≈ 0.35 -->
+        <circle cx="405" cy="170" r="46"  fill="var(--hue-B-fill)" stroke="var(--hue-B)" stroke-width="2.5"/>
+
+        <!-- Circle titles above -->
+        <text x="230" y="42" text-anchor="middle" font-size="14" font-weight="800" fill="var(--hue-A)" letter-spacing="0.12em">R3 · LISTCODE</text>
+        <text x="405" y="86" text-anchor="middle" font-size="12" font-weight="800" fill="var(--hue-B)" letter-spacing="0.12em">R1 · ≥10 CONTACTS</text>
+
+        <!-- Region numbers -->
+        <text x="185" y="175" text-anchor="middle" font-size="38" font-weight="800" fill="var(--ink)">105,763</text>
+        <text x="185" y="200" text-anchor="middle" font-size="12" fill="var(--ink-2)">fail R3 only</text>
+
+        <text x="420" y="175" text-anchor="middle" font-size="22" font-weight="800" fill="var(--ink)">11,633</text>
+        <text x="420" y="195" text-anchor="middle" font-size="10.5" fill="var(--ink-2)">fail R1 only</text>
+
+        <!-- Overlap callout -->
+        <line x1="358" y1="240" x2="358" y2="185" stroke="var(--overlap)" stroke-width="1.2"/>
+        <text x="358" y="258" text-anchor="middle" font-size="15" font-weight="800" fill="var(--overlap)">1,446</text>
+        <text x="358" y="273" text-anchor="middle" font-size="10.5" fill="var(--ink-2)">fail both</text>
+
+        <!-- Eligible callout -->
+        <text x="560" y="298" text-anchor="end" font-size="13" font-weight="800" fill="var(--sweet)" letter-spacing="0.1em">ELIGIBLE</text>
+        <text x="560" y="316" text-anchor="end" font-size="18" font-weight="800" fill="var(--ink)">1,026,627 CMFs</text>
+      </svg>
+
+      <div class="breakdown">
+        <div>
+          <h3 class="A">Inside R3 — the listcode buckets</h3>
+          <ul>
+            <li><span class="name">Government (05/06/07/08)</span><span class="n">23,476</span></li>
+            <li><span class="name">Distributor (97)</span><span class="n">20,870</span></li>
+            <li><span class="name">Municipal / private institute (08)</span><span class="n">13,920</span></li>
+            <li><span class="name">Unknown / non-standard</span><span class="n">53,469</span></li>
+            <li><span class="name">University (09)</span><span class="n">2,374</span></li>
+            <li><span class="name">Hospital (10)</span><span class="n">2,268</span></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="B">Inside R1 — the contact-count bands</h3>
+          <ul>
+            <li><span class="name">10–11 contacts</span><span class="n">3,350</span></li>
+            <li><span class="name">12–14 contacts</span><span class="n">2,864</span></li>
+            <li><span class="name">15–19 contacts</span><span class="n">2,391</span></li>
+            <li><span class="name">20–24 contacts</span><span class="n">1,221</span></li>
+            <li><span class="name">25–49 contacts</span><span class="n">1,761</span></li>
+            <li><span class="name">50+ contacts (10% of ALL orders)</span><span class="n">751</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ CONTACT VENN ============ -->
+    <div class="venn-card">
+      <h2>Contacts · 1,386,228 who ordered in the window</h2>
+      <p class="headline">R2 shuts out 44% of ordering contacts. R4 hits a small but heavy-ordering slice. Half of ordering contacts placed &lt;3 orders total — they can't ever pass R2.</p>
+
+      <svg class="venn-svg" viewBox="0 0 600 320" preserveAspectRatio="xMidYMid meet">
+        <!-- R2 large blue circle: sqrt(611259) baseline -->
+        <circle cx="220" cy="170" r="135" fill="var(--hue-A-fill)" stroke="var(--hue-A)" stroke-width="2.5"/>
+        <!-- R4 small red circle: sqrt(43487)/sqrt(611259) ≈ 0.27 -->
+        <circle cx="405" cy="170" r="37"  fill="var(--hue-B-fill)" stroke="var(--hue-B)" stroke-width="2.5"/>
+
+        <text x="220" y="34" text-anchor="middle" font-size="14" font-weight="800" fill="var(--hue-A)" letter-spacing="0.12em">R2 · &lt;3 ORDERS AT SAME SHIP-TO</text>
+        <text x="405" y="98" text-anchor="middle" font-size="11.5" font-weight="800" fill="var(--hue-B)" letter-spacing="0.12em">R4 · MULTI-BILLTO</text>
+
+        <text x="175" y="175" text-anchor="middle" font-size="34" font-weight="800" fill="var(--ink)">611,259</text>
+        <text x="175" y="200" text-anchor="middle" font-size="12" fill="var(--ink-2)">fail R2 only</text>
+
+        <text x="415" y="173" text-anchor="middle" font-size="17" font-weight="800" fill="var(--ink)">43,487</text>
+        <text x="415" y="191" text-anchor="middle" font-size="10" fill="var(--ink-2)">fail R4 only</text>
+
+        <line x1="352" y1="240" x2="352" y2="185" stroke="var(--overlap)" stroke-width="1.2"/>
+        <text x="352" y="258" text-anchor="middle" font-size="15" font-weight="800" fill="var(--overlap)">~19K</text>
+        <text x="352" y="273" text-anchor="middle" font-size="10.5" fill="var(--ink-2)">fail both (est.)</text>
+
+        <text x="560" y="298" text-anchor="end" font-size="13" font-weight="800" fill="var(--sweet)" letter-spacing="0.1em">ELIGIBLE</text>
+        <text x="560" y="316" text-anchor="end" font-size="18" font-weight="800" fill="var(--ink)">~750,000 contacts</text>
+      </svg>
+
+      <div class="breakdown">
+        <div>
+          <h3 class="A">Inside R2 — how thin is their ordering</h3>
+          <ul>
+            <li><span class="name">Exactly 1 order all year</span><span class="n">506,925</span></li>
+            <li><span class="name">Exactly 2 orders all year</span><span class="n">185,179</span></li>
+            <li><span class="name">&lt;3 orders total (never pass R2)</span><span class="n">692,104</span></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="B">Why R4 punches above its weight</h3>
+          <ul>
+            <li><span class="name">Contacts failing R4</span><span class="n">43,487</span></li>
+            <li><span class="name">Orders blocked</span><span class="n">1.86M</span></li>
+            <li><span class="name">Avg orders / R4 contact</span><span class="n">~43</span></li>
+            <li><span class="name">vs. universe avg</span><span class="n">~14</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ==================== ORDERS IMPACT ==================== -->
+  <div class="impact">
+    <h2>Orders blocked, rule by rule · denominator 19,485,314</h2>
+    <p class="headline">Rules overlap so totals don't add. Ranking is stable: <strong>R1 is the volume killer.</strong></p>
+
+    <div class="impact-grid">
+      <div class="rlabel r1">R1</div>
+      <div class="track"><div class="fill r1" style="width: 20.9%;"></div></div>
+      <div class="num">20.9%</div>
+
+      <div class="rlabel r4">R4</div>
+      <div class="track"><div class="fill r4" style="width: 9.6%;"></div></div>
+      <div class="num">9.6%</div>
+
+      <div class="rlabel r3">R3</div>
+      <div class="track"><div class="fill r3" style="width: 5.9%;"></div></div>
+      <div class="num">5.9%</div>
+
+      <div class="rlabel r2">R2</div>
+      <div class="track"><div class="fill r2" style="width: 4.3%;"></div></div>
+      <div class="num">4.3%</div>
+    </div>
+  </div>
+
+  <div class="foot">
+    Rules: R1 = &lt;10 active contacts at ship-to (CMF level) · R2 = ≥3 orders at same ship-to (contact ↔ ship-to) · R3 = listcode ∉ {gov, college, distributor} (CMF level) · R4 = ≤1 non-individual billto (contact level).
+    &nbsp; Source: secure.order_source. &nbsp; R2∩R4 overlap estimated under independence pending direct join.
+  </div>
 
 </div>
 </body>
