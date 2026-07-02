@@ -107,16 +107,16 @@ p.add_run(
     'would include, and what would remain excluded even at 50 contacts.'
 ).font.size = Pt(11)
 
-hdr = ['Threshold', 'Eligible CMFs', '% CMFs',
-       'Eligible Orders (cumulative)', 'Marginal Orders (Δ)', '% of Orders']
+hdr = ['Threshold', 'CMFs', '% of CMFs',
+       'Orders', 'Marginal Orders (Δ)', '% of Orders']
 rows_r1 = [
-    ('10 (current)', '532,692', '97.7%', '12,696,477', 'baseline',  '74.8%', False),
-    ('12',           '536,042', '98.4%', '13,207,047', '+510,570',  '77.8%', False),
-    ('15',           '538,906', '98.9%', '13,717,234', '+510,187',  '80.8%', False),
-    ('20',           '541,297', '99.3%', '14,226,992', '+509,758',  '83.8%', False),
-    ('25',           '542,518', '99.5%', '14,554,315', '+327,323',  '85.7%', False),
-    ('50',           '544,279', '99.9%', '15,232,307', '+678,000',  '89.7%', False),
-    ('50+ (stays out)', '751',   '0.1%', '—',           '1,752,777','10.3%', True),
+    ('10 (current)',        '532,692', '97.7%', '12,696,477', '—',         '74.8%', False),
+    ('12',                  '536,042', '98.4%', '13,207,047', '+510,570',  '77.8%', False),
+    ('15',                  '538,906', '98.9%', '13,717,234', '+510,187',  '80.8%', False),
+    ('20',                  '541,297', '99.3%', '14,226,992', '+509,758',  '83.8%', False),
+    ('25',                  '542,518', '99.5%', '14,554,315', '+327,323',  '85.7%', False),
+    ('50',                  '544,279', '99.9%', '15,232,307', '+678,000',  '89.7%', False),
+    ('Above 50 (excluded)',     '751',  '0.1%',  '1,752,777', '—',         '10.3%', True),
 ]
 t = doc.add_table(rows=1 + len(rows_r1), cols=6)
 t.alignment = WD_TABLE_ALIGNMENT.LEFT
@@ -147,43 +147,41 @@ r.bold = True; r.font.size = Pt(14); r.font.color.rgb = BRAND
 p = doc.add_paragraph()
 p.paragraph_format.space_after = Pt(6)
 p.add_run(
-    'Every list code, split by whether its shipping locations already meet the contact-count '
-    'rule (fewer than 10) or do not (10 or more). The highlighted rows are the list codes '
-    'excluded from Shipping Location View.'
+    'Every list code, split by active-contact range (fewer than 10, 10–25, or 25 or more). '
+    'The highlighted rows are the list codes excluded from Shipping Location View.'
 ).font.size = Pt(11)
 
 hdr2 = ['List Code', 'Category',
-        'Total CMFs', 'Eligible (<10)', 'Ineligible (10+)', 'Total Orders']
+        'Total CMFs', 'CMFs <10', 'CMFs 10–25', 'CMFs 25+', 'Total Orders']
 
-# (list_code, category, total_cmfs, elig, inelig, orders, kind)
-# kind: 'excluded', 'excluded_subtotal', 'other', 'other_subtotal', 'total'
+# (list_code, category, total, lt10, mid, gt25, orders, kind)
 rows_r3 = [
     # Excluded block (top)
-    ('05', 'Federal Gov (Domestic)',           3032,  2924,   108,   58169, 'excluded'),
-    ('06', 'Federal Gov (APO/FPO)',             186,   185,     1,     786, 'excluded'),
-    ('07', 'State Gov',                        6798,  6282,   516,  184911, 'excluded'),
-    ('08', 'Municipal / Private Institute',   16009, 15787,   222,  222199, 'excluded'),
-    ('09', 'Private College / University',     2423,  2160,   263,  112332, 'excluded'),
-    ('15', 'McMaster-Carr Internal',              5,     0,     5,   42130, 'excluded'),
-    ('97', 'Distributor',                     21547, 21319,   228,  387394, 'excluded'),
-    ('—',  'Excluded subtotal',               50000, 48657,  1343, 1007921, 'excluded_subtotal'),
+    ('05', 'Federal Gov (Domestic)',           3032,   2924,    87,   21,   58169, 'excluded'),
+    ('06', 'Federal Gov (APO/FPO)',             186,    185,     1,    0,     786, 'excluded'),
+    ('07', 'State Gov',                        6798,   6282,   382,  134,  184911, 'excluded'),
+    ('08', 'Municipal / Private Institute',   16009,  15787,   176,   46,  222199, 'excluded'),
+    ('09', 'Private College / University',     2423,   2160,   171,   92,  112332, 'excluded'),
+    ('15', 'McMaster-Carr Internal',              5,      0,     0,    5,   42130, 'excluded'),
+    ('97', 'Distributor',                     21547,  21319,   211,   17,  387394, 'excluded'),
+    ('—',  'Excluded subtotal',               50000,  48657,  1028,  315, 1007921, 'excluded_subtotal'),
     # Non-excluded block (bottom)
-    ('01, 02', 'Regular / National',         277280,267581,  9699,13097828, 'other'),
+    ('01, 02', 'Regular / National',         277280, 267581,  7883, 1816,13097828, 'other'),
     ('14, 90, 98', 'Interbranch / Employee / Claims',
-                                             163228,163203,    25, 1710825, 'other'),
+                                             163228, 163203,    10,   15, 1710825, 'other'),
     ('11, 12, 13', 'Export (Mexico / Canada / RoW)',
-                                              56854, 55797,  1057, 1081760, 'other'),
-    ('03', 'Utility',                          4310,  4131,   179,   85857, 'other'),
-    ('10', 'Hospital',                         2367,  2317,    50,   31201, 'other'),
-    ('04', 'Railroad',                          726,   705,    21,   13394, 'other'),
-    ('—',  'Not-excluded subtotal',          504765,493734, 11031,16020865, 'other_subtotal'),
+                                              56854,  55797,   908,  149, 1081760, 'other'),
+    ('03', 'Utility',                          4310,   4131,   158,   21,   85857, 'other'),
+    ('10', 'Hospital',                         2367,   2317,    45,    5,   31201, 'other'),
+    ('04', 'Railroad',                          726,    705,    16,    5,   13394, 'other'),
+    ('—',  'Not-excluded subtotal',          504765, 493734,  9020, 2011,16020865, 'other_subtotal'),
     # Grand total
-    ('—',  'Total',                          554765,542391, 12374,17028786, 'total'),
+    ('—',  'Total',                          554765, 542391, 10048, 2326,17028786, 'total'),
 ]
 
-t2 = doc.add_table(rows=1 + len(rows_r3), cols=6)
+t2 = doc.add_table(rows=1 + len(rows_r3), cols=7)
 t2.alignment = WD_TABLE_ALIGNMENT.LEFT
-col_widths_2 = [Inches(1.0), Inches(3.2), Inches(1.2), Inches(1.3), Inches(1.4), Inches(1.5)]
+col_widths_2 = [Inches(0.9), Inches(2.7), Inches(1.05), Inches(1.0), Inches(1.05), Inches(1.0), Inches(1.35)]
 for i, w in enumerate(col_widths_2):
     t2.columns[i].width = w
     for cell in t2.columns[i].cells: cell.width = w
@@ -214,7 +212,8 @@ for ri, row_data in enumerate(rows_r3, 1):
 
     vals = [
         row_data[0], row_data[1],
-        f'{row_data[2]:,}', f'{row_data[3]:,}', f'{row_data[4]:,}', f'{row_data[5]:,}',
+        f'{row_data[2]:,}', f'{row_data[3]:,}',
+        f'{row_data[4]:,}', f'{row_data[5]:,}', f'{row_data[6]:,}',
     ]
     for ci, val in enumerate(vals):
         cell = t2.rows[ri].cells[ci]
