@@ -180,9 +180,10 @@ p.add_run(
 hdr2 = ['List Code', 'Category',
         'Total CMFs', 'CMFs <10', 'CMFs 10–25', 'CMFs 25+', 'Total Orders']
 
-# (list_code, category, total, lt10, mid, gt25, orders, kind)
-rows_r3 = [
-    # Excluded block (top)
+col_widths_2 = [Inches(0.9), Inches(2.7), Inches(1.05), Inches(1.0), Inches(1.05), Inches(1.0), Inches(1.35)]
+
+# Excluded block (highlighted)
+excluded_rows = [
     ('05', 'Federal Gov (Domestic)',           3032,   2924,    87,   21,   58169, 'excluded'),
     ('06', 'Federal Gov (APO/FPO)',             186,    185,     1,    0,     786, 'excluded'),
     ('07', 'State Gov',                        6798,   6282,   382,  134,  184911, 'excluded'),
@@ -191,7 +192,10 @@ rows_r3 = [
     ('15', 'McMaster-Carr Internal',              5,      0,     0,    5,   42130, 'excluded'),
     ('97', 'Distributor',                     21547,  21319,   211,   17,  387394, 'excluded'),
     ('—',  'Excluded subtotal',               50000,  48657,  1028,  315, 1007921, 'excluded_subtotal'),
-    # Non-excluded block (bottom)
+]
+
+# Non-excluded + grand total
+other_rows = [
     ('01, 02', 'Regular / National',         277280, 267581,  7883, 1816,13097828, 'other'),
     ('14, 90, 98', 'Interbranch / Employee / Claims',
                                              163228, 163203,    10,   15, 1710825, 'other'),
@@ -201,52 +205,66 @@ rows_r3 = [
     ('10', 'Hospital',                         2367,   2317,    45,    5,   31201, 'other'),
     ('04', 'Railroad',                          726,    705,    16,    5,   13394, 'other'),
     ('—',  'Not-excluded subtotal',          504765, 493734,  9020, 2011,16020865, 'other_subtotal'),
-    # Grand total
     ('—',  'Total',                          554765, 542391, 10048, 2326,17028786, 'total'),
 ]
 
-t2 = doc.add_table(rows=1 + len(rows_r3), cols=7)
-t2.alignment = WD_TABLE_ALIGNMENT.LEFT
-col_widths_2 = [Inches(0.9), Inches(2.7), Inches(1.05), Inches(1.0), Inches(1.05), Inches(1.0), Inches(1.35)]
-for i, w in enumerate(col_widths_2):
-    t2.columns[i].width = w
-    for cell in t2.columns[i].cells: cell.width = w
+def build_lc_table(block_rows, include_header=True):
+    n_rows = (1 if include_header else 0) + len(block_rows)
+    tbl = doc.add_table(rows=n_rows, cols=7)
+    tbl.alignment = WD_TABLE_ALIGNMENT.LEFT
+    for i, w in enumerate(col_widths_2):
+        tbl.columns[i].width = w
+        for cell in tbl.columns[i].cells: cell.width = w
 
-for i, h in enumerate(hdr2):
-    cell = t2.rows[0].cells[i]
-    cell_text(cell, h, bold=True, color=RGBColor(0xFF, 0xFF, 0xFF), size=10.5,
-              align='center', fill=BRAND_FILL)
-set_row_height(t2.rows[0], 22)
+    row_offset = 0
+    if include_header:
+        for i, h in enumerate(hdr2):
+            cell = tbl.rows[0].cells[i]
+            cell_text(cell, h, bold=True, color=RGBColor(0xFF, 0xFF, 0xFF), size=10.5,
+                      align='center', fill=BRAND_FILL)
+        set_row_height(tbl.rows[0], 22)
+        row_offset = 1
 
-for ri, row_data in enumerate(rows_r3, 1):
-    kind = row_data[-1]
-    if kind == 'excluded':
-        fill = HIGHLIGHT
-        bold = False
-    elif kind == 'excluded_subtotal':
-        fill = HIGHLIGHT
-        bold = True
-    elif kind == 'other':
-        fill = ROW_ALT if ri % 2 == 0 else None
-        bold = False
-    elif kind == 'other_subtotal':
-        fill = SUBTOTAL
-        bold = True
-    else:  # total
-        fill = SUBTOTAL
-        bold = True
+    for ri, row_data in enumerate(block_rows, row_offset):
+        kind = row_data[-1]
+        if kind == 'excluded':
+            fill = HIGHLIGHT
+            bold = False
+        elif kind == 'excluded_subtotal':
+            fill = HIGHLIGHT
+            bold = True
+        elif kind == 'other':
+            fill = ROW_ALT if (ri - row_offset) % 2 == 0 else None
+            bold = False
+        elif kind == 'other_subtotal':
+            fill = SUBTOTAL
+            bold = True
+        else:  # total
+            fill = SUBTOTAL
+            bold = True
+        vals = [
+            row_data[0], row_data[1],
+            f'{row_data[2]:,}', f'{row_data[3]:,}',
+            f'{row_data[4]:,}', f'{row_data[5]:,}', f'{row_data[6]:,}',
+        ]
+        for ci, val in enumerate(vals):
+            cell = tbl.rows[ri].cells[ci]
+            cell_text(cell, val, bold=bold, color=INK, size=10.5,
+                      align='center', fill=fill)
+        set_row_height(tbl.rows[ri], 18)
+    add_table_outer_border(tbl)
+    return tbl
 
-    vals = [
-        row_data[0], row_data[1],
-        f'{row_data[2]:,}', f'{row_data[3]:,}',
-        f'{row_data[4]:,}', f'{row_data[5]:,}', f'{row_data[6]:,}',
-    ]
-    for ci, val in enumerate(vals):
-        cell = t2.rows[ri].cells[ci]
-        cell_text(cell, val, bold=bold, color=INK, size=10.5,
-                  align='center', fill=fill)
-    set_row_height(t2.rows[ri], 18)
-add_table_outer_border(t2)
+# Table 2a: excluded rows (with header)
+build_lc_table(excluded_rows, include_header=True)
+
+# Small paragraph spacer
+p_gap = doc.add_paragraph()
+p_gap.paragraph_format.space_before = Pt(4)
+p_gap.paragraph_format.space_after = Pt(4)
+
+# Table 2b: not-excluded rows (no header)
+build_lc_table(other_rows, include_header=False)
 
 doc.save(OUT)
 print(f'Saved → {OUT}')
