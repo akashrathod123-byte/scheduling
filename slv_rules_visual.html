@@ -5,34 +5,48 @@
 <title>SLV Eligibility — The Universe Map</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,700;9..144,900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,700;9..144,900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   @page { size: 17in 11in; margin: 0.4in; }
 
   :root {
-    /* editorial paper stock */
-    --paper:      #f2ede0;   /* warm cream */
-    --paper-2:    #e8e2d1;   /* slightly darker for layering */
+    --paper:      #f2ede0;
+    --paper-2:    #ebe5d3;
     --ink:        #1a1a15;
     --ink-2:      #55524b;
     --ink-3:      #8a877c;
     --hairline:   #c8c2b0;
     --hair-thin:  #d8d3c0;
 
-    /* sophisticated muted palette — no primary colors */
-    --r3:  #2c4a5c;   /* deep slate blue — R3 listcode */
-    --r1:  #b04c2a;   /* burnt sienna — R1 headcount */
-    --r2:  #7a7a2d;   /* olive — R2 thin orders */
-    --r4:  #7b4a5a;   /* dusty plum — R4 billto */
-    --sweet: #4a6b52; /* forest sage — eligible */
-    --overlap: #4b3b6b; /* deep indigo — both-fail regions */
+    --r3:  #2c4a5c;
+    --r3-hi: #4d7185;
+    --r3-lo: #1c3244;
 
-    /* softer fills for shells */
-    --r3-shell: rgba(44,74,92,0.09);
-    --r1-shell: rgba(176,76,42,0.10);
+    --r1:  #b04c2a;
+    --r1-hi: #d47048;
+    --r1-lo: #7c331c;
+
+    --r2:  #7a7a2d;
+    --r2-hi: #a0a047;
+    --r2-lo: #545420;
+
+    --r4:  #7b4a5a;
+    --r4-hi: #a06d80;
+    --r4-lo: #55323f;
+
+    --sweet: #4a6b52;
+    --sweet-hi: #6d8d75;
+    --sweet-lo: #33513c;
+
+    --overlap: #4b3b6b;
+    --overlap-hi: #6c5a8e;
+    --overlap-lo: #33254c;
+
+    --r3-shell: rgba(44,74,92,0.08);
+    --r1-shell: rgba(176,76,42,0.09);
     --r2-shell: rgba(122,122,45,0.10);
-    --r4-shell: rgba(123,74,90,0.11);
-    --sweet-shell: rgba(74,107,82,0.12);
+    --r4-shell: rgba(123,74,90,0.10);
+    --sweet-shell: rgba(74,107,82,0.13);
   }
 
   html, body { margin: 0; padding: 0; background: var(--paper); color: var(--ink);
@@ -58,7 +72,7 @@
     border-bottom: 0.5px solid var(--ink);
   }
   .masthead h1 {
-    font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
+    font-family: 'Fraunces', Georgia, serif;
     font-optical-sizing: auto;
     font-weight: 400;
     font-size: 62px;
@@ -67,10 +81,7 @@
     margin: 0 0 10px;
     color: var(--ink);
   }
-  .masthead h1 em {
-    font-style: italic;
-    font-weight: 300;
-  }
+  .masthead h1 em { font-style: italic; font-weight: 300; }
   .masthead .kicker {
     font-family: 'Inter', system-ui, sans-serif;
     font-weight: 700;
@@ -90,24 +101,18 @@
     max-width: 32em;
     margin: 0;
   }
-  .masthead .dek strong {
-    color: var(--ink); font-weight: 500;
-  }
+  .masthead .dek strong { color: var(--ink); font-weight: 500; }
 
-  /* Headline KPI cluster (top-right) — no boxes, editorial style */
   .kpi-cluster {
     display: grid; grid-template-columns: repeat(3, 1fr);
-    column-gap: 22px; row-gap: 4px;
-    padding-left: 28px;
+    column-gap: 22px; padding-left: 28px;
     border-left: 0.5px solid var(--hairline);
   }
-  .kpi {
-    display: flex; flex-direction: column;
-  }
+  .kpi { display: flex; flex-direction: column; }
   .kpi .n {
     font-family: 'Fraunces', Georgia, serif;
-    font-weight: 400; font-size: 38px;
-    line-height: 1; letter-spacing: -0.02em;
+    font-weight: 400; font-size: 42px;
+    line-height: 1; letter-spacing: -0.025em;
     color: var(--ink);
     font-variant-numeric: lining-nums tabular-nums;
   }
@@ -118,13 +123,11 @@
     font-family: 'Inter', system-ui, sans-serif;
     font-size: 9.5px; font-weight: 600;
     letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--ink-3);
-    margin-top: 6px;
-    line-height: 1.3;
+    color: var(--ink-3); margin-top: 8px; line-height: 1.3;
   }
 
   /* ============================================================ */
-  /* MAIN GRID: universe map + inline sidenotes                    */
+  /* MAIN GRID                                                    */
   /* ============================================================ */
   .grid {
     display: grid;
@@ -132,11 +135,10 @@
     gap: 34px;
     margin-bottom: 24px;
   }
-
   .canvas { position: relative; }
   .canvas svg { display: block; width: 100%; height: auto; }
 
-  /* Sidenotes column — just typography, no boxes */
+  /* SIDENOTES */
   .sidenotes {
     padding-top: 6px;
     display: flex; flex-direction: column;
@@ -164,7 +166,6 @@
     color: var(--ink);
   }
 
-  /* Rule impact — no bar chart, just typographic ranks */
   .rank-list { display: flex; flex-direction: column; }
   .rank-item {
     display: grid; grid-template-columns: 20px 1fr auto;
@@ -190,8 +191,7 @@
   .rank-item .rname small {
     display: block; font-family: 'Inter', sans-serif;
     font-size: 9.5px; font-weight: 500;
-    color: var(--ink-3); letter-spacing: 0.04em;
-    margin-top: 1px;
+    color: var(--ink-3); letter-spacing: 0.04em; margin-top: 1px;
   }
   .rank-item .n {
     font-family: 'Fraunces', serif;
@@ -214,9 +214,7 @@
     padding-top: 22px;
     border-top: 0.5px solid var(--ink);
   }
-  .story {
-    padding-right: 6px;
-  }
+  .story { padding-right: 6px; }
   .story .drop {
     font-family: 'Fraunces', serif;
     font-weight: 400; font-style: italic;
@@ -224,14 +222,11 @@
     color: var(--ink);
     margin: 0 0 6px;
   }
-  .story .drop b {
-    font-style: normal; font-weight: 700;
-  }
+  .story .drop b { font-style: normal; font-weight: 700; }
   .story p {
     font-family: 'Inter', sans-serif;
     font-size: 10.5px; line-height: 1.5;
-    color: var(--ink-2);
-    margin: 0;
+    color: var(--ink-2); margin: 0;
   }
   .story.r1 .drop { color: var(--r1); }
   .story.r2 .drop { color: var(--r2); }
@@ -248,40 +243,6 @@
     border-top: 0.5px solid var(--hair-thin);
   }
   .colophon em { font-style: italic; }
-
-  /* ============================================================ */
-  /* SVG element styles                                            */
-  /* ============================================================ */
-  .bubble-label {
-    font-family: 'Inter', system-ui, sans-serif;
-    font-weight: 600; font-size: 11px;
-    fill: var(--paper); text-anchor: middle;
-    letter-spacing: 0.01em;
-  }
-  .bubble-label.sm { font-size: 9.5px; }
-  .bubble-label.xs { font-size: 8px; font-weight: 500; opacity: 0.85; }
-  .bubble-num {
-    font-family: 'Fraunces', Georgia, serif;
-    font-weight: 700; font-size: 18px;
-    fill: var(--paper); text-anchor: middle;
-    font-variant-numeric: tabular-nums;
-  }
-  .bubble-num.lg { font-size: 24px; }
-  .bubble-num.sm { font-size: 12px; }
-  .bubble-num.xs { font-size: 10px; }
-
-  .shell-tag {
-    font-family: 'Inter', sans-serif;
-    font-weight: 700; font-size: 10px;
-    letter-spacing: 0.24em;
-    text-transform: uppercase;
-  }
-  .shell-sub {
-    font-family: 'Fraunces', Georgia, serif;
-    font-weight: 300; font-style: italic;
-    font-size: 11px;
-    fill: var(--ink-2);
-  }
 </style>
 </head>
 <body>
@@ -293,27 +254,18 @@
       <div class="kicker">Shipping Location View · Eligibility deep-read</div>
       <h1>Who <em>gets</em> shared view,<br>and who the rules leave <em>out</em>.</h1>
       <p class="dek">
-        Every dot below is a real customer segment, sized by how many CMFs it holds. Four translucent
-        rule regions — <b>R1</b>, <b>R2</b>, <b>R3</b>, <b>R4</b> — layer on top, showing which
-        segments the current eligibility rules catch. Where regions overlap, that segment fails
-        multiple rules at once.
+        Each shape is a real customer segment, sized by the CMFs (or contacts) it holds.
+        Four translucent rule regions layer on top; where they overlap, that segment fails
+        more than one rule. Bubbles that carry <em>special status</em> — carved out,
+        dormant, never-eligible — wear their own visual mark.
         <br><br>
-        Window: <span style="font-family:'Fraunces',serif; font-style: italic;">3/12/2025 – 3/12/2026</span> · source <span style="font-family:'Fraunces',serif; font-style: italic;">secure.order_source</span> · three shared credit-card CMFs excluded.
+        Window <span style="font-family:'Fraunces',serif; font-style: italic;">3/12/2025 – 3/12/2026</span> · source <span style="font-family:'Fraunces',serif; font-style: italic;">secure.order_source</span> · three shared credit-card CMFs excluded.
       </p>
     </div>
     <div class="kpi-cluster">
-      <div class="kpi sweet">
-        <div class="n">1.03M</div>
-        <div class="lbl">CMFs pass<br>all four rules</div>
-      </div>
-      <div class="kpi r1">
-        <div class="n">20.9%</div>
-        <div class="lbl">Orders blocked<br>by R1 alone</div>
-      </div>
-      <div class="kpi r2">
-        <div class="n">44%</div>
-        <div class="lbl">Ordering contacts<br>fail R2</div>
-      </div>
+      <div class="kpi sweet"><div class="n">1.03M</div><div class="lbl">CMFs pass<br>all four rules</div></div>
+      <div class="kpi r1"><div class="n">20.9%</div><div class="lbl">Orders blocked<br>by R1 alone</div></div>
+      <div class="kpi r2"><div class="n">44%</div><div class="lbl">Ordering contacts<br>fail R2</div></div>
     </div>
   </div>
 
@@ -321,219 +273,296 @@
   <div class="grid">
 
     <div class="canvas">
-      <svg viewBox="0 0 1400 780" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 0 1400 820" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
 
-        <!-- SHELLS -->
+        <defs>
+          <!-- Radial gradients per rule (light-top, darker-bottom) -->
+          <radialGradient id="grad-r3" cx="35%" cy="30%" r="70%">
+            <stop offset="0%" stop-color="#5f829a" stop-opacity="1"/>
+            <stop offset="60%" stop-color="var(--r3)" stop-opacity="1"/>
+            <stop offset="100%" stop-color="var(--r3-lo)" stop-opacity="1"/>
+          </radialGradient>
+          <radialGradient id="grad-r1" cx="35%" cy="30%" r="70%">
+            <stop offset="0%" stop-color="#d67b53" stop-opacity="1"/>
+            <stop offset="60%" stop-color="var(--r1)" stop-opacity="1"/>
+            <stop offset="100%" stop-color="var(--r1-lo)" stop-opacity="1"/>
+          </radialGradient>
+          <radialGradient id="grad-r2" cx="35%" cy="30%" r="70%">
+            <stop offset="0%" stop-color="#a5a54a" stop-opacity="1"/>
+            <stop offset="60%" stop-color="var(--r2)" stop-opacity="1"/>
+            <stop offset="100%" stop-color="var(--r2-lo)" stop-opacity="1"/>
+          </radialGradient>
+          <radialGradient id="grad-r4" cx="35%" cy="30%" r="70%">
+            <stop offset="0%" stop-color="#a67285" stop-opacity="1"/>
+            <stop offset="60%" stop-color="var(--r4)" stop-opacity="1"/>
+            <stop offset="100%" stop-color="var(--r4-lo)" stop-opacity="1"/>
+          </radialGradient>
+          <radialGradient id="grad-sweet" cx="35%" cy="30%" r="70%">
+            <stop offset="0%" stop-color="#7a9b81" stop-opacity="1"/>
+            <stop offset="60%" stop-color="var(--sweet)" stop-opacity="1"/>
+            <stop offset="100%" stop-color="var(--sweet-lo)" stop-opacity="1"/>
+          </radialGradient>
+          <radialGradient id="grad-overlap" cx="35%" cy="30%" r="70%">
+            <stop offset="0%" stop-color="#7b6ba0" stop-opacity="1"/>
+            <stop offset="60%" stop-color="var(--overlap)" stop-opacity="1"/>
+            <stop offset="100%" stop-color="var(--overlap-lo)" stop-opacity="1"/>
+          </radialGradient>
+
+          <!-- Very soft drop shadow -->
+          <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
+            <feOffset dy="1"/>
+            <feComponentTransfer><feFuncA type="linear" slope="0.20"/></feComponentTransfer>
+            <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+
+          <!-- Diagonal stripe pattern for the "carved out" treatment -->
+          <pattern id="pat-carved" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(45)">
+            <rect width="6" height="6" fill="var(--r3)"/>
+            <line x1="0" y1="0" x2="0" y2="6" stroke="var(--paper)" stroke-width="1.6" opacity="0.35"/>
+          </pattern>
+
+          <!-- Soft dot pattern for "dormant" -->
+          <pattern id="pat-dormant" patternUnits="userSpaceOnUse" width="7" height="7">
+            <circle cx="3.5" cy="3.5" r="1.2" fill="var(--r3)"/>
+          </pattern>
+        </defs>
+
+        <!-- ============ RULE SHELLS ============ -->
         <path d="M 30 60 Q 30 30 60 30 L 630 30 Q 720 30 720 130
                  L 720 500 Q 720 620 610 620 L 100 620 Q 30 620 30 550 Z"
-              fill="var(--r3-shell)" stroke="var(--r3)" stroke-width="0.8"/>
-        <text x="60" y="58" class="shell-tag" fill="var(--r3)">R3 · Listcode excluded</text>
-        <text x="60" y="76" class="shell-sub">107,209 CMFs · 1.16M orders · <tspan font-style="normal" font-weight="700">gov · college · distributor</tspan></text>
+              fill="var(--r3-shell)" stroke="var(--r3)" stroke-width="0.5" stroke-dasharray="1 2"/>
+        <text x="60" y="58" font-family="Inter" font-weight="700" font-size="10" letter-spacing="0.24em" fill="var(--r3)">R3 · LISTCODE EXCLUDED</text>
+        <text x="60" y="76" font-family="Fraunces" font-style="italic" font-weight="300" font-size="11" fill="var(--ink-2)">107,209 CMFs · 1.16M orders · <tspan font-style="normal" font-weight="500">gov · college · distributor</tspan></text>
 
-        <!-- R1 shell -->
         <path d="M 780 60 Q 780 30 810 30 L 1130 30 Q 1180 30 1180 90
                  L 1180 400 Q 1180 450 1120 450 L 810 450 Q 780 450 780 400 Z"
-              fill="var(--r1-shell)" stroke="var(--r1)" stroke-width="0.8"/>
-        <text x="810" y="58" class="shell-tag" fill="var(--r1)">R1 · ≥ 10 active contacts</text>
-        <text x="810" y="76" class="shell-sub">13,079 CMFs · 4.08M orders · <tspan font-style="normal" font-weight="700">the volume killer</tspan></text>
+              fill="var(--r1-shell)" stroke="var(--r1)" stroke-width="0.5" stroke-dasharray="1 2"/>
+        <text x="810" y="58" font-family="Inter" font-weight="700" font-size="10" letter-spacing="0.24em" fill="var(--r1)">R1 · ≥ 10 ACTIVE CONTACTS</text>
+        <text x="810" y="76" font-family="Fraunces" font-style="italic" font-weight="300" font-size="11" fill="var(--ink-2)">13,079 CMFs · 4.08M orders · <tspan font-style="normal" font-weight="500">the volume killer</tspan></text>
 
-        <!-- Overlap -->
+        <!-- Overlap capsule between R3 & R1 -->
         <ellipse cx="750" cy="250" rx="62" ry="52"
-                 fill="var(--overlap)" fill-opacity="0.14"
-                 stroke="var(--overlap)" stroke-width="1" stroke-dasharray="3 2"/>
-        <text x="750" y="240" text-anchor="middle" font-family="Inter, sans-serif" font-size="8.5" font-weight="700" fill="var(--overlap)" letter-spacing="0.18em">FAIL BOTH</text>
-        <text x="750" y="262" text-anchor="middle" font-family="Fraunces, serif" font-weight="700" font-size="20" fill="var(--overlap)">1,446</text>
-        <text x="750" y="278" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="var(--ink-2)">CMFs</text>
+                 fill="var(--overlap)" fill-opacity="0.12" stroke="var(--overlap)" stroke-width="0.6" stroke-dasharray="2 2"/>
+        <text x="750" y="238" text-anchor="middle" font-family="Inter" font-size="8.5" font-weight="700" letter-spacing="0.20em" fill="var(--overlap)">FAIL BOTH</text>
+        <text x="750" y="264" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="500" font-size="22" fill="var(--overlap)">1,446</text>
+        <text x="750" y="280" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="300" font-size="10" fill="var(--ink-2)">CMFs</text>
 
-        <!-- R2 shell -->
         <path d="M 780 480 Q 780 470 800 470 L 1130 470 Q 1180 470 1180 510
                  L 1180 720 Q 1180 748 1150 748 L 810 748 Q 780 748 780 720 Z"
-              fill="var(--r2-shell)" stroke="var(--r2)" stroke-width="0.8"/>
-        <text x="810" y="500" class="shell-tag" fill="var(--r2)">R2 · &lt; 3 orders at same ship-to</text>
-        <text x="810" y="518" class="shell-sub">611,259 contacts · 44% of ordering contacts · 835K orders</text>
+              fill="var(--r2-shell)" stroke="var(--r2)" stroke-width="0.5" stroke-dasharray="1 2"/>
+        <text x="810" y="500" font-family="Inter" font-weight="700" font-size="10" letter-spacing="0.24em" fill="var(--r2)">R2 · &lt; 3 ORDERS AT SAME SHIP-TO</text>
+        <text x="810" y="518" font-family="Fraunces" font-style="italic" font-weight="300" font-size="11" fill="var(--ink-2)">611,259 contacts · 44% of ordering contacts · 835K orders</text>
 
-        <!-- R4 shell -->
-        <path d="M 30 650 Q 30 640 50 640 L 740 640 Q 760 640 760 660
-                 L 760 748 Q 760 760 740 760 L 50 760 Q 30 760 30 748 Z"
-              fill="var(--r4-shell)" stroke="var(--r4)" stroke-width="0.8"/>
-        <text x="60" y="668" class="shell-tag" fill="var(--r4)">R4 · Multi-billto</text>
-        <text x="60" y="686" class="shell-sub">43,487 contacts · 3.1% · but ~43 orders each — dense buyers</text>
+        <path d="M 30 660 Q 30 650 50 650 L 740 650 Q 760 650 760 670
+                 L 760 758 Q 760 770 740 770 L 50 770 Q 30 770 30 758 Z"
+              fill="var(--r4-shell)" stroke="var(--r4)" stroke-width="0.5" stroke-dasharray="1 2"/>
+        <text x="60" y="678" font-family="Inter" font-weight="700" font-size="10" letter-spacing="0.24em" fill="var(--r4)">R4 · MULTIPLE NON-INDIVIDUAL BILLTOS</text>
+        <text x="60" y="696" font-family="Fraunces" font-style="italic" font-weight="300" font-size="11" fill="var(--ink-2)">43,487 contacts · 3.1% · but ~43 orders each — dense buyers</text>
 
-        <!-- Sweet spot -->
-        <circle cx="900" cy="600" r="86" fill="var(--sweet-shell)" stroke="var(--sweet)" stroke-width="1.5"/>
-        <text x="900" y="578" text-anchor="middle" font-family="Inter" font-size="9.5" font-weight="700" fill="var(--sweet)" letter-spacing="0.24em">SWEET SPOT</text>
-        <text x="900" y="608" text-anchor="middle" font-family="Fraunces" font-weight="400" font-size="30" fill="var(--sweet)" font-variant-numeric="tabular-nums">~196K</text>
-        <text x="900" y="628" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="300" font-size="11.5" fill="var(--ink-2)">CMFs with 2–9 ordering contacts</text>
-        <text x="900" y="644" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="300" font-size="11.5" fill="var(--ink-2)">— the SLV target —</text>
+        <!-- ============ SWEET SPOT — hero circle w/ orbit ============ -->
+        <circle cx="900" cy="600" r="118" fill="none" stroke="var(--sweet)" stroke-width="0.4" stroke-dasharray="1 2" opacity="0.6"/>
+        <circle cx="900" cy="600" r="86" fill="url(#grad-sweet)" filter="url(#shadow)" opacity="0.9"/>
+        <circle cx="900" cy="600" r="86" fill="none" stroke="var(--sweet-lo)" stroke-width="0.5" opacity="0.4"/>
+        <text x="900" y="575" text-anchor="middle" font-family="Inter" font-size="9" font-weight="700" letter-spacing="0.30em" fill="var(--paper)">SWEET SPOT</text>
+        <text x="900" y="612" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="400" font-size="34" fill="var(--paper)" font-variant-numeric="tabular-nums">~196K</text>
+        <text x="900" y="632" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="300" font-size="11" fill="var(--paper)" opacity="0.9">CMFs · 2–9 contacts</text>
+        <text x="900" y="649" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="300" font-size="11" fill="var(--paper)" opacity="0.9">— the SLV target —</text>
 
-        <!-- ============ R3 listcode bubbles ============ -->
-        <!-- Government (23,476) -->
-        <circle cx="180" cy="200" r="70" fill="var(--r3)" fill-opacity="0.86"/>
-        <text x="180" y="188" class="bubble-label">Government</text>
-        <text x="180" y="208" class="bubble-num lg">23,476</text>
-        <text x="180" y="226" class="bubble-label xs">CMFs · 468K orders</text>
+        <!-- ============================================================ -->
+        <!-- R3 LISTCODE BUBBLES                                            -->
+        <!-- ============================================================ -->
 
-        <!-- Distributor (20,870) -->
-        <circle cx="380" cy="180" r="66" fill="var(--r3)" fill-opacity="0.86"/>
-        <text x="380" y="168" class="bubble-label">Distributor</text>
-        <text x="380" y="188" class="bubble-num lg">20,870</text>
-        <text x="380" y="206" class="bubble-label xs">CMFs · 408K orders</text>
-        <text x="380" y="235" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="300" font-size="10.5" fill="var(--r3)">— carved out (Action 1) —</text>
+        <!-- Government (23,476) — hero, gradient, gold-thin ring like a coin -->
+        <circle cx="180" cy="200" r="72" fill="url(#grad-r3)" filter="url(#shadow)"/>
+        <circle cx="180" cy="200" r="72" fill="none" stroke="var(--r3-lo)" stroke-width="0.5" opacity="0.5"/>
+        <circle cx="180" cy="200" r="78" fill="none" stroke="var(--r3)" stroke-width="0.4" stroke-dasharray="0.5 2" opacity="0.5"/>
+        <text x="180" y="182" text-anchor="middle" font-family="Inter" font-size="9" font-weight="700" letter-spacing="0.24em" fill="var(--paper)" opacity="0.85">GOVERNMENT</text>
+        <text x="180" y="212" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="500" font-size="30" fill="var(--paper)" font-variant-numeric="tabular-nums">23,476</text>
+        <text x="180" y="230" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="300" font-size="10.5" fill="var(--paper)" opacity="0.85">468K orders</text>
 
-        <!-- Unknown (53,469) -->
-        <circle cx="570" cy="300" r="86" fill="var(--r3)" fill-opacity="0.62"/>
-        <text x="570" y="280" class="bubble-label">Unknown</text>
-        <text x="570" y="304" class="bubble-num lg">53,469</text>
-        <text x="570" y="322" class="bubble-label xs">CMFs · just 55K orders</text>
-        <text x="570" y="336" class="bubble-label xs">(dormant / retired)</text>
+        <!-- Distributor (20,870) — CARVED OUT: diagonal stripe pattern + strikethrough treatment -->
+        <circle cx="380" cy="180" r="66" fill="url(#pat-carved)" opacity="0.75" filter="url(#shadow)"/>
+        <circle cx="380" cy="180" r="66" fill="none" stroke="var(--r3-lo)" stroke-width="1.5"/>
+        <circle cx="380" cy="180" r="72" fill="none" stroke="var(--r3)" stroke-width="0.5" stroke-dasharray="4 2"/>
+        <text x="380" y="164" text-anchor="middle" font-family="Inter" font-size="8.5" font-weight="700" letter-spacing="0.24em" fill="var(--paper)" opacity="0.85">DISTRIBUTOR</text>
+        <text x="380" y="192" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="500" font-size="28" fill="var(--paper)" font-variant-numeric="tabular-nums">20,870</text>
+        <text x="380" y="209" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="300" font-size="10.5" fill="var(--paper)" opacity="0.85">408K orders</text>
+        <!-- Annotation for Distributor: hairline leader to italic serif label -->
+        <path d="M 445 180 Q 480 175 500 155" stroke="var(--r3)" stroke-width="0.5" fill="none"/>
+        <circle cx="500" cy="155" r="1.5" fill="var(--r3)"/>
+        <text x="508" y="150" font-family="Fraunces" font-style="italic" font-weight="400" font-size="11.5" fill="var(--r3)">Carved out</text>
+        <text x="508" y="164" font-family="Fraunces" font-style="italic" font-weight="300" font-size="10" fill="var(--ink-2)">via Action 1</text>
+
+        <!-- Unknown (53,469) — DORMANT: hollow-ish, dot pattern, thin ring -->
+        <circle cx="570" cy="330" r="90" fill="url(#pat-dormant)" opacity="0.65"/>
+        <circle cx="570" cy="330" r="90" fill="none" stroke="var(--r3-lo)" stroke-width="0.8"/>
+        <circle cx="570" cy="330" r="60" fill="url(#grad-r3)" opacity="0.35" filter="url(#shadow)"/>
+        <text x="570" y="312" text-anchor="middle" font-family="Inter" font-size="9" font-weight="700" letter-spacing="0.24em" fill="var(--r3-lo)">UNKNOWN</text>
+        <text x="570" y="342" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="500" font-size="32" fill="var(--r3-lo)" font-variant-numeric="tabular-nums">53,469</text>
+        <text x="570" y="360" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="300" font-size="10.5" fill="var(--r3-lo)">only 55K orders</text>
+        <!-- Annotation -->
+        <path d="M 660 330 Q 685 335 705 330" stroke="var(--r3-lo)" stroke-width="0.4" fill="none"/>
+        <text x="712" y="333" font-family="Fraunces" font-style="italic" font-weight="300" font-size="10" fill="var(--ink-3)">dormant · retired</text>
 
         <!-- Municipal (13,920) -->
-        <circle cx="130" cy="390" r="56" fill="var(--r3)" fill-opacity="0.86"/>
-        <text x="130" y="380" class="bubble-label sm">Municipal</text>
-        <text x="130" y="398" class="bubble-num">13,920</text>
-        <text x="130" y="416" class="bubble-label xs">222K orders</text>
+        <circle cx="130" cy="410" r="56" fill="url(#grad-r3)" filter="url(#shadow)"/>
+        <circle cx="130" cy="410" r="56" fill="none" stroke="var(--r3-lo)" stroke-width="0.4" opacity="0.4"/>
+        <text x="130" y="398" text-anchor="middle" font-family="Inter" font-size="8" font-weight="700" letter-spacing="0.22em" fill="var(--paper)" opacity="0.85">MUNICIPAL</text>
+        <text x="130" y="422" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="500" font-size="20" fill="var(--paper)" font-variant-numeric="tabular-nums">13,920</text>
+        <text x="130" y="438" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="300" font-size="9.5" fill="var(--paper)" opacity="0.85">222K</text>
 
         <!-- State (6,535) -->
-        <circle cx="260" cy="420" r="39" fill="var(--r3)" fill-opacity="0.86"/>
-        <text x="260" y="415" class="bubble-label sm">State</text>
-        <text x="260" y="432" class="bubble-num sm">6,535</text>
+        <circle cx="255" cy="440" r="39" fill="url(#grad-r3)" filter="url(#shadow)"/>
+        <text x="255" y="434" text-anchor="middle" font-family="Inter" font-size="7.5" font-weight="700" letter-spacing="0.20em" fill="var(--paper)" opacity="0.85">STATE</text>
+        <text x="255" y="452" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="500" font-size="14" fill="var(--paper)" font-variant-numeric="tabular-nums">6,535</text>
 
         <!-- Utility (4,101) -->
-        <circle cx="360" cy="410" r="33" fill="var(--r3)" fill-opacity="0.86"/>
-        <text x="360" y="408" class="bubble-label sm">Utility</text>
-        <text x="360" y="424" class="bubble-num sm">4,101</text>
+        <circle cx="352" cy="428" r="33" fill="url(#grad-r3)" filter="url(#shadow)"/>
+        <text x="352" y="424" text-anchor="middle" font-family="Inter" font-size="7" font-weight="700" letter-spacing="0.20em" fill="var(--paper)" opacity="0.85">UTILITY</text>
+        <text x="352" y="441" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="500" font-size="12" fill="var(--paper)" font-variant-numeric="tabular-nums">4,101</text>
 
-        <!-- Fed Gov (3,021) -->
-        <circle cx="450" cy="430" r="29" fill="var(--r3)" fill-opacity="0.86"/>
-        <text x="450" y="428" class="bubble-label sm">Fed</text>
-        <text x="450" y="444" class="bubble-num sm">3,021</text>
+        <!-- Fed (3,021) -->
+        <circle cx="438" cy="450" r="29" fill="url(#grad-r3)" filter="url(#shadow)"/>
+        <text x="438" y="446" text-anchor="middle" font-family="Inter" font-size="7" font-weight="700" letter-spacing="0.20em" fill="var(--paper)" opacity="0.85">FED</text>
+        <text x="438" y="461" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="500" font-size="11" fill="var(--paper)" font-variant-numeric="tabular-nums">3,021</text>
 
         <!-- University (2,374) -->
-        <circle cx="180" cy="500" r="27" fill="var(--r3)" fill-opacity="0.86"/>
-        <text x="180" y="500" class="bubble-label sm">Uni</text>
-        <text x="180" y="514" class="bubble-num sm">2,374</text>
+        <circle cx="170" cy="520" r="27" fill="url(#grad-r3)" filter="url(#shadow)"/>
+        <text x="170" y="518" text-anchor="middle" font-family="Inter" font-size="6.5" font-weight="700" letter-spacing="0.16em" fill="var(--paper)" opacity="0.85">UNIVERSITY</text>
+        <text x="170" y="533" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="500" font-size="10.5" fill="var(--paper)" font-variant-numeric="tabular-nums">2,374</text>
 
         <!-- Hospital (2,268) -->
-        <circle cx="260" cy="518" r="27" fill="var(--r3)" fill-opacity="0.86"/>
-        <text x="260" y="518" class="bubble-label sm">Hosp</text>
-        <text x="260" y="532" class="bubble-num sm">2,268</text>
+        <circle cx="250" cy="530" r="27" fill="url(#grad-r3)" filter="url(#shadow)"/>
+        <text x="250" y="528" text-anchor="middle" font-family="Inter" font-size="6.5" font-weight="700" letter-spacing="0.16em" fill="var(--paper)" opacity="0.85">HOSPITAL</text>
+        <text x="250" y="543" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="500" font-size="10.5" fill="var(--paper)" font-variant-numeric="tabular-nums">2,268</text>
 
-        <!-- Railroad (697) -->
-        <circle cx="345" cy="518" r="17" fill="var(--r3)" fill-opacity="0.86"/>
-        <text x="345" y="522" class="bubble-num sm">697</text>
+        <!-- Railroad (697) — tiny -->
+        <circle cx="332" cy="530" r="17" fill="url(#grad-r3)" filter="url(#shadow)"/>
+        <text x="332" y="534" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="500" font-size="10" fill="var(--paper)" font-variant-numeric="tabular-nums">697</text>
 
-        <!-- ============ R1 threshold bands ============ -->
-        <circle cx="880" cy="170" r="32" fill="var(--r1)" fill-opacity="0.85"/>
-        <text x="880" y="167" class="bubble-label sm">10–11</text>
-        <text x="880" y="184" class="bubble-num sm">3,350</text>
+        <!-- ============================================================ -->
+        <!-- R1 THRESHOLD BANDS — orbital arrangement                       -->
+        <!-- ============================================================ -->
 
-        <circle cx="965" cy="135" r="30" fill="var(--r1)" fill-opacity="0.85"/>
-        <text x="965" y="133" class="bubble-label sm">12–14</text>
-        <text x="965" y="149" class="bubble-num sm">2,864</text>
+        <!-- Faint orbit path connecting the bands to convey progression -->
+        <path d="M 850 175 Q 970 100 1090 150 Q 1170 230 1105 300 Q 1030 360 990 340"
+              stroke="var(--r1)" stroke-width="0.4" stroke-dasharray="1 3" fill="none" opacity="0.4"/>
 
-        <circle cx="1055" cy="150" r="28" fill="var(--r1)" fill-opacity="0.85"/>
-        <text x="1055" y="148" class="bubble-label sm">15–19</text>
-        <text x="1055" y="164" class="bubble-num sm">2,391</text>
+        <!-- 10–11 (3,350) -->
+        <circle cx="860" cy="175" r="32" fill="url(#grad-r1)" filter="url(#shadow)"/>
+        <text x="860" y="172" text-anchor="middle" font-family="Inter" font-size="7" font-weight="700" letter-spacing="0.20em" fill="var(--paper)" opacity="0.85">10–11</text>
+        <text x="860" y="188" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="500" font-size="13" fill="var(--paper)" font-variant-numeric="tabular-nums">3,350</text>
 
-        <circle cx="1135" cy="200" r="22" fill="var(--r1)" fill-opacity="0.85"/>
-        <text x="1135" y="200" class="bubble-label sm">20–24</text>
-        <text x="1135" y="213" class="bubble-num sm">1,221</text>
+        <!-- 12–14 (2,864) -->
+        <circle cx="950" cy="130" r="30" fill="url(#grad-r1)" filter="url(#shadow)"/>
+        <text x="950" y="128" text-anchor="middle" font-family="Inter" font-size="7" font-weight="700" letter-spacing="0.20em" fill="var(--paper)" opacity="0.85">12–14</text>
+        <text x="950" y="144" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="500" font-size="12" fill="var(--paper)" font-variant-numeric="tabular-nums">2,864</text>
 
-        <circle cx="1100" cy="290" r="25" fill="var(--r1)" fill-opacity="0.85"/>
-        <text x="1100" y="288" class="bubble-label sm">25–49</text>
-        <text x="1100" y="304" class="bubble-num sm">1,761</text>
+        <!-- 15–19 (2,391) -->
+        <circle cx="1045" cy="150" r="28" fill="url(#grad-r1)" filter="url(#shadow)"/>
+        <text x="1045" y="148" text-anchor="middle" font-family="Inter" font-size="7" font-weight="700" letter-spacing="0.20em" fill="var(--paper)" opacity="0.85">15–19</text>
+        <text x="1045" y="164" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="500" font-size="11" fill="var(--paper)" font-variant-numeric="tabular-nums">2,391</text>
 
-        <!-- 50+ highlighted with a Fraunces italic callout -->
-        <circle cx="990" cy="340" r="19" fill="var(--r1)" fill-opacity="1"/>
-        <circle cx="990" cy="340" r="26" fill="none" stroke="var(--r1)" stroke-width="0.8" stroke-dasharray="1.5 2"/>
-        <text x="990" y="340" class="bubble-label sm">50+</text>
-        <text x="990" y="353" class="bubble-num sm">751</text>
-        <path d="M 1015 348 L 1080 400" stroke="var(--r1)" stroke-width="0.6" fill="none"/>
-        <text x="1180" y="405" text-anchor="end" font-family="Fraunces" font-style="italic" font-weight="400" font-size="12.5" fill="var(--r1)">751 CMFs · 10% of all orders</text>
-        <text x="1180" y="422" text-anchor="end" font-family="Inter" font-size="9" fill="var(--ink-3)" letter-spacing="0.06em">— the never-eligible tail —</text>
+        <!-- 20–24 (1,221) -->
+        <circle cx="1130" cy="200" r="22" fill="url(#grad-r1)" filter="url(#shadow)"/>
+        <text x="1130" y="200" text-anchor="middle" font-family="Inter" font-size="6.5" font-weight="700" letter-spacing="0.18em" fill="var(--paper)" opacity="0.85">20–24</text>
+        <text x="1130" y="213" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="500" font-size="10" fill="var(--paper)" font-variant-numeric="tabular-nums">1,221</text>
 
-        <!-- ============ R2 activity bubbles ============ -->
-        <!-- Exactly 1 order (506,925) -->
-        <circle cx="1050" cy="580" r="58" fill="var(--r2)" fill-opacity="0.85"/>
-        <text x="1050" y="568" class="bubble-label sm">Exactly 1 order</text>
-        <text x="1050" y="590" class="bubble-num">506,925</text>
-        <text x="1050" y="608" class="bubble-label xs">contacts · in 12mo</text>
+        <!-- 25–49 (1,761) -->
+        <circle cx="1100" cy="288" r="25" fill="url(#grad-r1)" filter="url(#shadow)"/>
+        <text x="1100" y="286" text-anchor="middle" font-family="Inter" font-size="7" font-weight="700" letter-spacing="0.20em" fill="var(--paper)" opacity="0.85">25–49</text>
+        <text x="1100" y="302" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="500" font-size="11" fill="var(--paper)" font-variant-numeric="tabular-nums">1,761</text>
+
+        <!-- 50+ NEVER-ELIGIBLE — halo + dashed orbit ring, italic caption -->
+        <circle cx="990" cy="340" r="34" fill="none" stroke="var(--r1)" stroke-width="0.4" stroke-dasharray="1 2" opacity="0.65"/>
+        <circle cx="990" cy="340" r="22" fill="url(#grad-r1)" filter="url(#shadow)"/>
+        <circle cx="990" cy="340" r="22" fill="none" stroke="var(--r1-lo)" stroke-width="0.6"/>
+        <text x="990" y="338" text-anchor="middle" font-family="Inter" font-size="7" font-weight="700" letter-spacing="0.24em" fill="var(--paper)" opacity="0.85">50+</text>
+        <text x="990" y="352" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="500" font-size="10.5" fill="var(--paper)" font-variant-numeric="tabular-nums">751</text>
+        <!-- Callout: hairline curve to italic serif tag -->
+        <path d="M 1015 350 Q 1080 380 1160 395" stroke="var(--r1)" stroke-width="0.4" fill="none"/>
+        <circle cx="1160" cy="395" r="1.5" fill="var(--r1)"/>
+        <text x="1168" y="392" font-family="Fraunces" font-style="italic" font-weight="400" font-size="12" fill="var(--r1)">10% of every order</text>
+        <text x="1168" y="406" font-family="Inter" font-size="9" font-weight="500" letter-spacing="0.10em" fill="var(--ink-3)">NEVER-ELIGIBLE TAIL</text>
+
+        <!-- ============================================================ -->
+        <!-- R2 ACTIVITY BUBBLES                                            -->
+        <!-- ============================================================ -->
+
+        <!-- Exactly 1 (506,925) — hero -->
+        <circle cx="1060" cy="590" r="60" fill="url(#grad-r2)" filter="url(#shadow)"/>
+        <circle cx="1060" cy="590" r="60" fill="none" stroke="var(--r2-lo)" stroke-width="0.4" opacity="0.5"/>
+        <text x="1060" y="573" text-anchor="middle" font-family="Inter" font-size="7.5" font-weight="700" letter-spacing="0.22em" fill="var(--paper)" opacity="0.85">EXACTLY 1 ORDER</text>
+        <text x="1060" y="598" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="500" font-size="22" fill="var(--paper)" font-variant-numeric="tabular-nums">506,925</text>
+        <text x="1060" y="616" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="300" font-size="9.5" fill="var(--paper)" opacity="0.85">contacts · 12mo</text>
 
         <!-- Exactly 2 (185,179) -->
-        <circle cx="1160" cy="645" r="42" fill="var(--r2)" fill-opacity="0.85"/>
-        <text x="1160" y="637" class="bubble-label sm">Exactly 2</text>
-        <text x="1160" y="655" class="bubble-num sm">185,179</text>
+        <circle cx="1160" cy="655" r="42" fill="url(#grad-r2)" filter="url(#shadow)"/>
+        <text x="1160" y="646" text-anchor="middle" font-family="Inter" font-size="7" font-weight="700" letter-spacing="0.22em" fill="var(--paper)" opacity="0.85">EXACTLY 2</text>
+        <text x="1160" y="666" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="500" font-size="16" fill="var(--paper)" font-variant-numeric="tabular-nums">185,179</text>
 
-        <!-- <3 total ringed -->
-        <circle cx="1050" cy="695" r="45" fill="var(--r2)" fill-opacity="1"/>
-        <circle cx="1050" cy="695" r="52" fill="none" stroke="var(--r2)" stroke-width="0.8" stroke-dasharray="1.5 2"/>
-        <text x="1050" y="683" class="bubble-label sm">&lt; 3 orders total</text>
-        <text x="1050" y="703" class="bubble-num sm">692,104</text>
-        <text x="1050" y="717" class="bubble-label xs">— never pass R2 —</text>
+        <!-- <3 total (692,104) NEVER PASS: outer dashed ring -->
+        <circle cx="1055" cy="710" r="60" fill="none" stroke="var(--r2)" stroke-width="0.4" stroke-dasharray="1 2" opacity="0.65"/>
+        <circle cx="1055" cy="710" r="46" fill="url(#grad-r2)" filter="url(#shadow)"/>
+        <circle cx="1055" cy="710" r="46" fill="none" stroke="var(--r2-lo)" stroke-width="0.6"/>
+        <text x="1055" y="695" text-anchor="middle" font-family="Inter" font-size="7" font-weight="700" letter-spacing="0.20em" fill="var(--paper)" opacity="0.85">&lt; 3 ORDERS TOTAL</text>
+        <text x="1055" y="717" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="500" font-size="17" fill="var(--paper)" font-variant-numeric="tabular-nums">692,104</text>
+        <text x="1055" y="732" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="300" font-size="9" fill="var(--paper)" opacity="0.85">— never pass R2 —</text>
 
-        <!-- scattered ≥3 -->
-        <circle cx="1160" cy="720" r="28" fill="var(--r2)" fill-opacity="0.55" stroke="var(--r2)" stroke-width="0.6" stroke-dasharray="2 2"/>
-        <text x="1160" y="718" class="bubble-label sm">≥3 scattered</text>
-        <text x="1160" y="732" class="bubble-num sm">~200K</text>
+        <!-- Scattered ≥3 (est) — hollow -->
+        <circle cx="1170" cy="725" r="26" fill="none" stroke="var(--r2)" stroke-width="1" stroke-dasharray="2 2"/>
+        <circle cx="1170" cy="725" r="26" fill="var(--r2)" fill-opacity="0.2"/>
+        <text x="1170" y="720" text-anchor="middle" font-family="Inter" font-size="6.5" font-weight="700" letter-spacing="0.16em" fill="var(--r2-lo)">≥3 SCATTER</text>
+        <text x="1170" y="734" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="500" font-size="11" fill="var(--r2-lo)" font-variant-numeric="tabular-nums">~200K</text>
 
-        <!-- ============ R4 billto bubbles ============ -->
-        <circle cx="120" cy="710" r="26" fill="var(--r4)" fill-opacity="0.9"/>
-        <text x="120" y="705" class="bubble-label sm">2 billtos</text>
-        <text x="120" y="720" class="bubble-num sm">~30K</text>
+        <!-- ============================================================ -->
+        <!-- R4 BILLTO BUBBLES                                             -->
+        <!-- ============================================================ -->
+        <circle cx="120" cy="720" r="26" fill="url(#grad-r4)" filter="url(#shadow)"/>
+        <text x="120" y="715" text-anchor="middle" font-family="Inter" font-size="7" font-weight="700" letter-spacing="0.20em" fill="var(--paper)" opacity="0.85">2 BILLTOS</text>
+        <text x="120" y="731" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="500" font-size="11" fill="var(--paper)" font-variant-numeric="tabular-nums">~30K</text>
 
-        <circle cx="230" cy="710" r="19" fill="var(--r4)" fill-opacity="0.9"/>
-        <text x="230" y="710" class="bubble-label sm">3–5</text>
-        <text x="230" y="723" class="bubble-num xs">~10K</text>
+        <circle cx="220" cy="720" r="19" fill="url(#grad-r4)" filter="url(#shadow)"/>
+        <text x="220" y="718" text-anchor="middle" font-family="Inter" font-size="6.5" font-weight="700" letter-spacing="0.18em" fill="var(--paper)" opacity="0.85">3–5</text>
+        <text x="220" y="732" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="500" font-size="10" fill="var(--paper)" font-variant-numeric="tabular-nums">~10K</text>
 
-        <circle cx="315" cy="710" r="13" fill="var(--r4)" fill-opacity="0.9"/>
-        <text x="315" y="713" class="bubble-num xs">~3K</text>
+        <circle cx="300" cy="720" r="13" fill="url(#grad-r4)" filter="url(#shadow)"/>
+        <text x="300" y="723" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="500" font-size="9" fill="var(--paper)" font-variant-numeric="tabular-nums">~3K</text>
 
-        <text x="400" y="705" font-family="Fraunces" font-style="italic" font-weight="300" font-size="12" fill="var(--ink-2)">Contacts failing R4 order ~43 units/year —</text>
-        <text x="400" y="722" font-family="Fraunces" font-style="italic" font-weight="300" font-size="12" fill="var(--ink-2)">vs. universe avg of 14. Small headcount, dense buying.</text>
+        <!-- R4 annotation -->
+        <text x="370" y="708" font-family="Fraunces" font-style="italic" font-weight="300" font-size="12" fill="var(--ink-2)">Contacts failing R4 order ~43 units/year —</text>
+        <text x="370" y="726" font-family="Fraunces" font-style="italic" font-weight="300" font-size="12" fill="var(--ink-2)">vs. universe average of 14. Small headcount, dense buying.</text>
 
-        <!-- R2 ∩ R4 est bridge -->
-        <path d="M 700 690 Q 720 660 780 640" stroke="var(--overlap)" stroke-width="0.6" stroke-dasharray="2 2" fill="none"/>
-        <circle cx="705" cy="700" r="20" fill="var(--overlap)" fill-opacity="0.35" stroke="var(--overlap)" stroke-width="0.8" stroke-dasharray="2 2"/>
-        <text x="705" y="700" text-anchor="middle" font-family="Fraunces" font-weight="700" font-size="10" fill="var(--overlap)">~19K</text>
-        <text x="705" y="714" text-anchor="middle" font-family="Inter" font-size="7.5" fill="var(--ink-3)" letter-spacing="0.08em">R2 ∩ R4 EST</text>
+        <!-- R2 ∩ R4 bridge dot -->
+        <path d="M 700 705 Q 720 670 780 645" stroke="var(--overlap)" stroke-width="0.5" stroke-dasharray="1 2" fill="none"/>
+        <circle cx="705" cy="710" r="20" fill="url(#grad-overlap)" opacity="0.45" filter="url(#shadow)"/>
+        <circle cx="705" cy="710" r="20" fill="none" stroke="var(--overlap)" stroke-width="0.6" stroke-dasharray="1.5 2"/>
+        <text x="705" y="710" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="500" font-size="11" fill="var(--paper)">~19K</text>
+        <text x="705" y="723" text-anchor="middle" font-family="Inter" font-size="7" font-weight="700" letter-spacing="0.16em" fill="var(--ink-3)">R2 ∩ R4 EST</text>
 
       </svg>
     </div>
 
     <!-- ================== SIDENOTES ================== -->
     <div class="sidenotes">
-
       <div class="sidenote">
-        <h4>How to read</h4>
-        <div class="row"><span class="name">Bubble size</span><span class="n" style="font-family:'Fraunces',serif; font-style:italic; font-weight:400;">∝ CMFs / contacts</span></div>
-        <div class="row"><span class="name">Shell color</span><span class="n" style="font-family:'Fraunces',serif; font-style:italic; font-weight:400;">rule regime</span></div>
-        <div class="row"><span class="name">Ring outline</span><span class="n" style="font-family:'Fraunces',serif; font-style:italic; font-weight:400;">never-eligible</span></div>
-        <div class="row"><span class="name">Dashed shape</span><span class="n" style="font-family:'Fraunces',serif; font-style:italic; font-weight:400;">estimate</span></div>
+        <h4>Bubble language</h4>
+        <div class="row"><span class="name">Solid, glowing</span><span class="n" style="font-family:'Fraunces',serif; font-style:italic; font-weight:400;">active</span></div>
+        <div class="row"><span class="name">Diagonal stripe</span><span class="n" style="font-family:'Fraunces',serif; font-style:italic; font-weight:400;">carved out</span></div>
+        <div class="row"><span class="name">Dot pattern</span><span class="n" style="font-family:'Fraunces',serif; font-style:italic; font-weight:400;">dormant</span></div>
+        <div class="row"><span class="name">Halo ring</span><span class="n" style="font-family:'Fraunces',serif; font-style:italic; font-weight:400;">never-eligible</span></div>
+        <div class="row"><span class="name">Dashed outline</span><span class="n" style="font-family:'Fraunces',serif; font-style:italic; font-weight:400;">estimate</span></div>
+        <div class="row"><span class="name">Size</span><span class="n" style="font-family:'Fraunces',serif; font-style:italic; font-weight:400;">∝ CMFs / contacts</span></div>
       </div>
 
       <div class="sidenote">
         <h4>Orders blocked · ranked</h4>
         <div class="rank-list">
-          <div class="rank-item">
-            <div class="rk">1</div>
-            <div class="rname r1">R1<small>too many contacts</small></div>
-            <div class="n">4.08M<small>20.9%</small></div>
-          </div>
-          <div class="rank-item">
-            <div class="rk">2</div>
-            <div class="rname r4">R4<small>multi-billto</small></div>
-            <div class="n">1.86M<small>9.6%</small></div>
-          </div>
-          <div class="rank-item">
-            <div class="rk">3</div>
-            <div class="rname r3">R3<small>bad listcode</small></div>
-            <div class="n">1.16M<small>5.9%</small></div>
-          </div>
-          <div class="rank-item">
-            <div class="rk">4</div>
-            <div class="rname r2">R2<small>thin orders</small></div>
-            <div class="n">835K<small>4.3%</small></div>
-          </div>
+          <div class="rank-item"><div class="rk">1</div><div class="rname r1">R1<small>too many contacts</small></div><div class="n">4.08M<small>20.9%</small></div></div>
+          <div class="rank-item"><div class="rk">2</div><div class="rname r4">R4<small>multi-billto</small></div><div class="n">1.86M<small>9.6%</small></div></div>
+          <div class="rank-item"><div class="rk">3</div><div class="rname r3">R3<small>bad listcode</small></div><div class="n">1.16M<small>5.9%</small></div></div>
+          <div class="rank-item"><div class="rk">4</div><div class="rname r2">R2<small>thin orders</small></div><div class="n">835K<small>4.3%</small></div></div>
         </div>
       </div>
 
@@ -546,7 +575,6 @@
         <div class="row"><span class="name">25 → 50</span><span class="n">+678K</span></div>
         <div class="row"><span class="name" style="color:var(--r1); font-style:italic;">50+ still out</span><span class="n" style="color:var(--r1);">1.75M</span></div>
       </div>
-
     </div>
 
   </div>
