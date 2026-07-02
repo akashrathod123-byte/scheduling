@@ -2,108 +2,332 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>SLV Rules — 4 Circle Venn</title>
+<title>SLV Rules — 4 Circle Venn Diagrams</title>
 <style>
+  @page { size: 17in 11in; margin: 0.5in; }
+
   :root {
     --ink:       #1a1a1a;
     --ink-2:     #4a4a4a;
     --muted:     #8a8a8a;
+    --hairline:  #d8d8d5;
     --page:      #ffffff;
-    --r3:        #a12634;
-    --r4:        #e88b30;
-    --r1:        #4a7078;
-    --r2:        #7d3a5a;
+
+    --r3:        #a63a48;   /* deep red */
+    --r4:        #e5983f;   /* warm gold */
+    --r1:        #3b6e8a;   /* steel blue */
+    --r2:        #6f4859;   /* dusty plum */
   }
+
+  * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; background: var(--page); color: var(--ink);
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, sans-serif;
-    font-size: 12.5px; }
-  .wrap { width: 1100px; margin: 30px auto; padding: 0 40px; }
-  h1 { font-size: 26px; font-weight: 800; margin: 0 0 6px; letter-spacing: -0.01em; color: var(--ink); }
-  h1 em { color: var(--r3); font-style: normal; }
-  .subtitle { font-size: 13px; color: var(--ink-2); margin: 0 0 24px; }
+    font-size: 12.5px; line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: 'ss01', 'cv11';
+  }
+
+  .venn-page {
+    width: 16in; max-width: 16in;
+    margin: 0 auto 40px;
+    padding: 0.6in 0.6in;
+    page-break-after: always;
+    background: var(--page);
+  }
+  .venn-page:last-child { page-break-after: auto; }
+
+  .masthead {
+    display: flex; align-items: baseline; justify-content: space-between;
+    padding-bottom: 14px; margin-bottom: 8px;
+    border-bottom: 1px solid var(--ink);
+  }
+  .masthead h1 {
+    font-size: 26px; font-weight: 700; letter-spacing: -0.01em;
+    margin: 0; color: var(--ink);
+  }
+  .masthead .metric {
+    font-size: 12px; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--ink-2);
+  }
+  .lede {
+    font-size: 12.5px; color: var(--ink-2); margin: 0 0 18px;
+    max-width: 60em;
+  }
+
   svg { display: block; margin: 0 auto; }
+
+  .rule-title {
+    font: 700 15px 'Inter', sans-serif;
+    letter-spacing: 0.02em;
+  }
+  .rule-name {
+    font: 500 12.5px 'Inter', sans-serif;
+    fill: var(--ink);
+  }
+  .rule-desc {
+    font: 400 10.5px 'Inter', sans-serif;
+    fill: var(--ink-2);
+  }
+  .region-value {
+    font: 800 22px 'Inter', sans-serif;
+    font-variant-numeric: tabular-nums;
+    fill: white; text-anchor: middle;
+    paint-order: stroke;
+    stroke: rgba(0,0,0,0.10); stroke-width: 0.5;
+  }
+  .region-value.small { font-size: 16px; }
+  .region-value.tiny  { font-size: 13px; }
+  .region-tag {
+    font: 600 9.5px 'Inter', sans-serif;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    fill: white; fill-opacity: 0.88; text-anchor: middle;
+  }
+
+  .footnote {
+    margin-top: 12px; font-size: 10.5px; color: var(--muted);
+    text-align: center; letter-spacing: 0.02em;
+  }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <h1>4 Circle <em>Venn Diagram</em></h1>
 
-  <svg viewBox="0 0 1100 700" width="1100" height="700" xmlns="http://www.w3.org/2000/svg">
-    <!-- ============ OUTER RULE LABELS ============ -->
-    <!-- Top-left: Rule 3 -->
-    <text x="380" y="80" text-anchor="end" font-size="16" font-weight="800" fill="var(--r3)">Rule 3</text>
-    <text x="380" y="102" text-anchor="end" font-size="12" font-weight="500" fill="var(--ink)">Listcode</text>
-    <text x="380" y="122" text-anchor="end" font-size="10.5" fill="var(--ink-2)">Excludes shipping locations</text>
-    <text x="380" y="136" text-anchor="end" font-size="10.5" fill="var(--ink-2)">with list codes in government,</text>
-    <text x="380" y="150" text-anchor="end" font-size="10.5" fill="var(--ink-2)">college, distributor, and internal.</text>
+<!-- ============ HELPER MIXIN — via JS ============ -->
+<script>
+window.addEventListener('DOMContentLoaded', () => {
+  // Nothing needed — pure SVG below
+});
+</script>
 
-    <!-- Top-right: Rule 4 -->
-    <text x="720" y="80" text-anchor="start" font-size="16" font-weight="800" fill="var(--r4)">Rule 4</text>
-    <text x="720" y="102" text-anchor="start" font-size="12" font-weight="500" fill="var(--ink)">Multi-billto</text>
-    <text x="720" y="122" text-anchor="start" font-size="10.5" fill="var(--ink-2)">Excludes contacts who order</text>
-    <text x="720" y="136" text-anchor="start" font-size="10.5" fill="var(--ink-2)">across more than one non-</text>
-    <text x="720" y="150" text-anchor="start" font-size="10.5" fill="var(--ink-2)">individual billing location.</text>
+<!-- ================================================= -->
+<!-- 1. ORDERS                                          -->
+<!-- ================================================= -->
+<div class="venn-page">
+  <div class="masthead">
+    <h1>Shipping Location View — 4 Rule Overlap</h1>
+    <div class="metric" style="color: var(--r3);">Orders Blocked</div>
+  </div>
+  <p class="lede">
+    Each region shows the estimated orders blocked by that specific combination of rules,
+    against a universe of 19.5&thinsp;M contact-attributable orders. The four
+    "only" areas are the biggest; overlaps concentrate toward the center.
+  </p>
 
-    <!-- Bottom-left: Rule 1 -->
-    <text x="380" y="580" text-anchor="end" font-size="16" font-weight="800" fill="var(--r1)">Rule 1</text>
-    <text x="380" y="602" text-anchor="end" font-size="12" font-weight="500" fill="var(--ink)">Contact count</text>
-    <text x="380" y="622" text-anchor="end" font-size="10.5" fill="var(--ink-2)">Excludes shipping locations</text>
-    <text x="380" y="636" text-anchor="end" font-size="10.5" fill="var(--ink-2)">with 10 or more active</text>
-    <text x="380" y="650" text-anchor="end" font-size="10.5" fill="var(--ink-2)">ordering contacts.</text>
+  <svg viewBox="0 0 1500 850" width="1500" height="850" xmlns="http://www.w3.org/2000/svg">
+    <!-- Outer rule labels -->
+    <text x="500" y="130" text-anchor="end" class="rule-title" fill="var(--r3)">Rule 3</text>
+    <text x="500" y="150" text-anchor="end" class="rule-name">Listcode</text>
+    <text x="500" y="168" text-anchor="end" class="rule-desc">Excludes shipping locations with list</text>
+    <text x="500" y="182" text-anchor="end" class="rule-desc">codes for government, college,</text>
+    <text x="500" y="196" text-anchor="end" class="rule-desc">distributor, and internal.</text>
 
-    <!-- Bottom-right: Rule 2 -->
-    <text x="720" y="580" text-anchor="start" font-size="16" font-weight="800" fill="var(--r2)">Rule 2</text>
-    <text x="720" y="602" text-anchor="start" font-size="12" font-weight="500" fill="var(--ink)">Ship-to orders</text>
-    <text x="720" y="622" text-anchor="start" font-size="10.5" fill="var(--ink-2)">Excludes contacts who have</text>
-    <text x="720" y="636" text-anchor="start" font-size="10.5" fill="var(--ink-2)">placed fewer than 3 orders</text>
-    <text x="720" y="650" text-anchor="start" font-size="10.5" fill="var(--ink-2)">at the same ship-to location.</text>
+    <text x="1000" y="130" text-anchor="start" class="rule-title" fill="var(--r4)">Rule 4</text>
+    <text x="1000" y="150" text-anchor="start" class="rule-name">Multi-billto</text>
+    <text x="1000" y="168" text-anchor="start" class="rule-desc">Excludes contacts who order across</text>
+    <text x="1000" y="182" text-anchor="start" class="rule-desc">more than one non-individual billing</text>
+    <text x="1000" y="196" text-anchor="start" class="rule-desc">location.</text>
 
-    <!-- ============ THE 4 CIRCLES ============ -->
+    <text x="500" y="760" text-anchor="end" class="rule-title" fill="var(--r1)">Rule 1</text>
+    <text x="500" y="780" text-anchor="end" class="rule-name">Contact count</text>
+    <text x="500" y="798" text-anchor="end" class="rule-desc">Excludes shipping locations with 10 or</text>
+    <text x="500" y="812" text-anchor="end" class="rule-desc">more active ordering contacts.</text>
+
+    <text x="1000" y="760" text-anchor="start" class="rule-title" fill="var(--r2)">Rule 2</text>
+    <text x="1000" y="780" text-anchor="start" class="rule-name">Ship-to orders</text>
+    <text x="1000" y="798" text-anchor="start" class="rule-desc">Excludes contacts who have placed</text>
+    <text x="1000" y="812" text-anchor="start" class="rule-desc">fewer than 3 orders at the same ship-to.</text>
+
+    <!-- Circles with soft multiply blend -->
     <g style="mix-blend-mode: multiply;">
-      <circle cx="470" cy="260" r="140" fill="var(--r3)" opacity="0.92"/>
-      <circle cx="630" cy="260" r="140" fill="var(--r4)" opacity="0.92"/>
-      <circle cx="470" cy="410" r="140" fill="var(--r1)" opacity="0.92"/>
-      <circle cx="630" cy="410" r="140" fill="var(--r2)" opacity="0.92"/>
+      <circle cx="610" cy="320" r="200" fill="var(--r3)" opacity="0.9"/>
+      <circle cx="890" cy="320" r="200" fill="var(--r4)" opacity="0.9"/>
+      <circle cx="610" cy="600" r="200" fill="var(--r1)" opacity="0.9"/>
+      <circle cx="890" cy="600" r="200" fill="var(--r2)" opacity="0.9"/>
     </g>
 
-    <!-- ============ REGION NUMBERS (white text inside circles) ============ -->
-    <!-- Rule 3 only (outer top-left) -->
-    <text x="410" y="215" text-anchor="middle" font-size="18" font-weight="800" fill="white">787K</text>
-    <text x="410" y="232" text-anchor="middle" font-size="10" fill="white" opacity="0.9">R3 only</text>
+    <!-- Region numbers -->
+    <!-- Rule 3 only -->
+    <text x="510" y="275" class="region-value">787K</text>
+    <text x="510" y="293" class="region-tag">R3 only</text>
+    <!-- Rule 4 only -->
+    <text x="990" y="275" class="region-value">1.32M</text>
+    <text x="990" y="293" class="region-tag">R4 only</text>
+    <!-- Rule 1 only -->
+    <text x="510" y="620" class="region-value">3.32M</text>
+    <text x="510" y="638" class="region-tag">R1 only</text>
+    <!-- Rule 2 only -->
+    <text x="990" y="620" class="region-value">565K</text>
+    <text x="990" y="638" class="region-tag">R2 only</text>
 
-    <!-- Rule 4 only (outer top-right) -->
-    <text x="690" y="215" text-anchor="middle" font-size="18" font-weight="800" fill="white">1.32M</text>
-    <text x="690" y="232" text-anchor="middle" font-size="10" fill="white" opacity="0.9">R4 only</text>
+    <!-- Top pair R3 ∩ R4 -->
+    <text x="750" y="310" class="region-value small">82K</text>
+    <text x="750" y="325" class="region-tag">R3 ∩ R4</text>
+    <!-- Bottom pair R1 ∩ R2 -->
+    <text x="750" y="610" class="region-value small">149K</text>
+    <text x="750" y="625" class="region-tag">R1 ∩ R2</text>
+    <!-- Left pair R3 ∩ R1 -->
+    <text x="610" y="455" class="region-value small">208K</text>
+    <text x="610" y="470" class="region-tag">R3 ∩ R1</text>
+    <!-- Right pair R4 ∩ R2 -->
+    <text x="890" y="455" class="region-value small">59K</text>
+    <text x="890" y="470" class="region-tag">R4 ∩ R2</text>
 
-    <!-- Rule 1 only (outer bottom-left) -->
-    <text x="410" y="455" text-anchor="middle" font-size="18" font-weight="800" fill="white">3.32M</text>
-    <text x="410" y="472" text-anchor="middle" font-size="10" fill="white" opacity="0.9">R1 only</text>
-
-    <!-- Rule 2 only (outer bottom-right) -->
-    <text x="690" y="455" text-anchor="middle" font-size="18" font-weight="800" fill="white">565K</text>
-    <text x="690" y="472" text-anchor="middle" font-size="10" fill="white" opacity="0.9">R2 only</text>
-
-    <!-- Top pair overlap: R3 ∩ R4 -->
-    <text x="550" y="260" text-anchor="middle" font-size="15" font-weight="800" fill="white">82K</text>
-    <text x="550" y="275" text-anchor="middle" font-size="9" fill="white" opacity="0.9">R3 ∩ R4</text>
-
-    <!-- Bottom pair overlap: R1 ∩ R2 -->
-    <text x="550" y="410" text-anchor="middle" font-size="15" font-weight="800" fill="white">149K</text>
-    <text x="550" y="425" text-anchor="middle" font-size="9" fill="white" opacity="0.9">R1 ∩ R2</text>
-
-    <!-- Left pair overlap: R3 ∩ R1 -->
-    <text x="470" y="335" text-anchor="middle" font-size="15" font-weight="800" fill="white">208K</text>
-    <text x="470" y="350" text-anchor="middle" font-size="9" fill="white" opacity="0.9">R3 ∩ R1</text>
-
-    <!-- Right pair overlap: R4 ∩ R2 -->
-    <text x="630" y="335" text-anchor="middle" font-size="15" font-weight="800" fill="white">59K</text>
-    <text x="630" y="350" text-anchor="middle" font-size="9" fill="white" opacity="0.9">R4 ∩ R2</text>
-
-    <!-- Center: all 4 overlap -->
-    <text x="550" y="336" text-anchor="middle" font-size="14" font-weight="800" fill="white">435K</text>
-    <text x="550" y="350" text-anchor="middle" font-size="9" fill="white" opacity="0.9">3+ rules</text>
+    <!-- Center -->
+    <text x="750" y="458" class="region-value tiny">435K</text>
+    <text x="750" y="472" class="region-tag">3+ rules</text>
   </svg>
 
+  <p class="footnote">
+    Rule totals: R1 = 4.08&thinsp;M · R2 = 835&thinsp;K · R3 = 1.16&thinsp;M · R4 = 1.86&thinsp;M.
+    Intersection numbers estimated under independence; rule totals are exact.
+  </p>
 </div>
+
+
+<!-- ================================================= -->
+<!-- 2. CONTACTS                                        -->
+<!-- ================================================= -->
+<div class="venn-page">
+  <div class="masthead">
+    <h1>Shipping Location View — 4 Rule Overlap</h1>
+    <div class="metric" style="color: var(--r1);">Contacts Affected</div>
+  </div>
+  <p class="lede">
+    Each region shows the estimated ordering contacts blocked by that specific combination
+    of rules, against a universe of 1.39&thinsp;M contacts who placed at least one order
+    in the 12-month window.
+  </p>
+
+  <svg viewBox="0 0 1500 850" width="1500" height="850" xmlns="http://www.w3.org/2000/svg">
+    <text x="500" y="130" text-anchor="end" class="rule-title" fill="var(--r3)">Rule 3</text>
+    <text x="500" y="150" text-anchor="end" class="rule-name">Listcode</text>
+    <text x="500" y="168" text-anchor="end" class="rule-desc">Excludes shipping locations with list</text>
+    <text x="500" y="182" text-anchor="end" class="rule-desc">codes for government, college,</text>
+    <text x="500" y="196" text-anchor="end" class="rule-desc">distributor, and internal.</text>
+
+    <text x="1000" y="130" text-anchor="start" class="rule-title" fill="var(--r4)">Rule 4</text>
+    <text x="1000" y="150" text-anchor="start" class="rule-name">Multi-billto</text>
+    <text x="1000" y="168" text-anchor="start" class="rule-desc">Excludes contacts who order across</text>
+    <text x="1000" y="182" text-anchor="start" class="rule-desc">more than one non-individual billing</text>
+    <text x="1000" y="196" text-anchor="start" class="rule-desc">location.</text>
+
+    <text x="500" y="760" text-anchor="end" class="rule-title" fill="var(--r1)">Rule 1</text>
+    <text x="500" y="780" text-anchor="end" class="rule-name">Contact count</text>
+    <text x="500" y="798" text-anchor="end" class="rule-desc">Excludes shipping locations with 10 or</text>
+    <text x="500" y="812" text-anchor="end" class="rule-desc">more active ordering contacts.</text>
+
+    <text x="1000" y="760" text-anchor="start" class="rule-title" fill="var(--r2)">Rule 2</text>
+    <text x="1000" y="780" text-anchor="start" class="rule-name">Ship-to orders</text>
+    <text x="1000" y="798" text-anchor="start" class="rule-desc">Excludes contacts who have placed</text>
+    <text x="1000" y="812" text-anchor="start" class="rule-desc">fewer than 3 orders at the same ship-to.</text>
+
+    <g style="mix-blend-mode: multiply;">
+      <circle cx="610" cy="320" r="200" fill="var(--r3)" opacity="0.9"/>
+      <circle cx="890" cy="320" r="200" fill="var(--r4)" opacity="0.9"/>
+      <circle cx="610" cy="600" r="200" fill="var(--r1)" opacity="0.9"/>
+      <circle cx="890" cy="600" r="200" fill="var(--r2)" opacity="0.9"/>
+    </g>
+
+    <text x="510" y="275" class="region-value">46K</text>
+    <text x="510" y="293" class="region-tag">R3 only</text>
+    <text x="990" y="275" class="region-value">18K</text>
+    <text x="990" y="293" class="region-tag">R4 only</text>
+    <text x="510" y="620" class="region-value">125K</text>
+    <text x="510" y="638" class="region-tag">R1 only</text>
+    <text x="990" y="620" class="region-value">449K</text>
+    <text x="990" y="638" class="region-tag">R2 only</text>
+
+    <text x="750" y="310" class="region-value small">1.5K</text>
+    <text x="750" y="325" class="region-tag">R3 ∩ R4</text>
+    <text x="750" y="610" class="region-value small">98K</text>
+    <text x="750" y="625" class="region-tag">R1 ∩ R2</text>
+    <text x="610" y="455" class="region-value small">10K</text>
+    <text x="610" y="470" class="region-tag">R3 ∩ R1</text>
+    <text x="890" y="455" class="region-value small">15K</text>
+    <text x="890" y="470" class="region-tag">R4 ∩ R2</text>
+
+    <text x="750" y="458" class="region-value tiny">53K</text>
+    <text x="750" y="472" class="region-tag">3+ rules</text>
+  </svg>
+
+  <p class="footnote">
+    Rule totals: R1 = 248&thinsp;K · R2 = 611&thinsp;K · R3 = 103&thinsp;K · R4 = 43&thinsp;K.
+    Intersection numbers estimated under independence; rule totals are exact.
+  </p>
+</div>
+
+
+<!-- ================================================= -->
+<!-- 3. SHIPPING LOCATIONS (CMFs)                       -->
+<!-- ================================================= -->
+<div class="venn-page">
+  <div class="masthead">
+    <h1>Shipping Location View — 4 Rule Overlap</h1>
+    <div class="metric" style="color: var(--r2);">Shipping Locations (CMFs)</div>
+  </div>
+  <p class="lede">
+    Each region shows the estimated shipping locations affected by that specific combination
+    of rules, against a universe of 1.15&thinsp;M active CMFs.
+  </p>
+
+  <svg viewBox="0 0 1500 850" width="1500" height="850" xmlns="http://www.w3.org/2000/svg">
+    <text x="500" y="130" text-anchor="end" class="rule-title" fill="var(--r3)">Rule 3</text>
+    <text x="500" y="150" text-anchor="end" class="rule-name">Listcode</text>
+    <text x="500" y="168" text-anchor="end" class="rule-desc">Excludes shipping locations with list</text>
+    <text x="500" y="182" text-anchor="end" class="rule-desc">codes for government, college,</text>
+    <text x="500" y="196" text-anchor="end" class="rule-desc">distributor, and internal.</text>
+
+    <text x="1000" y="130" text-anchor="start" class="rule-title" fill="var(--r4)">Rule 4</text>
+    <text x="1000" y="150" text-anchor="start" class="rule-name">Multi-billto</text>
+    <text x="1000" y="168" text-anchor="start" class="rule-desc">Excludes contacts who order across</text>
+    <text x="1000" y="182" text-anchor="start" class="rule-desc">more than one non-individual billing</text>
+    <text x="1000" y="196" text-anchor="start" class="rule-desc">location.</text>
+
+    <text x="500" y="760" text-anchor="end" class="rule-title" fill="var(--r1)">Rule 1</text>
+    <text x="500" y="780" text-anchor="end" class="rule-name">Contact count</text>
+    <text x="500" y="798" text-anchor="end" class="rule-desc">Excludes shipping locations with 10 or</text>
+    <text x="500" y="812" text-anchor="end" class="rule-desc">more active ordering contacts.</text>
+
+    <text x="1000" y="760" text-anchor="start" class="rule-title" fill="var(--r2)">Rule 2</text>
+    <text x="1000" y="780" text-anchor="start" class="rule-name">Ship-to orders</text>
+    <text x="1000" y="798" text-anchor="start" class="rule-desc">Excludes contacts who have placed</text>
+    <text x="1000" y="812" text-anchor="start" class="rule-desc">fewer than 3 orders at the same ship-to.</text>
+
+    <g style="mix-blend-mode: multiply;">
+      <circle cx="610" cy="320" r="200" fill="var(--r3)" opacity="0.9"/>
+      <circle cx="890" cy="320" r="200" fill="var(--r4)" opacity="0.9"/>
+      <circle cx="610" cy="600" r="200" fill="var(--r1)" opacity="0.9"/>
+      <circle cx="890" cy="600" r="200" fill="var(--r2)" opacity="0.9"/>
+    </g>
+
+    <text x="510" y="275" class="region-value">78K</text>
+    <text x="510" y="293" class="region-tag">R3 only</text>
+    <text x="990" y="275" class="region-value">46K</text>
+    <text x="990" y="293" class="region-tag">R4 only</text>
+    <text x="510" y="620" class="region-value">8.7K</text>
+    <text x="510" y="638" class="region-tag">R1 only</text>
+    <text x="990" y="620" class="region-value">212K</text>
+    <text x="990" y="638" class="region-tag">R2 only</text>
+
+    <text x="750" y="310" class="region-value small">5K</text>
+    <text x="750" y="325" class="region-tag">R3 ∩ R4</text>
+    <text x="750" y="610" class="region-value small">2K</text>
+    <text x="750" y="625" class="region-tag">R1 ∩ R2</text>
+    <text x="610" y="455" class="region-value small">1.4K</text>
+    <text x="610" y="470" class="region-tag">R3 ∩ R1</text>
+    <text x="890" y="455" class="region-value small">13K</text>
+    <text x="890" y="470" class="region-tag">R4 ∩ R2</text>
+
+    <text x="750" y="458" class="region-value tiny">24K</text>
+    <text x="750" y="472" class="region-tag">3+ rules</text>
+  </svg>
+
+  <p class="footnote">
+    Rule totals: R1 = 13&thinsp;K · R2 = 251&thinsp;K · R3 = 107&thinsp;K · R4 = 66&thinsp;K.
+    Intersection numbers estimated under independence; rule totals are exact.
+    (R3 ∩ R1 exact from data: 1,446.)
+  </p>
+</div>
+
 </body>
 </html>
