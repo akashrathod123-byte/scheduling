@@ -121,20 +121,26 @@ for name, code, cmfs in listcodes:
     r = r_r3(cmfs)
     ax.add_patch(Circle((x, y), r, facecolor=R3_BUB, alpha=0.92,
                         edgecolor='white', linewidth=1.6))
-    if r >= 0.55:
-        ax.text(x, y + 0.20, name, ha='center', va='center',
-                color='white', fontsize=9.5, fontweight='bold')
-        ax.text(x, y - 0.15, f'{cmfs:,}', ha='center', va='center',
-                color='white', fontsize=8.5)
-    elif r >= 0.40:
-        ax.text(x, y + 0.12, name.split()[0][:8], ha='center', va='center',
-                color='white', fontsize=7.5, fontweight='bold')
+    if r >= 0.85:
+        # big bubble — big number front and center
+        ax.text(x, y + 0.35, name, ha='center', va='center',
+                color='white', fontsize=10.5, fontweight='bold', alpha=0.92)
         ax.text(x, y - 0.10, f'{cmfs:,}', ha='center', va='center',
-                color='white', fontsize=7)
+                color='white', fontsize=18, fontweight='bold')
+    elif r >= 0.55:
+        ax.text(x, y + 0.25, name, ha='center', va='center',
+                color='white', fontsize=9.5, fontweight='bold', alpha=0.92)
+        ax.text(x, y - 0.08, f'{cmfs:,}', ha='center', va='center',
+                color='white', fontsize=14, fontweight='bold')
+    elif r >= 0.40:
+        ax.text(x, y + 0.14, name.split()[0][:9], ha='center', va='center',
+                color='white', fontsize=8, fontweight='bold', alpha=0.92)
+        ax.text(x, y - 0.10, f'{cmfs:,}', ha='center', va='center',
+                color='white', fontsize=11, fontweight='bold')
     else:
         # too small — label outside with leader
         ax.text(x, y - r - 0.30, f'{name}\n{cmfs:,}',
-                ha='center', va='top', color=INK, fontsize=7.5)
+                ha='center', va='top', color=INK, fontsize=8)
 
 # --- R1 SUB-BUBBLES ---
 band_positions = {
@@ -151,10 +157,21 @@ for name, cmfs in bands:
     r = r_r1(cmfs)
     ax.add_patch(Circle((x, y), r, facecolor=R1_BUB, alpha=0.92,
                         edgecolor='white', linewidth=1.6))
-    ax.text(x, y + 0.18, name, ha='center', va='center',
-            color='white', fontsize=9.5, fontweight='bold')
-    ax.text(x, y - 0.15, f'{cmfs:,}', ha='center', va='center',
-            color='white', fontsize=8.5)
+    if r >= 0.85:
+        ax.text(x, y + 0.35, name, ha='center', va='center',
+                color='white', fontsize=10.5, fontweight='bold', alpha=0.92)
+        ax.text(x, y - 0.10, f'{cmfs:,}', ha='center', va='center',
+                color='white', fontsize=18, fontweight='bold')
+    elif r >= 0.60:
+        ax.text(x, y + 0.24, name, ha='center', va='center',
+                color='white', fontsize=9, fontweight='bold', alpha=0.92)
+        ax.text(x, y - 0.10, f'{cmfs:,}', ha='center', va='center',
+                color='white', fontsize=14, fontweight='bold')
+    else:
+        ax.text(x, y + 0.16, name.split()[0], ha='center', va='center',
+                color='white', fontsize=8, fontweight='bold', alpha=0.92)
+        ax.text(x, y - 0.10, f'{cmfs:,}', ha='center', va='center',
+                color='white', fontsize=11, fontweight='bold')
 
 # --- OVERLAP CALLOUT (in the lens) ---
 lens_x = (R3_CENTER[0] + R1_CENTER[0]) / 2
