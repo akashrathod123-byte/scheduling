@@ -13,7 +13,7 @@ mpl.rcParams['font.family'] = 'DejaVu Sans'
 venns = [
     dict(
         title='Orders Blocked',
-        universe='Universe: 17.0M contact-attributable orders (12-month window)',
+        universe='Universe: 17M orders placed in a 12-month window',
         regions=dict(
             r3_only='787K', r4_only='1.32M',
             r1_only='3.32M', r2_only='565K',
@@ -31,7 +31,7 @@ venns = [
     ),
     dict(
         title='Contacts Affected',
-        universe='1.39M active contacts · ~500K placed an order in the window — breakdown of those below',
+        universe='Universe: 500K of 1.39M contacts that placed an order in the 12-month window',
         regions=dict(
             r3_only='46K', r4_only='18K',
             r1_only='125K', r2_only='449K',
@@ -49,7 +49,8 @@ venns = [
     ),
     dict(
         title='Shipping Locations (CMFs)',
-        universe='1.15M active CMFs · ~555K received an order in the window · a CMF is counted if any contact at it is caught by a rule',
+        universe=('Universe: 555K of 1.15M CMFs that placed an order in the 12-month window.\n'
+                  'A CMF is counted if the rule applies to any contact.'),
         regions=dict(
             r3_only='78K', r4_only='46K',
             r1_only='8.7K', r2_only='212K',
@@ -79,25 +80,21 @@ hax = fig.add_subplot(gs[0, :])
 hax.set_xlim(0, 30); hax.set_ylim(0, 6)
 hax.axis('off')
 
-hax.text(15, 5.2, 'Shipping Location View  ·  Compounding-Rule Impact',
-         ha='center', va='center', fontsize=17, fontweight='bold', color=INK)
+# Title, left-aligned
+hax.text(0.6, 5.2, 'Shipping Location View  ·  Compounding-Rule Impact',
+         ha='left', va='center', fontsize=17, fontweight='bold', color=INK)
 
-# Context line 1: today's SLV state
-hax.text(15, 3.9,
-         'Today, ~471,000 contacts have access to Shipping Location View.  '
-         '97.7% (~460K) were enrolled automatically by the algorithm;  '
-         '2.3% (~10,700) were added manually by Customer Service.',
-         ha='center', va='center', fontsize=11, color=INK)
-
-# Context line 2: how to read the diagrams
-hax.text(15, 2.5,
-         'Each Venn below shows the volume EXCLUDED from Shipping Location View '
-         'by our four eligibility rules — measured three ways.',
-         ha='center', va='center', fontsize=11, color=INK_2)
-hax.text(15, 1.6,
-         'Circles are the rules; overlaps are contacts / orders / CMFs caught by more than one rule at once.  '
-         'Bigger regions = more excluded.',
-         ha='center', va='center', fontsize=10, color=INK_2, style='italic')
+# Body copy, left-aligned paragraph
+body = (
+    "Today, ~471,000 contacts have access to Shipping Location View. "
+    "97.7% (~460K) were enrolled automatically by the algorithm; "
+    "2.3% (~10,700) were added manually by Customer Service.\n"
+    "Each diagram below shows the volume excluded by each of the four eligibility rules — "
+    "measured in orders, contacts, and CMFs. "
+    "Each circle represents one of the four eligibility rules, and the overlaps are when multiple rules apply."
+)
+hax.text(0.6, 3.5, body, ha='left', va='center', fontsize=11, color=INK,
+         linespacing=1.5, wrap=True)
 
 for i, venn in enumerate(venns):
     ax = fig.add_subplot(gs[1, i])
@@ -110,7 +107,7 @@ for i, venn in enumerate(venns):
     ax.text(5, 13.5, venn['title'], ha='center', va='center',
             fontsize=15, fontweight='bold', color=INK)
     ax.text(5, 12.9, venn['universe'], ha='center', va='center',
-            fontsize=8.5, color=INK_2, style='italic', wrap=True)
+            fontsize=8.5, color=INK_2, style='italic', linespacing=1.4)
 
     # 4 circles (r=2.3 · centers spaced 2.6 apart)
     positions = {
