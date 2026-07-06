@@ -1,6 +1,7 @@
 """Build 11x17 landscape PDF with 3 Venn diagrams side by side."""
 import matplotlib.pyplot as plt
 from matplotlib.patches import Circle
+from matplotlib.gridspec import GridSpec
 import matplotlib as mpl
 
 # Colors
@@ -12,7 +13,7 @@ mpl.rcParams['font.family'] = 'DejaVu Sans'
 venns = [
     dict(
         title='Orders Blocked',
-        universe='Universe: 19.5M contact-attributable orders',
+        universe='Universe: 17.0M contact-attributable orders (12-month window)',
         regions=dict(
             r3_only='787K', r4_only='1.32M',
             r1_only='3.32M', r2_only='565K',
@@ -30,7 +31,7 @@ venns = [
     ),
     dict(
         title='Contacts Affected',
-        universe='Universe: 1.39M ordering contacts',
+        universe='1.39M active contacts · ~500K placed an order in the window — breakdown of those below',
         regions=dict(
             r3_only='46K', r4_only='18K',
             r1_only='125K', r2_only='449K',
@@ -48,7 +49,7 @@ venns = [
     ),
     dict(
         title='Shipping Locations (CMFs)',
-        universe='Universe: 1.15M active CMFs',
+        universe='1.15M active CMFs · ~555K received an order in the window · a CMF is counted if any contact at it is caught by a rule',
         regions=dict(
             r3_only='78K', r4_only='46K',
             r1_only='8.7K', r2_only='212K',
@@ -69,8 +70,37 @@ venns = [
 fig = plt.figure(figsize=(17, 11), dpi=100)
 fig.patch.set_facecolor('white')
 
+gs = GridSpec(2, 3, figure=fig, height_ratios=[1.0, 5.2],
+              left=0.02, right=0.98, top=0.98, bottom=0.02,
+              hspace=0.02, wspace=0.05)
+
+# --- HEADER CONTEXT STRIP (spans all 3 columns) ---
+hax = fig.add_subplot(gs[0, :])
+hax.set_xlim(0, 30); hax.set_ylim(0, 6)
+hax.axis('off')
+
+hax.text(15, 5.2, 'Shipping Location View  ·  Compounding-Rule Impact',
+         ha='center', va='center', fontsize=17, fontweight='bold', color=INK)
+
+# Context line 1: today's SLV state
+hax.text(15, 3.9,
+         'Today, ~471,000 contacts have access to Shipping Location View.  '
+         '97.7% (~460K) were enrolled automatically by the algorithm;  '
+         '2.3% (~10,700) were added manually by Customer Service.',
+         ha='center', va='center', fontsize=11, color=INK)
+
+# Context line 2: how to read the diagrams
+hax.text(15, 2.5,
+         'Each Venn below shows the volume EXCLUDED from Shipping Location View '
+         'by our four eligibility rules — measured three ways.',
+         ha='center', va='center', fontsize=11, color=INK_2)
+hax.text(15, 1.6,
+         'Circles are the rules; overlaps are contacts / orders / CMFs caught by more than one rule at once.  '
+         'Bigger regions = more excluded.',
+         ha='center', va='center', fontsize=10, color=INK_2, style='italic')
+
 for i, venn in enumerate(venns):
-    ax = fig.add_subplot(1, 3, i + 1)
+    ax = fig.add_subplot(gs[1, i])
     ax.set_xlim(0, 10)
     ax.set_ylim(0, 14)
     ax.set_aspect('equal')
@@ -80,7 +110,7 @@ for i, venn in enumerate(venns):
     ax.text(5, 13.5, venn['title'], ha='center', va='center',
             fontsize=15, fontweight='bold', color=INK)
     ax.text(5, 12.9, venn['universe'], ha='center', va='center',
-            fontsize=9, color=INK_2, style='italic')
+            fontsize=8.5, color=INK_2, style='italic', wrap=True)
 
     # 4 circles (r=2.3 · centers spaced 2.6 apart)
     positions = {
@@ -126,7 +156,7 @@ for i, venn in enumerate(venns):
     ax.text(5, 0.7, venn['totals'], ha='center', va='center',
             fontsize=8.5, color=MUTED)
 
-fig.savefig('/home/user/scheduling/slv_venn_11x17.pdf', bbox_inches='tight', pad_inches=0.3)
-fig.savefig('/home/user/scheduling/slv_venn_11x17.png', dpi=200, bbox_inches='tight', pad_inches=0.3)
+fig.savefig('/home/user/scheduling/slv_venn_11x17.pdf')
+fig.savefig('/home/user/scheduling/slv_venn_11x17.png', dpi=200)
 plt.close(fig)
 print("Saved slv_venn_11x17.pdf and .png")
