@@ -17,9 +17,21 @@ Adjust schema names to whatever we're using in the sprint (dbo.customer_source,
 secure.order_source, and the three shared shell CMFs to exclude).
 */
 
-DECLARE @SHARED_CC_CMF1 BIGINT = 130387900;
-DECLARE @SHARED_CC_CMF2 BIGINT = 12121200;
-DECLARE @SHARED_CC_CMF3 BIGINT = 144173500;
+-- Shell CMFs excluded from the SLV universe.
+-- Original 3: legacy shared credit-card CMFs already excluded in the sprint.
+-- Added 7:   the CREDIT CARD INDIVIDUAL shells discovered on 2026-07-06
+--            (99881000-series + 99883000-series); these carry ~1.86M orders/yr
+--            and were sitting inside the universe until now.
+DECLARE @SHARED_CC_CMF1  BIGINT = 130387900;
+DECLARE @SHARED_CC_CMF2  BIGINT = 12121200;
+DECLARE @SHARED_CC_CMF3  BIGINT = 144173500;
+DECLARE @CCI_SHELL_1     BIGINT = 99881000;
+DECLARE @CCI_SHELL_2     BIGINT = 99881100;
+DECLARE @CCI_SHELL_3     BIGINT = 99882000;
+DECLARE @CCI_SHELL_4     BIGINT = 99882200;
+DECLARE @CCI_SHELL_5     BIGINT = 99883000;
+DECLARE @CCI_SHELL_6     BIGINT = 99883100;
+DECLARE @CCI_SHELL_7     BIGINT = 99884300;
 
 -- =====================================================
 -- Step 1. Per-CMF flags for listcode 98 only
@@ -31,7 +43,9 @@ WITH cci_cmfs AS (
     FROM DigitalAnalytics.dbo.customer_source
     WHERE mode = 'ACTIVE'
       AND listcode = '98'
-      AND cmf_id NOT IN (@SHARED_CC_CMF1, @SHARED_CC_CMF2, @SHARED_CC_CMF3)
+      AND cmf_id NOT IN (@SHARED_CC_CMF1, @SHARED_CC_CMF2, @SHARED_CC_CMF3,
+                         @CCI_SHELL_1, @CCI_SHELL_2, @CCI_SHELL_3, @CCI_SHELL_4,
+                         @CCI_SHELL_5, @CCI_SHELL_6, @CCI_SHELL_7)
 ),
 -- R1: contact count at the CMF (ship-to)
 r1_flags AS (
