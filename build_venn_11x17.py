@@ -93,8 +93,8 @@ hax.text(0.6, 4.05,
 
 # Paragraph 2: how to read the diagrams (blank line of space above)
 hax.text(0.6, 2.55,
-         "Each diagram below shows the volume excluded by each of the four eligibility rules — "
-         "measured in orders, contacts, and CMFs. Each circle represents one of the four eligibility "
+         "Each diagram below shows the volume excluded by each of the four eligibility rules —\n"
+         "measured in orders, contacts, and CMFs. Each circle represents one of the four eligibility\n"
          "rules, and the overlaps are when multiple rules apply.",
          ha='left', va='top', fontsize=11, color=INK, linespacing=1.45)
 
