@@ -71,36 +71,39 @@ venns = [
 fig = plt.figure(figsize=(17, 11), dpi=100)
 fig.patch.set_facecolor('white')
 
-gs = GridSpec(2, 3, figure=fig, height_ratios=[1.0, 5.2],
+gs = GridSpec(2, 3, figure=fig, height_ratios=[0.85, 5.2],
               left=0.02, right=0.98, top=0.98, bottom=0.02,
-              hspace=0.02, wspace=0.05)
+              hspace=0.0, wspace=0.05)
 
 # --- HEADER CONTEXT STRIP (spans all 3 columns) ---
 hax = fig.add_subplot(gs[0, :])
 hax.set_xlim(0, 30); hax.set_ylim(0, 6)
 hax.axis('off')
 
-# Title, left-aligned
-hax.text(0.6, 5.2, 'Shipping Location View  ·  Compounding-Rule Impact',
-         ha='left', va='center', fontsize=17, fontweight='bold', color=INK)
+# Title, left-aligned (near top)
+hax.text(0.6, 5.55, 'Shipping Location View  ·  Compounding-Rule Impact',
+         ha='left', va='top', fontsize=17, fontweight='bold', color=INK)
 
-# Body copy, left-aligned paragraph
-body = (
-    "Today, ~471,000 contacts have access to Shipping Location View. "
-    "97.7% (~460K) were enrolled automatically by the algorithm; "
-    "2.3% (~10,700) were added manually by Customer Service.\n"
-    "Each diagram below shows the volume excluded by each of the four eligibility rules — "
-    "measured in orders, contacts, and CMFs. "
-    "Each circle represents one of the four eligibility rules, and the overlaps are when multiple rules apply."
-)
-hax.text(0.6, 3.5, body, ha='left', va='center', fontsize=11, color=INK,
-         linespacing=1.5, wrap=True)
+# Paragraph 1: today's SLV state (blank line of space below title)
+hax.text(0.6, 4.05,
+         "Today, ~471,000 contacts have access to Shipping Location View. "
+         "97.7% (~460K) were enrolled automatically by the algorithm; "
+         "2.3% (~10,700) were added manually by Customer Service.",
+         ha='left', va='top', fontsize=11, color=INK)
+
+# Paragraph 2: how to read the diagrams (blank line of space above)
+hax.text(0.6, 2.55,
+         "Each diagram below shows the volume excluded by each of the four eligibility rules — "
+         "measured in orders, contacts, and CMFs. Each circle represents one of the four eligibility "
+         "rules, and the overlaps are when multiple rules apply.",
+         ha='left', va='top', fontsize=11, color=INK, linespacing=1.45)
 
 for i, venn in enumerate(venns):
     ax = fig.add_subplot(gs[1, i])
     ax.set_xlim(0, 10)
     ax.set_ylim(0, 14)
     ax.set_aspect('equal')
+    ax.set_anchor('N')   # push venn to top of its GridSpec cell — closes header/diagram gap
     ax.axis('off')
 
     # Title + universe
