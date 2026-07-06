@@ -1,7 +1,12 @@
-"""Build 11x17 landscape PDF with 3 Venn diagrams side by side."""
+"""Build 11x17 landscape PDF with 3 Venn diagrams side by side.
+
+Layout note: keep the original simple 1x3 subplot layout with
+`bbox_inches='tight'` on save — that version printed cleanly at 11x17.
+The header context text sits above the subplots as figure-level text so
+the tight bbox includes it without disturbing the diagram layout.
+"""
 import matplotlib.pyplot as plt
 from matplotlib.patches import Circle
-from matplotlib.gridspec import GridSpec
 import matplotlib as mpl
 
 # Colors
@@ -71,39 +76,30 @@ venns = [
 fig = plt.figure(figsize=(17, 11), dpi=100)
 fig.patch.set_facecolor('white')
 
-gs = GridSpec(2, 3, figure=fig, height_ratios=[0.85, 5.2],
-              left=0.02, right=0.98, top=0.98, bottom=0.02,
-              hspace=0.0, wspace=0.05)
-
-# --- HEADER CONTEXT STRIP (spans all 3 columns) ---
-hax = fig.add_subplot(gs[0, :])
-hax.set_xlim(0, 30); hax.set_ylim(0, 6)
-hax.axis('off')
-
-# Title, left-aligned (near top)
-hax.text(0.6, 5.55, 'Shipping Location View  ·  Compounding-Rule Impact',
+# --- HEADER CONTEXT (figure-level text; bbox_inches='tight' includes it) ---
+fig.text(0.03, 0.985, 'Shipping Location View  ·  Compounding-Rule Impact',
          ha='left', va='top', fontsize=17, fontweight='bold', color=INK)
 
-# Paragraph 1: today's SLV state (blank line of space below title)
-hax.text(0.6, 4.05,
+fig.text(0.03, 0.935,
          "Today, ~471,000 contacts have access to Shipping Location View. "
          "97.7% (~460K) were enrolled automatically by the algorithm; "
          "2.3% (~10,700) were added manually by Customer Service.",
          ha='left', va='top', fontsize=11, color=INK)
 
-# Paragraph 2: how to read the diagrams (blank line of space above)
-hax.text(0.6, 2.55,
+fig.text(0.03, 0.88,
          "Each diagram below shows the volume excluded by each of the four eligibility rules —\n"
          "measured in orders, contacts, and CMFs. Each circle represents one of the four eligibility\n"
          "rules, and the overlaps are when multiple rules apply.",
          ha='left', va='top', fontsize=11, color=INK, linespacing=1.45)
 
+# Reserve top space for header, then let bbox_inches='tight' trim the sides.
+plt.subplots_adjust(top=0.78, bottom=0.02, left=0.02, right=0.98, wspace=0.05)
+
 for i, venn in enumerate(venns):
-    ax = fig.add_subplot(gs[1, i])
+    ax = fig.add_subplot(1, 3, i + 1)
     ax.set_xlim(0, 10)
     ax.set_ylim(0, 14)
     ax.set_aspect('equal')
-    ax.set_anchor('N')   # push venn to top of its GridSpec cell — closes header/diagram gap
     ax.axis('off')
 
     # Title + universe
@@ -156,7 +152,7 @@ for i, venn in enumerate(venns):
     ax.text(5, 0.7, venn['totals'], ha='center', va='center',
             fontsize=8.5, color=MUTED)
 
-fig.savefig('/home/user/scheduling/slv_venn_11x17.pdf')
-fig.savefig('/home/user/scheduling/slv_venn_11x17.png', dpi=200)
+fig.savefig('/home/user/scheduling/slv_venn_11x17.pdf', bbox_inches='tight', pad_inches=0.3)
+fig.savefig('/home/user/scheduling/slv_venn_11x17.png', dpi=200, bbox_inches='tight', pad_inches=0.3)
 plt.close(fig)
 print("Saved slv_venn_11x17.pdf and .png")
