@@ -36,7 +36,8 @@ venns = [
     ),
     dict(
         title='Contacts Affected',
-        universe='Universe: 500K of 1.39M contacts that placed an order in the 12-month window',
+        universe=('Universe: There are 1.39M total contacts. '
+                  'From these, 500K have placed an order in the 12-month window.'),
         regions=dict(
             r3_only='46K', r4_only='18K',
             r1_only='125K', r2_only='449K',
