@@ -10,6 +10,11 @@ Base filter
   window   : orders in the last 12 months (added_ts)
   scope    : ship_to_cmf NOT IN 10-CMF exclusion list
              (3 legacy shared CC + 7 CREDIT CARD INDIVIDUAL shells)
+             AND ship_to_cmf.listcode <> '98'
+             (drop all CCI accounts — one-off card purchases, not
+              the business ship-to population SLV targets. These
+              would otherwise inflate R2 with 1–2 order pairs that
+              aren't the customers we're trying to reach.)
 
 Rules
 -----
@@ -37,7 +42,31 @@ DECLARE @r3_codes TABLE (listcode varchar(4) PRIMARY KEY);
 INSERT INTO @r3_codes VALUES ('05'),('06'),('07'),('08'),('09'),('15'),('97');
 
 -- =====================================================
--- 1. Base orders in window, scoped by exclusion list
+-- 0. What we're about to drop from the universe
+--    (for a transparent CCI callout)
+-- =====================================================
+SELECT
+    'excluded_upfront' AS scope,
+    CASE
+        WHEN o.ship_to_cmf IN (SELECT cmf_id FROM @excl) THEN 'shell_cmf'
+        WHEN ship_c.listcode = '98'                      THEN 'cci_individual'
+    END                                            AS reason,
+    COUNT(*)                                       AS orders,
+    COUNT(DISTINCT o.contact_id)                   AS contacts,
+    COUNT(DISTINCT o.ship_to_cmf)                  AS cmfs
+FROM secure.order_source o
+LEFT JOIN DigitalAnalytics.dbo.customer_source ship_c
+       ON ship_c.cmf_id = o.ship_to_cmf AND ship_c.mode = 'ACTIVE'
+WHERE o.added_ts >= @start
+  AND (o.ship_to_cmf IN (SELECT cmf_id FROM @excl) OR ship_c.listcode = '98')
+GROUP BY
+    CASE
+        WHEN o.ship_to_cmf IN (SELECT cmf_id FROM @excl) THEN 'shell_cmf'
+        WHEN ship_c.listcode = '98'                      THEN 'cci_individual'
+    END;
+
+-- =====================================================
+-- 1. Base orders in window, scoped by exclusion list + listcode 98
 -- =====================================================
 IF OBJECT_ID('tempdb..#base') IS NOT NULL DROP TABLE #base;
 SELECT
@@ -45,29 +74,31 @@ SELECT
     o.ship_to_cmf,
     o.bill_to_cmf,
     o.contact_id,
+    ship_c.listcode AS ship_listcode,           -- for R3
     bill_c.listcode AS billto_listcode          -- for R4 non-individual filter
 INTO #base
 FROM secure.order_source o
+LEFT JOIN DigitalAnalytics.dbo.customer_source ship_c
+       ON ship_c.cmf_id = o.ship_to_cmf
+      AND ship_c.mode   = 'ACTIVE'
 LEFT JOIN DigitalAnalytics.dbo.customer_source bill_c
        ON bill_c.cmf_id = o.bill_to_cmf
       AND bill_c.mode   = 'ACTIVE'
 WHERE o.added_ts    >= @start
-  AND o.ship_to_cmf NOT IN (SELECT cmf_id FROM @excl);
+  AND o.ship_to_cmf NOT IN (SELECT cmf_id FROM @excl)
+  AND (ship_c.listcode IS NULL OR ship_c.listcode <> '98');   -- drop CCI
 
 -- =====================================================
--- 2. CMF-level rollups
+-- 2. CMF-level rollups (listcode already on #base)
 -- =====================================================
 IF OBJECT_ID('tempdb..#cmf_facts') IS NOT NULL DROP TABLE #cmf_facts;
 SELECT
     b.ship_to_cmf,
     COUNT(DISTINCT b.contact_id) AS contact_count,
-    ship_c.listcode              AS cmf_listcode
+    MAX(b.ship_listcode)         AS cmf_listcode
 INTO #cmf_facts
 FROM #base b
-LEFT JOIN DigitalAnalytics.dbo.customer_source ship_c
-       ON ship_c.cmf_id = b.ship_to_cmf
-      AND ship_c.mode   = 'ACTIVE'
-GROUP BY b.ship_to_cmf, ship_c.listcode;
+GROUP BY b.ship_to_cmf;
 
 -- =====================================================
 -- 3. (contact, CMF)-level rollups
